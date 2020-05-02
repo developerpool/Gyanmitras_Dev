@@ -1,0 +1,230 @@
+﻿@model GyanmitrasMDL.MapFormColumnConfigurationMDL
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-12 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.FormColumnConfiguration</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.FormColumnConfiguration</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="NewformTabs">
+            <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.FormColumnConfiguration</a> </li>
+            </ul>
+            <div class="tab-content px-1 py-1">
+                <!-- #region Form Configuration Tab -->
+                <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="form form-horizontal">
+                                <div class="form-body">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput3">@GyanmitrasLanguages.LocalResources.Resource.RoleFor<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CategoryId, new SelectList((System.Collections.IEnumerable)ViewData["Categorylist"], "ID", "Value"), new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_CategoryId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divaccount">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.AccountName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_AccountId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.SelectAccountType, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_AccountId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divcustomer">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.CustomerName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CustomerId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Customer--", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_CustomerId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.FormName <span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.Fk_FormId, new SelectList((System.Collections.IEnumerable)ViewData["MappedFormColumnlist"], "ID", "Value"), new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.Fk_FormId)
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="msgDiv">
+                                    @if (ViewBag.msg != null && (ViewBag.msg).MessageId == 1)
+                                    {
+                                        <div id="myAlert" class="alert alert-success">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            <strong>@ViewBag.msg.Message</strong>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.msg != null)
+                                        {
+                                            <div id="myAlert" class="alert alert-danger">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong> @ViewBag.msg.Message</strong>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <div id="GridDiv">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--#endregion-->
+            </div>
+        </section>
+    </div>
+</div>
+
+<!--#region Script Section-->
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select2").select2();
+
+            $('#divcustomer').hide();
+            $('#divaccount').show();
+
+            BindAccountsByCategory($('#FK_CategoryId').val());
+
+            $('#FK_CategoryId').change(function () {
+                if ($('#FK_CategoryId :selected').text().toUpperCase() == 'CUSTOMER') {
+                    BindCustomers();
+                    $('#FK_AccountId').val('0').attr("selected", "selected")
+                    $('#divcustomer').show();
+                    $('#divaccount').hide();
+                } else {
+                    BindAccountsByCategory($('#FK_CategoryId').val())
+                    $('#FK_CustomerId').val('0').attr("selected", "selected")
+
+                    $('#divcustomer').hide();
+                    $('#divaccount').show();
+                }
+
+
+
+
+            });
+            $('#FK_CustomerId').change(function () {
+                BindingData($('#Fk_FormId').val(), 'Customer');
+            });
+            $('#FK_AccountId').change(function () {
+                BindingData($('#Fk_FormId').val(), 'Account');
+            });
+            $('#Fk_FormId').change(function () {
+                BindingData($('#Fk_FormId').val(), 'Form');
+            });
+
+
+
+        });
+
+        // To Bind the Data . Made By Vinish
+        function BindingData(FK_FormId, CallFrom) {
+
+
+            if ($('#FK_CustomerId').val() == '' && ($('#FK_AccountId').val() == "" || $('#FK_AccountId').val() == null)) {
+                if ($('#FK_CustomerId').val() == '' && CallFrom == 'Customer') {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.SelectCustomerName');
+                } else {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.RoleAccountValidation');
+                }
+                return false;
+            }
+
+            if (FK_FormId != '' && FK_FormId != 0 && FK_FormId != null) {
+                $.ajax({
+                    url: "@Url.Action("GetColumnsByFormId", "MapFormColumnConfiguration")",
+                    type: 'GET',
+                    cache: false,
+                    data: { 'FK_CategoryID': $('#FK_CategoryId').val(), 'FK_AccountID': $('#FK_AccountId').val(), 'FK_CustomerID': $('#FK_CustomerId').val(), 'FK_FormId': FK_FormId },
+                    success: function (data) {
+
+                        $('#GridDiv').html(data);
+
+
+                    }
+                });
+            }
+
+            else {
+                alert('@GyanmitrasLanguages.LocalResources.Resource.FormNameValidation');
+            }
+
+        }
+        // To Bind the Accounts By Category Id . Made By Vinish
+        function BindAccountsByCategory(categoryID) {
+
+            // debugger
+
+            $("#FK_AccountId").html("");
+            $("#FK_AccountId").append(
+                       $('<option></option>').val("").html('@GyanmitrasLanguages.LocalResources.Resource.SelectAccountType'));
+            if (categoryID == "0") {
+                return false;
+            }
+            $.ajax({
+                url: "@Url.Action("BindAccountsByCategory", "MapFormColumnConfiguration")",
+                type: "GET",
+                data: { 'CategoryId': categoryID },
+                success: function (Accounts) {
+                    $.each(Accounts, function (i, acccount) {
+                        $("#FK_AccountId").append(
+                            $('<option></option>').val(acccount.ID).html(acccount.Value));
+
+                    });
+
+                }
+
+            });
+        }
+        // To Bind the Customer Data . Made By Vinish
+        function BindCustomers() {
+            $("#FK_CustomerId").html("");
+            $("#FK_CustomerId").append(
+                       $('<option></option>').val("").html('--Select Customer--'));
+
+            $.ajax({
+                url: "@Url.Action("BindCustomer", "MapFormColumnConfiguration")",
+                type: "GET",
+                success: function (Customers) {
+                    $.each(Customers, function (i, Customer) {
+                        $("#FK_CustomerId").append(
+                            $('<option></option>').val(Customer.ID).html(Customer.Value));
+
+                    });
+
+                }
+
+            });
+
+        }
+
+    </script>
+}
+<!--#endregion-->
+

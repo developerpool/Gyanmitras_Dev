@@ -1,0 +1,230 @@
+﻿@model GyanmitrasMDL.TotalCountPagingMDL
+<section id="stats-icon-subtitle">
+    <div class="row match-height">
+        @if (!Model.IsNotSuperAdmin)
+        {
+            Model.IsTotalItem = true;
+            Model.IsTotalActive = true;
+            Model.IsTotalInactive = true;
+            Model.IsThisMonth = true;
+            //Model.IsLastMonth = true;
+            //Model.IsTotalExpiredMonth = true;
+            //Model.IsTotalExpiredSoonMonth = true;
+            //Model.IsPendingReplyUsers = true;
+        }
+        else
+        {
+            //Model.IsTotalItem = true;
+            //Model.IsTotalActive = true;
+            //Model.IsTotalInactive = true;
+            //Model.IsThisMonth = true;
+            //Model.IsLastMonth = true;
+            //Model.IsTotalExpiredMonth = true;
+            //Model.IsTotalExpiredSoonMonth = true;
+            //Model.IsPendingReplyUsers = true;
+        }
+        @if (Model.IsTotalItem)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card overflow-hidden">
+                    <div class="card-content" id="total">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>@GyanmitrasLanguages.LocalResources.Resource.TotalAccount</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="info font-weight-bold" id="totalValue">@Model.TotalItem</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.IsTotalActive)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="active">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>@GyanmitrasLanguages.LocalResources.Resource.Active</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="success font-weight-bold" id="totalActiveValue">@Model.TotalActive</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.IsTotalInactive)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card overflow-hidden">
+                    <div class="card-content" id="inactive">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>@GyanmitrasLanguages.LocalResources.Resource.Inactive</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">@Model.TotalInactive</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.IsThisMonth)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>@GyanmitrasLanguages.LocalResources.Resource.ThisMonth</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.ThisMonth</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.IsPendingReplyUsers)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>Pending Reply Users</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.PendingReplyUsers</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Model.IsRemovedUsers)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>Removed Users</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.RemovedUsers</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        @if (Model.IsApprovedCounselor)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>Approved Counselor</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.ApprovedCounselor</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Model.IsLastMonth)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>LastMonth</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.LastMonth</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Model.IsTotalExpiredMonth)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>Total Expired Month</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.TotalExpiredMonth</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Model.IsManageFeedBack)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>Manage FeedBack</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.ManageFeedBack</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Model.IsManageCreiticalSupport)
+        {
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-content" id="this_month">
+                        <div class="media align-items-stretch">
+                            <div class="media-body p-2">
+                                <h4>Manage Creitical Support</h4>
+                            </div>
+                            <div class="media-right p-2 media-middle">
+                                <h1 class="warning font-weight-bold" id="totalThisMonthValue">@Model.ManageCreiticalSupport</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        
+    </div>
+
+</section>
+<style>
+    .card-content:hover {
+        cursor: pointer;
+    }
+</style>

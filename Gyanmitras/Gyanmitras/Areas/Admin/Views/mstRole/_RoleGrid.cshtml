@@ -1,0 +1,184 @@
+﻿@model List<GyanmitrasMDL.MstRoleMDL>
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+}
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered dataTable mb-0" width="100%" style="cursor:auto">
+        <thead>
+            <tr>
+                <th class="text-center"><input type="checkbox" value="" id="checkAll"></th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                @*<th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.AccCategory</th>*@
+                @*<th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.AccountName</th>*@
+                @*<th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.CustomerName</th>*@
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.RoleName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.LandingPage</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.CreatedDate</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="14">
+                        <div class="text-danger">@GyanmitrasLanguages.LocalResources.Resource.DataNotFound</div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center"><input type="checkbox" value="" id="@item.PK_RoleId"></td>
+                        <td class="text-center">@SerialNo</td>
+                        @*<td class="text-center">@item.CategoryName</td>*@
+                        @*@if (item.CustomerName == "")
+                        {
+                            <td class="text-center">@item.AccountName</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@item.CustomerName</td>
+                        }*@
+                        <td class="text-center">@item.RoleName</td>
+                        <td class="text-center"> @item.FormName</td>
+                        <td class="text-center"> @item.CreatedDatetime</td>
+                        <td class="text-center">
+                            @if (item.IsActive)
+                            {
+                                <div class="success text-bold-600">@item.Status</div>
+                            }
+                            else
+                            {
+                                <div class="danger text-bold-600">@item.Status</div>
+                            }
+                        </td>
+                        <td class="text-nowrap text-center">
+                            @if(ViewBag.CanEdit){
+                            <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditRole", new { id = item.PK_RoleId })"><i class="la la-pencil"></i></a>
+                            }
+                            @if (ViewBag.CanDelete && !ViewBag.AdminRole)
+                            {
+                                @*<a class="btn btn-icon btn-danger btn-sm" href="javascript:void(0)" onclick="DeleteRole('@item.PK_RoleId');"><i class="la la-trash-o"></i></a>*@
+                                <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteRole", new { PK_RoleId = item.PK_RoleId })"
+                                   onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');">
+                                    <i class="la la-trash-o"></i>
+                                </a>
+                            }
+
+                            
+                           
+                        </td>
+
+                    </tr>
+                    SerialNo++;
+                }
+
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+    $(function () {
+
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style','display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+
+
+
+
+        $("#checkAll").click(function () {
+          
+            var checked = $(this).is(":checked");
+            $(this).closest('tr').parent().parent().find('tbody > tr').each(function () {
+                $(this).find('td:eq(0)').find('input').prop("checked", checked);
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

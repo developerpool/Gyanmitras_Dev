@@ -1,0 +1,293 @@
+﻿<!--#region model  -->
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!--#endregion html  -->
+
+
+<!--#region html  -->   
+<style>
+
+    div.dataTables_wrapper {
+        margin: -25px auto;
+    }
+</style>
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.User</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","MSTAccount")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.User </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-6 col-12"> <a href="@Url.Action("AddEditUser")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> @GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</a> </div>
+    </div>
+    <div class="content-body">
+        @Html.Partial("_TotalCountPaging", (GyanmitrasMDL.TotalCountPagingMDL)ViewBag.totalcount)
+        <section id="">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">@GyanmitrasLanguages.LocalResources.Resource.User</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show"  style="cursor: auto;">
+                            <div class="card-body card-dashboard">
+                                <div class="dataTables_wrapper">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="" class="dataTables_filter">
+                                                    <fieldset>
+                                                        <div class="input-group listSearch">
+                                                            <div class="input-group-prepend">
+                                                                <button id="SearchCreteria" type="button" val="" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                <div class="dropdown-menu" id="tableMenu">
+                                                                    <a class="dropdown-item" href="javascript:void(0)" val="UserName" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.UsruserName</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" val="MobileNo" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.MobileNo</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" val="EmailId" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.EmailId</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" val="AccountCategory" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.AccountCategory</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" val="Role" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.Role</a>
+                                                                    <a class="dropdown-item" href="javascript:void(0)" val="AccountName" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.AccountName</a>
+                                                                </div>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="SearchValue" placeholder="@GyanmitrasLanguages.LocalResources.Resource.Search" aria-label="Amount (to the nearest dollar)">
+                                                            <div class="input-group-append"> <span class="input-group-text" onclick="paging(1)"><i class="ficon ft-search" style="line-height: 0"></i></span> </div>
+                                                        </div>
+                                                    </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 text-right">
+                                            <div class="dataTables_length" id="exportdiv">
+                                                <label class="mr-2">
+                                                    @GyanmitrasLanguages.LocalResources.Resource.Show
+                                                    <select name="DataTables_Table_0_length" id="Select_NoRecord" class="custom-select custom-select-sm form-control form-control-sm">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    @GyanmitrasLanguages.LocalResources.Resource.Entries
+                                                </label>
+                                                <div class="dropdown display-inline">
+                                                    <a class="dropdown-toggle btn btn-dark" id="exportdiv" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="">@GyanmitrasLanguages.LocalResources.Resource.Export</span></a>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-flag"> 
+                                                    <a class="dropdown-item"id="Excel" onclick="ExportToExcelOrCsvFile('Excel')"><i class="la la-file-excel-o"></i> @GyanmitrasLanguages.LocalResources.Resource.Excel</a> 
+                                                    <a class="dropdown-item"  id="CSV" onclick="ExportToExcelOrCsvFile('CSV')"><i class="la la-file-text"></i> @GyanmitrasLanguages.LocalResources.Resource.CSV</a>
+                                                     <a class="dropdown-item"id="PDF" onclick="ExportToExcelOrCsvFile('PDF')"><i class="la la-file-pdf-o"></i> @GyanmitrasLanguages.LocalResources.Resource.PDF</a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="msgDiv">
+                                        @if (ViewBag.msg != null && (ViewBag.msg).MessageId ==1)
+                                        {
+
+                                            <div id="myAlert" class="alert alert-success">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>@ViewBag.msg.Message</strong>
+                                            </div>
+                                        }
+                                        else if (ViewBag.msg != null && (ViewBag.msg).MessageId == 2)
+                                        {
+                                            <div id="myAlert" class="alert alert-success">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            <strong>@ViewBag.msg.Message</strong>
+                                        </div> 
+                                        }
+
+                                        else
+                                        {
+                                            if (ViewBag.msg != null)
+                                            {
+                                                <div id="myAlert" class="alert alert-danger">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <strong> @ViewBag.msg.Message</strong>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                    <div id="GridDiv">
+                                        @{Html.RenderAction("getUsersMst"); }
+                                     </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--#endregion html  -->
+
+
+<!--#region Scripts  -->
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+        $("#myAlert").fadeTo(2000, 5000).slideUp(500, function () {
+            $("#myAlert").slideUp(500);
+        });
+    //$("#tableMenu a").click(function (e) {
+    //    e.preventDefault(); // cancel the link behaviour
+    //    var selText = $(this).text();
+    //    $("#SearchCreteria").text(selText);
+    //});
+   
+    //$("#tableMenu a").click(function (e) {
+    //    e.preventDefault(); // cancel the link behaviour
+    //    var selText = $(this).text();
+    //    $("#SearchCreteria").text(selText);
+    //});
+
+
+
+
+    $('#Select_NoRecord').change(function () {
+        paging(1);
+    })
+    $("#SearchValue").keyup(function () {
+        $(this).removeAttr('val');
+        $(this).attr('val', $(this).val())
+    });
+    $("#checkAll_Id").click(function () {
+        var checked = $(this).is(":checked");
+        $(this).closest('tr').parent().parent().find('tbody > tr').each(function () {
+            $(this).find('td:eq(0)').find('input').prop("checked", checked);
+        });
+    });
+
+    $("#total,a[data-action='reload']").click(function () {
+        $("#SearchCreteria").text('');
+        $("#SearchCreteria").removeAttr('val');
+        $("#SearchCreteria").attr('val', '');
+        $("#SearchValue").val("");
+        $("#SearchValue").removeAttr('val');
+        $("#SearchValue").attr('val', '');
+        $("#RowPerpage").val("10");
+        paging(1);
+    });
+
+    $("#active,#inactive,#this_month").click(function () {
+        debugger;
+        $("#SearchCreteria").removeAttr('val');
+        $("#SearchCreteria").attr('val', ($(this).attr('id') == "active") ? "Status" : (($(this).attr('id') == "inactive") ? "Status" : "ThisMonth"));
+       // $("#SearchCreteria").text(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : "@GyanmitrasLanguages.LocalResources.Resource.ThisMonth"));
+
+        //$("#SearchValue").val(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Active" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Inactive" : ""));
+        $("#SearchValue").removeAttr('val');
+        $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" : (($(this).attr('id') == "inactive") ? "Inactive" : ""));
+
+
+        $("#RowPerpage").val("10");
+        paging(1);
+    });
+    /**EXPORT FILE .CSV OR .XLS**/
+    function ExportToExcelOrCsvFile(FileType) {
+        ///// debugger
+        var AllFileType = "";
+        if (FileType == "Excel") {
+            AllFileType = ".xls";
+        }
+        
+          if (FileType == "CSV") {
+            AllFileType = ".csv";
+        }
+          if (FileType == "PDF") {
+              AllFileType = ".pdf";
+          }
+          var choosen_ids = "";
+          $("#checkAll_Id").closest('tr').parent().parent().find('tbody > tr').each(function () {
+              if ($(this).find('td:eq(1)').find('input').is(":checked")) {
+                  choosen_ids = choosen_ids + $(this).find('td:eq(1)').find('input').attr('id') + ",";
+              }
+          });
+        
+          if (FileType == "Excel" || FileType == "CSV" || FileType == "PDF") {
+            $.ajax({
+                url: "@Url.Action("ChooseFileType", "MstUser")",
+                cache: false,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            data: { 'FileType': AllFileType, "choosen_ids": choosen_ids, 'SearchBy': $.trim($("#SearchCreteria").attr('val')), 'SearchValue': $.trim($("#SearchValue").attr('val')) },
+            success: function (data) {
+                //// debugger
+                if (data == 1) {
+                    window.location = '@Url.Action("ExportToExcelOrCSV", "MstUser")';
+                }
+            },
+            error: function (res) { },
+            failure: function (res) { },
+            });
+    }
+    else if (FileType == "PDF") {
+    }
+    else {
+            return false;
+    }
+    }
+    function CheckAllValue(isChecked) {
+        if (isChecked) {
+            $('input:checkbox').attr('checked', 'checked');
+        }
+        else {
+            $('input:checkbox').removeAttr('checked');
+        }
+    }
+
+    
+    /*************Paging**************/
+    function paging(currentpage,a) {
+        if (currentpage == NaN || currentpage <= 0) {
+            return false;
+        }
+        var SearchCreteria = "";
+        var SearchValue = $.trim($("#SearchValue").attr('val'));
+        if (a) {
+
+            SearchCreteria = $(a).attr('val');
+            $("#SearchCreteria").attr('val', SearchCreteria);
+            //  $("#SearchCreteria").text($(a).text());
+            $(a).parent().find('a').removeAttr('style');
+            $(a).css('background-color', '#393b4a');
+            $(a).css('color', '#fff');
+        }
+        else {
+            SearchCreteria = $("#SearchCreteria").attr('val');
+        }
+        //var input = { CurrentPage: parseInt(currentpage), RowPerpage: $('#Select_NoRecord').val(), SearchBy: SearchCreteria, SearchValue: SearchValue };
+        $.ajax({
+            // url: "../MachineModel/getMachineModel",
+            url: "@Url.Action("GetUsersMst", "MstUser")",
+            type: 'GET',
+        cache: false,
+        data: { 'CurrentPage': parseInt(currentpage), 'RowPerpage': $('#Select_NoRecord').val(), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue },
+        success: function (data) {
+            $('#GridDiv').html(data);
+            $('.disabled').prop('disabled', true);
+        },
+        });
+    return false;
+    }
+
+</script>
+
+<!--#endregion Scripts  -->
+
+

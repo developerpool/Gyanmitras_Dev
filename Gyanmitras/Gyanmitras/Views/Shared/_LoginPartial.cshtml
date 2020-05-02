@@ -1,0 +1,117 @@
+﻿
+@{
+    var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+
+}
+
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "AccountUser", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+
+        @if (user != null)
+        {
+            
+            <li class="dropdown dropdown-user nav-item show dropdown">
+                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown" aria-expanded="true">
+                    <span class="mr-1">
+                        Hello ,<span class="user-name text-bold-700">
+                            @user.Name
+                        </span>
+                    </span><span class="avatar avatar-online"><img src="/app-assets/images/avatar.jpg" alt="avatar"><i></i></span>
+                </a>
+
+                <div class="dropdown-content" style="left:0;">
+                    @if (user.CategoryId == 3)
+                    {
+                        @Html.ActionLink("Edit Profile", "Registration", "Volunteer", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
+                    }
+                    else if (user.CategoryId == 2)
+                    {
+                        @Html.ActionLink("Edit Profile", "Registration", "Counselor", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
+                    }
+                    else if (user.CategoryId == 1)
+                    {
+                        @Html.ActionLink("Edit Profile", "Registration", "Student", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
+                    }
+                    <div class="dropdown-divider"></div>
+                    @Html.ActionLink("Log out", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "logoffLink" })
+
+                </div>
+            </li>
+
+
+            @*<li></li>
+                <li></li>*@
+        }
+        else
+        {
+            <li class="dropdown">
+                <a href="javascript:void(0)" id="registerLink" style="color:white !important;">Register</a>
+                <div class="dropdown-content" style="left:0;">
+                    <a style="display:inline-block; " href="/Student/Registration"><i class="fa fa-book"></i>Student Registration</a>
+                    <div class="dropdown-divider"></div>
+                    <a style="display:inline-block; " href="/Counselor/Registration">Counselor Registration</a>
+                    <div class="dropdown-divider"></div>
+                    <a style="display:inline-block; " href="/Volunteer/Registration">Volunteer Registration</a>
+                </div>
+
+            </li>
+
+            <li>@Html.ActionLink("Log in", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink", @style = "color:white !important;" })</li>
+        }
+
+    </ul>
+
+}
+<style>
+    .mr-1 {
+        color: white;
+    }
+
+    .user-name {
+        display: inline-block;
+        margin-bottom: .4rem;
+        margin-left: .2rem;
+    }
+
+    .text-bold-700 {
+        font-weight: 700;
+    }
+
+    .avatar img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: 0 none;
+        border-radius: 1000px;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .avatar {
+        position: relative;
+        display: inline-block;
+        width: 30px;
+        vertical-align: bottom;
+        white-space: nowrap;
+        border-radius: 1000px;
+    }
+</style>

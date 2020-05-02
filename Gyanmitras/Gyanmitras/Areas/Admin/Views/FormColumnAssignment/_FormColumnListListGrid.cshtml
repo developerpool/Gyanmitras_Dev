@@ -1,0 +1,88 @@
+﻿
+
+@model List<GyanmitrasMDL.FormColumnAssignmentMDL>
+
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+
+}
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered dataTable mb-0" width="100%">
+        <thead>
+            <tr>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.FormName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.ColumnName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="14">
+                        No Record Found
+                    </td>
+
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @SerialNo
+                        </td>
+                        @*<td class="text-center">
+                                @Html.DisplayFor(modelItem => item.AccountName)
+                            </td>*@
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.FormName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.ColumnName)
+                        </td>
+
+                        <td class="text-center">
+                            <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddFormColumnAssignment",new { id=item.PK_FormColumnId})"><i class="la la-pencil"></i></a>
+
+                            <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteFormColumnAssignment", new { id = item.PK_FormColumnId })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a>
+
+                    </tr>
+                    SerialNo++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style', 'display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+</script>
+
+
+
+
+
+
+

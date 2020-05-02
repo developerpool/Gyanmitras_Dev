@@ -1,0 +1,3234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AC" xml:space="preserve">
+    <value>AC</value>
+  </data>
+  <data name="AccCategory" xml:space="preserve">
+    <value>Account Category</value>
+  </data>
+  <data name="AcceptCharacter" xml:space="preserve">
+    <value>accepts Characters  Upto</value>
+  </data>
+  <data name="AccessoryID" xml:space="preserve">
+    <value>AccessoryID</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="AccountAdded" xml:space="preserve">
+    <value>Account Added Successfully</value>
+  </data>
+  <data name="AccountAlreadyExist" xml:space="preserve">
+    <value>Account Name  Already Exists</value>
+  </data>
+  <data name="AccountCategory" xml:space="preserve">
+    <value>Account Category</value>
+  </data>
+  <data name="AccountCategoryAdded" xml:space="preserve">
+    <value>Account Category Added Successfully</value>
+  </data>
+  <data name="AccountCategoryData" xml:space="preserve">
+    <value>Account Category Data</value>
+  </data>
+  <data name="AccountCategoryExists" xml:space="preserve">
+    <value>Account Category Name Already Exists</value>
+  </data>
+  <data name="AccountCategoryUpdated" xml:space="preserve">
+    <value>Account Category Updated Successfully</value>
+  </data>
+  <data name="AccountCategoryValidation" xml:space="preserve">
+    <value>Please Select Account Category</value>
+  </data>
+  <data name="AccountData" xml:space="preserve">
+    <value>Account Data</value>
+  </data>
+  <data name="AccountDetails" xml:space="preserve">
+    <value>Account Details</value>
+  </data>
+  <data name="AccountManagement" xml:space="preserve">
+    <value>Account Management</value>
+  </data>
+  <data name="AccountName" xml:space="preserve">
+    <value>Account Name</value>
+  </data>
+  <data name="AccountNameNotFound" xml:space="preserve">
+    <value>Account Name Not Found</value>
+  </data>
+  <data name="AccountNameValidation" xml:space="preserve">
+    <value>Please Enter Account Name</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="AccountType" xml:space="preserve">
+    <value>Account Type</value>
+  </data>
+  <data name="AccountUpdated" xml:space="preserve">
+    <value>Account Updated Successfully</value>
+  </data>
+  <data name="AccountUserName" xml:space="preserve">
+    <value>UserName</value>
+  </data>
+  <data name="AccuracyRefuel" xml:space="preserve">
+    <value>Accuracy Against Refuel (%)</value>
+  </data>
+  <data name="accusername" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ACDC" xml:space="preserve">
+    <value>AC / DC</value>
+  </data>
+  <data name="ACDuringIdling" xml:space="preserve">
+    <value>AC During Idling</value>
+  </data>
+  <data name="ACDuringMovement" xml:space="preserve">
+    <value>AC During Movement</value>
+  </data>
+  <data name="ACOff" xml:space="preserve">
+    <value>AC Off</value>
+  </data>
+  <data name="ACOffDuringMovement" xml:space="preserve">
+    <value>AC Off During Movement</value>
+  </data>
+  <data name="ACOn" xml:space="preserve">
+    <value>AC On</value>
+  </data>
+  <data name="ACONDuringIdlingmin" xml:space="preserve">
+    <value>AC ON During Idling (min)</value>
+  </data>
+  <data name="ACONInIdling" xml:space="preserve">
+    <value>AC ON In Idling</value>
+  </data>
+  <data name="ACONInMovement" xml:space="preserve">
+    <value>AC ON In Movement</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionName" xml:space="preserve">
+    <value>Action Name</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddBreakdownVehicle" xml:space="preserve">
+    <value>Add Breakdown Vehicle</value>
+  </data>
+  <data name="AddEditCity" xml:space="preserve">
+    <value>Add/Edit City Master</value>
+  </data>
+  <data name="AddEditCountry" xml:space="preserve">
+    <value>Add/Edit Country Master</value>
+  </data>
+  <data name="AddEditForm" xml:space="preserve">
+    <value>Add/EditForm</value>
+  </data>
+  <data name="AddEditState" xml:space="preserve">
+    <value>Add/Edit State Master</value>
+  </data>
+  <data name="AddExpenses" xml:space="preserve">
+    <value>Add General Expenses</value>
+  </data>
+  <data name="AdditionalAccessories" xml:space="preserve">
+    <value>Additional Accessories</value>
+  </data>
+  <data name="AdditionalAccessory" xml:space="preserve">
+    <value>Additional Accessory</value>
+  </data>
+  <data name="AdditionalEmail" xml:space="preserve">
+    <value>Additional Email</value>
+  </data>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>Additional Info</value>
+  </data>
+  <data name="AddRepairAndService" xml:space="preserve">
+    <value>Add Repair &amp; Service</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddressDetail" xml:space="preserve">
+    <value>Address Detail</value>
+  </data>
+  <data name="AddressValidation" xml:space="preserve">
+    <value>Please Enter Address</value>
+  </data>
+  <data name="AddVehicleBrand" xml:space="preserve">
+    <value>Add New Vehicle Brand</value>
+  </data>
+  <data name="AddVehicleBreakDown" xml:space="preserve">
+    <value>Add New Vehicle Breakdown</value>
+  </data>
+  <data name="Alarm" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+  <data name="AlarmData" xml:space="preserve">
+    <value>Alarm Data</value>
+  </data>
+  <data name="AlarmNotifications" xml:space="preserve">
+    <value>Alarms</value>
+  </data>
+  <data name="AlarmReport" xml:space="preserve">
+    <value>Alarm Report</value>
+  </data>
+  <data name="AlarmReportData" xml:space="preserve">
+    <value>Alarm Report Data</value>
+  </data>
+  <data name="AlertEventReport" xml:space="preserve">
+    <value>Alert Event Report</value>
+  </data>
+  <data name="AlertType" xml:space="preserve">
+    <value>Alert Type</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllAccounts" xml:space="preserve">
+    <value>All Accounts</value>
+  </data>
+  <data name="AllGroups" xml:space="preserve">
+    <value>All Groups</value>
+  </data>
+  <data name="AllowedDeviceId" xml:space="preserve">
+    <value>Only Numbers Are Allowed For Device ID</value>
+  </data>
+  <data name="AlphabetsNumberAllowed" xml:space="preserve">
+    <value>Only Alphabets and Numbers are allowed</value>
+  </data>
+  <data name="AlphabetsSpaceAllowed" xml:space="preserve">
+    <value>Only Alphabets and Spaces are allowed</value>
+  </data>
+  <data name="AlphanumericValue" xml:space="preserve">
+    <value>Please enter only alphanumeric value</value>
+  </data>
+  <data name="AlreadyExists" xml:space="preserve">
+    <value>Already Exists</value>
+  </data>
+  <data name="AlreadyExistsExcel" xml:space="preserve">
+    <value>Already Exists in Excel</value>
+  </data>
+  <data name="AlreadyForm" xml:space="preserve">
+    <value>Form Name Already Exists</value>
+  </data>
+  <data name="AlreadyMappedVehicle" xml:space="preserve">
+    <value>is Already Mapped With Some Vehicle</value>
+  </data>
+  <data name="AlternateEmail" xml:space="preserve">
+    <value>Alternate Email</value>
+  </data>
+  <data name="AlternateEmailValidation" xml:space="preserve">
+    <value>Please Enter Alternate Email</value>
+  </data>
+  <data name="AlternateMobileNo" xml:space="preserve">
+    <value>Alternate Mobile No</value>
+  </data>
+  <data name="AlternateMobileNoValidation" xml:space="preserve">
+    <value>Please Enter Alternate Mobile No</value>
+  </data>
+  <data name="AnalogValue" xml:space="preserve">
+    <value>Analog Value</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>And</value>
+  </data>
+  <data name="App" xml:space="preserve">
+    <value>App</value>
+  </data>
+  <data name="AreaName" xml:space="preserve">
+    <value>Area Name</value>
+  </data>
+  <data name="AssignmentType" xml:space="preserve">
+    <value>Assignment Type</value>
+  </data>
+  <data name="AutoCaptureL" xml:space="preserve">
+    <value>Auto Capture (L)</value>
+  </data>
+  <data name="AutoCaptureRM" xml:space="preserve">
+    <value>Auto Capture (RM)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="AverageSpeed" xml:space="preserve">
+    <value>Average Speed</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BatteryLevel" xml:space="preserve">
+    <value>Battery Level</value>
+  </data>
+  <data name="BatteryTampering" xml:space="preserve">
+    <value>Battery Tampering</value>
+  </data>
+  <data name="BatteryVoltage" xml:space="preserve">
+    <value>Battery Voltage</value>
+  </data>
+  <data name="Bearing" xml:space="preserve">
+    <value>Bearing</value>
+  </data>
+  <data name="Bill" xml:space="preserve">
+    <value>Bill (L)</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Billing Address</value>
+  </data>
+  <data name="BillingAddressSame" xml:space="preserve">
+    <value>Billing Address Same</value>
+  </data>
+  <data name="BillRM" xml:space="preserve">
+    <value>Bill (RM)</value>
+  </data>
+  <data name="BloodGroup" xml:space="preserve">
+    <value>Blood Group</value>
+  </data>
+  <data name="BloodGroupValidation" xml:space="preserve">
+    <value>Please Enter Blood Group</value>
+  </data>
+  <data name="Breadth" xml:space="preserve">
+    <value>Breadth (mm)</value>
+  </data>
+  <data name="Breakdown" xml:space="preserve">
+    <value>Breakdown</value>
+  </data>
+  <data name="BreakdownDatetime" xml:space="preserve">
+    <value>Breakdown Date time</value>
+  </data>
+  <data name="BreakDownVehicle" xml:space="preserve">
+    <value>Breakdown Vehicle</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="BulkUpload" xml:space="preserve">
+    <value>Bulk Upload</value>
+  </data>
+  <data name="ButtonAddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonLoginName" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="ButtonSubmit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>By Date</value>
+  </data>
+  <data name="ByGPSEngineHours" xml:space="preserve">
+    <value>By GPS Engine Hours</value>
+  </data>
+  <data name="ByGPSMileage" xml:space="preserve">
+    <value>By GPS Mileage</value>
+  </data>
+  <data name="ByGroup" xml:space="preserve">
+    <value>By Group</value>
+  </data>
+  <data name="ByVehicle" xml:space="preserve">
+    <value>By Vehicle</value>
+  </data>
+  <data name="CalibartionMode" xml:space="preserve">
+    <value>Calibartion Mode</value>
+  </data>
+  <data name="CalibrationMode" xml:space="preserve">
+    <value>Calibration Mode</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CanNotDelete" xml:space="preserve">
+    <value>Can't delete due to some childs exists</value>
+  </data>
+  <data name="CanNotDeleteDueToMapping" xml:space="preserve">
+    <value>Record can't be deleted due to mapping already exist.</value>
+  </data>
+  <data name="CaseTampering" xml:space="preserve">
+    <value>Case Tampering</value>
+  </data>
+  <data name="Charging" xml:space="preserve">
+    <value>Charging</value>
+  </data>
+  <data name="ChauffeurName" xml:space="preserve">
+    <value>Chauffeur Name</value>
+  </data>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Choose File</value>
+  </data>
+  <data name="Chooselogo" xml:space="preserve">
+    <value>Please Choose Logo File</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="CityAdded" xml:space="preserve">
+    <value>City Added Successfully</value>
+  </data>
+  <data name="CityData" xml:space="preserve">
+    <value>City Data</value>
+  </data>
+  <data name="CityExists" xml:space="preserve">
+    <value>City Name Already Exists</value>
+  </data>
+  <data name="CityInvalid" xml:space="preserve">
+    <value>City Name Is Not Valid</value>
+  </data>
+  <data name="CityMaster" xml:space="preserve">
+    <value>City Master</value>
+  </data>
+  <data name="CityName" xml:space="preserve">
+    <value>City Name</value>
+  </data>
+  <data name="CityNameValidation" xml:space="preserve">
+    <value>Please Enter City Name</value>
+  </data>
+  <data name="CityUpdated" xml:space="preserve">
+    <value>City Details Updated Successfully</value>
+  </data>
+  <data name="CityValidation" xml:space="preserve">
+    <value>Please Select City</value>
+  </data>
+  <data name="CityValidation1" xml:space="preserve">
+    <value>Please Enter City  Name</value>
+  </data>
+  <data name="ClassName" xml:space="preserve">
+    <value>Class Name</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CmpRegistrationNoValidation" xml:space="preserve">
+    <value>Please Enter Company Registration No</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Column Name</value>
+  </data>
+  <data name="ColumnNotAvailable" xml:space="preserve">
+    <value>Column Not Available</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="CompanyRegistrationNo" xml:space="preserve">
+    <value>Company Registration No</value>
+  </data>
+  <data name="ComparisonDateTime" xml:space="preserve">
+    <value>Recovery Datetime can not be smaller than Breakdown Datetime.</value>
+  </data>
+  <data name="ContactPerson" xml:space="preserve">
+    <value>Contact Person</value>
+  </data>
+  <data name="ControllerName" xml:space="preserve">
+    <value>Controller Name</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright @</value>
+  </data>
+  <data name="Corporate" xml:space="preserve">
+    <value>Corporate</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CountryAdded" xml:space="preserve">
+    <value>Country Added Successfully</value>
+  </data>
+  <data name="CountryData" xml:space="preserve">
+    <value>Country Data</value>
+  </data>
+  <data name="CountryExists" xml:space="preserve">
+    <value>Country Name Already Exists</value>
+  </data>
+  <data name="CountryInActive" xml:space="preserve">
+    <value>State Exists For this Country, So You Cannot Make Country InActive</value>
+  </data>
+  <data name="CountryInvalid" xml:space="preserve">
+    <value>Country Name Is Not Valid</value>
+  </data>
+  <data name="CountryMaster" xml:space="preserve">
+    <value>Country Master</value>
+  </data>
+  <data name="CountryName" xml:space="preserve">
+    <value>Country Name</value>
+  </data>
+  <data name="CountryNameValidation" xml:space="preserve">
+    <value>Please Enter Country Name</value>
+  </data>
+  <data name="CountryUpdated" xml:space="preserve">
+    <value>Country Updated Successfully</value>
+  </data>
+  <data name="CountryValidation" xml:space="preserve">
+    <value>Please Select Country</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="CreateGroup" xml:space="preserve">
+    <value>Create Group</value>
+  </data>
+  <data name="CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="CurrentValue" xml:space="preserve">
+    <value>Current Value</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customers</value>
+  </data>
+  <data name="CustomerAccountName" xml:space="preserve">
+    <value>Customer Account Name</value>
+  </data>
+  <data name="CustomerAdded" xml:space="preserve">
+    <value>Customer Added Successfully</value>
+  </data>
+  <data name="CustomerAlreadyExists" xml:space="preserve">
+    <value>Customer Name Already Exists</value>
+  </data>
+  <data name="CustomerCategory" xml:space="preserve">
+    <value>Customer Type</value>
+  </data>
+  <data name="CustomerData" xml:space="preserve">
+    <value>Customer Data</value>
+  </data>
+  <data name="CustomerDetails" xml:space="preserve">
+    <value>Customer Details</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="CustomerReferredBy" xml:space="preserve">
+    <value>Customer Referred By</value>
+  </data>
+  <data name="CustomerType" xml:space="preserve">
+    <value>Customer Type</value>
+  </data>
+  <data name="CustomerTypeValidation" xml:space="preserve">
+    <value>Please Select Customer Type</value>
+  </data>
+  <data name="CustomerUpdated" xml:space="preserve">
+    <value>Customer Updated Successfully</value>
+  </data>
+  <data name="CuttOff" xml:space="preserve">
+    <value>CuttOff</value>
+  </data>
+  <data name="DailyReport" xml:space="preserve">
+    <value>Daily Report</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DataFoundExcel" xml:space="preserve">
+    <value>No Data Found In Excel, Please Check The Excel Before Uploading</value>
+  </data>
+  <data name="DataNotFound" xml:space="preserve">
+    <value>Data Not Found.</value>
+  </data>
+  <data name="Datastorage" xml:space="preserve">
+    <value>Data Storage</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DateAndTime" xml:space="preserve">
+    <value>Date &amp; Time</value>
+  </data>
+  <data name="DateRangeValidation" xml:space="preserve">
+    <value>Date Range Cannot Be Greater Than 15 Days.</value>
+  </data>
+  <data name="DateReceiving" xml:space="preserve">
+    <value>Date of Receiving</value>
+  </data>
+  <data name="DateRefuelTime" xml:space="preserve">
+    <value>Date &amp; Refuel Time</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Date Time</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DayWiseVehicleFuelReport" xml:space="preserve">
+    <value>Day Wise Vehicle Fuel Report</value>
+  </data>
+  <data name="DecimalPoint" xml:space="preserve">
+    <value>Please Enter 15 digits after decimal point.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteAdminRole" xml:space="preserve">
+    <value>You Cannot Delete Admin Role</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Record Deleted Successfully</value>
+  </data>
+  <data name="DeleteMsg" xml:space="preserve">
+    <value>Are you sure you want to delete?</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="DeviceAdded" xml:space="preserve">
+    <value>Device Added Successfully</value>
+  </data>
+  <data name="DeviceAlert" xml:space="preserve">
+    <value>Device Alert</value>
+  </data>
+  <data name="DeviceAlreadyExist" xml:space="preserve">
+    <value>Same Device ID Already Exist in Database</value>
+  </data>
+  <data name="DeviceAlreadyExistExcel" xml:space="preserve">
+    <value>Device ID Already Exist in Excel</value>
+  </data>
+  <data name="DeviceAssignment" xml:space="preserve">
+    <value>Device Assignment</value>
+  </data>
+  <data name="DeviceAvailable" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DeviceCommand" xml:space="preserve">
+    <value>Device Command</value>
+  </data>
+  <data name="DeviceData" xml:space="preserve">
+    <value>Device Data</value>
+  </data>
+  <data name="DeviceDateTime" xml:space="preserve">
+    <value>Device Date &amp; Time</value>
+  </data>
+  <data name="DeviceID" xml:space="preserve">
+    <value>Device ID</value>
+  </data>
+  <data name="DeviceIdAlreadyExist" xml:space="preserve">
+    <value>Same Device ID  Already Exists</value>
+  </data>
+  <data name="DeviceIdMapped" xml:space="preserve">
+    <value>Device Id Already Mapped With Vehicle Exists</value>
+  </data>
+  <data name="DeviceMappedVehicle" xml:space="preserve">
+    <value>Device Already Mapped with Vehicle</value>
+  </data>
+  <data name="DeviceMaster" xml:space="preserve">
+    <value>Device Master</value>
+  </data>
+  <data name="DeviceNameAlreadyExist" xml:space="preserve">
+    <value>Same DeviceType Name Already Exists</value>
+  </data>
+  <data name="DeviceNo" xml:space="preserve">
+    <value>Device No</value>
+  </data>
+  <data name="DeviceReceiving" xml:space="preserve">
+    <value>Device Receiving</value>
+  </data>
+  <data name="DeviceRecovered" xml:space="preserve">
+    <value>Device Recovered  Successfully.</value>
+  </data>
+  <data name="DeviceRecoveryFailed" xml:space="preserve">
+    <value>Device Recovery Failed.</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DeviceType" xml:space="preserve">
+    <value>Device Type</value>
+  </data>
+  <data name="DeviceTypeAdded" xml:space="preserve">
+    <value>Device Type Added Successfully</value>
+  </data>
+  <data name="DeviceTypeName" xml:space="preserve">
+    <value>Device Type Name</value>
+  </data>
+  <data name="DeviceTypeNotFound" xml:space="preserve">
+    <value>Device Type Not Found</value>
+  </data>
+  <data name="DeviceUpdated" xml:space="preserve">
+    <value>Device Updated Successfully</value>
+  </data>
+  <data name="Difference" xml:space="preserve">
+    <value>Difference</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="DistanceTraveledkm" xml:space="preserve">
+    <value>Distance Traveled (km)</value>
+  </data>
+  <data name="DistanceTravelled" xml:space="preserve">
+    <value>Distance Travelled</value>
+  </data>
+  <data name="DOB" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="DobValidation" xml:space="preserve">
+    <value>Please Select DOB</value>
+  </data>
+  <data name="DocLicealready" xml:space="preserve">
+    <value>Document License for Vehicle is already updated.</value>
+  </data>
+  <data name="DocumentLicense" xml:space="preserve">
+    <value>Document  License</value>
+  </data>
+  <data name="DocumentLicenseData" xml:space="preserve">
+    <value>Document  License Data</value>
+  </data>
+  <data name="DocumentsValidation" xml:space="preserve">
+    <value>Please Upload Documents</value>
+  </data>
+  <data name="DownloadFormat" xml:space="preserve">
+    <value>Download Format</value>
+  </data>
+  <data name="DrawGeofence" xml:space="preserve">
+    <value>Please draw the geofence</value>
+  </data>
+  <data name="Driver" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="DriverAdded" xml:space="preserve">
+    <value>Driver Created Successfully</value>
+  </data>
+  <data name="DriverData" xml:space="preserve">
+    <value>Driver Data</value>
+  </data>
+  <data name="DriverDetails" xml:space="preserve">
+    <value>Driver Details</value>
+  </data>
+  <data name="DriverImage" xml:space="preserve">
+    <value>Driver Image</value>
+  </data>
+  <data name="DriverImageValidation" xml:space="preserve">
+    <value>Please Upload Driver Image</value>
+  </data>
+  <data name="DriverMaster" xml:space="preserve">
+    <value>Driver Master</value>
+  </data>
+  <data name="DriverName" xml:space="preserve">
+    <value>Driver Name</value>
+  </data>
+  <data name="DriverNameValidation" xml:space="preserve">
+    <value>Please Enter Driver  Name</value>
+  </data>
+  <data name="Drivers" xml:space="preserve">
+    <value>Driver</value>
+  </data>
+  <data name="DriverUpdated" xml:space="preserve">
+    <value>Driver Updated Successfully</value>
+  </data>
+  <data name="DriverVehicleData" xml:space="preserve">
+    <value>Driver Vehicle Data</value>
+  </data>
+  <data name="DriverVehicleDeleted" xml:space="preserve">
+    <value>Driver Vehicle Mapping Deleted Successfully</value>
+  </data>
+  <data name="DriverVehicleMapping" xml:space="preserve">
+    <value>Driver Vehicle Mapping</value>
+  </data>
+  <data name="DriverVehicleUpdated" xml:space="preserve">
+    <value>Driver Vehicle Mapping Updated Successfully</value>
+  </data>
+  <data name="DrivingDurationmin" xml:space="preserve">
+    <value>Driving Duration (min)</value>
+  </data>
+  <data name="DurationOfRest" xml:space="preserve">
+    <value>Duration of Rest</value>
+  </data>
+  <data name="DurationOfRestmin" xml:space="preserve">
+    <value>Duration Of Rest (min)</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>Email Id Already Exists.</value>
+  </data>
+  <data name="EmailId" xml:space="preserve">
+    <value>Email ID</value>
+  </data>
+  <data name="EmailIdFormat" xml:space="preserve">
+    <value>Please Enter Valid Email ID</value>
+  </data>
+  <data name="EmailIdIsValid" xml:space="preserve">
+    <value>Please Enter Valid Email ID</value>
+  </data>
+  <data name="EmailNotBeEmpty" xml:space="preserve">
+    <value>Email Can Not Be Empty</value>
+  </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>Please Enter Email</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="EndDateAndTime" xml:space="preserve">
+    <value>END DATE &amp; TIME</value>
+  </data>
+  <data name="EndDateTime" xml:space="preserve">
+    <value>End Date Time</value>
+  </data>
+  <data name="EndLocation" xml:space="preserve">
+    <value>End Location</value>
+  </data>
+  <data name="EngineStatus" xml:space="preserve">
+    <value>Engine Status</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="EnterAccountCategory" xml:space="preserve">
+    <value>Please Enter Account Category</value>
+  </data>
+  <data name="EnterAdditionalEmail" xml:space="preserve">
+    <value>Please Enter valid Additional Email</value>
+  </data>
+  <data name="EnterAddress" xml:space="preserve">
+    <value>Enter Address</value>
+  </data>
+  <data name="EnterBreadth" xml:space="preserve">
+    <value>Please Enter Breadth</value>
+  </data>
+  <data name="EnterContactPerson" xml:space="preserve">
+    <value>Please Enter Contact Person</value>
+  </data>
+  <data name="EnterCountryName" xml:space="preserve">
+    <value>Please Enter Country Name</value>
+  </data>
+  <data name="EnterCustomerName" xml:space="preserve">
+    <value>Please Enter  Customer Name</value>
+  </data>
+  <data name="EnterDeviceID" xml:space="preserve">
+    <value>Please Enter Device ID</value>
+  </data>
+  <data name="EnterDeviceTypeName" xml:space="preserve">
+    <value>Please Enter  Device Type Name</value>
+  </data>
+  <data name="EnterFuelRefill" xml:space="preserve">
+    <value>Please Enter Fuel Refill</value>
+  </data>
+  <data name="EnterFuelTankCapacity" xml:space="preserve">
+    <value>Please Enter Fuel Tank Capacity</value>
+  </data>
+  <data name="EnterFuelTheftLimit" xml:space="preserve">
+    <value>Please Enter Fuel Theft Limit</value>
+  </data>
+  <data name="EnterGroupName" xml:space="preserve">
+    <value>Please Enter Group Name</value>
+  </data>
+  <data name="EnterHeight" xml:space="preserve">
+    <value>Please Enter Height (mm)</value>
+  </data>
+  <data name="EnterIMEINo" xml:space="preserve">
+    <value>Please Enter IMEI No.</value>
+  </data>
+  <data name="EnterInstallerName" xml:space="preserve">
+    <value>Please Enter Installer Name</value>
+  </data>
+  <data name="EnterInstallerType" xml:space="preserve">
+    <value>Please Enter Installer Type</value>
+  </data>
+  <data name="EnterInvoiceNo" xml:space="preserve">
+    <value>Please Enter Invoice No</value>
+  </data>
+  <data name="EnterLatitude" xml:space="preserve">
+    <value>Please Enter Latitude.</value>
+  </data>
+  <data name="EnterLenght" xml:space="preserve">
+    <value>Please Enter Lenght (mm)</value>
+  </data>
+  <data name="EnterLongitude" xml:space="preserve">
+    <value>Please Enter Longitude.</value>
+  </data>
+  <data name="EnterNoofUnits" xml:space="preserve">
+    <value>Please Enter No.of Units</value>
+  </data>
+  <data name="EnterNotifyBeforeEnd" xml:space="preserve">
+    <value>Please Enter Notify Before End</value>
+  </data>
+  <data name="EnterPersonIncharge" xml:space="preserve">
+    <value>Please Enter Person Incharge</value>
+  </data>
+  <data name="EnterPersonInchargeContactNo" xml:space="preserve">
+    <value>Please Enter Person Incharge Contact No.</value>
+  </data>
+  <data name="EnterPriceLitre" xml:space="preserve">
+    <value>Please Enter Price Per Litre</value>
+  </data>
+  <data name="EnterRadius" xml:space="preserve">
+    <value>Please Enter Radius(mm)</value>
+  </data>
+  <data name="EnterRegistrationNo" xml:space="preserve">
+    <value>Please Enter Vehicle No</value>
+  </data>
+  <data name="EnterReminderAfter" xml:space="preserve">
+    <value>Please Enter Reminder After</value>
+  </data>
+  <data name="EnterStateName" xml:space="preserve">
+    <value>Please Enter State Name</value>
+  </data>
+  <data name="EnterSupplierName" xml:space="preserve">
+    <value>Please Enter Supplier Name</value>
+  </data>
+  <data name="EnterTitle" xml:space="preserve">
+    <value>Please Enter Title</value>
+  </data>
+  <data name="EnterTotalAmount" xml:space="preserve">
+    <value>Please Enter Total Amount</value>
+  </data>
+  <data name="EnterTotalCost" xml:space="preserve">
+    <value>Please Enter Total Cost</value>
+  </data>
+  <data name="EnterTotalLitre" xml:space="preserve">
+    <value>Please Enter Total Litres Of Fuel</value>
+  </data>
+  <data name="EnterValidIMEI" xml:space="preserve">
+    <value>Please Enter Valid IMEI No</value>
+  </data>
+  <data name="EnterValidTotalCost" xml:space="preserve">
+    <value>Please Enter Valid Total Cost</value>
+  </data>
+  <data name="EnterVehicleModel" xml:space="preserve">
+    <value>Please Enter Vehicle Model</value>
+  </data>
+  <data name="Entries" xml:space="preserve">
+    <value>Entries</value>
+  </data>
+  <data name="Equal" xml:space="preserve">
+    <value>Equals To</value>
+  </data>
+  <data name="ExceedCharacters" xml:space="preserve">
+    <value>This field cannot exceed 10 characters.</value>
+  </data>
+  <data name="Excel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="ExcelFormat" xml:space="preserve">
+    <value>File Should be in (.xls, .xlsx) format.</value>
+  </data>
+  <data name="ExistCountry" xml:space="preserve">
+    <value>You Cannot Delete Country As it Exists in state master</value>
+  </data>
+  <data name="ExistState" xml:space="preserve">
+    <value>You Cannot Delete State As it Exists in City master</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>General Expenses</value>
+  </data>
+  <data name="ExpensesData" xml:space="preserve">
+    <value>General Expenses Data</value>
+  </data>
+  <data name="Experience" xml:space="preserve">
+    <value>Experience(in yrs)</value>
+  </data>
+  <data name="ExperienceValidation" xml:space="preserve">
+    <value>Please Enter Experience(in yrs)</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>EXPIRED</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Expiry Date</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="FieldIsNotInSystem" xml:space="preserve">
+    <value>field is not present system</value>
+  </data>
+  <data name="FileFormat" xml:space="preserve">
+    <value>This file format is not supported</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FirmwareVersion" xml:space="preserve">
+    <value>Firm ware Version</value>
+  </data>
+  <data name="FleetManagementSystem" xml:space="preserve">
+    <value>Fleet Management System</value>
+  </data>
+  <data name="FMS" xml:space="preserve">
+    <value>FMS</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>For</value>
+  </data>
+  <data name="ForExample" xml:space="preserve">
+    <value>For Example</value>
+  </data>
+  <data name="ForgotPwd" xml:space="preserve">
+    <value>Forgot Password?</value>
+  </data>
+  <data name="FormAccountMapping" xml:space="preserve">
+    <value>Form Account Mapping</value>
+  </data>
+  <data name="FormAccountMappingAdded" xml:space="preserve">
+    <value>Form Account  Mapping Done successfully</value>
+  </data>
+  <data name="FormAccountMappingData" xml:space="preserve">
+    <value>Form Account Mapping Data</value>
+  </data>
+  <data name="FormAccountMappingExists" xml:space="preserve">
+    <value>Form Account Mapping already Exists</value>
+  </data>
+  <data name="FormAccountMappingUpdated" xml:space="preserve">
+    <value>Form Account Mapping updated successfully</value>
+  </data>
+  <data name="FormActionValidation" xml:space="preserve">
+    <value>Please Select Action Name</value>
+  </data>
+  <data name="FormAdded" xml:space="preserve">
+    <value>Form Details Added Successfully</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="FormatNotValid" xml:space="preserve">
+    <value>Format is Not Valid</value>
+  </data>
+  <data name="FormColumn" xml:space="preserve">
+    <value>Form Column already Exists</value>
+  </data>
+  <data name="FormColumnAssignment" xml:space="preserve">
+    <value>Form Column Assignment</value>
+  </data>
+  <data name="FormColumnConfiguration" xml:space="preserve">
+    <value>Form Column Configuration</value>
+  </data>
+  <data name="FormControllerValidation" xml:space="preserve">
+    <value>Please Select Controller Name</value>
+  </data>
+  <data name="FormLanguageMapping" xml:space="preserve">
+    <value>Form Language Mapping</value>
+  </data>
+  <data name="FormLanguageMappingData" xml:space="preserve">
+    <value>Form Language Mapping Data</value>
+  </data>
+  <data name="FormLngAlreadyExist" xml:space="preserve">
+    <value>Form Language Mapping Already Exists</value>
+  </data>
+  <data name="FormLngInserted" xml:space="preserve">
+    <value>Form Language Mapping  Inserted Successfully</value>
+  </data>
+  <data name="FormlngSearch" xml:space="preserve">
+    <value>Form Language Mapping Search</value>
+  </data>
+  <data name="FormLngUpdated" xml:space="preserve">
+    <value>Form Language Mapping  Updated Successfully</value>
+  </data>
+  <data name="FormMaster" xml:space="preserve">
+    <value>Form Master</value>
+  </data>
+  <data name="FormMasterSearch" xml:space="preserve">
+    <value>Form Master Search</value>
+  </data>
+  <data name="FormName" xml:space="preserve">
+    <value>Form Name</value>
+  </data>
+  <data name="FormNameValidation" xml:space="preserve">
+    <value>Please Select Form Name</value>
+  </data>
+  <data name="FormRoleUpdated" xml:space="preserve">
+    <value>Role Rights Updated Successfully</value>
+  </data>
+  <data name="FormUpdated" xml:space="preserve">
+    <value>Form Details Updated Successfully</value>
+  </data>
+  <data name="Foundinvalid" xml:space="preserve">
+    <value>Found invalid</value>
+  </data>
+  <data name="Fuel" xml:space="preserve">
+    <value>Fuel</value>
+  </data>
+  <data name="FuelAlert" xml:space="preserve">
+    <value>Fuel Alert</value>
+  </data>
+  <data name="FuelConsumption" xml:space="preserve">
+    <value>Fuel Consumption</value>
+  </data>
+  <data name="FuelDashboard" xml:space="preserve">
+    <value>Fuel Dashboard</value>
+  </data>
+  <data name="FuelMang" xml:space="preserve">
+    <value>Fuel Managment System</value>
+  </data>
+  <data name="FuelReceipt" xml:space="preserve">
+    <value>Fuel Receipt</value>
+  </data>
+  <data name="FuelReceiptData" xml:space="preserve">
+    <value>Fuel Receipt Data</value>
+  </data>
+  <data name="FuelRefill" xml:space="preserve">
+    <value>Fuel Refill</value>
+  </data>
+  <data name="FuelReport" xml:space="preserve">
+    <value>Fuel Report</value>
+  </data>
+  <data name="FuelReportData" xml:space="preserve">
+    <value>Fuel Report Data</value>
+  </data>
+  <data name="FuelSensor" xml:space="preserve">
+    <value>Fuel Sensor</value>
+  </data>
+  <data name="FuelSensorID" xml:space="preserve">
+    <value>Fuel Sensor ID No</value>
+  </data>
+  <data name="FuelSensorType" xml:space="preserve">
+    <value>Fuel Sensor Type</value>
+  </data>
+  <data name="FuelTankCapacity" xml:space="preserve">
+    <value>Fuel Tank Capacity</value>
+  </data>
+  <data name="FuelTheft" xml:space="preserve">
+    <value>Fuel Theft</value>
+  </data>
+  <data name="FuelTheftLimit" xml:space="preserve">
+    <value>Fuel Theft Limit</value>
+  </data>
+  <data name="FuelType" xml:space="preserve">
+    <value>Fuel Type</value>
+  </data>
+  <data name="FuelUsedLtr" xml:space="preserve">
+    <value>Fuel Used( Ltr. )</value>
+  </data>
+  <data name="FuelValue" xml:space="preserve">
+    <value>Fuel Value</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="GenderValidation" xml:space="preserve">
+    <value>Please Select Gender</value>
+  </data>
+  <data name="GeoAddbutNotsync" xml:space="preserve">
+    <value>Geofence Added Successfully But Not Sync Successfully</value>
+  </data>
+  <data name="Geofence" xml:space="preserve">
+    <value>Geofence</value>
+  </data>
+  <data name="GeofenceAdded" xml:space="preserve">
+    <value>Geofence Added Successfully</value>
+  </data>
+  <data name="GeofenceAlert" xml:space="preserve">
+    <value>Geofence Alert</value>
+  </data>
+  <data name="GeofenceAlreadyExist" xml:space="preserve">
+    <value>Geofence Already Exists</value>
+  </data>
+  <data name="GeofenceDeleted" xml:space="preserve">
+    <value>Geofence Deleted SuccessFully</value>
+  </data>
+  <data name="GeofenceLength" xml:space="preserve">
+    <value>Geofence Name length should be between 3 to 25</value>
+  </data>
+  <data name="GeofenceList" xml:space="preserve">
+    <value>Geofence List</value>
+  </data>
+  <data name="GeofenceName" xml:space="preserve">
+    <value>Geofence Name</value>
+  </data>
+  <data name="GeofenceReport" xml:space="preserve">
+    <value>Geofence Report</value>
+  </data>
+  <data name="GeofenceStatus" xml:space="preserve">
+    <value>Geofence Status</value>
+  </data>
+  <data name="GeofenceUpdated" xml:space="preserve">
+    <value>Geofence Updated Successfully</value>
+  </data>
+  <data name="GPRS" xml:space="preserve">
+    <value>GPRS</value>
+  </data>
+  <data name="GPSDetails" xml:space="preserve">
+    <value>GPS Details</value>
+  </data>
+  <data name="GPSDeviceIDNo" xml:space="preserve">
+    <value>GPS Device ID No</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="GroupDetails" xml:space="preserve">
+    <value>Group Details</value>
+  </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
+  <data name="GroupSetting" xml:space="preserve">
+    <value>Group Setting</value>
+  </data>
+  <data name="GroupSettingData" xml:space="preserve">
+    <value>Group Setting Data</value>
+  </data>
+  <data name="GSMRSSI" xml:space="preserve">
+    <value>GSM RSSI</value>
+  </data>
+  <data name="h" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="HardwareVersion" xml:space="preserve">
+    <value>Hard ware Version</value>
+  </data>
+  <data name="HarnessRemoval" xml:space="preserve">
+    <value>Harness Removal</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height (mm)</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="HistoryPlayback" xml:space="preserve">
+    <value>History Playback</value>
+  </data>
+  <data name="HistoryTracking" xml:space="preserve">
+    <value>History Tracking</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="HoursNotDecimalValue" xml:space="preserve">
+    <value>Hours Can Not Be Decimal Value</value>
+  </data>
+  <data name="HoursNotGreaterThan" xml:space="preserve">
+    <value>Hours Can Not Have Value Greater Than 24</value>
+  </data>
+  <data name="HoursNotNegativeValue" xml:space="preserve">
+    <value>Hours Can Not Have Negative Value</value>
+  </data>
+  <data name="Hr" xml:space="preserve">
+    <value>Hr</value>
+  </data>
+  <data name="Hrs" xml:space="preserve">
+    <value>Hrs</value>
+  </data>
+  <data name="Idiling" xml:space="preserve">
+    <value>Idling</value>
+  </data>
+  <data name="IdilingAlert" xml:space="preserve">
+    <value>Idling Alert</value>
+  </data>
+  <data name="IdleTime" xml:space="preserve">
+    <value>Idle Time</value>
+  </data>
+  <data name="Idling" xml:space="preserve">
+    <value>Idling</value>
+  </data>
+  <data name="idlingDuration" xml:space="preserve">
+    <value>Idling Duration</value>
+  </data>
+  <data name="IdlingDurationmin" xml:space="preserve">
+    <value>Idling Duration (min)</value>
+  </data>
+  <data name="IdlingDurationValidation" xml:space="preserve">
+    <value>Please Enter Idling Duration Value</value>
+  </data>
+  <data name="IdlingIcon" xml:space="preserve">
+    <value>Idling Icon</value>
+  </data>
+  <data name="IdlingIconValidation" xml:space="preserve">
+    <value>Please Select  Idling Icon</value>
+  </data>
+  <data name="Ignition" xml:space="preserve">
+    <value>Ignition</value>
+  </data>
+  <data name="IgnitionOff" xml:space="preserve">
+    <value>Ignition Off</value>
+  </data>
+  <data name="IgnitionOn" xml:space="preserve">
+    <value>Ignition On</value>
+  </data>
+  <data name="IgnitiononAlert" xml:space="preserve">
+    <value>Ignition on Alert</value>
+  </data>
+  <data name="imagetext1" xml:space="preserve">
+    <value>Vehicles Are Tracked In Real Time</value>
+  </data>
+  <data name="imagetext2" xml:space="preserve">
+    <value>Your vehicles are visible in one account at your fingertips</value>
+  </data>
+  <data name="imagetext3" xml:space="preserve">
+    <value>at anytime anywhere.</value>
+  </data>
+  <data name="IMEIAlreadyExist" xml:space="preserve">
+    <value>Same IMEI No. Already Exist in Database</value>
+  </data>
+  <data name="IMEIAlreadyExistExcel" xml:space="preserve">
+    <value>IMEI No. Already Exist in Excel</value>
+  </data>
+  <data name="IMEINo" xml:space="preserve">
+    <value>IMEI No</value>
+  </data>
+  <data name="IMEINoAlraedyExits" xml:space="preserve">
+    <value>IMEI No. Already Exists</value>
+  </data>
+  <data name="IMEIValidation" xml:space="preserve">
+    <value>IMEI No. Cannot Be Less Than 10 Digits and Greater than 15 Digits</value>
+  </data>
+  <data name="Immobilization" xml:space="preserve">
+    <value>Immobilization</value>
+  </data>
+  <data name="ImmobilizerON" xml:space="preserve">
+    <value>Immobilizer ON</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="InputAllFields" xml:space="preserve">
+    <value>Please Input All The Fields.</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Installation</value>
+  </data>
+  <data name="InstallationDate" xml:space="preserve">
+    <value>Installation Date</value>
+  </data>
+  <data name="InstallationDateValidation" xml:space="preserve">
+    <value>Please  Select Installation Date</value>
+  </data>
+  <data name="InstallationDetails" xml:space="preserve">
+    <value>Installation Details</value>
+  </data>
+  <data name="InstallationType" xml:space="preserve">
+    <value>Installation Type</value>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="Installer" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="InstallerAccount" xml:space="preserve">
+    <value>Installer Account</value>
+  </data>
+  <data name="InstallerAccountData" xml:space="preserve">
+    <value>Installer Account Data</value>
+  </data>
+  <data name="InstallerCustomerMapping" xml:space="preserve">
+    <value>Installer Customer Mapping</value>
+  </data>
+  <data name="InstallerCustomerMappingData" xml:space="preserve">
+    <value>Installer Customer Mapping Data</value>
+  </data>
+  <data name="InstallerData" xml:space="preserve">
+    <value>Installer Data</value>
+  </data>
+  <data name="InstallerDetail" xml:space="preserve">
+    <value>Installer Details</value>
+  </data>
+  <data name="InstallerDetails" xml:space="preserve">
+    <value>Installer Details</value>
+  </data>
+  <data name="InstallerMaster" xml:space="preserve">
+    <value>Installer Master</value>
+  </data>
+  <data name="InstallerName" xml:space="preserve">
+    <value>Installer Name</value>
+  </data>
+  <data name="InstallerReport" xml:space="preserve">
+    <value>Installer Report</value>
+  </data>
+  <data name="InstallerReportData" xml:space="preserve">
+    <value>Installer Report Data</value>
+  </data>
+  <data name="Installers" xml:space="preserve">
+    <value>Installers</value>
+  </data>
+  <data name="InstallerType" xml:space="preserve">
+    <value>Installer Type</value>
+  </data>
+  <data name="InstallerTypeAlreadyExists" xml:space="preserve">
+    <value>Installer Type Name Already Exists.</value>
+  </data>
+  <data name="InstallerVehicleMapping" xml:space="preserve">
+    <value>Installer Vehicle Mapping</value>
+  </data>
+  <data name="InstallerVehicleMappingdata" xml:space="preserve">
+    <value>Installer Vehicle Mapping Data</value>
+  </data>
+  <data name="InternalBattery" xml:space="preserve">
+    <value>Internal Battery</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Invalid Email Format</value>
+  </data>
+  <data name="InvalidExcel" xml:space="preserve">
+    <value>Download Invalid Excel</value>
+  </data>
+  <data name="InvalidLatlong" xml:space="preserve">
+    <value>Invalid Latitude and Longitude.</value>
+  </data>
+  <data name="InvalidLogo" xml:space="preserve">
+    <value>Invalid File Format For Logo</value>
+  </data>
+  <data name="InvalidSim" xml:space="preserve">
+    <value>Invalid Entry For Sim Master</value>
+  </data>
+  <data name="invalidSimtype" xml:space="preserve">
+    <value>Invalid Entry For Sim Type</value>
+  </data>
+  <data name="invalidvehicle" xml:space="preserve">
+    <value>Invalid Entry Of vehicle Name</value>
+  </data>
+  <data name="InvalidZipCode" xml:space="preserve">
+    <value>Invalid Zip Code.</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="InvoiceDate" xml:space="preserve">
+    <value>Invoice Date</value>
+  </data>
+  <data name="InvoiceDateValidation" xml:space="preserve">
+    <value>Please Select Invoice Date</value>
+  </data>
+  <data name="InvoiceNo" xml:space="preserve">
+    <value>Invoice No</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IPFormat" xml:space="preserve">
+    <value>IP Number Is Not In Valid Format.</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>IsActive</value>
+  </data>
+  <data name="IsClient" xml:space="preserve">
+    <value>Is Client</value>
+  </data>
+  <data name="IsSparePartUsed" xml:space="preserve">
+    <value>Is Spare Part Used ?</value>
+  </data>
+  <data name="IsVehicleSpecific" xml:space="preserve">
+    <value>Is Vehicle Specific</value>
+  </data>
+  <data name="JoiningDate" xml:space="preserve">
+    <value>Joining Date</value>
+  </data>
+  <data name="JoiningDateValidation" xml:space="preserve">
+    <value>Please Select Joining Date</value>
+  </data>
+  <data name="JourneyReport" xml:space="preserve">
+    <value>Journey Report</value>
+  </data>
+  <data name="JourneyReportData" xml:space="preserve">
+    <value>Journey Report Data</value>
+  </data>
+  <data name="JourneyTracking" xml:space="preserve">
+    <value>Journey Tracking</value>
+  </data>
+  <data name="Km" xml:space="preserve">
+    <value>Km</value>
+  </data>
+  <data name="kmh" xml:space="preserve">
+    <value>km/h</value>
+  </data>
+  <data name="L" xml:space="preserve">
+    <value>+/- (L)</value>
+  </data>
+  <data name="LandingPage" xml:space="preserve">
+    <value>Landing Page</value>
+  </data>
+  <data name="LandingPageValidation" xml:space="preserve">
+    <value>Please Select  Landing Page</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageName" xml:space="preserve">
+    <value>Language Name</value>
+  </data>
+  <data name="LastGPSConnected" xml:space="preserve">
+    <value>Last GPS Connected</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Last Month</value>
+  </data>
+  <data name="LastServerUpdate" xml:space="preserve">
+    <value>Last Server Update</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="LatLong" xml:space="preserve">
+    <value>Latitude,Longitude</value>
+  </data>
+  <data name="LatLongFormat" xml:space="preserve">
+    <value>Latitude and Longitude should be in [Lat.Lat,Long.Long For Example: 28.4700, 77.0300] Format</value>
+  </data>
+  <data name="LatLongNumbersOnly" xml:space="preserve">
+    <value>Latitude and Longitude should be in Numbers Only.</value>
+  </data>
+  <data name="LatRange" xml:space="preserve">
+    <value>Latitude should be in -90 to +90 range</value>
+  </data>
+  <data name="LBSDataOn" xml:space="preserve">
+    <value>LBS Data On</value>
+  </data>
+  <data name="LBSStatus" xml:space="preserve">
+    <value>LBS Status</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Length (mm)</value>
+  </data>
+  <data name="LengthSimNumber" xml:space="preserve">
+    <value>Length of SIM Number Should be equal to 10 or greater than 10</value>
+  </data>
+  <data name="LicenceForm" xml:space="preserve">
+    <value>Licence Form</value>
+  </data>
+  <data name="LicenceNo" xml:space="preserve">
+    <value>Licence No</value>
+  </data>
+  <data name="LicenceTo" xml:space="preserve">
+    <value>Licence To</value>
+  </data>
+  <data name="LicenseFromValidation" xml:space="preserve">
+    <value>Please Select Licence Form</value>
+  </data>
+  <data name="LicenseNoValidation" xml:space="preserve">
+    <value>Please Enter Licence No.</value>
+  </data>
+  <data name="LicenseToValidation" xml:space="preserve">
+    <value>Please Select Licence To</value>
+  </data>
+  <data name="live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="LiveTracking" xml:space="preserve">
+    <value>Live Tracking</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load (Tons)</value>
+  </data>
+  <data name="Locate" xml:space="preserve">
+    <value>Locate</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="LogHistory" xml:space="preserve">
+    <value>Log History Report</value>
+  </data>
+  <data name="LogHistoryReportData" xml:space="preserve">
+    <value>Log History Report Data</value>
+  </data>
+  <data name="LoginAccount" xml:space="preserve">
+    <value>Login to account</value>
+  </data>
+  <data name="LoginFooter" xml:space="preserve">
+    <value>Powered by - Gyanmitras</value>
+  </data>
+  <data name="LoginHeaderName" xml:space="preserve">
+    <value>Access to Gyanmitras Platform to track your vehicles.</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="LogoFormat" xml:space="preserve">
+    <value>Logo Should be in (jpg, jpeg, png) format.</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="LonRange" xml:space="preserve">
+    <value>Longitude should be in -180 to +180 range.</value>
+  </data>
+  <data name="LowBattery" xml:space="preserve">
+    <value>Low Battery</value>
+  </data>
+  <data name="LowBatteryAlert" xml:space="preserve">
+    <value>Low Battery Alert</value>
+  </data>
+  <data name="LowPower" xml:space="preserve">
+    <value>Low Power</value>
+  </data>
+  <data name="MachineModel" xml:space="preserve">
+    <value>Machine Model</value>
+  </data>
+  <data name="male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="MandatoryColumn" xml:space="preserve">
+    <value>Mandatory Columns Are Missing</value>
+  </data>
+  <data name="MandatoryFields" xml:space="preserve">
+    <value>Please Select the Mandatory Fields.</value>
+  </data>
+  <data name="MandatoryFilled" xml:space="preserve">
+    <value>Invalid input.Please check all the mandatory fields are filled.</value>
+  </data>
+  <data name="MapDisplay" xml:space="preserve">
+    <value>Map Display</value>
+  </data>
+  <data name="Mapping" xml:space="preserve">
+    <value>Mapping</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="MaxGeoRadius" xml:space="preserve">
+    <value>MaxGeoRadius</value>
+  </data>
+  <data name="MaxSpeed" xml:space="preserve">
+    <value>Max Speed</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="MinIdlingDuration" xml:space="preserve">
+    <value>Min Idling Duration</value>
+  </data>
+  <data name="MinOverspeedDuration" xml:space="preserve">
+    <value>Min Overspeed Duration</value>
+  </data>
+  <data name="Mins" xml:space="preserve">
+    <value>Mins</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="MinutesHoursNotZeroOrEmpty" xml:space="preserve">
+    <value>Minutes and Hours Both Can Not Be Zero</value>
+  </data>
+  <data name="MinutesNotDecimalValue" xml:space="preserve">
+    <value>Minutes Can Not Be Decimal Value</value>
+  </data>
+  <data name="MinutesNotGreaterThan" xml:space="preserve">
+    <value>Minutes Can Not Have Value Greater Than 60</value>
+  </data>
+  <data name="MinutesNotNegativeValue" xml:space="preserve">
+    <value>Minutes Can Not Have Negative Value</value>
+  </data>
+  <data name="MobileNo" xml:space="preserve">
+    <value>Mobile No</value>
+  </data>
+  <data name="MobileNoExist" xml:space="preserve">
+    <value>Mobile No. Already Exists</value>
+  </data>
+  <data name="MobileNoFormat" xml:space="preserve">
+    <value>Entered Mobile No format is not valid</value>
+  </data>
+  <data name="MobileNoIsValid" xml:space="preserve">
+    <value>Please Enter Valid Mobile No</value>
+  </data>
+  <data name="MobileNoValidation" xml:space="preserve">
+    <value>Please Enter Mobile No.</value>
+  </data>
+  <data name="MobilizeImmobilize" xml:space="preserve">
+    <value>Mobilize/Immobilize</value>
+  </data>
+  <data name="MobilizeImmobilizeData" xml:space="preserve">
+    <value>Mobilize/Immobilize Data</value>
+  </data>
+  <data name="Module" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="ModuleValidation" xml:space="preserve">
+    <value>Please Select Module</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MonthlyACUsageMins" xml:space="preserve">
+    <value>Monthly AC Usage (Mins)</value>
+  </data>
+  <data name="MonthlyDistanceTraveledKms" xml:space="preserve">
+    <value>Monthly Distance Traveled (Km)</value>
+  </data>
+  <data name="MonthlyDistancetraveledVsFuelUsed" xml:space="preserve">
+    <value>Monthly Distance travelled Vs Fuel Used</value>
+  </data>
+  <data name="MonthlyDurationofRestMins" xml:space="preserve">
+    <value>Monthly Duration of Rest (Mins)</value>
+  </data>
+  <data name="MonthlyDurationofStopMins" xml:space="preserve">
+    <value>Monthly Duration of Stop(Mins)</value>
+  </data>
+  <data name="MonthlyIdlingDurationMins" xml:space="preserve">
+    <value>Monthly Idling Duration (Mins)</value>
+  </data>
+  <data name="MonthlyMovingDurationMins" xml:space="preserve">
+    <value>Monthly Moving Duration (Mins)</value>
+  </data>
+  <data name="MonthlyOverspeedingDurationMins" xml:space="preserve">
+    <value>Monthly Overspeeding Duration (Mins)</value>
+  </data>
+  <data name="MonthlyReport" xml:space="preserve">
+    <value>Monthly Report</value>
+  </data>
+  <data name="Moving" xml:space="preserve">
+    <value>Moving</value>
+  </data>
+  <data name="MovingAlert" xml:space="preserve">
+    <value>Moving Alert</value>
+  </data>
+  <data name="MovingDuration" xml:space="preserve">
+    <value>Moving Duration</value>
+  </data>
+  <data name="MovingIcon" xml:space="preserve">
+    <value>Moving Icon</value>
+  </data>
+  <data name="MovingIconValidation" xml:space="preserve">
+    <value>Please Select  Moving Icon</value>
+  </data>
+  <data name="MovingTime" xml:space="preserve">
+    <value>Moving Time</value>
+  </data>
+  <data name="MsgDelete" xml:space="preserve">
+    <value>Driver is already Mapped With Vehicle, therefore it cannot be Delete</value>
+  </data>
+  <data name="mtr" xml:space="preserve">
+    <value>mtr</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameEmail" xml:space="preserve">
+    <value>Name/Email</value>
+  </data>
+  <data name="NameFormat" xml:space="preserve">
+    <value>Please Use letters only</value>
+  </data>
+  <data name="NameIsValid" xml:space="preserve">
+    <value>Please Enter Valid Name.</value>
+  </data>
+  <data name="NameValidation" xml:space="preserve">
+    <value>Please Enter Name</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
+  <data name="Nevigation" xml:space="preserve">
+    <value>Nevigation</value>
+  </data>
+  <data name="NewInstallation" xml:space="preserve">
+    <value>Installations</value>
+  </data>
+  <data name="NewInstallationData" xml:space="preserve">
+    <value>Installation Data</value>
+  </data>
+  <data name="NewPort" xml:space="preserve">
+    <value>New Port</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoBreakdownVehicles" xml:space="preserve">
+    <value>No Breakdown Vehicles</value>
+  </data>
+  <data name="NoDataAvailable" xml:space="preserve">
+    <value>No Data Available</value>
+  </data>
+  <data name="NoGPRSAlert" xml:space="preserve">
+    <value>No GPRS Alert</value>
+  </data>
+  <data name="NoIdlingVehicles" xml:space="preserve">
+    <value>No Idling Vehicles</value>
+  </data>
+  <data name="NoMovingVehicles" xml:space="preserve">
+    <value>No Moving Vehicles</value>
+  </data>
+  <data name="NoOfflineVehicles" xml:space="preserve">
+    <value>No Offline Vehicles</value>
+  </data>
+  <data name="NoOfGeofence" xml:space="preserve">
+    <value>No. of Geofence</value>
+  </data>
+  <data name="NoofUnits" xml:space="preserve">
+    <value>No of Units</value>
+  </data>
+  <data name="NoOfUsers" xml:space="preserve">
+    <value>No Of Users</value>
+  </data>
+  <data name="NoOfVehicles" xml:space="preserve">
+    <value>No. of Vehicles</value>
+  </data>
+  <data name="NoRecord" xml:space="preserve">
+    <value>No Records  Are Available In Excel File</value>
+  </data>
+  <data name="NoStoppedVehicles" xml:space="preserve">
+    <value>No Stopped Vehicles</value>
+  </data>
+  <data name="NotExistFormLng" xml:space="preserve">
+    <value>Data Not Exists With this Form Language Mapping</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="NotificationInserte" xml:space="preserve">
+    <value>Notification Inserted Successfully</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationSetting" xml:space="preserve">
+    <value>Notification Setting</value>
+  </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Notification Type</value>
+  </data>
+  <data name="NotificationUpdated" xml:space="preserve">
+    <value>Notification Updated Successfully</value>
+  </data>
+  <data name="NotifyBeforeEnd" xml:space="preserve">
+    <value>Notify Before End</value>
+  </data>
+  <data name="NotPolling" xml:space="preserve">
+    <value>Not Polling</value>
+  </data>
+  <data name="NoVehicles" xml:space="preserve">
+    <value>No Vehicles</value>
+  </data>
+  <data name="NumberDecimalAllowed" xml:space="preserve">
+    <value>Only Numbers and Decimal are allowed</value>
+  </data>
+  <data name="Odometer" xml:space="preserve">
+    <value>Odometer</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OfflineIcon" xml:space="preserve">
+    <value>Offline Icon</value>
+  </data>
+  <data name="OfflineIconValidation" xml:space="preserve">
+    <value>Please Select  Offline Icon</value>
+  </data>
+  <data name="online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OnlineOfflineReport" xml:space="preserve">
+    <value>Online Offline Report</value>
+  </data>
+  <data name="OnlyNumber" xml:space="preserve">
+    <value>Only Numbers  Are Allowed</value>
+  </data>
+  <data name="OnlyNumbersForHours" xml:space="preserve">
+    <value>Only Numbers Are Allowed For Hours</value>
+  </data>
+  <data name="OnlyNumbersForMinutes" xml:space="preserve">
+    <value>Only Numbers Are Allowed For Minutes</value>
+  </data>
+  <data name="OR" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="OverSpeed" xml:space="preserve">
+    <value>Over Speed</value>
+  </data>
+  <data name="OverspeedAlert" xml:space="preserve">
+    <value>Over speed Alert</value>
+  </data>
+  <data name="OverspeedDurationValidation" xml:space="preserve">
+    <value>Please Enter Overspeed Duration Value</value>
+  </data>
+  <data name="OverspeedingDuration" xml:space="preserve">
+    <value>Overspeeding Duration</value>
+  </data>
+  <data name="OverspeedLimit" xml:space="preserve">
+    <value>Overspeed Limit</value>
+  </data>
+  <data name="OverspeedLimitDuration" xml:space="preserve">
+    <value>Please Enter Overspeed Limit Value</value>
+  </data>
+  <data name="Package" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="PackageAdded" xml:space="preserve">
+    <value>Package Added Successfully</value>
+  </data>
+  <data name="PackageExist" xml:space="preserve">
+    <value>Package Name Already Exists</value>
+  </data>
+  <data name="PackageMaster" xml:space="preserve">
+    <value>Package Master</value>
+  </data>
+  <data name="PackageName" xml:space="preserve">
+    <value>Package Name</value>
+  </data>
+  <data name="Packages" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="PackageUpdated" xml:space="preserve">
+    <value>Package Details Updated Successfully</value>
+  </data>
+  <data name="PackageValidation" xml:space="preserve">
+    <value>Please Enter  Package Name</value>
+  </data>
+  <data name="PacketsRecieved" xml:space="preserve">
+    <value>Packets Recieved</value>
+  </data>
+  <data name="PacketType" xml:space="preserve">
+    <value>Packet Type</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="Pagingof" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Panic" xml:space="preserve">
+    <value>Panic</value>
+  </data>
+  <data name="PanicAlert" xml:space="preserve">
+    <value>Panic Alert</value>
+  </data>
+  <data name="PanicPassenger" xml:space="preserve">
+    <value>Panic Passenger</value>
+  </data>
+  <data name="ParentAccountName" xml:space="preserve">
+    <value>Parent Account Name</value>
+  </data>
+  <data name="ParentCategory" xml:space="preserve">
+    <value>Parent Category</value>
+  </data>
+  <data name="ParentCustomer" xml:space="preserve">
+    <value>Parent Customer Name</value>
+  </data>
+  <data name="ParentCustomerValidation" xml:space="preserve">
+    <value>Please Select Referrer Account Name</value>
+  </data>
+  <data name="ParentForm" xml:space="preserve">
+    <value>Parent Form</value>
+  </data>
+  <data name="ParentType" xml:space="preserve">
+    <value>Parent Type</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Enter Password</value>
+  </data>
+  <data name="Passwordvalidation" xml:space="preserve">
+    <value>Please Enter Password</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="PaymentDate" xml:space="preserve">
+    <value>Payment Date</value>
+  </data>
+  <data name="PaymentDetail" xml:space="preserve">
+    <value>Payment Details</value>
+  </data>
+  <data name="PaymentMode" xml:space="preserve">
+    <value>Payment Mode</value>
+  </data>
+  <data name="PDF" xml:space="preserve">
+    <value>PDF</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="PersonIncharge" xml:space="preserve">
+    <value>Person Incharge</value>
+  </data>
+  <data name="PersonInchargeContactNo" xml:space="preserve">
+    <value>Person Incharge Contact No</value>
+  </data>
+  <data name="PlatformAlert" xml:space="preserve">
+    <value>Platform Alert</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Playbackby" xml:space="preserve">
+    <value>Playback by</value>
+  </data>
+  <data name="Please" xml:space="preserve">
+    <value>Please</value>
+  </data>
+  <data name="POIIcon" xml:space="preserve">
+    <value>POI Icon</value>
+  </data>
+  <data name="PoliceVerification" xml:space="preserve">
+    <value>Police Verification</value>
+  </data>
+  <data name="Polling" xml:space="preserve">
+    <value>Polling</value>
+  </data>
+  <data name="PollingEndTime" xml:space="preserve">
+    <value>Polling End Time</value>
+  </data>
+  <data name="PollingNotPollingReport" xml:space="preserve">
+    <value>Polling Not Polling Report</value>
+  </data>
+  <data name="PollingStartTime" xml:space="preserve">
+    <value>Polling Start Time</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortAdded" xml:space="preserve">
+    <value>Port Added Successfully.</value>
+  </data>
+  <data name="PortAlreadyExist" xml:space="preserve">
+    <value>Port Already Exists.</value>
+  </data>
+  <data name="PortAlreadyMapped" xml:space="preserve">
+    <value>Port is already Mapped With Machine, therefore it cannot be updated.</value>
+  </data>
+  <data name="PortDeleted" xml:space="preserve">
+    <value>Port Deleted SuccessFully.</value>
+  </data>
+  <data name="PortFormat" xml:space="preserve">
+    <value>Port Number Is Not In Valid Format.</value>
+  </data>
+  <data name="PortList" xml:space="preserve">
+    <value>Port List</value>
+  </data>
+  <data name="PortName" xml:space="preserve">
+    <value>Port Name</value>
+  </data>
+  <data name="PortUpdated" xml:space="preserve">
+    <value>Port Updated Successfully.</value>
+  </data>
+  <data name="PowerCutoff" xml:space="preserve">
+    <value>Power Cut-off</value>
+  </data>
+  <data name="PowerCutoffAlert" xml:space="preserve">
+    <value>Power Cut off Alert</value>
+  </data>
+  <data name="PowerMode" xml:space="preserve">
+    <value>Power Mode</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="PricePerLitre" xml:space="preserve">
+    <value>Price Per Litre</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>PRINT</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="ProcessFailed" xml:space="preserve">
+    <value>Process Failed</value>
+  </data>
+  <data name="Pswvalidation" xml:space="preserve">
+    <value>Password Must be between 4 and 14 characters</value>
+  </data>
+  <data name="Radius" xml:space="preserve">
+    <value>Radius(mtr)</value>
+  </data>
+  <data name="RadiusExceed" xml:space="preserve">
+    <value>Radius should not exceed</value>
+  </data>
+  <data name="RadiusLimit" xml:space="preserve">
+    <value>Radius Can not be less than 50 mtr, zero or empty.</value>
+  </data>
+  <data name="Radius_mm" xml:space="preserve">
+    <value>Radius (mm)</value>
+  </data>
+  <data name="RawPacket" xml:space="preserve">
+    <value>Raw Packet Report</value>
+  </data>
+  <data name="RawPacketReport" xml:space="preserve">
+    <value>Raw Packet Report</value>
+  </data>
+  <data name="ReadNotifications" xml:space="preserve">
+    <value>Read all notifications</value>
+  </data>
+  <data name="ReceiveDate" xml:space="preserve">
+    <value>Receive Date</value>
+  </data>
+  <data name="ReceivedDateTime" xml:space="preserve">
+    <value>Received Date Time</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="RecordAddedExcel" xml:space="preserve">
+    <value>Record Added Successfully</value>
+  </data>
+  <data name="RecordInserted" xml:space="preserve">
+    <value>Record Added Successfully</value>
+  </data>
+  <data name="RecordInvalid" xml:space="preserve">
+    <value>All Records Are Invalid</value>
+  </data>
+  <data name="Records" xml:space="preserve">
+    <value>Records</value>
+  </data>
+  <data name="RecordUpdated" xml:space="preserve">
+    <value>Record Updated Successfully</value>
+  </data>
+  <data name="RecoveredDatetime" xml:space="preserve">
+    <value>Recovered Date time</value>
+  </data>
+  <data name="RecoverVehicle" xml:space="preserve">
+    <value>Recover Vehicle</value>
+  </data>
+  <data name="ReferredBy" xml:space="preserve">
+    <value>Referred By</value>
+  </data>
+  <data name="ReferredByValidation" xml:space="preserve">
+    <value>Please Select Referred By</value>
+  </data>
+  <data name="ReferrerAccountName" xml:space="preserve">
+    <value>Referrer Account Name</value>
+  </data>
+  <data name="ReferrerAccountNameValidation" xml:space="preserve">
+    <value>Please Select Parent Customer Name</value>
+  </data>
+  <data name="ReferrerDetail" xml:space="preserve">
+    <value>Referrer Detail</value>
+  </data>
+  <data name="RefreshTime" xml:space="preserve">
+    <value>Refresh Time</value>
+  </data>
+  <data name="Refuel" xml:space="preserve">
+    <value>Refuel</value>
+  </data>
+  <data name="RefuelAnalysisReport" xml:space="preserve">
+    <value>Refuel Analysis Report</value>
+  </data>
+  <data name="RefuelData" xml:space="preserve">
+    <value>Refuel Data</value>
+  </data>
+  <data name="RegistrationNo" xml:space="preserve">
+    <value>Vehicle No</value>
+  </data>
+  <data name="RegistrationNoValidation" xml:space="preserve">
+    <value>Please Select  Registration No</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="RemarksValidation" xml:space="preserve">
+    <value>Please Enter Remarks</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
+  </data>
+  <data name="ReminderAfter" xml:space="preserve">
+    <value>Reminder After</value>
+  </data>
+  <data name="ReminderDate" xml:space="preserve">
+    <value>Reminder Date</value>
+  </data>
+  <data name="ReminderDays" xml:space="preserve">
+    <value>Reminder Days</value>
+  </data>
+  <data name="ReminderType" xml:space="preserve">
+    <value>Reminder Type</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Repair</value>
+  </data>
+  <data name="RepairAndService" xml:space="preserve">
+    <value>Repair &amp; Service</value>
+  </data>
+  <data name="RepairAndServiceData" xml:space="preserve">
+    <value>Repair &amp; Service Data</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="Requiredfielderror" xml:space="preserve">
+    <value>Required field error</value>
+  </data>
+  <data name="Rights" xml:space="preserve">
+    <value>Rights</value>
+  </data>
+  <data name="RM" xml:space="preserve">
+    <value>+/- (RM)</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="RoleAccountValidation" xml:space="preserve">
+    <value>Please Select  Account Name</value>
+  </data>
+  <data name="RoleAdded" xml:space="preserve">
+    <value>Role  Added Successfully</value>
+  </data>
+  <data name="RoleAlreadyExist" xml:space="preserve">
+    <value>Role Already Exists</value>
+  </data>
+  <data name="RoleData" xml:space="preserve">
+    <value>Role Data</value>
+  </data>
+  <data name="RoleDeleted" xml:space="preserve">
+    <value>Role Deleted Successfully</value>
+  </data>
+  <data name="RoleFor" xml:space="preserve">
+    <value>Role For</value>
+  </data>
+  <data name="RoleForValidation" xml:space="preserve">
+    <value>Please Select Role For</value>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>Role Name</value>
+  </data>
+  <data name="RoleNameValidation" xml:space="preserve">
+    <value>Please Enter Role Name</value>
+  </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>Role Not Found</value>
+  </data>
+  <data name="RoleRights" xml:space="preserve">
+    <value>Role Rights</value>
+  </data>
+  <data name="RoleUpdated" xml:space="preserve">
+    <value>Role Updated Successfully</value>
+  </data>
+  <data name="s" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="SatelliteCount" xml:space="preserve">
+    <value>Satellite Count</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchAddress" xml:space="preserve">
+    <value>Search Address</value>
+  </data>
+  <data name="SearchLatLong" xml:space="preserve">
+    <value>Search Lat Long</value>
+  </data>
+  <data name="SearchLocation" xml:space="preserve">
+    <value>Search Location</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Search Text </value>
+  </data>
+  <data name="SearchVehicle" xml:space="preserve">
+    <value>Search Vehicle</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>--select--</value>
+  </data>
+  <data name="SelectAccessory" xml:space="preserve">
+    <value>Select Accessory</value>
+  </data>
+  <data name="SelectAccount" xml:space="preserve">
+    <value>--Select Account--</value>
+  </data>
+  <data name="SelectAccountType" xml:space="preserve">
+    <value>Select Account Type</value>
+  </data>
+  <data name="SelectAssignmentType" xml:space="preserve">
+    <value>Please Select Assignment Type</value>
+  </data>
+  <data name="SelectBillingAddress" xml:space="preserve">
+    <value>Please Select Billing Address Same</value>
+  </data>
+  <data name="SelectBreakdownDateTime" xml:space="preserve">
+    <value>Please Select Breakdown Datetime.</value>
+  </data>
+  <data name="SelectCalibartionMode" xml:space="preserve">
+    <value>Please Select Calibartion Mode</value>
+  </data>
+  <data name="SelectColor" xml:space="preserve">
+    <value>--Select Color--</value>
+  </data>
+  <data name="SelectColumns" xml:space="preserve">
+    <value>Please Select Column.</value>
+  </data>
+  <data name="SelectCountryNameValidation" xml:space="preserve">
+    <value>Please Select Country Name</value>
+  </data>
+  <data name="SelectCustomerCategory" xml:space="preserve">
+    <value>Please Select Customer Category</value>
+  </data>
+  <data name="SelectCustomerDropDwn" xml:space="preserve">
+    <value>Select Customer</value>
+  </data>
+  <data name="SelectCustomerName" xml:space="preserve">
+    <value>Please Select Customer Name</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Please Select Date</value>
+  </data>
+  <data name="SelectDeviceType" xml:space="preserve">
+    <value>Please Select Device Type</value>
+  </data>
+  <data name="SelectDriverNameValidation" xml:space="preserve">
+    <value>Please Select  Driver  Name</value>
+  </data>
+  <data name="SelectFuelSensorIDNo" xml:space="preserve">
+    <value>Please Select Fuel Sensor ID No.</value>
+  </data>
+  <data name="SelectFuelSensorType" xml:space="preserve">
+    <value>Please Select  Fuel Sensor Type</value>
+  </data>
+  <data name="SelectFuelType" xml:space="preserve">
+    <value>Please Select  Fuel Type</value>
+  </data>
+  <data name="SelectGPSDeviceID" xml:space="preserve">
+    <value>Please Select GPS Device ID No.</value>
+  </data>
+  <data name="SelectInstallerName" xml:space="preserve">
+    <value>Please Select Installer Name</value>
+  </data>
+  <data name="SelectlngName" xml:space="preserve">
+    <value>Please Select  Language Name</value>
+  </data>
+  <data name="SelectNotificationType" xml:space="preserve">
+    <value>Please Select Notification Type.</value>
+  </data>
+  <data name="SelectorTypetoAdd" xml:space="preserve">
+    <value>Select or Type to Add</value>
+  </data>
+  <data name="SelectPackageName" xml:space="preserve">
+    <value>Please Select Package Name</value>
+  </data>
+  <data name="SelectPacket" xml:space="preserve">
+    <value>--Select Packet--</value>
+  </data>
+  <data name="SelectparentAccount" xml:space="preserve">
+    <value>Please Select Parent Account Name</value>
+  </data>
+  <data name="SelectParentCategory" xml:space="preserve">
+    <value>Please Select Parent Category</value>
+  </data>
+  <data name="SelectPaymentMode" xml:space="preserve">
+    <value>Please Select Payment Mode</value>
+  </data>
+  <data name="SelectPort" xml:space="preserve">
+    <value>Please Select Port Name</value>
+  </data>
+  <data name="SelectReceiveDate" xml:space="preserve">
+    <value>Please Select Device of Receiving</value>
+  </data>
+  <data name="SelectRecoverDateTime" xml:space="preserve">
+    <value>Please Select Recover Datetime.</value>
+  </data>
+  <data name="SelectReminderDate" xml:space="preserve">
+    <value>Please Select Reminder Date</value>
+  </data>
+  <data name="selectRoleValidation" xml:space="preserve">
+    <value>Please Select Role Name</value>
+  </data>
+  <data name="SelectSelectAccessory" xml:space="preserve">
+    <value>Please Select Select Accessory</value>
+  </data>
+  <data name="SelectSimMobNo" xml:space="preserve">
+    <value>Please Select  SIM Mob No.</value>
+  </data>
+  <data name="SelectSimTypeValidation" xml:space="preserve">
+    <value>Please Select  Sim Type</value>
+  </data>
+  <data name="SelectStateNameValidation" xml:space="preserve">
+    <value>Please Select State Name</value>
+  </data>
+  <data name="SelectStatus" xml:space="preserve">
+    <value>Please Select Status</value>
+  </data>
+  <data name="SelectSubGroup" xml:space="preserve">
+    <value>Please Select Group/Sub-group</value>
+  </data>
+  <data name="SelectSubscriptionPeriod" xml:space="preserve">
+    <value>Please Select Subscription Period</value>
+  </data>
+  <data name="SelectTankType" xml:space="preserve">
+    <value>Please Select Tank Type</value>
+  </data>
+  <data name="SelectTime" xml:space="preserve">
+    <value>Please Select Time</value>
+  </data>
+  <data name="SelectTimeRange" xml:space="preserve">
+    <value>Select Time Range</value>
+  </data>
+  <data name="SelectTranslatedlng" xml:space="preserve">
+    <value>Please Enter Translated Language Name</value>
+  </data>
+  <data name="SelectUser" xml:space="preserve">
+    <value>Please select User</value>
+  </data>
+  <data name="SelectVehicle" xml:space="preserve">
+    <value>Please Select Vehicle  No.</value>
+  </data>
+  <data name="SelectVehicleBrand" xml:space="preserve">
+    <value>Please Select Vehicle Brand</value>
+  </data>
+  <data name="SelectVehicleGroupDropDwn" xml:space="preserve">
+    <value>Select Vehicle Group</value>
+  </data>
+  <data name="SelectVehicleNo" xml:space="preserve">
+    <value>Please Select Vehicle No</value>
+  </data>
+  <data name="SelectVehicleType" xml:space="preserve">
+    <value>Please Select Vehicle Type</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>SerialNo</value>
+  </data>
+  <data name="ServerDateTime" xml:space="preserve">
+    <value>Server Date Time</value>
+  </data>
+  <data name="ServiceNotResponding" xml:space="preserve">
+    <value>Service Not Responding.</value>
+  </data>
+  <data name="sessionhasexpired" xml:space="preserve">
+    <value>Your session has expired</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="SetUp" xml:space="preserve">
+    <value>SetUp</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="ShareValidation" xml:space="preserve">
+    <value>Please Select Share</value>
+  </data>
+  <data name="ShareVia" xml:space="preserve">
+    <value>Share Via</value>
+  </data>
+  <data name="ShareViaValidation" xml:space="preserve">
+    <value>Please Select Share Via</value>
+  </data>
+  <data name="ShouldNotLessThan" xml:space="preserve">
+    <value>Should Not Less Than</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Showing" xml:space="preserve">
+    <value>Showing</value>
+  </data>
+  <data name="showpassword" xml:space="preserve">
+    <value>Show Password</value>
+  </data>
+  <data name="Sim" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="SimActivationDate" xml:space="preserve">
+    <value>Sim Activation Date</value>
+  </data>
+  <data name="SimActivationValidation" xml:space="preserve">
+    <value>Please Select  Sim Activation Date</value>
+  </data>
+  <data name="SimAdded" xml:space="preserve">
+    <value>SIM Added Successfully</value>
+  </data>
+  <data name="SimAlready" xml:space="preserve">
+    <value>Sim SN. Already Exists</value>
+  </data>
+  <data name="Simcards" xml:space="preserve">
+    <value>Sim Cards</value>
+  </data>
+  <data name="SimEmptyMandatory" xml:space="preserve">
+    <value>Sim Master Contains Empty Mandatory Fields</value>
+  </data>
+  <data name="SimExpiryDate" xml:space="preserve">
+    <value>Sim Expiry Date</value>
+  </data>
+  <data name="SimExpiryValidation" xml:space="preserve">
+    <value>Please Select  Sim Expiry Date</value>
+  </data>
+  <data name="SimilarRecordPresent" xml:space="preserve">
+    <value>Similar Record for Sim Master is Present In Excel</value>
+  </data>
+  <data name="SimMandatory" xml:space="preserve">
+    <value>SimTelcoType, SIMSN, SIMMobileNo, SIMActivationDate Are Mandatory Fields</value>
+  </data>
+  <data name="SimMaster" xml:space="preserve">
+    <value>Sim Master</value>
+  </data>
+  <data name="SimMobile" xml:space="preserve">
+    <value>Same SIM Mobile No.  Already Exists</value>
+  </data>
+  <data name="SimMobileNo" xml:space="preserve">
+    <value>Sim Mobile No</value>
+  </data>
+  <data name="SimMobileNoPresent" xml:space="preserve">
+    <value>Same Sim Mobile No are Present In Excel</value>
+  </data>
+  <data name="SimMobileNoValidation" xml:space="preserve">
+    <value>Please Enter Sim Mobile  No</value>
+  </data>
+  <data name="SIMMobNo" xml:space="preserve">
+    <value>SIM Mob No</value>
+  </data>
+  <data name="SimNo" xml:space="preserve">
+    <value>Sim No</value>
+  </data>
+  <data name="SimNotpresent" xml:space="preserve">
+    <value>Sim Not present</value>
+  </data>
+  <data name="SimReceiving" xml:space="preserve">
+    <value>Sim Receiving</value>
+  </data>
+  <data name="SimSerialNo" xml:space="preserve">
+    <value>Sim S/N</value>
+  </data>
+  <data name="SimSerialNoValidation" xml:space="preserve">
+    <value>Please Enter Sim Serial No</value>
+  </data>
+  <data name="SIMStatus" xml:space="preserve">
+    <value>SIM Status</value>
+  </data>
+  <data name="SIMTelco" xml:space="preserve">
+    <value>SIM Telco</value>
+  </data>
+  <data name="SimTelcoAdded" xml:space="preserve">
+    <value>SIM Telco Added Successfully</value>
+  </data>
+  <data name="SimTelcoName" xml:space="preserve">
+    <value>Sim Telco Name Required</value>
+  </data>
+  <data name="SimType" xml:space="preserve">
+    <value>Sim Type </value>
+  </data>
+  <data name="SimTypeValidation" xml:space="preserve">
+    <value>Please Enter Sim Type</value>
+  </data>
+  <data name="SimUpdated" xml:space="preserve">
+    <value>SIM Updated Successfully</value>
+  </data>
+  <data name="Sold" xml:space="preserve">
+    <value>Sold</value>
+  </data>
+  <data name="Solution" xml:space="preserve">
+    <value>Solution</value>
+  </data>
+  <data name="SomethingWrong" xml:space="preserve">
+    <value>Something Went Wrong</value>
+  </data>
+  <data name="SparePartCost" xml:space="preserve">
+    <value>Spare Part Cost</value>
+  </data>
+  <data name="SparepartCostvalidation" xml:space="preserve">
+    <value>Please Enter Spare part Cost</value>
+  </data>
+  <data name="SparePartName" xml:space="preserve">
+    <value>Spare Part Name</value>
+  </data>
+  <data name="SparepartNamevalidation" xml:space="preserve">
+    <value>Please Enter Spare Part Name</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed(km/hr)</value>
+  </data>
+  <data name="SpeedDashboard" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="StandingTime" xml:space="preserve">
+    <value>Standing Time</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StartDateAndTime" xml:space="preserve">
+    <value>START DATE &amp; TIME</value>
+  </data>
+  <data name="StartDateTime" xml:space="preserve">
+    <value>Start Date Time</value>
+  </data>
+  <data name="StartLocation" xml:space="preserve">
+    <value>Start Location</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="StateAdded" xml:space="preserve">
+    <value>State Added Successfully</value>
+  </data>
+  <data name="StateData" xml:space="preserve">
+    <value>State Data</value>
+  </data>
+  <data name="StateExists" xml:space="preserve">
+    <value>State Name Already Exists In Selected Country</value>
+  </data>
+  <data name="StateInActive" xml:space="preserve">
+    <value>City Exists For this State, So You Cannot Make State InActive</value>
+  </data>
+  <data name="StateInvalid" xml:space="preserve">
+    <value>State Name Is Not Valid</value>
+  </data>
+  <data name="StateMaster" xml:space="preserve">
+    <value>State Master</value>
+  </data>
+  <data name="StateName" xml:space="preserve">
+    <value>State Name</value>
+  </data>
+  <data name="StateNameValidation" xml:space="preserve">
+    <value>Please Enter State  Name</value>
+  </data>
+  <data name="StateUpdated" xml:space="preserve">
+    <value>State Details Updated Successfully</value>
+  </data>
+  <data name="StateValidation" xml:space="preserve">
+    <value>Please Select State</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusValidation" xml:space="preserve">
+    <value>Please Select  Status</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="StopDurationmin" xml:space="preserve">
+    <value>Stop Duration (min)</value>
+  </data>
+  <data name="StopIcon" xml:space="preserve">
+    <value>Stop Icon</value>
+  </data>
+  <data name="StopIconValidation" xml:space="preserve">
+    <value>Please Select  Stop Icon</value>
+  </data>
+  <data name="StopSign" xml:space="preserve">
+    <value>Stop Sign</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SubGroup" xml:space="preserve">
+    <value>Group/Sub-group</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Subscription" xml:space="preserve">
+    <value>Subscription</value>
+  </data>
+  <data name="SubscriptionDetail" xml:space="preserve">
+    <value>Subscription Details</value>
+  </data>
+  <data name="SubscriptionExpiry" xml:space="preserve">
+    <value>Subscription Expiry</value>
+  </data>
+  <data name="SubscriptionExpiryspace" xml:space="preserve">
+    <value>Subscription Expiry</value>
+  </data>
+  <data name="SubscriptionFrom" xml:space="preserve">
+    <value>Subscription From</value>
+  </data>
+  <data name="SubscriptionPeriod" xml:space="preserve">
+    <value>Subscription Period</value>
+  </data>
+  <data name="SubscriptionRemarks" xml:space="preserve">
+    <value>Subscription Remarks</value>
+  </data>
+  <data name="SubscriptionTo" xml:space="preserve">
+    <value>Subscription To</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="SupplierName" xml:space="preserve">
+    <value>Supplier Name</value>
+  </data>
+  <data name="Sync" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="SyncFailed" xml:space="preserve">
+    <value>Sync Failed</value>
+  </data>
+  <data name="SyncSuccess" xml:space="preserve">
+    <value>Sync successful</value>
+  </data>
+  <data name="TankType" xml:space="preserve">
+    <value>Tank Type</value>
+  </data>
+  <data name="Temp" xml:space="preserve">
+    <value>Temp</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>This Month</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TitleName" xml:space="preserve">
+    <value>Select or Type to Add</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="TodayACActivities" xml:space="preserve">
+    <value>Today AC Activities</value>
+  </data>
+  <data name="TodayActivity" xml:space="preserve">
+    <value>Today Activity</value>
+  </data>
+  <data name="TodayIgnitionActivities" xml:space="preserve">
+    <value>Today Ignition Activities</value>
+  </data>
+  <data name="TotalAccount" xml:space="preserve">
+    <value>Total </value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="TotalCost" xml:space="preserve">
+    <value>Total Cost</value>
+  </data>
+  <data name="TotalDistanceTraveledkm" xml:space="preserve">
+    <value>Total Distance Traveled (km)</value>
+  </data>
+  <data name="TotalFuelConsumptionLtr" xml:space="preserve">
+    <value>Total Fuel Consumption (Ltr)</value>
+  </data>
+  <data name="TotalFuelTheftLtr" xml:space="preserve">
+    <value>Total Fuel Theft (Ltr)</value>
+  </data>
+  <data name="TotalLitreFuel" xml:space="preserve">
+    <value>Total Litres Of Fuel</value>
+  </data>
+  <data name="TotalStock" xml:space="preserve">
+    <value>Total Stock</value>
+  </data>
+  <data name="TotalVehicles" xml:space="preserve">
+    <value>Total Vehicles</value>
+  </data>
+  <data name="Tracking" xml:space="preserve">
+    <value>Tracking</value>
+  </data>
+  <data name="TrackOnMap" xml:space="preserve">
+    <value>Track  On Map</value>
+  </data>
+  <data name="TrackVehicles" xml:space="preserve">
+    <value>Track All Vehicles</value>
+  </data>
+  <data name="Training" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Transferred</value>
+  </data>
+  <data name="TranslatedLanguageName" xml:space="preserve">
+    <value>Translated Language Name</value>
+  </data>
+  <data name="TripDuration" xml:space="preserve">
+    <value>Trip Duration</value>
+  </data>
+  <data name="TripReport" xml:space="preserve">
+    <value>Trip Report</value>
+  </data>
+  <data name="TripReportData" xml:space="preserve">
+    <value>Trip Report Data</value>
+  </data>
+  <data name="UploadDocument" xml:space="preserve">
+    <value>Upload Document</value>
+  </data>
+  <data name="UploadDocuments" xml:space="preserve">
+    <value>Upload Documents</value>
+  </data>
+  <data name="UploadDocumentValidation" xml:space="preserve">
+    <value>Only JPEG/JPG/PNG And PDF Files Are Allowed For Upload Document</value>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>Upload Failed As All Records Are Invalid</value>
+  </data>
+  <data name="UploadImageValidation" xml:space="preserve">
+    <value>Only JPEG/JPG/PNG are allowed For Upload Image</value>
+  </data>
+  <data name="UploadLicenceValidation" xml:space="preserve">
+    <value> Only JPEG/JPG/PNG And PDF are allowed For Upload Licence</value>
+  </data>
+  <data name="UploadLicense" xml:space="preserve">
+    <value>Upload License</value>
+  </data>
+  <data name="UploadLicenseValidation" xml:space="preserve">
+    <value>Please Upload License</value>
+  </data>
+  <data name="UploadValidation" xml:space="preserve">
+    <value>Please Upload File</value>
+  </data>
+  <data name="UsageDashboard" xml:space="preserve">
+    <value>Usage Dashboard</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="useraccess" xml:space="preserve">
+    <value>User Access Detail</value>
+  </data>
+  <data name="UserAccessDetail" xml:space="preserve">
+    <value>User Access Detail</value>
+  </data>
+  <data name="UserAccountMapping" xml:space="preserve">
+    <value>User Account Mapping</value>
+  </data>
+  <data name="UserAccountMappingAdded" xml:space="preserve">
+    <value>User Account Mapping Added Successfully</value>
+  </data>
+  <data name="UserAccountMappingData" xml:space="preserve">
+    <value>User Account Mapping Data</value>
+  </data>
+  <data name="UserAccountMappingUpdated" xml:space="preserve">
+    <value>User Account Mapping Updated Successfully.</value>
+  </data>
+  <data name="UserAlreadyExist" xml:space="preserve">
+    <value>User Name Already Exists</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>User Created Successfully</value>
+  </data>
+  <data name="UsercredentialsMessage" xml:space="preserve">
+    <value>UserId &amp; Password not matched</value>
+  </data>
+  <data name="UserCustomerMapping" xml:space="preserve">
+    <value>User Customer Mapping</value>
+  </data>
+  <data name="UserCustomerMappingData" xml:space="preserve">
+    <value>User Customer Mapping Data</value>
+  </data>
+  <data name="UserData" xml:space="preserve">
+    <value>User Data</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>User Details</value>
+  </data>
+  <data name="UserExistCompany" xml:space="preserve">
+    <value>Same User Name already Exists for the Company</value>
+  </data>
+  <data name="UserFor" xml:space="preserve">
+    <value>User For</value>
+  </data>
+  <data name="UserLimit" xml:space="preserve">
+    <value>User Limit</value>
+  </data>
+  <data name="UserlimitValidation" xml:space="preserve">
+    <value>Please Enter User Limit</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="UserMaster" xml:space="preserve">
+    <value>User Master</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Your Username</value>
+  </data>
+  <data name="UserNameExists" xml:space="preserve">
+    <value>User Name already Exists</value>
+  </data>
+  <data name="UserNameValidation" xml:space="preserve">
+    <value>Please Enter User Name</value>
+  </data>
+  <data name="UserRole" xml:space="preserve">
+    <value>User Role</value>
+  </data>
+  <data name="UserRoleValidation" xml:space="preserve">
+    <value>Please Select User Role</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>User Updated Successfully</value>
+  </data>
+  <data name="UserVehicleAccess" xml:space="preserve">
+    <value>User Vehicle Access</value>
+  </data>
+  <data name="UserVehicleAccessData" xml:space="preserve">
+    <value>User Vehicle Access Data</value>
+  </data>
+  <data name="UsruserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="UsrValidation" xml:space="preserve">
+    <value>Please Select User Name</value>
+  </data>
+  <data name="UVAccessAdd" xml:space="preserve">
+    <value>User Vechile Access  Added Successfully.</value>
+  </data>
+  <data name="UVAccessUpdate" xml:space="preserve">
+    <value>User Vechile Access  Updated Successfully.</value>
+  </data>
+  <data name="valid" xml:space="preserve">
+    <value>valid</value>
+  </data>
+  <data name="ValidActivation" xml:space="preserve">
+    <value>Please Enter Valid SIM Activation Date</value>
+  </data>
+  <data name="ValidDateExpiry" xml:space="preserve">
+    <value>Please Enter SIM Expirydate should be greater or equal to SIM Activation Date</value>
+  </data>
+  <data name="ValidDateReceiving" xml:space="preserve">
+    <value>Please Enter Valid Date of Receiving</value>
+  </data>
+  <data name="ValidExpiry" xml:space="preserve">
+    <value>Please Enter Valid SIM Expiry Date</value>
+  </data>
+  <data name="ValidExpiryDate" xml:space="preserve">
+    <value>Please Enter Valid Expiry Date</value>
+  </data>
+  <data name="validimage" xml:space="preserve">
+    <value>Please Upload Valid Image</value>
+  </data>
+  <data name="ValidInvalidRecords" xml:space="preserve">
+    <value>Valid Records Are added And Invalid Records Are Not Added</value>
+  </data>
+  <data name="ValidMobileNo" xml:space="preserve">
+    <value>Please Enter Valid Mobile No Format</value>
+  </data>
+  <data name="ValidSimSN" xml:space="preserve">
+    <value>Please Enter Valid SIM S/N Number</value>
+  </data>
+  <data name="ValidSupplierName" xml:space="preserve">
+    <value>Please Enter Valid Supplier Name</value>
+  </data>
+  <data name="ValidUserName" xml:space="preserve">
+    <value>Please Enter Valid UserName</value>
+  </data>
+  <data name="ValidVehicleBrand" xml:space="preserve">
+    <value>Please Enter Valid Vehicle Brand Name</value>
+  </data>
+  <data name="VechileAccess" xml:space="preserve">
+    <value>Vechile Access</value>
+  </data>
+  <data name="Vehicle" xml:space="preserve">
+    <value>Vehicle</value>
+  </data>
+  <data name="VehicleAccess" xml:space="preserve">
+    <value>Vehicle Access</value>
+  </data>
+  <data name="VehicleActivity" xml:space="preserve">
+    <value>Vehicle Activity</value>
+  </data>
+  <data name="VehicleAlreadyMapped" xml:space="preserve">
+    <value>Vehicle is Already Mapped With Another Installer</value>
+  </data>
+  <data name="VehicleBrand" xml:space="preserve">
+    <value>Vehicle Brand</value>
+  </data>
+  <data name="VehicleBrandAdded" xml:space="preserve">
+    <value>Vehicle Brand Added Successfully</value>
+  </data>
+  <data name="VehicleBrandAlreadyExists" xml:space="preserve">
+    <value>Same Vehicle Brand Name Already Exist in Database</value>
+  </data>
+  <data name="VehicleBrandData" xml:space="preserve">
+    <value>Vehicle Brand Data</value>
+  </data>
+  <data name="VehicleBrandExists" xml:space="preserve">
+    <value>Vehicle Brand Already Exists</value>
+  </data>
+  <data name="VehicleBrandMandatory" xml:space="preserve">
+    <value>Vehicle Brand, Status are Mandatory Fields.</value>
+  </data>
+  <data name="VehicleBrandNotFound" xml:space="preserve">
+    <value>Vehicle Brand Name Not Found</value>
+  </data>
+  <data name="VehicleBrandUpdated" xml:space="preserve">
+    <value>Vehicle Brand Updated Successfully</value>
+  </data>
+  <data name="VehiclebrandValidation" xml:space="preserve">
+    <value>Please Enter Vehicle Brand</value>
+  </data>
+  <data name="VehicleBreakDown" xml:space="preserve">
+    <value>Vehicle Breakdown</value>
+  </data>
+  <data name="VehicleBreakDownData" xml:space="preserve">
+    <value>Vehicle Breakdown Data</value>
+  </data>
+  <data name="VehicleBreakdownInvalid" xml:space="preserve">
+    <value>Invalid Entry For Vehicle or Breakdown Datetime.</value>
+  </data>
+  <data name="VehicleCount" xml:space="preserve">
+    <value>Vehicle Count</value>
+  </data>
+  <data name="VehicleDashboard" xml:space="preserve">
+    <value>Vehicle Dashboard</value>
+  </data>
+  <data name="VehicleData" xml:space="preserve">
+    <value>Vehicle Data</value>
+  </data>
+  <data name="VehicleDetails" xml:space="preserve">
+    <value>Vehicle Details</value>
+  </data>
+  <data name="VehicleGrouping" xml:space="preserve">
+    <value>Vehicle Grouping Done Successfully</value>
+  </data>
+  <data name="VehicleMakeBrand" xml:space="preserve">
+    <value>Vehicle Make/Brand</value>
+  </data>
+  <data name="VehicleMap" xml:space="preserve">
+    <value>Vehicle cannot be deleted as it is mapped with device.</value>
+  </data>
+  <data name="VehicleMapInactive" xml:space="preserve">
+    <value>Vehicle cannot be inactive as it is mapped with device.</value>
+  </data>
+  <data name="VehicleModel" xml:space="preserve">
+    <value>Vehicle Model</value>
+  </data>
+  <data name="VehicleName" xml:space="preserve">
+    <value>Vehicle Name</value>
+  </data>
+  <data name="VehicleNo" xml:space="preserve">
+    <value>Vehicle No</value>
+  </data>
+  <data name="VehiclePortMapping" xml:space="preserve">
+    <value>Vehicle Port Mapping</value>
+  </data>
+  <data name="VehiclePortMappingData" xml:space="preserve">
+    <value>Vehicle Port Mapping Data</value>
+  </data>
+  <data name="VehicleStatus" xml:space="preserve">
+    <value>Vehicle Status</value>
+  </data>
+  <data name="VehicleStatusValidation" xml:space="preserve">
+    <value>Please Select Vehicle Status</value>
+  </data>
+  <data name="VehicleType" xml:space="preserve">
+    <value>Vehicle Type</value>
+  </data>
+  <data name="VehicleTypeAdded" xml:space="preserve">
+    <value>Vehicle Type Added Successfully</value>
+  </data>
+  <data name="VehicleTypealreadyExist" xml:space="preserve">
+    <value>Vehicle Type Already Exists</value>
+  </data>
+  <data name="VehicleTypeUpdated" xml:space="preserve">
+    <value>Vehicle Type Updated Successfully</value>
+  </data>
+  <data name="VehicleTypeValidation" xml:space="preserve">
+    <value>Please Enter Vehicle Type</value>
+  </data>
+  <data name="VehicleValidation" xml:space="preserve">
+    <value>Please Select  Vehicle</value>
+  </data>
+  <data name="VehicleWiseMonthlyFuelReport" xml:space="preserve">
+    <value>Vehicle Wise Monthly Fuel Report</value>
+  </data>
+  <data name="Verfications" xml:space="preserve">
+    <value>Verfications</value>
+  </data>
+  <data name="VerificationValidation" xml:space="preserve">
+    <value>Please Select Verifications</value>
+  </data>
+  <data name="VerifiedBy" xml:space="preserve">
+    <value>Verified By</value>
+  </data>
+  <data name="ViaEmail" xml:space="preserve">
+    <value>Via Email</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ViewDetail" xml:space="preserve">
+    <value>View Detail</value>
+  </data>
+  <data name="ViewLocation" xml:space="preserve">
+    <value>View Location</value>
+  </data>
+  <data name="Vinish" xml:space="preserve">
+    <value>Vinish</value>
+  </data>
+  <data name="VseenMalaysiaMsg" xml:space="preserve">
+    <value>Vseen Malaysia Sdn Bhd All Right Reserved.</value>
+  </data>
+  <data name="WantRecoverVehicle" xml:space="preserve">
+    <value>Are You Sure You Want To Recover This Vehicle?</value>
+  </data>
+  <data name="WebMobile" xml:space="preserve">
+    <value>Web/Mobile</value>
+  </data>
+  <data name="WebmobileValidation" xml:space="preserve">
+    <value>Please Select  Web/Email</value>
+  </data>
+  <data name="Whatsapp" xml:space="preserve">
+    <value>Whatsapp</value>
+  </data>
+  <data name="WhicheverisEarlier" xml:space="preserve">
+    <value>Whichever is Earlier</value>
+  </data>
+  <data name="XlsFormat" xml:space="preserve">
+    <value>File Should be in (.xls, .xlsx) format.</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YourPassword" xml:space="preserve">
+    <value>Your Password</value>
+  </data>
+  <data name="YourUserID" xml:space="preserve">
+    <value>Your User ID</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Zip Code</value>
+  </data>
+  <data name="ZipCodeValidation" xml:space="preserve">
+    <value>Please Enter Zip Code</value>
+  </data>
+  <data name="FormRole" xml:space="preserve">
+    <value>Form Role Mapping</value>
+  </data>
+</root>

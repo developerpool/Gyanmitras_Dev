@@ -1,0 +1,207 @@
+﻿@model GyanmitrasMDL.LoginMDL
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title>Gyanmitras</title>
+    <link rel="apple-touch-icon" href="~/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/vendors.css">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN MODERN CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/app.css">
+    <!-- END MODERN CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/pages/login-register.css">
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <!-- END Custom CSS-->
+</head>
+<body class="vertical-layout vertical-menu 1-column   menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-menu" data-col="1-column">
+
+    <div id="GyanmitrasSlide">
+        <div class="first-silde slideDiv" style="z-index:3">
+            @*<h1>
+                    @GyanmitrasLanguages.LocalResources.Resource.imagetext1
+                    <span>
+                    @GyanmitrasLanguages.LocalResources.Resource.imagetext2 <br>
+                        @GyanmitrasLanguages.LocalResources.Resource.imagetext3
+                    </span>
+                </h1>*@
+            <img alt="silder-1" src="~/app-assets/images/gallery/1.jpg" />
+        </div>
+        <!--<div class="hide-silde slideDiv" style="z-index:-1">
+        <h1>Track Your Multip 2
+            <span>Gyanmitras provide you to track your multiple vehicle <br>
+            status and movement in real time on one screen.</span>
+        </h1>
+        <img alt="silder-1" src="app-assets/images/gallery/2.jpg" />
+        </div>-->
+        <!--<img alt="silder-1" src="app-assets/images/gallery/1.jpg" class="first-silde" style="z-index:3"/>-->
+        <!--<img alt="silder-2" src="app-assets/images/gallery/2.jpg" class="hide-silde" style="z-index:-1"/> -->
+    </div>
+
+
+    @*<div id="GyanmitrasSlide">
+            <img alt="silder-1" src="~/app-assets/images/gallery/1.jpg" class="first-silde" style="z-index:3" />
+            <img alt="silder-2" src="~/app-assets/images/gallery/2.jpg" class="hide-silde" style="z-index:-1" />
+        </div>*@
+    <div class="login-main-container">
+        @using (Html.BeginForm("Login", "Account",
+           FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="card m-0" style="box-shadow: none;">
+                <div class="card-header border-0">
+                    <div class="card-title text-center">
+                        <div class="p-1">
+                            <h1><b>GYANMITRAS</b></h1>
+                            @*<img src="~/app-assets/images/logo/logo-dark.png" alt="branding logo">*@
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="languageView  text-left">
+                            <div class="dropdown dropdown-language nav-item">
+                                <a class="dropdown-toggle" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-gb"></i><span class="selected-language">English</span></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                                    @{
+
+                                        foreach (var i in Gyanmitras.LanguageMang.AvailableLanguages)
+                                        {
+                                            @*@Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "Account", new { lang = i.LanguageCultureName ,@class= "dropdown-item"}, null)*@
+
+
+                                            <a class="dropdown-item" href="@Url.Action("ChangeLanguage","Account", new { lang = i.LanguageCultureName })">@i.LanguageFullName</a>
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <form class="form-horizontal" action="" novalidate>
+                            <h2>@GyanmitrasLanguages.LocalResources.Resource.LoginAccount</h2>
+
+                            <p>@GyanmitrasLanguages.LocalResources.Resource.LoginHeaderName</p>
+
+                            <fieldset class="form-group position-relative has-icon-left">
+
+                                @Html.TextBoxFor(E => E.UserName, new { @class = "form-control input-md", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.UserName, @maxlength = "30", })
+                                @Html.ValidationMessageFor(E => E.UserName)
+                                @*<input type="text" class="form-control input-lg" id="user-name" placeholder="@GyanmitrasLanguages.LocalResources.Resource.YourUserID">*@
+
+                                <div class="form-control-position">
+                                    <i class="la la-user"></i>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                @*<input type="password" class="form-control input-lg" id="user-password" placeholder= "@GyanmitrasLanguages.LocalResources.Resource.Password" >*@
+                                @Html.PasswordFor(E => E.Password, new { @class = "form-control input-md", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Password, value = Model.Password })
+                                @Html.ValidationMessageFor(E => E.Password)
+                                <div class="form-control-position">
+                                    <i class="la la-key"></i>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 col-12 text-center text-md-left">
+                                    <fieldset class="checkboxsas">
+                                        <label>
+                                            @Html.CheckBoxFor(u => u.RememberMe)
+                                            @GyanmitrasLanguages.LocalResources.Resource.RememberMe
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6 col-12 text-center text-md-right"><a href="" class="card-link" data-toggle="modal" data-target="#ModalRemarks">@GyanmitrasLanguages.LocalResources.Resource.ForgotPwd</a></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12 col-12 text-center">
+                                    <button type="submit" class="btn btn-dark btn-min-width round"> @GyanmitrasLanguages.LocalResources.Resource.ButtonLoginName</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="copyRightLogin">@GyanmitrasLanguages.LocalResources.Resource.LoginFooter</div>
+                                        }
+    </div>
+    @*******START::Model To send Password For Forget Password******@
+    <div id="ModalRemarks" class="modal fade colored-header">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> @GyanmitrasLanguages.LocalResources.Resource.ForgotPwd</h4>
+                    <a class="close" href="@Url.Action("Login")"><img src="~/images/close.png" /></a>
+                </div>
+                <div class="modal-body" style="padding-top:15px;">
+                    <div class="row">
+                        <label class="control-label col-md-3 text-nowrap" for="inputEmail">@GyanmitrasLanguages.LocalResources.Resource.UserName<span class="red">*</span></label>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(E => E.ForgetPwdUserName, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.UserName, @maxlength = "30" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="btnforgetpwd" value="Send" class="btn btn-primary btn-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+    @*******END::Model To send Password For Forget Password******@
+    <!-- BEGIN VENDOR JS-->
+    <script src="~/app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN MODERN JS-->
+    <script src="~/app-assets/js/core/app-menu.js"></script>
+    <script src="~/app-assets/js/core/app.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnforgetpwd").click(function () {
+                if ($("#ForgetPwdUserName").val().trim().length > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("SendMail", "Account")",
+                        //  url: "../Account/SendMail",
+                        beforeSend: function () {
+                            $(".modalBgLoader, .modalLoaderCenter").show();
+                        },
+                        complete: function () {
+                            $(".modalBgLoader, .modalLoaderCenter").hide();
+                        },
+                        data: { 'UserName': $("#ForgetPwdUserName").val() },
+                        traditional: true,
+                        success: function (Msg) {
+                            $("#ModalRemarks").modal('hide');
+                            $(".modalBgLoader, .modalLoaderCenter").hide();
+                            alert(Msg);
+                        }
+                    });
+                }
+                else {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.UserNameValidation.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

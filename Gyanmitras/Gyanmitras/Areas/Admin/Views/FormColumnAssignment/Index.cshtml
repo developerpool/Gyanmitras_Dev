@@ -1,0 +1,223 @@
+﻿@model GyanmitrasMDL.FormColumnAssignmentMDL
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item"><a href="#">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</a> </li>
+                        @*<li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</li>*@
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-6 col-12"> <a href="@Url.Action("AddFormColumnAssignment")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i>@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</a> </div>
+    </div>
+    <div class="content-body">
+      
+        <section id="">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard pt-0">
+                                <div class="dataTables_wrapper">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="" class="dataTables_filter">
+                                                <fieldset>
+                                                    <div class="input-group">
+
+                                                        <div class="input-group-prepend">
+                                                            <button id="SearchCreteria" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" val="Form_Name" href="javascript:void(0);" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.FormName</a>
+                                                                <a class="dropdown-item" val="Column_Name" href="javascript:void(0);" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.ColumnName</a>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="text" id="SearchValue" class="form-control" placeholder="Search Text...">
+                                                        <button onclick="paging(1)"><i class="ficon ft-search"></i></button>
+                                                    </div>
+                                                </fieldset>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 text-right">
+                                            <div class="dataTables_length" id="exportdiv">
+                                                @*<label class="mr-2">
+                                                    @GyanmitrasLanguages.LocalResources.Resource.Show
+                                                    <select name="DataTables_Table_0_length" class="custom-select custom-select-sm form-control form-control-sm" id="RowPerpage" onchange="paging(1)">
+                                                        <option value="10">All</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    @GyanmitrasLanguages.LocalResources.Resource.Entries
+                                                </label>*@
+                                                @*<div class="dropdown display-inline">
+                                                    <a class="dropdown-toggle btn btn-dark" id="" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="">@GyanmitrasLanguages.LocalResources.Resource.Export</span></a>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-flag">
+                                                        <a class="dropdown-item" id="Excel" onclick="ExportToExcelOrCsvFile('Excel')"><i class="la la-file-excel-o"></i>@GyanmitrasLanguages.LocalResources.Resource.Excel</a>
+                                                        <a class="dropdown-item" id="CSV" onclick="ExportToExcelOrCsvFile('CSV')"><i class="la la-file-text"></i> @GyanmitrasLanguages.LocalResources.Resource.CSV</a>
+                                                        <a class="dropdown-item" id="PDF" onclick="ExportToExcelOrCsvFile('PDF')"><i class="la la-file-pdf-o"></i> @GyanmitrasLanguages.LocalResources.Resource.PDF</a>
+                                                    </div>
+                                                </div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="msgDiv">
+                                        @if (ViewBag.msg != null && (ViewBag.msg).MessageId == 1)
+                                        {
+
+                                            <div id="myAlert" class="alert alert-success">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>@ViewBag.msg.Message</strong>
+                                            </div>
+                                        }
+                                        else if (ViewBag.msg != null && (ViewBag.msg).MessageId == 2)
+                                        {
+                                            <div id="myAlert" class="alert alert-success">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>@ViewBag.msg.Message</strong>
+                                            </div>
+                                        }
+
+                                        else
+                                        {
+                                            if (ViewBag.msg != null)
+                                            {
+                                                <div id="myAlert" class="alert alert-danger">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <strong> @ViewBag.msg.Message</strong>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                    <div id="GridDiv">
+                                        @{Html.RenderAction("GetFormColumn"); }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Zero configuration table -->
+    </div>
+</div>
+
+ 
+
+
+
+
+@section scripts {
+    <script type="text/javascript">
+
+
+        var  SearchCreteria='';
+        var Msg = '';
+        $(document).ready(function () {
+
+            $(".alert").fadeTo(2000, 5000).slideUp(500, function () {
+                $(".alert").slideUp(500);
+            });
+
+           $("#SearchValue").keyup(function () {
+               $(this).removeAttr('val');
+               $(this).attr('val', $(this).val())
+           });
+
+           $("#total,a[data-action='reload']").click(function () {
+               $("#SearchCreteria").text('');
+               $("#SearchCreteria").removeAttr('val');
+               $("#SearchCreteria").attr('val', '');
+               $("#SearchValue").val("");
+               $("#SearchValue").removeAttr('val');
+               $("#SearchValue").attr('val', '');
+               $("#RowPerpage").val("10");
+               paging(1);
+           });
+
+           $("#active,#inactive,#this_month").click(function () {
+
+               $("#SearchCreteria").removeAttr('val');
+               $("#SearchCreteria").attr('val', ($(this).attr('id') == "active") ? "Status" : (($(this).attr('id') == "inactive") ? "Status" : "ThisMonth"));
+               $("#SearchValue").removeAttr('val');
+               $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" : (($(this).attr('id') == "inactive") ? "Inactive" : ""));
+               $("#SearchValue").val("");
+               $("#RowPerpage").val("10");
+               paging(1);
+           });
+
+
+        });
+
+
+
+
+
+
+        /*************Paging**************/
+        function paging(currentpage,a) {
+
+           // debugger
+            var RowPerPage=$("#RowPerpage").val();
+            if (currentpage == NaN || currentpage <= 0) {
+                return false;
+            }
+            var SearchCreteria = "";
+            var SearchValue = $.trim($("#SearchValue").attr('val'));
+            if (a) {
+
+                SearchCreteria = $(a).attr('val');
+                $("#SearchCreteria").attr('val', SearchCreteria);
+                //$("#SearchCreteria").text($(a).text());
+                $(a).parent().find('a').removeAttr('style');
+                $(a).css('background-color', '#393b4a');
+                $(a).css('color', '#fff');
+            }
+            else {
+                SearchCreteria = $("#SearchCreteria").attr('val');
+            }
+            $.ajax({
+                url: "@Url.Action("GetFormColumn", "FormColumnAssignment")",
+                type: 'GET',
+            cache: false,
+            data: { 'CurrentPage': parseInt(currentpage), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue, 'RowPerpage': RowPerPage },
+            success: function (data) {
+                $('#GridDiv').html(data);
+                $('.disabled').prop('disabled', true);
+            },
+            });
+        return false;
+        }
+
+
+    </script>
+}

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<GyanmitrasMDL.MstFormMDL>
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+
+}
+<div class="table-responsive" style="max-height: 465px;">
+    <table id="table_Data" class="table table-striped table-bordered dataTable mb-0" width="100%">
+        <thead>
+            <tr>
+                <th class="text-center">@Html.CheckBox("checkAll_Id", new {@onclick = "CheckAllValue(this)" })</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.FormName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.ControllerName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.ActionName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.ParentForm</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Solution</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.ClassName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.AreaName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="14">
+                        <div class="text-danger">@GyanmitrasLanguages.LocalResources.Resource.DataNotFound </div>
+                    </td>
+                </tr>
+
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center"><input type="checkbox" value="" onclick="checkindividual(this)" id="@item.Pk_FormId"></td>
+                        <td class="text-center">@SerialNo</td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.FormName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.ControllerName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modalItem => item.ActionName)
+                        </td>
+
+                        <td class="text-center">
+                            @Html.DisplayFor(modalItem => item.ParentForm)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modalItem => item.SolutionName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modalItem => item.ClassName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modalItem => item.Area)
+                        </td>
+
+                        @if (item.IsActive)
+                        {
+                            // SerialNo++;
+                            <td class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>
+                        }
+                        else
+                        {
+                            <td class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
+                        }
+
+                        <td class="text-center text-nowrap">
+                            @if (ViewBag.CanEdit)
+                            {
+                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditForm", new { id = item.Pk_FormId })"><i class="la la-pencil"></i></a>
+                            }
+                            @if (ViewBag.CanDelete)
+                            {
+                                <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteFormsDetails", new { formID = item.Pk_FormId })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a>
+
+                            }
+
+                        </td>
+
+                    </tr>
+                    SerialNo++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(function () {
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style','display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+</script>
+

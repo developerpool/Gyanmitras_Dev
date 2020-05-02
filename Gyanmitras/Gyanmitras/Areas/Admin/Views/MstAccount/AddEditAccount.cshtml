@@ -1,0 +1,1013 @@
+﻿@model GyanmitrasMDL.MSTAccountMDL
+@{
+    ViewBag.Title = "AddEditUserCompanyMapping";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .control-label, .label-control {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    #tab2Submit {
+        color: white;
+    }
+</style>
+@using (Html.BeginForm("AddEditAccount", "MSTAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(E => E.PK_AccountId)
+    @Html.HiddenFor(E => E.AccountLogoStream)
+    @Html.HiddenFor(E => E.FK_CompanyId)
+
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew @GyanmitrasLanguages.LocalResources.Resource.Account</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index")"> @GyanmitrasLanguages.LocalResources.Resource.Account</a> </li>
+                            <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="base-tab12" data-toggle="tab" aria-controls="tab12" href="#tab12" aria-expanded="false">@GyanmitrasLanguages.LocalResources.Resource.AdditionalInfo</a>
+                    </li>
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                @*<form class="form form-horizontal">*@
+                                <div class="form-body">
+
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            <h4>@GyanmitrasLanguages.LocalResources.Resource.ReferrerDetail</h4>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+
+                                        <label class="col-md-3 control-label" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.ReferredBy</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CategoryId_Referrer, new SelectList((System.Collections.IEnumerable)ViewData["accountcategorylist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myselect2" })
+                                            @Html.ValidationMessageFor(E => E.FK_CategoryId_Referrer)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.ReferrerAccountName</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_AccountId_Referrer, new List<SelectListItem>
+             () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""
+                                                }
+                                                }, new { @class = "form-control myselect2" })
+                                            @Html.ValidationMessageFor(E => E.FK_AccountId_Referrer)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            <h4>@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</h4>
+                                            
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.AccountCategory<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CategoryId, new SelectList((System.Collections.IEnumerable)ViewData["accountcategorylist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.FK_CategoryId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.AccountName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.AccountName, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.AccountName, @maxlength = "50" })
+
+
+                                            @Html.ValidationMessageFor(E => E.AccountName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="display:none">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ParentCategory</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.Parent_FK_CategoryId, new SelectList((System.Collections.IEnumerable)ViewData["accountcategorylist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.Parent_FK_CategoryId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3" id="parentAccName">@GyanmitrasLanguages.LocalResources.Resource.ParentAccountName</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.ParentAccountId, new List<SelectListItem>
+                                                () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""
+                                                }
+                                                }, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.ParentAccountId)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ContactPerson</label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.ContactPerson, new { @class = "form-control ", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ContactPerson, @maxlength = "15" })
+
+                                            @Html.ValidationMessageFor(E => E.ContactPerson)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.MobileNo.<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.MobileNo, new { @class = "form-control ", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.MobileNo+".", @maxlength = "15", @onkeydown = "return IsNum(event)" })
+
+                                            @Html.ValidationMessageFor(E => E.MobileNo)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Email<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.EmailId, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Email, @maxlength = "200" })
+
+                                            @Html.ValidationMessageFor(E => E.EmailId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.CompanyRegistrationNo.</label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.AccountRegistrationNo, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.CompanyRegistrationNo + ".", @maxlength = "10" })
+
+                                            @Html.ValidationMessageFor(E => E.AccountRegistrationNo)
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            <h4>@GyanmitrasLanguages.LocalResources.Resource.AddressDetail</h4>
+
+                                            <hr>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Address</label>
+                                        <div class="col-md-7">
+                                            @Html.TextAreaFor(E => E.AccountAddress, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Address, @maxlength = "200" })
+
+                                            @Html.ValidationMessageFor(E => E.AccountAddress)
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode</label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+
+                                            @Html.ValidationMessageFor(E => E.ZipCode)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Country<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CountryId, new SelectList((System.Collections.IEnumerable)ViewData["countrylist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.CountryName)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.StateName)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.CityName)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.BillingAddressSame</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownList("dropBillingAddress", new List<SelectListItem>
+                                                () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Yes,Value = "1"
+                                                },
+                                                new SelectListItem() {
+                                                Text =@GyanmitrasLanguages.LocalResources.Resource.No,Value = "0"
+                                                }
+                                                }, new { @class = "form-control" })
+
+                                            @*@Html.ValidationMessageFor(E => E.FK_StateId)*@
+                                        </div>
+                                    </div>
+
+
+                                    <div style="display:none" id="divBillingAddress">
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.BillingAddress</label>
+                                            <div class="col-md-7">
+                                                @Html.TextAreaFor(E => E.BillingAddress, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.BillingAddress, @maxlength = "100" })
+
+                                                @Html.ValidationMessageFor(E => E.BillingAddress)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode</label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.ZipCode_Billing, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+
+                                                @Html.ValidationMessageFor(E => E.ZipCode_Billing)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Country<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_CountryId_Billing, new SelectList((System.Collections.IEnumerable)ViewData["countrylist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+
+                                                @Html.ValidationMessageFor(E => E.FK_CountryId_Billing)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_StateId_Billing, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+
+                                                @Html.ValidationMessageFor(E => E.FK_StateId_Billing)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_CityId_Billing, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+
+                                                @Html.ValidationMessageFor(E => E.FK_CityId_Billing)
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            
+                                            <h4>@GyanmitrasLanguages.LocalResources.Resource.UserAccessDetail</h4>
+
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="display:none">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.UserRole <span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_RoleId, new SelectList((System.Collections.IEnumerable)ViewData["userrolelist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(E => E.FK_RoleId)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3"> @GyanmitrasLanguages.LocalResources.Resource.accusername<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.Username, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.accusername, @maxlength = "20", @onblur = "CheckuserName(this)" })
+
+
+                                            @Html.ValidationMessageFor(E => E.Username)
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Password <span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.Password, new { @type = "password", @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Password, @maxlength = "15" })
+                                            @Html.ValidationMessageFor(E => E.Password)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row" style="display:none">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.UserLimit <span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.UserLimit, new { @class = "form-control", @type = "number", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.UserLimit, @maxlength = "10" })
+
+                                            @Html.ValidationMessageFor(E => E.UserLimit)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1"> @GyanmitrasLanguages.LocalResources.Resource.ShareVia</label>
+                                        <div class="col-md-7">
+
+                                            @Html.DropDownListFor(E => E.ShareVia, new List<SelectListItem>
+             () {
+                                                new SelectListItem() {Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""},
+                                                new SelectListItem() {Text =@GyanmitrasLanguages.LocalResources.Resource.Email,Value = @GyanmitrasLanguages.LocalResources.Resource.Email},
+                                                new SelectListItem() {Text = @GyanmitrasLanguages.LocalResources.Resource.Whatsapp ,Value =@GyanmitrasLanguages.LocalResources.Resource.Whatsapp},
+                                                }, new { @class = "form-control myselect2" })
+                                            @Html.ValidationMessageFor(E => E.ShareVia)
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>
+                                                () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Active,Value = "true"
+                                                },
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Inactive,Value = "false"
+                                                }
+                                                }, new { @class = "form-control myselect2" })
+                                            @Html.ValidationMessageFor(E => E.IsActive)
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="form-actions center">
+                                        @*<a href="customer.html" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit</a>
+                                            <a href="customer.html" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>*@
+                                        <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                                        <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                    @*</form>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tab12" aria-labelledby="base-tab12">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                @*<form class="form form-horizontal">*@
+                                <div class="form-body">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.AccountName</label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.AccountName, new { @class = "form-control", @id = "displayAccountName", @name = "displayAccountName", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(E => E.AccountName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput3">@GyanmitrasLanguages.LocalResources.Resource.Logo</label>
+                                        <div class="col-md-7">
+                                            <div class="custom-file">
+                                                @Html.TextBoxFor(E => E.AccountLogo, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" })
+                                                @Html.ValidationMessageFor(E => E.AccountLogo)
+                                                @GyanmitrasLanguages.LocalResources.Resource.LogoFormat
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            @if (string.IsNullOrEmpty(Model.AccountLogoStream))
+                                            {
+                                                <img style="height:40px;width:40px;" id="blah" src="~/Images/default-image.png" />
+                                            }
+                                            else
+                                            {
+                                                <img style="height:40px;width:40px;" id="blah" src="~/AccountLogoImages/@Model.AccountLogoStream" />
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.AlternateMobileNo.</label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.AlternateMobileNo, new { @class = "form-control isMobile", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.AlternateMobileNo + ".", @maxlength = "15", @onkeydown = "return IsNum(event)" })
+                                            @Html.ValidationMessageFor(E => E.AlternateMobileNo)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>
+             () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Active,Value = "true"
+                                                },
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Inactive,Value = "false"
+                                                }
+                                                }, new { @class = "form-control myselect2", @id = "IsActive1", @name = "IsActive1" })
+                                            @Html.ValidationMessageFor(E => E.IsActive)
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="form-group row">
+                                      <label class="col-md-3 label-control">Existing Customer</label>
+                                      <div class="col-md-7">
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label class="col-md-3 label-control">Existing Customer</label>
+                                      <div class="col-md-7">
+                                      </div>
+                                    </div>-->
+                                </div>
+                                <div class="form-actions center">
+                                    <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="tab2Submit">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</a>
+                                    @*<a href="customer.html" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>*@
+                                    <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                </div>
+                                @*</form>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+    <input type="hidden" id="hd_FK_CategoryId" value="@Model.FK_CategoryId" />
+    <input type="hidden" id="hd_Parent_FK_CategoryId" value="@Model.Parent_FK_CategoryId" />
+
+    <input type="hidden" id="hd_ParentAccountId" value="@Model.ParentAccountId" />
+    <input type="hidden" id="hd_FK_RoleId" value="@Model.FK_RoleId" />
+    <input type="hidden" id="hd_Username" value="@Model.Username" />
+    <input type="hidden" id="hd_IsActive" value="@Model.IsActive.ToString().ToLower()">
+    <input type="hidden" id="hd_FK_StateId_Billing" value="@Model.FK_StateId_Billing" />
+    <input type="hidden" id="hd_FK_StateId" value="@Model.FK_StateId" />
+    <input type="hidden" id="hd_FK_CityId_Billing" value="@Model.FK_CityId_Billing" />
+    <input type="hidden" id="hd_FK_CityId" value="@Model.FK_CityId" />
+    <input type="hidden" id="hd_FK_AccountId_Referrer" value="@Model.FK_AccountId_Referrer" />
+
+}
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+
+
+
+    <style>
+        .field-validation-error, .red {
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        var mycategoryval = new Array();
+        var mycategorytext = new Array();
+        $(document).ready(function () {
+
+            $("#UserLimit").rules("remove", "required");
+            $("#ParentAccountId").rules("remove", "required");
+            $("#Parent_FK_CategoryId").rules("remove", "required");
+            $("#FK_CountryId_Billing").rules("remove", "required");
+            $("#FK_StateId_Billing").rules("remove", "required");
+            $("#FK_CityId_Billing").rules("remove", "required");
+            $("#AccountAddress").rules("remove", "required");
+
+            $("#FK_CategoryId_Referrer").rules("remove", "required");
+            $("#FK_AccountId_Referrer").rules("remove", "required");
+
+
+
+
+            $("#FK_AccountId_Referrer").select2();
+            $("#FK_CategoryId_Referrer").select2();
+            $("#FK_CategoryId").select2();
+            $("#FK_RoleId").select2();
+            $("#Parent_FK_CategoryId").select2();
+            $("#ParentAccountId").select2();
+            $("#dropBillingAddress").select2();
+            $("#FK_CountryId_Billing").select2();
+            $("#FK_CountryId").select2();
+            $("#FK_StateId_Billing").select2();
+            $("#FK_StateId").select2();
+            $("#FK_CityId_Billing").select2();
+            $("#FK_CityId").select2();
+
+            $("#AccountName").blur(function () {
+                $("#displayAccountName").val($(this).val())
+            });
+            //$("#IsActive,#IsActive1").select2();
+            $("#IsActive,#IsActive1").val('true');
+            $("#IsActive,#IsActive1").change(function () {
+                $("#IsActive,#IsActive1").val($(this).val());
+            });
+
+
+
+            $("#dropBillingAddress").change(function () {
+                if ($(this).val() == "0") {
+                    $("#divBillingAddress").slideDown(500);
+                    //$("#divBillingAddress").css("display", "block");
+                }
+                else {
+                    //$("#divBillingAddress").css("display", "none");
+                    $("#divBillingAddress").slideUp(500);
+                }
+            });
+            //Parent_FK_CategoryId Start
+            $("#Parent_FK_CategoryId").on("change", function () {
+                $("#ParentAccountId").empty();
+                $("#ParentAccountId").append("<option value=''>@GyanmitrasLanguages.LocalResources.Resource.select</option>");
+                var categoryId = $(this).val();
+                $.ajax({
+                    url: "@Url.Action("GetAllAccountsByCategory", "MSTAccount")",
+                    //  data: JSON.stringify(input),
+                    data: { 'categoryId': categoryId },
+                    datatype: "json",
+                    type: "get",
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        for (var i = 0; i < data.length; i++) {
+                            $("#ParentAccountId").append("<option value='" + data[i].ID + "'>" + data[i].Value + "</option>");
+                        }
+
+                        //if ($("#PK_AccountId").val() != "0") {
+                        //    if ($("#Parent_FK_CategoryId").val() != "0") {
+                        //        $("#ParentAccountId").val($("#hd_ParentAccountId").val());
+                        //    }
+                        //}
+
+                        $("#Parent_FK_CategoryId").off('change');
+                    }
+                });
+
+                //if (Number($("#Parent_FK_CategoryId").val()) > 0 && ($("#parentAccName").text()).indexOf('*') < 0) {
+                //    $("#parentAccName").html($("#parentAccName").html() + '<span class="red">*</span>');
+                //}
+                //else {
+                //    $("#parentAccName").html($("#parentAccName").text().replace('*', ''));
+                //}
+            });
+            //Parent_FK_CategoryId End
+
+
+            $("button[type='submit']").click(function (e) {
+
+
+                $("#AccountName").val($.trim($("#AccountName").val()));
+
+                if ($("#dropBillingAddress").val() == "0") {
+
+
+                    if (Number($("#FK_CountryId_Billing").val()) <= 0) {
+                        $("#FK_CountryId_Billing").focus();
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.CountryValidation');
+                        return false;
+                    }
+                    
+                    if (Number($("#FK_StateId_Billing").val()) <= 0) {
+                        $("#FK_StateId_Billing").focus();
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.StateValidation');
+                        return false;
+                    }
+                    if (Number($("#FK_CityId_Billing").val()) <= 0) {
+                        $("#FK_CityId_Billing").focus();
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.CityValidation');
+                        return false;
+                    }
+                }
+
+                if (Number($("#FK_CountryId").val()) <= 0) {
+                    $("#FK_CountryId").focus();
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.CountryValidation');
+                    return false;
+                }
+                
+                if (Number($("#FK_StateId").val()) <= 0) {
+                    $("#FK_StateId").focus();
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.StateValidation');
+                    return false;
+                }
+                if (Number($("#FK_CityId").val()) <= 0) {
+                    $("#FK_CityId").focus();
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.CityValidation');
+                    return false;
+                }
+
+                @*if (Number($("#Parent_FK_CategoryId").val()) > 0) {
+                    if (Number($("#ParentAccountId").val()) <= 0) {
+                        $("#ParentAccountId").focus();
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.SelectparentAccount');
+                        return false;
+                    }
+                }*@
+
+                //if ($("#Password").val())
+                //{
+                //    var password = $("#Password").val();
+                //    var validLength = /.{8}/.test(password);
+                //    var hasCaps = /[A-Z]/.test(password);
+                //    var hasNums = /\d/.test(password);
+                //    var hasSpecials = /[~!,@@#%&_\$\^\*\?\-]/.test(password);
+                //    if (!validLength)
+                //    {
+                //        alert('Password must be grater than 8 characters.');
+                //        return false;
+                //    }
+                //    if (!validLength) {
+                //        alert('Password must be a capital letter.');
+                //        return false;
+                //    }
+                //    if (!validLength) {
+                //        alert('Password must be a number.');
+                //        return false;
+                //    }
+                //    if (!validLength) {
+                //        alert('Password must be a spacial characters.');
+                //        return false;
+                //    }
+
+
+                //}
+            });
+
+
+            $("#FK_CountryId,#FK_CountryId_Billing").change(function () {
+                ;
+                var cid = $(this).val();
+                var thisId = $(this).attr('id');
+                var countryId = 1;
+                if (thisId == "FK_CountryId") {
+                    countryId = 1;
+                    $("#FK_StateId").empty();
+                    $("#FK_StateId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+                }
+                else if (thisId == "FK_CountryId_Billing") {
+                    countryId = 0;
+                    $("#FK_StateId_Billing").empty();
+                    $("#FK_StateId_Billing").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+                }
+
+
+                var input = { countryId: parseInt(cid) };
+                $.ajax({
+                    url: "@Url.Action("GetStateDetailsByCountryId", "MSTAccount")",
+                    data: JSON.stringify(input),
+                    datatype: "json",
+                    async: false,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var Machinelist = new Array();
+                        if (data.length == 0) {
+                            $(this).val('');
+                        }
+                        else {
+                            if (countryId == 1) {
+                                for (var i = 0 ; i < data.length ; i++) {
+                                    $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                                }
+                            }
+                            else {
+                                for (var i = 0 ; i < data.length ; i++) {
+                                    $("#FK_StateId_Billing").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+
+            $("#FK_StateId,#FK_StateId_Billing").change(function () {
+                var cid = $(this).val();
+                var thisId = $(this).attr('id');
+                var countryId = 1;
+                if (thisId == "FK_StateId") {
+                    countryId = 1;
+                    $("#FK_CityId").empty();
+                    $("#FK_CityId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+                }
+                else if (thisId == "FK_StateId_Billing") {
+                    countryId = 0;
+                    $("#FK_CityId_Billing").empty();
+                    $("#FK_CityId_Billing").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+                }
+
+                var input = { stateId: parseInt(cid) };
+                $.ajax({
+                    url: "@Url.Action("GetCityDetailsByStateId", "MSTAccount")",
+                    data: JSON.stringify(input),
+                    datatype: "json",
+                    type: "POST",
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var Machinelist = new Array();
+                        if (data.length == 0) {
+                            $(this).val('');
+                        }
+                        else {
+                            if (countryId == 1) {
+                                for (var i = 0 ; i < data.length ; i++) {
+                                    $("#FK_CityId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                                }
+                            }
+                            else {
+                                for (var i = 0 ; i < data.length ; i++) {
+                                    $("#FK_CityId_Billing").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                                }
+                            }
+                        }
+                    }
+
+
+                });
+            });
+
+            $("#FK_CategoryId_Referrer").change(function () {
+                $("#FK_AccountId_Referrer").empty();
+                $("#FK_AccountId_Referrer").append("<option value=''>@GyanmitrasLanguages.LocalResources.Resource.select</option>");
+                var categoryId = $(this).val();
+                if (categoryId) {
+                    $.ajax({
+                        url: "@Url.Action("GetAllReferrerAccountsByCategory", "MSTAccount")",//Get All Account by Login Type with category Id
+                        data: { 'categoryId': categoryId },
+                        datatype: "json",
+                        type: "get",
+                        async: false,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            for (var i = 0; i < data.length; i++) {
+                                $("#FK_AccountId_Referrer").append("<option value='" + data[i].ID + "'>" + data[i].Value + "</option>");
+                            }
+                        }
+                    });
+                }
+            });
+            if ($("#PK_AccountId").val() != "0") {
+
+
+                if ($("#Parent_FK_CategoryId").val() != "0") {
+                    //$("#Parent_FK_CategoryId").trigger('change');
+                    //$("#ParentAccountId").val($("#hd_ParentAccountId").val());
+                }
+                if ($("#FK_CountryId_Billing").val() != 0) {
+                    $("#dropBillingAddress").val('0');
+                    $("#dropBillingAddress").trigger('change');
+                }
+
+
+                $("#FK_RoleId").val($("#hd_FK_RoleId").val());
+                $("#Username").val($("#hd_Username").val());
+                $("#Username").attr('readonly', 'readonly');
+                $("#Password").attr('readonly', 'readonly');
+                //$("#Password").val("********");
+
+                $("#FK_CountryId").trigger('change');
+                $('#FK_CountryId_Billing').trigger('change');
+                $("#FK_StateId").val($("#hd_FK_StateId").val() != "0" ? $("#hd_FK_StateId").val() : "");
+                $("#FK_StateId_Billing").val($("#hd_FK_StateId_Billing").val() != "" ? $("#hd_FK_StateId_Billing").val() : "");
+                $("#FK_StateId").trigger('change');
+                $('#FK_StateId_Billing').trigger('change');
+                $("#FK_CityId").val($("#hd_FK_CityId").val() != "0" ? $("#hd_FK_CityId").val() : "");
+                $("#FK_CityId_Billing").val($("#hd_FK_CityId_Billing").val() != "0" ? $("#hd_FK_CityId_Billing").val() : "");
+                $("#IsActive").val($("#hd_IsActive").val());
+                $("#IsActive1").val($("#hd_IsActive").val());
+
+                $("#FK_CategoryId").val($("#hd_FK_CategoryId").val());
+
+                $("#FK_CategoryId_Referrer").trigger('change');
+                $("#FK_AccountId_Referrer").val($("#hd_FK_AccountId_Referrer").val() != "0" ? $("#hd_FK_AccountId_Referrer").val() : "");
+
+            }
+            else {
+                var iterid = setInterval(function () {
+                    $("#Username").val('');
+                    $("#Password").val('');
+                    if (iterid) {
+                        clearInterval(iterid);
+                    }
+                }, 100);
+
+
+            }
+
+            $('INPUT[type="file"]').change(function () {
+               
+                var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        break;
+                    case 'jpeg':
+                        break;
+                    case 'png':
+                        break;
+
+                    default:
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.InvalidLogo');
+                        this.value = '';
+                }
+            });
+
+
+
+            $("#tab2Submit").click(function () {
+                var bool = true;
+                @*if (!$("#tab12").find("#displayAccountName").val()) {
+                    bool = false;
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.AccountNameValidation');
+                    $("#tab12").find("#displayCustomerName").focus();
+                    return false;
+                }*@
+                @*if (!$("#tab12").find("#AlternateMobileNo").val()) {
+                    bool = false;
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.AlternateMobileNoValidation');
+                    $("#tab12").find("#AlternateMobileNo").focus();
+                    return false;
+                }*@
+
+                if (bool) {
+                    $("button[type='submit']").trigger("click");
+                }
+                else {
+                    return false;
+                }
+            });
+
+            $.expr[':'].textEquals = $.expr.createPseudo(function (arg) {
+                return function (elem) {
+                    return $(elem).text().match("^" + arg + "$");
+                };
+            });
+
+            $("#FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "customer") return this; }).remove();
+            $("#FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "installer") return this; }).remove();
+
+            $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "customer") return this; }).remove();
+            $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "installer") return this; }).remove();
+
+            $("#FK_CategoryId > option").each(function (i, obj) {
+                var text = $(obj)[0].text;
+                var value = $(obj)[0].value;
+                mycategoryval[i] = [{ "val": value }];
+                mycategorytext[i] = [{ "text": text }];
+            });
+
+            $("#FK_CategoryId").change(function () {
+                if (($("#FK_CategoryId option:selected").text()).toLowerCase() == "company") {
+                    bindParentCategory();
+
+                    $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "reseller") return this; }).remove();
+                    $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "affiliate") return this; }).remove();
+                    $("#Parent_FK_CategoryId").val($(this).val());
+                    $("#Parent_FK_CategoryId").trigger('change');
+                }
+                else if (($("#FK_CategoryId option:selected").text()).toLowerCase() == "reseller") {
+                    bindParentCategory();
+                    $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "affiliate") return this; }).remove();
+                    $("#Parent_FK_CategoryId").val($(this).val());
+                    $("#Parent_FK_CategoryId").trigger('change');
+                } else if (($("#FK_CategoryId option:selected").text()).toLowerCase() == "affiliate") {
+                    bindParentCategory();
+                    $("#Parent_FK_CategoryId").val($(this).val());
+                    $("#Parent_FK_CategoryId").trigger('change');
+                }
+            });
+            if ('@ViewBag.LoginType'.toLowerCase() == "company") {
+                $("#FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "company") return this; }).attr('selected', 'selected');
+                $("#FK_CategoryId").trigger('change');
+            }
+            else if ('@ViewBag.LoginType'.toLowerCase() == "reseller") {
+                $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "company") return this; }).remove();
+                $("#FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "reseller") return this; }).attr('selected', 'selected');
+                $("#FK_CategoryId").trigger('change');
+            } else if ('@ViewBag.LoginType'.toLowerCase() == "affiliate") {
+                $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "company") return this; }).remove();
+                $("#Parent_FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "reseller") return this; }).remove();
+                $("#FK_CategoryId > option").map(function (i, obj) { if (($(obj)[0].text).toLowerCase() == "affiliate") return this; }).attr('selected', 'selected');
+                $("#FK_CategoryId").trigger('change');
+            } else if ('@ViewBag.LoginType'.toLowerCase() == "customer") {
+                $("#FK_CategoryId option").each(function () {
+                    $(this).remove();
+                });
+            }
+            if ($("#PK_AccountId").val() != "0") {
+                $("#FK_CategoryId").attr('disabled', 'disabled');
+                //alert($("#hd_FK_CategoryId").val() != "0" ? $("#hd_FK_CategoryId").val() : "");
+                $("#FK_CategoryId").val($("#hd_FK_CategoryId").val() != "0" ? $("#hd_FK_CategoryId").val() : "");
+                $("#Parent_FK_CategoryId").val($("#hd_Parent_FK_CategoryId").val() != "0" ? $("#hd_Parent_FK_CategoryId").val() : "");
+                $("#Parent_FK_CategoryId").trigger('change');
+                $("#ParentAccountId").val($("#hd_ParentAccountId").val());
+            }
+            
+            if (!$("#ParentAccountId").val() || $("#ParentAccountId").val() == "0")
+            {
+                $("#ParentAccountId").val('@ViewBag.Parent_AccountId' == "0" ? "" : '@ViewBag.Parent_AccountId');
+            }
+            
+
+
+        })//Page Load End
+
+
+        function bindParentCategory() {
+            $("#Parent_FK_CategoryId").empty();
+            for (var i = 0; i < mycategorytext.length; i++) {
+                $("#Parent_FK_CategoryId").append("<option value='" + mycategoryval[i][0].val + "'>" + mycategorytext[i][0].text + "</option>");
+            }
+        }
+        function CheckuserName(a) {
+            if ($.trim($(a).val()) && $("#PK_AccountId").val() == "0") {
+                $.ajax({
+                    url: "@Url.Action("CheckUser", "MSTAccount")",
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { username: $.trim($(a).val()) },
+
+                    success: function (data) {
+
+                        if (Number(data.MessageId) == 1) {
+                            $(a).css('border', '1px solid red');
+                            $(a).val('');
+                            //$(a).focus();
+                            $(a).parent().find('span[data-valmsg-for="Username"]').text('@GyanmitrasLanguages.LocalResources.Resource.UserAlreadyExist').css('color', 'red');
+
+                        }
+                        else {
+                            $(a).removeAttr('style');
+                            $(a).parent().find('span[data-valmsg-for="Username"]').text('');
+                        }
+                    }
+                });
+            }
+        }
+        function IsNum(event) {
+            // Prevent shift key since its not needed
+            if (event.shiftKey == true) {
+                //alert('Only number allowed.');
+
+                event.preventDefault();
+                return false;
+            }
+            // Allow Only: keyboard 0-9, numpad 0-9, backspace, tab, left arrow, right arrow, delete
+            if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+                // Allow normal operation
+            } else {
+                // Prevent the rest
+                alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
+                event.preventDefault();
+                return false;
+            }
+        }
+
+
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿<!--#region model  -->
+@model IEnumerable<GyanmitrasMDL.User.StudentMDL>
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+
+}
+<!--#endregion model  -->
+<!--#region GridShow  -->
+<div class="table-responsive" style="max-height: 465px;">
+    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" width="100%" style="cursor:auto">
+        <thead>
+            <tr>
+                @*<th><input type="checkbox" value="" id="checkAll" onclick="checkAll(this)"></th>*@
+                <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.CreatedDate</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="14">
+                        <div class="text-danger">@GyanmitrasLanguages.LocalResources.Resource.DataNotFound</div>
+                    </td>
+                </tr>
+
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center" style="display:none;">
+                            @Html.DisplayFor(modelItem => item.PK_StudentID)
+                        </td>
+                        <td class="text-center"><input type="checkbox" value="" id="@item.PK_StudentID"></td>
+                        <td align="center">@SerialNo</td>
+                        <td class="text-center">@item.Name</td>
+
+
+
+                        <td class="text-center"> @item.CreatedDateTime </td>
+
+                        @if (item.IsActive)
+                        {
+                            <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>
+                        }
+                        else
+                        {
+                            <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
+                        }
+                        <td class="text-center text-nowrap">
+                            @if (ViewBag.CanEdit)
+                            {
+                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditStudentManagement", new { id = item.PK_StudentID })"><i class="la la-pencil"></i></a>
+                            }
+                            @if (ViewBag.CanDelete)
+                            {
+                                <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteStudentManagement", new { id = item.PK_StudentID })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a><br />
+                            }
+                        </td>
+                    </tr> SerialNo++;
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style','display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+</script>
+<!--#endregion GridShow  -->

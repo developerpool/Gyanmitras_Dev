@@ -1,0 +1,118 @@
+﻿@model GyanmitrasMDL.MstFormLanguageMappingMDL
+@{
+    ViewBag.Title = "AddEditFormLanguageMapping";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddEditFormLanguageMapping", "MSTFormLanguageMapping"))
+{
+    @Html.HiddenFor(E => E.PK_FormLanguageId)
+    @Html.HiddenFor(E => E.FK_AccountID)
+    @Html.HiddenFor(E => E.FK_CustomerID)
+
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew @GyanmitrasLanguages.LocalResources.Resource.FormLanguageMapping</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index")"> @GyanmitrasLanguages.LocalResources.Resource.FormLanguageMapping </a> </li>
+                            <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew
+                          </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.FormLanguageMapping</a> </li>
+
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                @*<form class="form form-horizontal">*@
+                                    <div class="form-body">
+
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.FormName<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_FormId, new SelectList((System.Collections.IEnumerable)ViewData["formlist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(E => E.FK_FormId)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.LanguageName<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_LanguageId, new SelectList((System.Collections.IEnumerable)ViewData["languagelist"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(E => E.FK_LanguageId)
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.TranslatedLanguageName<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.TranslatedFormName, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.TranslatedLanguageName,@maxlength="50" })
+                                                @Html.ValidationMessageFor(E => E.TranslatedFormName)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.Active<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.CheckBoxFor(E => E.IsActive, new { @checked = true })
+                                            </div>
+                                        </div>
+
+
+                                     
+
+                                        
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"> @GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                                        <a href="@Url.Action("Index")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                @*</form>*@
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+}
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+
+    <script src="~/Select2/js/select2.min.js"></script>
+    <link href="~/Select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .field-validation-error, .red {
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#FK_FormId").select2();
+            $("#FK_LanguageId").select2();
+        })
+    </script>
+}

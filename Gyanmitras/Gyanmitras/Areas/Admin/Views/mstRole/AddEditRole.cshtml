@@ -1,0 +1,695 @@
+﻿@model GyanmitrasMDL.MstRoleMDL
+@{
+    ViewBag.Title = "AddEditRole";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var user = Gyanmitras.Common.SessionInfo.User as GyanmitrasMDL.UserInfoMDL;
+
+}
+@Html.HiddenFor(E => E.PK_RoleId)
+
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-12 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew @GyanmitrasLanguages.LocalResources.Resource.Role</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index")"> @GyanmitrasLanguages.LocalResources.Resource.Role</a> </li>
+                        <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="NewformTabs">
+            <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.Role</a> </li>
+                <li class="nav-item"> <a class="nav-link" id="base-tab12" data-toggle="tab" aria-controls="tab12" href="#tab12" aria-expanded="false">@GyanmitrasLanguages.LocalResources.Resource.RoleRights</a> </li>
+            </ul>
+            <div class="tab-content px-1 py-1">
+                <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form class="form form-horizontal">
+                                <div class="form-body">
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput3">@GyanmitrasLanguages.LocalResources.Resource.RoleFor<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.RoleForId, new SelectList((System.Collections.IEnumerable)ViewData["RoleForlist"], "ID", "Value"), GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.RoleForId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" id="divcategory">
+                                        <label class="col-md-3 label-control" for="eventRegInput3">@GyanmitrasLanguages.LocalResources.Resource.AccCategory<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CategoryId, new SelectList((System.Collections.IEnumerable)ViewData["Categorylist"], "ID", "Value"), GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_CategoryId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" id="divaccount">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.AccountName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.AccountId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Acccount--", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.AccountId)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row" id="divcustomer" style="display:none">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.CustomerName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CustomerId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Customer--", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_CustomerId)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput4">@GyanmitrasLanguages.LocalResources.Resource.RoleName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.RoleName, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.RoleName })
+                                            @Html.ValidationMessageFor(E => E.RoleName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.LandingPage<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_FormId, new SelectList((System.Collections.IEnumerable)ViewData["Formlist"], "ID", "Value"), "--Select Landing Page--", new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                        <div class="col-md-7">
+                                            <select class="form-control" id="Status">
+                                                <option value="Active" selected="selected">@GyanmitrasLanguages.LocalResources.Resource.Active</option>
+                                                <option value="InActive">@GyanmitrasLanguages.LocalResources.Resource.Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-actions center">
+                                    <a href="javascript:void(0)" onclick="SaveRoleData();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</a>
+                                    <a href="@Url.Action("Index")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="tab12" aria-labelledby="base-tab12">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form class="form form-horizontal">
+                                <div class="form-body">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.WebMobile<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            <select class="form-control" id="MappingFor">
+                                                <option value="WebApp" selected="selected">Web App</option>
+                                                <option value="MobileApp">Mobile App</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput3">@GyanmitrasLanguages.LocalResources.Resource.RoleFor<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_RoleForId, new SelectList((System.Collections.IEnumerable)ViewData["RoleForlist"], "ID", "Value"), GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_RoleForId)
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row" id="divcustomer1">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.CustomerName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.CustomerId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Customer--", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.CustomerId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput4">@GyanmitrasLanguages.LocalResources.Resource.RoleName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownList("FK_RoleId", new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Role--", new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.Module<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_Parent_FormId, new SelectList((System.Collections.IEnumerable)ViewData["ParentFormsList"], "ID", "Value"), new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                    <div id="divFormRoleMapping">
+                                    </div>
+                                    <input type="hidden" id="hdnCustomerId" value="@Model.FK_CustomerId" />
+                                    <input type="hidden" id="hdnStatus" value="@Model.Status" />
+                                    <input type="hidden" id="hdnRoleForId" value="@Model.RoleForId" />
+
+                                    <input type="hidden" id="hdnCustomerIdForRoleRights" value="@Model.CustomerId" />
+                                    <input type="hidden" id="hdnRoleNameEdit" value="@Model.RoleName" />
+                                    <input type="hidden" id="hdnAccountId" value="@Model.AccountId" />
+                                    
+
+
+                                    <input type="hidden" id="hdnRoleName" />
+                                    <input type="hidden" id="hdnRoleForRoleRightsId" />
+                                    <input type="hidden" id="hdnRoleForRoleRightsName" />
+                                    <input type="hidden" id="hdnCategoryRoleRightsId" />
+                                    <input type="hidden" id="hdnAccountRoleRightsId" />
+                                    <input type="hidden" id="hdnCustomerRoleRightsId" />
+
+
+                                    <!--
+                                    <div class="form-group row">
+                                      <label class="col-md-3 label-control">Existing Customer</label>
+                                      <div class="col-md-7">
+                                      </div>
+                                    </div>-->
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@section scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script type="text/javascript">
+        var RoleForList =@Html.Raw(Json.Encode(ViewData["RoleForlist"]));
+        var LoginType='@user.LoginType.ToUpper().Trim()';
+        var objMessage=@Html.Raw(Json.Encode(TempData["RoleMessage"]));
+        var CurrentTab='@TempData["CurrentTaab"]';
+        // var LoginType='CUSTOMER'
+        $(document).ready(function (e) {
+            //  debugger
+            if(CurrentTab=='RoleRights'){
+                alert(objMessage.Message);
+                $('#base-tab11').removeClass('active');
+                $('#base-tab12').addClass('active');
+
+                $('#tab11').removeClass('active');
+                $('#tab12').addClass('active');
+
+                $('#FK_RoleForId').val($('#hdnRoleForId').val()).attr("selected","selected").attr("disabled","disabled");
+                if($('#RoleForId :selected').text().toUpperCase()=="CUSTOMER"){
+                    $('#FK_CategoryId').val($('#hdnCategoryId').val()).attr("selected","selected").attr("disabled","disabled");
+                    BindAccountsByCategory($('#hdnCategoryId').val(),'Mapping');
+                    $(".select2").select2();
+                    $('#divcategory1').show();
+                    $('#divcustomer1').show();
+
+                }else{
+                    $('#FK_CategoryId').val("").attr('selected','selected');
+                    BindAccountsByCategory($('#hdnRoleForId').val(),'Mapping');
+                    $('#divcustomer1').hide();
+                    $('#divcategory1').hide();
+                    $(".select2").select2();
+                }
+
+                if($('#RoleForId :selected').text().toUpperCase()=="CUSTOMER"){
+                    BindCustomers($('#hdnAccountId').val(),LoginType,'Mapping');
+                    BindRoles($('#hdnCustomerId').val(),0);
+                }else{
+                    BindRoles(0,$('#hdnAccountId').val());
+                }
+                // debugger
+                BindSubMenu($('#PK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#hdnAccountId').val(),$('#CustomerId').val());
+
+
+            }
+
+
+
+
+
+            $(".select2").select2();
+            $('#divcategory').hide();
+            $('#divcategory1').hide();
+            $('#divcustomer').hide();
+            $('#divcustomer1').hide();
+            if(LoginType=="CUSTOMER"){
+                //$.each(RoleForList,function(i,category){
+                //    if(category.Value=="Customer"){
+
+                $('#RoleForId').attr("disabled",true);
+                $('#FK_RoleForId').attr("disabled",true);
+                //    }
+                //});
+                $(".select2").select2();
+                BindCustomers($('#FK_AccountId').val(),LoginType,'Role');
+                BindCustomers($('#AccountId').val(),LoginType,'Mapping');
+                BindRoles($('#hdnCustomerIdForRoleRights').val(),0);
+                $('#divcustomer').show();
+                $('#divcustomer1').show();
+            }
+
+            $('#MappingFor').change(function(){
+                BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#AccountId').val(),$('#CustomerId').val());
+            });
+            $('#divFormRoleMapping').show();
+            if ($('#PK_RoleId').val() != 0) {
+                debugger;
+                $('#RoleForId').attr('disabled','disabled');
+                $('#CategoryId').attr('disabled','disabled');
+                BindAccountsByCategory($('#hdnRoleForId').val(),'Role');
+
+                if(($('#hdnRoleNameEdit').val().trim()) =="ADMIN"){
+                    $('#RoleName').attr('readonly',true)
+                }
+                //   debugger
+                if($('#hdnRoleForName').val().trim()=="CUSTOMER")
+                {
+                    BindAccountsByCategory($('#hdnCategoryId').val(),'Role');
+                    BindCustomers($('#hdnAccountId').val(),LoginType,'Role');
+                    $('#divcategory').show();
+                    $('#divcustomer').show();
+                }else{
+
+                    BindAccountsByCategory($('#hdnRoleForId').val(),'Role');
+                    BindCustomers($('#hdnAccountId').val(),LoginType,'Role');
+                    $('#divcategory').hide();
+                    $(".select2").select2();
+                }
+                $('#base-tab12').click(function (e) {
+                    $('#base-tab11').removeClass('active');
+                    $('#base-tab12').addClass('active');
+
+                    $('#tab11').removeClass('active');
+                    $('#tab12').addClass('active');
+
+
+                    $('#FK_RoleForId').val($('#hdnRoleForId').val()).attr("selected","selected").attr("disabled","disabled");
+                    if($('#RoleForId :selected').text()=="CUSTOMER"){
+                        $('#FK_CategoryId').val($('#hdnCategoryId').val()).attr("selected","selected").attr("disabled","disabled");
+                        BindAccountsByCategory($('#hdnCategoryId').val(),'Mapping');
+                        $(".select2").select2();
+                        $('#divcategory1').show();
+                        $('#divcustomer1').show();
+
+                    }else{
+                        $('#FK_CategoryId').val("").attr('selected','selected');
+                        BindAccountsByCategory($('#hdnRoleForId').val(),'Mapping');
+                        $('#divcustomer1').hide();
+                        $('#divcategory1').hide();
+                        $(".select2").select2();
+                    }
+
+                    if($('#RoleForId :selected').text()=="CUSTOMER"){
+                        BindCustomers($('#hdnAccountId').val(),LoginType,'Mapping');
+                        BindRoles($('#hdnCustomerId').val(),0);
+                    }else{
+                        BindRoles(0,$('#hdnAccountId').val());
+                    }
+                    // debugger
+                    BindSubMenu($('#PK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#hdnAccountId').val(),$('#CustomerId').val());
+
+                });
+
+                $('#base-tab11').click(function (e) {
+                    $('#base-tab12').removeClass('active');
+                    $('#base-tab11').addClass('active');
+
+
+                    $('#tab12').removeClass('active');
+                    $('#tab11').addClass('active');
+                    //if(LoginType=="CUSTOMER"){
+                    //}else{Refresh();}
+                });
+
+            }
+            else{
+                $('#base-tab12').click(function (e) {
+                    $('#base-tab11').removeClass('active');
+                    $('#base-tab12').addClass('active');
+
+                    $('#tab11').removeClass('active');
+                    $('#tab12').addClass('active');
+                    //if(LoginType=="CUSTOMER"){
+                    //}else{Refresh();}
+
+                });
+
+                $('#base-tab11').click(function (e) {
+                    $('#base-tab12').removeClass('active');
+                    $('#base-tab11').addClass('active');
+
+
+                    $('#tab12').removeClass('active');
+                    $('#tab11').addClass('active');
+                    //if(LoginType=="CUSTOMER"){
+                    //}else{Refresh();}
+                });
+            }
+
+            $('#FK_RoleForId').change(function(e){
+                // debugger
+                if ($('#FK_RoleForId :selected').text().toUpperCase() == 'CUSTOMER') {
+                    BindAccountsByCategory(0,'Mapping');
+                    BindCustomers($('#FK_AccountId').val(),LoginType,'Mapping');
+                    // BindRoles($('#CustomerId').val());
+                    $('#divcategory1').show();
+                    $('#divcustomer').show();
+                    $('#divcustomer1').show();
+
+                } else{
+                    $('#FK_CategoryId').val("").attr('selected','selected');
+                    BindAccountsByCategory($('#FK_RoleForId').val(),'Mapping');
+                    BindCustomers($('#FK_AccountId').val(),LoginType,'Mapping');
+                    //   BindRoles($('#CustomerId').val());
+                    $('#divcategory1').hide();
+                    $('#divcustomer').hide();
+                    $('#divcustomer1').hide();
+                    $(".select2").select2();
+
+                }
+            });
+
+            $('#RoleForId').change(function(e){
+                //  debugger
+                if ($('#RoleForId :selected').text().toUpperCase() == 'CUSTOMER') {
+                    BindAccountsByCategory(0,'Role');
+                    // BindCustomers($('#FK_AccountId').val(),LoginType,'Role');
+                    $('#divcategory').show();
+                    $('#divcustomer').show();
+
+                } else{
+                    $('#CategoryId').val("").attr('selected','selected');
+                    BindAccountsByCategory($('#RoleForId').val(),'Role');
+                    BindCustomers($('#FK_AccountId').val(),LoginType,'Role');
+                    $('#divcategory').hide();
+                    $('#divcustomer').hide();
+
+
+                    $(".select2").select2();
+
+                }
+            });
+
+            if(LoginType!="CUSTOMER"){
+                BindAccountsByCategory($('#RoleForId').val(),'Role')
+                BindAccountsByCategory($('#FK_RoleForId').val(),'Mapping')
+            }
+            //  debugger
+            // BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#AccountId').val(),$('#CustomerId').val());
+            $('#CategoryId').change(function () {
+                //  debugger
+                BindAccountsByCategory($('#CategoryId').val(),'Role')
+                $('#hdnAccountId').val('')
+            });
+            $('#FK_CategoryId').change(function () {
+                //  debugger
+                BindAccountsByCategory($('#FK_CategoryId').val(),'Mapping')
+
+            });
+
+            $('#FK_AccountId').change(function () {
+                $('#hdnCustomerId').val('');
+                if ($('#RoleForId :selected').text().toUpperCase() == 'CUSTOMER') {
+                    BindCustomers($('#FK_AccountId').val(),LoginType,'Role');
+                }
+
+
+            });
+            $('#AccountId').change(function () {
+                BindCustomers($('#AccountId').val(),LoginType,'Mapping');
+                BindRoles(0,$('#AccountId').val());
+            });
+            $('#CustomerId').change(function(){
+                BindRoles($('#CustomerId').val(),0)
+            });
+
+
+            if ($('#hdnStatus').val() != null && $('#hdnStatus').val() != '') {
+                $("#Status").val($('#hdnStatus').val()).attr("selected", "selected")
+            }
+
+            $('#FK_RoleId').change(function () {
+                BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#AccountId').val(),$('#CustomerId').val());
+            });
+            $('#FK_Parent_FormId').change(function () {
+                BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#AccountId').val(),$('#CustomerId').val());
+            });
+
+
+        });
+        /**********************   To Save Role Data  **********************************/
+
+        function SaveRoleData() {
+            // debugger
+            $('#hdnRoleName').val($('#RoleName').val());
+            $('#hdnRoleForRoleRightsName').val($('#RoleForId :selected').text().toUpperCase());
+            $('#hdnRoleForRoleRightsId').val($('#RoleForId').val());
+            $('#hdnCategoryRoleRightsId').val($('#CategoryId').val());
+            $('#hdnAccountRoleRightsId').val($('#FK_AccountId').val());
+            $('#hdnCustomerRoleRightsId').val($('#FK_CustomerId').val());
+
+            if($('#RoleForId :selected').text().toUpperCase()=='CUSTOMER' ){
+                if($('#FK_CustomerId').val()==0 ||$('#FK_CustomerId').val()=='' ||$('#FK_CustomerId').val()==null){
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.SelectCustomerName');
+                    return false;
+                }
+            }
+
+
+
+
+            $.ajax({
+                url: "@Url.Action("AddEditRole", "MstRole")",
+                type: "POST",
+                async: false,
+                data: {
+                    'PK_RoleId': $('#PK_RoleId').val(), 'RoleName': $('#RoleName').val(), 'CategoryId': $('#RoleForId').val(),
+                    'FK_AccountId': $('#FK_AccountId').val(), 'FK_FormId': $('#FK_FormId').val(), 'Status': $('#Status').val(),
+                    'FK_CustomerId': $('#FK_CustomerId').val()
+                },
+                success: function (data) {
+
+                    alert(data.Message);
+                    if($('#Status').val()=="InActive"){
+                        window.location = '@Url.Action("Index", "mstRole")';
+
+                    }
+                    if (data.MessageId == 1 || data.MessageId == 2) {
+
+                        $('#base-tab12').trigger('click');
+                        //Refresh();
+                    }
+                    $('#FK_RoleForId').val($('#hdnRoleForRoleRightsId').val()).attr("selected","selected").attr("disabled","disabled");
+                    if($('#hdnRoleForRoleRightsName').val()=="CUSTOMER"){
+                        $('#FK_CategoryId').val($('#hdnCategoryRoleRightsId').val()).attr("selected","selected").attr("disabled","disabled");
+                        BindAccountsByCategory($('#hdnCategoryRoleRightsId').val(),'Mapping');
+                        $(".select2").select2();
+                        $('#divcategory1').show();
+                        $('#divcustomer1').show();
+
+                    }else{
+                        $('#FK_CategoryId').val("").attr('selected','selected');
+                        BindAccountsByCategory($('#hdnRoleForRoleRightsId').val(),'Mapping');
+                        $('#divcustomer1').hide();
+                        $('#divcategory1').hide();
+                        $(".select2").select2();
+                    }
+
+                    if($('#hdnRoleForRoleRightsName').val().toUpperCase().trim()=="CUSTOMER"){
+                        BindCustomers($('#hdnAccountRoleRightsId').val(),LoginType,'Mapping');
+                        BindRoles($('#hdnCustomerRoleRightsId').val(),0);
+                    }else{
+                        BindRoles(0,$('#hdnAccountRoleRightsId').val());
+                    }
+                    //debugger
+                    BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(),$('#MappingFor').val(),$('#hdnAccountRoleRightsId').val(),$('#hdnCustomerRoleRightsId').val());
+                }
+
+            });
+        }
+        /**********************   To Bind Account By Category   **********************************/
+
+        function BindAccountsByCategory(categoryID,CallFrom) {
+            //       debugger
+            if(CallFrom=='Role'){
+                $("#FK_AccountId").html("");
+                $("#FK_AccountId").append(
+                           $('<option></option>').val("").html("--Select Account--"));
+            }else{
+                $("#AccountId").html("");
+                $("#AccountId").append(
+                           $('<option></option>').val("").html("--Select Account--"));
+            }
+
+            if (categoryID == "0") {
+                return false;
+            }
+            $.ajax({
+                url: "@Url.Action("BindAccountsByCategory", "MstRole")",
+                type: "GET",
+
+                data: { CategoryId: categoryID },
+                success: function (Accounts) {
+                    debugger;
+                    $.each(Accounts, function (i, acccount) {
+                       
+                            $("#AccountId").append(
+                                $('<option></option>').val(acccount.ID).html(acccount.Value));
+                       
+                    });
+                    //   debugger
+                    alert($('#hdnAccountId').val());
+                    if ($('#hdnAccountId').val() != 0) {
+                        $("#FK_AccountId").val($('#hdnAccountId').val()).attr("selected", "selected").attr('disabled','disabled')
+                        $("#AccountId").val($('#hdnAccountId').val()).attr("selected", "selected").attr("disabled","disabled")
+                    }
+                    if($('#hdnAccountRoleRightsId').val()!=0){
+                        $("#AccountId").val($('#hdnAccountRoleRightsId').val()).attr("selected", "selected").attr("disabled","disabled");
+                    }
+
+
+                }
+
+            });
+        }
+        /**********************   To Refresh Tab Data  **********************************/
+
+        function Refresh() {
+            $('#RoleName').val('');
+            BindAccountsByCategory($('#FK_CategoryId').val(),'Role')
+            $('#FK_FormId').val("").attr("selected", "selected");
+            $('#RoleForId').val("").attr("selected", "selected");
+            $('#CategoryId').val("").attr("selected", "selected");
+            $('#hdnCustomerId').val('');
+            //   BindCustomers(0,LogInType)
+            BindCustomers($('#FK_AccountId').val(),LoginType,'Role');
+
+            $(".select2").select2();
+        }
+        /**********************   To Bind Roles   **********************************/
+
+        function BindRoles(Customerid,accountid) {
+            $("#FK_RoleId").html("");
+            $("#FK_RoleId").append(
+                       $('<option></option>').val("").html("--Select Role--"));
+            //if(Customerid==0){
+            //    return false;
+            //}
+            $.ajax({
+                url: "@Url.Action("BindRoles", "MstRole")",
+                type: "GET",
+                async: false,
+                data:{FK_CustomerID:Customerid,'AccountId':accountid},
+                success: function (Roles) {
+                    // debugger
+                    $.each(Roles, function (i, Role) {
+
+                        $("#FK_RoleId").append(
+                            $('<option></option>').val(Role.ID).html(Role.Value));
+                        if (Role.Value == $('#hdnRoleName').val()) {
+                            $("#FK_RoleId").val(Role.ID).attr("selected", "selected").attr("disabled","disabled")
+                        }
+                    });
+                    if ($('#PK_RoleId').val()!=0) {
+                        $("#FK_RoleId").val($('#PK_RoleId').val()).attr("selected", "selected").attr("disabled","disabled")
+                    }
+
+                }
+            });
+
+        }
+        /**********************   To Bind Sub Menu's   **********************************/
+
+        function BindSubMenu(RoleId, FormId,mappingFor,Accountid,Customerid) {
+            // debugger;
+            if (RoleId == null || RoleId == 0 || RoleId == '') {
+                //alert('Please Select Role Name');
+                // $('#divFormRoleMapping').hide();
+                return false;
+            }
+            $.ajax({
+                url: "@Url.Action("BindSubMenu", "MstRole")",
+                type: 'GET',
+                cache: false,
+                data: { 'FK_RoleId': RoleId, 'FK_FormId': FormId,'MappingFor':mappingFor,'FK_AccountId':Accountid,'FK_CustomerId': Customerid},
+                success: function (data) {
+
+                    $('#divFormRoleMapping').html(data);
+                    //$('#divFormRoleMapping').show();
+
+                }
+            });
+        }
+        /**********************   To Bind Customers   **********************************/
+        function BindCustomers(AccountId,Logintype,CallFrom) {
+
+            if(CallFrom=='Role'){
+                $("#FK_CustomerId").html("");
+                $("#FK_CustomerId").append(
+                           $('<option></option>').val("").html('--Select Customer--'));
+            }else{
+                $("#CustomerId").html("");
+                $("#CustomerId").append(
+                           $('<option></option>').val("").html('--Select Customer--'));
+            }
+
+            if (AccountId == 0 && Logintype!='CUSTOMER') {
+                return false;
+            }
+
+            $.ajax({
+                url: "@Url.Action("BindCustomer", "MstRole")",
+                type: "GET",
+                data: { 'Fk_AccountId': AccountId },
+                success: function (Customers) {
+
+                    $.each(Customers, function (i, Customer) {
+                        if(CallFrom=='Role'){
+                            $("#FK_CustomerId").append(
+                                $('<option></option>').val(Customer.ID).html(Customer.Value));
+                        }else{
+                            $("#CustomerId").append(
+                                  $('<option></option>').val(Customer.ID).html(Customer.Value));
+                        }
+                    });
+                    //debugger
+                    if ($('#hdnCustomerId').val() != 0 && Logintype!='CUSTOMER') {
+                        $("#FK_CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected').attr('disabled','disabled');
+                        $("#CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected').attr('disabled','disabled')
+
+                    }else if ($('#hdnCustomerId').val() != 0 && Logintype=='CUSTOMER' && $('#PK_RoleId').val()>0) {
+                        $("#FK_CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected').attr('disabled','disabled')
+                        $("#CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected').attr('disabled','disabled')
+                    }else if ($('#hdnCustomerId').val() != 0 && Logintype=='CUSTOMER' ) {
+                        $("#FK_CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected')
+                        $("#CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected')
+                    }
+
+
+                    if ($('#hdnCustomerIdForRoleRights').val() != 0 && Logintype!='CUSTOMER' && $('#PK_RoleId').val()>0) {
+                        $("#CustomerId").val($('#hdnCustomerIdForRoleRights').val()).attr('selected', 'selected').attr('disabled','disabled')
+                    }else if ($('#hdnCustomerIdForRoleRights').val() != 0 && Logintype=='CUSTOMER') {
+
+                        $("#CustomerId").val($('#hdnCustomerId').val()).attr('selected', 'selected')
+                    }
+
+
+                    if($('#hdnCustomerRoleRightsId').val()!=0){
+                        $("#CustomerId").val($('#hdnCustomerRoleRightsId').val()).attr('selected', 'selected').attr('disabled','disabled')
+                    }
+
+                }
+
+            });
+
+        }
+    </script>
+}

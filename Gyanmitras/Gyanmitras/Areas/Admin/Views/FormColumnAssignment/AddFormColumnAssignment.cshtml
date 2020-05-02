@@ -1,0 +1,141 @@
+﻿@model GyanmitrasMDL.FormColumnAssignmentMDL
+
+@{
+    ViewBag.Title = "AddFormColumnAssignment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-12 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a> </li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index")">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</a> </li>
+                        <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="NewformTabs">
+            <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.FormColumnAssignment</a> </li>
+            </ul>
+            <div class="tab-content px-1 py-1">
+                <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                    @using (Html.BeginForm("AddFormColumnAssignment", "FormColumnAssignment", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(E => E.FormName)
+                        @Html.HiddenFor(E => E.UserId)
+                        @Html.HiddenFor(E => E.PK_FormColumnId)
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        @*<div class="form-group row">
+                                            <label class="col-md-3 label-control">Account Name</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.AccountId, new SelectList((System.Collections.IEnumerable)ViewData["Account"], "ID", "Value"), "--Select Account--", new { @class = "form-control select2" })
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.FormName</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.Fk_FormId, new SelectList((System.Collections.IEnumerable)ViewData["Form"], "ID", "Value"), "--Select Form--", new { @class = "form-control select2" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.ColumnName</label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.ColumnName, new { @class = "form-control", @placeholder = "Column Name" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-actions center"> <button id="btnsubmit" type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button> <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a> </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(".select2").select2();
+
+            $("#btnsubmit").click(function (e) {
+               // debugger
+                $("#FormName").val($("#Fk_FormId option:selected").text());
+
+
+                //if ($('#AccountId').val() == null || $('#AccountId').val() == '' || $('#AccountId').val() == 0) {
+                //    alert('Please Select Account Name');
+                //    e.preventDefault();
+                //    return false;
+                //}
+                if ($('#Fk_FormId').val() == null || $('#Fk_FormId').val() == '' || $('#Fk_FormId').val() == 0) {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.FormNameValidation');
+                    e.preventDefault();
+                    return false;
+                }
+
+                if (IsNullOrWhitespace($('#ColumnName').val())) {
+
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.EnterCountryName');
+                    e.preventDefault();
+                    return false;
+                }
+                else {
+                    $('#ColumnName').val($.trim($('#ColumnName').val()));
+                }
+
+
+                var regex = /^[a-zA-Z ]*$/;
+                var ColumnName = $('#ColumnName').val();
+
+                if (regex.test(ColumnName) == true) {
+                    return true;
+                }
+                else {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.AlphabetsSpaceAllowed');
+                    e.preventDefault();
+                    return false;
+                }
+
+            });
+        });
+
+        //METHOD: TO CHECK NULL OR WHITE SPACE FOR STRING INPUT
+        function IsNullOrWhitespace(input) {
+
+            if (typeof input === 'undefined' || input == null) return true;
+
+            return input.replace(/\s/g, '').length < 1;
+        }
+
+</script>
+}
+
+
+
+

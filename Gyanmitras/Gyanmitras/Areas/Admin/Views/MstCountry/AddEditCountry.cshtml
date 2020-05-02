@@ -1,0 +1,158 @@
+﻿@model GyanmitrasMDL.MstCountryMDL
+@{
+    ViewBag.Title = "AddEditCountry";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("AddEditCountry", "MstCountry"))
+{
+    @Html.HiddenFor(E => E.PK_CountryId)
+    @Html.HiddenFor(E => E.Status)
+
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew @GyanmitrasLanguages.LocalResources.Resource.Country</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@GyanmitrasLanguages.LocalResources.Resource.Country</a> </li>
+                            <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.Country</a> </li>
+
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                      
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput3">@GyanmitrasLanguages.LocalResources.Resource.CountryName<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.CountryName, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.CountryName, @maxlength = 50 })
+                                                @Html.ValidationMessageFor(E => E.CountryName)
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                            <div class="col-md-7">
+                                                <select class="form-control" name="CheckStatus" id="Status1">
+                                                    <option value="Active" selected="selected">@GyanmitrasLanguages.LocalResources.Resource.Active</option>
+                                                    <option value="InActive">@GyanmitrasLanguages.LocalResources.Resource.Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="submit" id="btnsubmit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                                        <a href="@Url.Action("Index")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab12" aria-labelledby="base-tab12">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        <input type="hidden" value="@Model.PK_CountryId" id="hdncountryId" />
+                                        <input type="hidden" id="hdnStatus" value="@Model.Status" />
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+}
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+
+            if ($('#hdnStatus').val() != null && $('#hdnStatus').val() != '') {
+                $("#Status1").val($('#hdnStatus').val()).attr("selected", "selected")
+            }
+
+            $('#btnsubmit').click(function (e) {
+                validate(e);
+                if ($("#Status1 option:selected").val() == "Active") {
+                    $('#Status').val("Active");
+
+                }
+                else {
+                    $('#Status').val("InActive");
+                }
+
+            })
+
+        });
+
+
+
+        function validate(e) {
+
+            if ($('#CountryName').val().trim() == '' || $('#CountryName').val().trim() == '0' || $('#CountryName').val().trim() == null) {
+                alert('@GyanmitrasLanguages.LocalResources.Resource.EnterCountryName');
+                e.preventDefault();
+                return false;
+            } else {
+                var reg = /^[a-zA-Z0-9-_.\s]*$/;
+                if ($('#CountryName').val().match(reg)) {
+
+                }
+                else {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.CountryInvalid');
+                    e.preventDefault();
+                    return false;
+
+                }
+            }
+        }
+
+
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

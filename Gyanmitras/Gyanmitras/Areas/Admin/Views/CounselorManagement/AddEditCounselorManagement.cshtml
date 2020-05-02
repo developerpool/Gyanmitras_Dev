@@ -1,0 +1,157 @@
+﻿<!--#region model  -->
+@model GyanmitrasMDL.User.CounselorMDL
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!--#endregion model  -->
+<!--#region Html  -->
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .field-icon {
+        float: right;
+        margin-left: -25px;
+        margin-top: -25px;
+        position: relative;
+        z-index: 2;
+    }
+</style>
+@using (Html.BeginForm("AddEditCounselorManagement", "CounselorManagement"))
+{
+    @Html.HiddenFor(E => E.PK_CounselorID)
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew @ViewBag.Title</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","MSTAccount")">@GyanmitrasLanguages.LocalResources.Resource.Home.</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@ViewBag.Title</a> </li>
+                            <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.Details</a> </li>
+                    <li class="nav-item"> <a class="nav-link" id="base-tab12" data-toggle="tab" aria-controls="tab12" href="#tab12" aria-expanded="false">Bulk Upload</a> </li>
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+
+                            <div class="col-lg-10 offset-lg-1">
+                                <div class="form form-horizontal">
+                                    <div class="form-body">
+
+                                    
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>()
+                                                                                         {
+                                                                                           new SelectListItem() { Value = "true", Text = @GyanmitrasLanguages.LocalResources.Resource.Active,Selected=true },
+                                                                                           new SelectListItem() { Value="false", Text=@GyanmitrasLanguages.LocalResources.Resource.Inactive},
+                                                                                         }, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(E => E.IsActive)
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab12" aria-labelledby="base-tab12">
+                            <div class="row">
+                                <div class="col-lg-10 offset-lg-1">
+                                    <div class="form form-horizontal">
+                                        <div class="form-body">
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control">Upload File</label>
+                                                <div class="col-md-7">
+
+                                                    @Html.TextBoxFor(E => E.BulkUpload, new { @type = "file", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(E => E.BulkUpload)
+                                                    Resource File Should be in (xls, xlsx) format.
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="form-actions center">
+                    <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"> @GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                    <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1 bulkOutHide">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                </div>
+
+            </section>
+        </div>
+    </div>
+}
+<!--#endregion html  -->
+<!--#region script  -->
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/daterangepicker.css" />
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $(".select2").select2();
+
+            if ($("#Pk_UserId").val() != 0) {
+
+
+            }
+
+            $('#BulkUpload').change(function () {
+
+                var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
+                switch (ext.toLowerCase()) {
+                   
+                    case 'xsl':
+                        break;
+                    case 'xslx':
+                        break;
+                   
+
+                    default:
+                        alert('Invalid File format!');
+                        this.value = '';
+                }
+            });
+
+      
+
+        });
+
+
+    </script>
+}
+<!--#endregion script  -->

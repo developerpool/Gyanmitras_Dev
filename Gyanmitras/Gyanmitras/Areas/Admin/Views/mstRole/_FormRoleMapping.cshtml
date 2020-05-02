@@ -1,0 +1,181 @@
+﻿@model GyanmitrasMDL.FormRoleViewMDL
+@using (Html.BeginForm("SaveFormRoleMapping", "MstRole"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.FK_RoleId)
+    @Html.HiddenFor(m => m.FK_FormId)
+    @Html.HiddenFor(m => m.Mapping)
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table id="table" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Menu</th>
+                            <th colspan="5" class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Rights</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.All</th>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.View</th>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Add </th>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Edit </th>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Delete </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        @if (Model.Forms != null)
+                        {
+                            for (int i = 0; i < Model.Forms.Count; i++)
+                            {
+                                if (Model.Forms.Count > 1 && i == 0 && Model.Forms[i].FK_ParentId == 0)
+                                {
+                                    @Html.HiddenFor(m => m.Forms[i].FK_FormId)
+                                    @Html.HiddenFor(m => m.Forms[i].FormName)
+                                    @Html.HiddenFor(m => m.Forms[i].PK_FormRoleId)
+                                    @Html.HiddenFor(m => m.Forms[i].FK_RoleId)
+                                }
+                                else
+                                {
+                                    <tr valign="middle">
+                                        <td align="center">
+                                            @Html.DisplayFor(m => m.Forms[i].FormName)
+                                            @Html.HiddenFor(m => m.Forms[i].FK_FormId)
+                                            @Html.HiddenFor(m => m.Forms[i].FormName)
+                                            @Html.HiddenFor(m => m.Forms[i].PK_FormRoleId)
+                                        </td>
+                                        <td align="center">
+                                            @Html.CheckBoxFor(m => m.Forms[i].CanAll, new { @class = "chbAll" })
+                                        </td>
+                                        <td align="center">
+                                            @Html.CheckBoxFor(m => m.Forms[i].CanView, new { @class = "chbView" })
+                                        </td>
+                                        <td align="center">
+                                            @Html.CheckBoxFor(m => m.Forms[i].CanAdd, new { @class = "chbADD" })
+                                        </td>
+                                        <td align="center">
+                                            @Html.CheckBoxFor(m => m.Forms[i].CanEdit, new { @class = "chbEDIT" })
+                                        </td>
+                                        <td align="center">
+                                            @Html.CheckBoxFor(m => m.Forms[i].CanDelete, new { @class = "chbDELETE" })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions center">
+        <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"><i class="fa fa-sign-in"></i> @GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+        <a href="@Url.Action("Index")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+    </div>
+}
+<script type="text/javascript">
+            $(document).ready(function () {
+
+                $("button[type='submit']").on("click", function (e) {
+
+                    $('#Mapping').val($('#MappingFor').val());
+
+                    if ($('#FK_RoleId').val() == '0' || $('#FK_RoleId').val() == '' || $('#FK_RoleId').val() == null) {
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.selectRoleValidation')
+                        e.preventDefault();
+                        return false;
+                    }
+
+                    if ($('#table >tbody >tr').length == 0) {
+                        alert("@GyanmitrasLanguages.LocalResources.Resource.FormNameValidation");
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+
+                $('.chbAll').click(function (event) {
+                    var checkboxes = $(this).closest('tr').find(':checkbox');
+                    //If the checkbox is checked
+                    if ($(this).is(":checked")) {
+                        checkboxes.prop('checked', true)
+                        //Add class on checkbox checked
+                    } else {
+                        //Remove class on checkbox uncheck
+                        checkboxes.prop('checked', false)
+                    }
+                });
+
+                $('.chbADD').click(function (event) {
+                    var checkboxes = $(this).closest('tr').find(':checkbox');
+                    //If the checkbox is checked
+                    if ($(this).is(":checked")) {
+                        if ($(this).closest('tr').find(':checkbox.chbEDIT').is(":checked")) {
+                            if ($(this).closest('tr').find(':checkbox.chbDELETE').is(":checked")){
+                                if($(this).closest('tr').find(':checkbox.chbView').is(":checked"))
+                                {
+                                    $(this).closest('tr').find(':checkbox.chbAll').prop('checked', true)
+                                }
+                            }
+                        } 
+                    } else {
+                        //checkboxes.prop('checked', false)
+                        $(this).closest('tr').find(':checkbox.chbAll').prop('checked', false)
+                    }
+                });
+                $('.chbEDIT').click(function (event) {
+
+                    var checkboxes = $(this).closest('tr').find(':checkbox');
+                    //If the checkbox is checked
+                    if ($(this).is(":checked")) {
+                        if ($(this).closest('tr').find(':checkbox.chbADD').is(":checked")) {
+                            if ($(this).closest('tr').find(':checkbox.chbDELETE').is(":checked")) {
+                                if ($(this).closest('tr').find(':checkbox.chbView').is(":checked")) {
+                                    $(this).closest('tr').find(':checkbox.chbAll').prop('checked', true)
+                                }
+                            }
+                        }
+                    } else {
+                        //checkboxes.prop('checked', false)
+                        $(this).closest('tr').find(':checkbox.chbAll').prop('checked', false)
+                    }
+                });
+                $('.chbDELETE').click(function (event) {
+                 
+                    var checkboxes = $(this).closest('tr').find(':checkbox');
+                    //If the checkbox is checked
+                    if ($(this).is(":checked")) {
+                        if ($(this).closest('tr').find(':checkbox.chbADD').is(":checked")) {
+                            if ($(this).closest('tr').find(':checkbox.chbEDIT').is(":checked")) {
+                                if ($(this).closest('tr').find(':checkbox.chbView').is(":checked")) {
+                                    $(this).closest('tr').find(':checkbox.chbAll').prop('checked', true)
+                                }
+                            }
+                        }
+                    } else {
+                        //checkboxes.prop('checked', false)
+                        $(this).closest('tr').find(':checkbox.chbAll').prop('checked', false)
+                    }
+                });
+                $('.chbView').click(function (event) {
+
+                    var checkboxes = $(this).closest('tr').find(':checkbox');
+                    //If the checkbox is checked
+                    if ($(this).is(":checked")) {
+                        if ($(this).closest('tr').find(':checkbox.chbADD').is(":checked")) {
+                            if ($(this).closest('tr').find(':checkbox.chbEDIT').is(":checked")) {
+                                if ($(this).closest('tr').find(':checkbox.chbDELETE').is(":checked")) {
+                                    $(this).closest('tr').find(':checkbox.chbAll').prop('checked', true)
+                                }
+                            }
+                        }
+                    } else {
+                        //checkboxes.prop('checked', false)
+                        $(this).closest('tr').find(':checkbox.chbAll').prop('checked', false)
+                    }
+                });
+
+            })
+
+</script>

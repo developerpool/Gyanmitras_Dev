@@ -1,0 +1,108 @@
+﻿@model List<GyanmitrasMDL.MstFormLanguageMappingMDL>
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+
+}
+@*<div id="total_count_div" style="display:none">
+    @Html.Partial("_TotalCountPaging", (GyanmitrasMDL.TotalCountPagingMDL)ViewBag.TotalCountPaging)
+</div>*@
+
+    <div class="table-responsive" style="max-height: 465px;">
+        <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" value="" onclick="checkAll(this)"  id="checkAll"></th>
+                    <th>@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                    <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.FormName</th>
+                    <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.LanguageName</th>
+                    <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.TranslatedLanguageName</th>
+                    <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                    <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.CreatedDate</th>
+                    <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="14">
+                            <div class="text-danger">
+                                @GyanmitrasLanguages.LocalResources.Resource.DataNotFound
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" value="" onclick="checkindividual(this)" id="@item.PK_FormLanguageId"></td>
+                            <td align="center">@SerialNo</td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.FormName)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modalItem => item.LanguageName)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modalItem => item.TranslatedFormName)
+                            </td>
+
+                            @if (item.IsActive)
+                            {
+                                SerialNo++;
+                                <td align="center"><div class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</div></td>
+                            }
+                            else
+                            {
+                                SerialNo++;
+                                <td align="center"><div class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</div></td>
+                            }
+                            <td align="center">
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td align="center">
+                                @if (ViewBag.CanEdit)
+                                {
+                                    <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditFormLanguageMapping", new { id = item.PK_FormLanguageId })"><i class="la la-pencil"></i></a>
+                                    
+
+                                }
+                                    @if (ViewBag.CanDelete)
+                                    {
+                                        <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg')" href="@Url.Action("DeleteFormLanguageMapping", new { id = item.PK_FormLanguageId }) "><i class="la la-trash-o"></i></a>
+                                    }
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+
+
+
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style','display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+</script>

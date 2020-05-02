@@ -1,0 +1,103 @@
+﻿@model GyanmitrasMDL.MapFormColumnConfigurationMDL
+@{
+    int SerialNo = 1;
+}
+ <!-- #region Grid Table Data -->
+@using (Html.BeginForm("UpdateFormColumnConfig", "MapFormColumnConfiguration"))
+{
+    @Html.HiddenFor(m=>m.FK_AccountId)
+    @Html.HiddenFor(m => m.FK_CustomerId)
+    @Html.HiddenFor(m => m.FK_CategoryId)
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="">
+
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:100px;">@GyanmitrasLanguages.LocalResources.Resource.No</th>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.ColumnName</th>
+                            <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.IsActive</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+                        @if (Model.FormColumns != null)
+                        {
+                            for (int i = 0; i < Model.FormColumns.Count; i++)
+                            {
+
+                                <tr valign="middle">
+                                    <td align="center">@SerialNo</td>
+                                    <td align="center">
+                                        @Html.DisplayFor(m => m.FormColumns[i].ColumnName)
+                                        @Html.HiddenFor(m => m.FormColumns[i].ColumnName)
+                                        @Html.HiddenFor(m => m.FormColumns[i].PK_FormColumnId)
+                                        @Html.HiddenFor(m => m.FormColumns[i].PK_FormColumnConfigId)
+                                        @Html.HiddenFor(m => m.FormColumns[i].Fk_FormId)
+                                        @Html.HiddenFor(m => m.FormColumns[i].AccountId)
+                                    </td>
+                                    <td align="center" class="ShowHide">
+                                        @Html.CheckBoxFor(m => m.FormColumns[i].IsActive)
+                                    </td>
+                                </tr>
+                                SerialNo++;
+                            }
+                        }
+
+                        else
+                        {
+                            <tr>
+                                <td colspan="14">
+                                    <div class="text-danger">@GyanmitrasLanguages.LocalResources.Resource.DataNotFound</div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions center">
+        <button id="btnSubmit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" type="submit" name="btnSubmitDeviceType">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+        <a href="@Url.Action("Index")"  class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1 bulkOutHide">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+    </div>
+}
+ <!-- #endregion  -->
+
+ <!-- #region Script Section -->
+<script type="text/javascript">
+
+    $(document).ready(function (e) {
+        // Submit Button Click Event  .  Made By Vinish
+        $("#btnSubmit").click(function (e) {
+           
+            if ($('#FK_CustomerId').val() == '' && ($('#FK_AccountId').val() == "" || $('#FK_AccountId').val() == null)) {
+                alert('@GyanmitrasLanguages.LocalResources.Resource.MandatoryFields')
+                return false;
+            }
+           
+            if ($('#Fk_FormId').val() == "" || $('#Fk_FormId').val() == "0" || $('#Fk_FormId').val() == null) {
+                alert("@GyanmitrasLanguages.LocalResources.Resource.FormNameValidation");
+                return false;
+            }
+
+            if ($('#tableBody').find('tr').length == 0) {
+                alert("@GyanmitrasLanguages.LocalResources.Resource.SelectColumns");
+                return false;
+            }
+
+
+        });
+
+
+    })
+
+</script>
+ <!-- #endregion -->
+

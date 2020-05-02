@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.FormAccountMapping</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="JavaScript:Void(0);">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.FormAccountMapping</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.CanAdd)
+        {
+            <div class="content-header-right col-md-6 col-12"> <a href="@Url.Action("AddEditFormAccountMapping")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> @GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</a> </div>
+        }
+    </div>
+    <div class="content-body">
+        @Html.Partial("_TotalCountPaging", (GyanmitrasMDL.TotalCountPagingMDL)ViewBag.TotalCountPaging)
+        <section id="">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">@GyanmitrasLanguages.LocalResources.Resource.FormAccountMappingData</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard">
+                                <div class="dataTables_wrapper">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="" class="dataTables_filter">
+                                                <label>
+                                                    <fieldset>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <button id="SearchCreteria" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" val="FormName" href="javascript:void(0);"  onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.FormName</a>
+                                                                    <a class="dropdown-item" val="AccountName" href="javascript:void(0);"  onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.AccountName</a>
+                                                                    <a class="dropdown-item" val="CategoryName" href="javascript:void(0);"  onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.AccCategory</a>
+                                                                </div>
+                                                            </div>
+                                                            <input type="text" id="SearchValue" class="form-control" placeholder=@GyanmitrasLanguages.LocalResources.Resource.Search aria-label="Amount (to the nearest dollar)">
+                                                            <button onclick="paging(1)"><i class="ficon ft-search"></i></button>
+                                                        </div>
+                                                    </fieldset>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 text-right">
+                                            <div class="dataTables_length"  id="exportdiv">
+                                                <label class="mr-2">
+                                                    @GyanmitrasLanguages.LocalResources.Resource.Show
+                                                    <select name="DataTables_Table_0_length" class="custom-select custom-select-sm form-control form-control-sm" id="RowPerpage" onchange="paging(1)">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    @GyanmitrasLanguages.LocalResources.Resource.Entries
+                                                </label>
+                                                <div class="dropdown display-inline">
+                                                    <a class="dropdown-toggle btn btn-dark" id="" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="">@GyanmitrasLanguages.LocalResources.Resource.Export</span></a>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-flag">
+                                                        <a class="dropdown-item" id="Excel" onclick="ExportToExcelOrCsvFile('Excel')"><i class="la la-file-excel-o"></i>@GyanmitrasLanguages.LocalResources.Resource.Excel</a>
+                                                        <a class="dropdown-item" id="CSV" onclick="ExportToExcelOrCsvFile('CSV')"><i class="la la-file-text"></i> @GyanmitrasLanguages.LocalResources.Resource.CSV</a>
+                                                        @*<a class="dropdown-item" id="PDF" onclick="ExportToExcelOrCsvFile('PDF')"><i class="la la-file-pdf-o"></i> @GyanmitrasLanguages.LocalResources.Resource.PDF</a>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="GridDiv">
+                                        @{Html.RenderAction("GetFormAccountMappingDetails"); }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+    <script type="text/javascript">
+        var Msg = '';
+        $(document).ready(function () {
+            ////// debugger
+            Msg = '';
+            /// paging(1);
+            if ('@ViewBag.Msg' != null && '@ViewBag.Msg'!='')
+            {
+                Msg = @Html.Raw(Json.Encode(ViewBag.Msg));
+            }
+            if (Msg != '' && Msg != null)
+            {
+                alert(Msg.Message);
+            }
+
+            $("#SearchValue").keyup(function () {
+                $(this).removeAttr('val');
+                $(this).attr('val', $(this).val())
+            });
+
+            $("#total,a[data-action='reload']").click(function () {
+                $("#SearchCreteria").text('');
+                $("#SearchCreteria").removeAttr('val');
+                $("#SearchCreteria").attr('val', '');
+                $("#SearchValue").val("");
+                $("#SearchValue").removeAttr('val');
+                $("#SearchValue").attr('val', '');
+                $("#RowPerpage").val("10");
+                paging(1);
+            });
+
+            $("#active,#inactive,#this_month").click(function () {
+         
+                $("#SearchCreteria").removeAttr('val');
+                $("#SearchCreteria").attr('val', ($(this).attr('id') == "active") ? "Status" : (($(this).attr('id') == "inactive") ? "Status" : "ThisMonth"));
+                $("#SearchValue").removeAttr('val');
+                $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" : (($(this).attr('id') == "inactive") ? "Inactive" : ""));
+                $("#SearchValue").val("");
+                $("#RowPerpage").val("10");
+                paging(1);
+            });
+
+
+            $("#checkAll").click(function () {
+                var checked = $(this).is(":checked");
+                $(this).closest('tr').parent().parent().find('tbody > tr').each(function () {
+                    $(this).find('td:eq(0)').find('input').prop("checked", checked);
+                });
+            });
+        });
+
+
+        //**EXPORT FILE .CSV OR .XLS**//
+        function ExportToExcelOrCsvFile(FileType) {
+            //// debugger
+            var AllFileType = "";
+            if (FileType == "Excel") {
+                AllFileType = ".xls";
+            }
+            else if (FileType == "CSV") {
+                AllFileType = ".csv";
+            }
+            else if (FileType == "PDF") {
+                AllFileType = ".pdf";
+            }
+            var choosen_ids = "";
+            $("#checkAll").closest('tr').parent().parent().find('tbody > tr').each(function () {
+                if ($(this).find('td:eq(0)').find('input').is(":checked")) {
+                    choosen_ids = choosen_ids + $(this).find('td:eq(0)').find('input').attr('id') + ",";
+                }
+            });
+
+
+            if (FileType == "Excel" || FileType == "CSV"|| FileType == "PDF") {
+                $.ajax({
+                    url: "@Url.Action("ChooseFileType", "FormAccountMapping")",
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    data: { 'FileType': AllFileType,"choosen_ids": choosen_ids,'SearchBy': $.trim($("#SearchCreteria").attr('val')), 'SearchValue':$.trim($("#SearchValue").attr('val')) },
+                    success: function (data) {
+                        // debugger
+                        if (data == 1) {
+                            window.location = '@Url.Action("ExportToExcelOrCSV", "FormAccountMapping")';
+                        }
+                    },
+                    error: function (res) { },
+                    failure: function (res) { },
+                });
+            }
+            else {
+                return false;
+            }
+        }
+
+        /**START::Paging**/
+        function paging(currentpage,a) {
+            ///// debugger
+            if (currentpage == NaN || currentpage <= 0) {
+                return false;
+            }
+            var SearchCreteria = "";
+            var SearchValue = $.trim($("#SearchValue").attr('val'));
+            if (a) {
+
+                SearchCreteria = $(a).attr('val');
+                $("#SearchCreteria").attr('val', SearchCreteria);
+                //$("#SearchCreteria").text($(a).text());
+                $(a).parent().find('a').removeAttr('style');
+                $(a).css('background-color', '#393b4a');
+                $(a).css('color', '#fff');
+            }
+            else {
+                SearchCreteria = $("#SearchCreteria").attr('val');
+            }
+            $.ajax({
+                // url: "../FormAccountMapping/GetFormAccountMappingDetails",
+                url: "@Url.Action("GetFormAccountMappingDetails", "FormAccountMapping")",
+                type: 'GET',
+                cache: false,
+                data: { 'CurrentPage': parseInt(currentpage), 'SearchBy':SearchCreteria, 'SearchValue':SearchValue, 'RowPerpage': $("#RowPerpage").val() },
+                success: function (data) {
+                    ///  debugger
+                    $('#GridDiv').html(data);
+                    $('.disabled').prop('disabled', true);
+                },
+            });
+            return false;
+        }
+
+        /**END::Paging**/
+        
+        /**START::Check All For Excel**/
+        function checkAll(a) {
+            var checked = $(a).is(":checked");
+            $(a).closest('tr').parent().parent().find('tbody > tr').each(function () {
+                $(this).find('td:eq(0)').find('input').prop("checked", checked);
+            });
+        }
+        /**End::Check All For Excel**/
+
+        /**START::Unckeck  All For When Uncheck Alleast Single Check Box**/
+        function checkindividual(a) {
+            var checked = $(a).is(":checked");
+            var all = true;
+            $(a).closest('tr').parent().parent().find('tbody > tr').each(function () {
+                if (!$(this).find('td:eq(0)').find('input[type="checkbox"]').is(":checked")) {
+                    all = false;
+                }
+            });
+            $(a).closest('tr').parent().parent().find('thead').find('input[type="checkbox"]').prop("checked", all);
+        }
+        /**END::Unckeck  All For When Uncheck Alleast Single Check Box**/
+
+    </script>
+}

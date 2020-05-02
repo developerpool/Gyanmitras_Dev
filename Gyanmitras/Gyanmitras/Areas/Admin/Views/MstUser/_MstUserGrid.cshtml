@@ -1,0 +1,131 @@
+﻿<!--#region model  -->
+@model IEnumerable<GyanmitrasMDL.MstUserMDL>
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+    
+ }
+<!--#endregion model  -->
+
+<!--#region GridShow  -->
+
+<div class="table-responsive" style="max-height: 465px;">
+    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" width="100%"style="cursor:auto">
+        <thead>
+            <tr>
+                @*<th><input type="checkbox" value="" id="checkAll" onclick="checkAll(this)"></th>*@
+                <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.AccCategory</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.AccountName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.UsruserName</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Role</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.EmailId</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.MobileNo</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Country</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.State</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.City</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.CreatedDate</th>
+                @*<th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.IsVehicleSpecific</th>*@
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="14">
+                        <div class="text-danger">@GyanmitrasLanguages.LocalResources.Resource.DataNotFound</div>
+                        @*<div class="text-danger">@Resources.Dictionary.NoRecordFound </div>*@
+                    </td>
+                </tr>
+
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center" style="display:none;">
+                            @Html.DisplayFor(modelItem => item.Pk_UserId)
+                        </td>
+                        <td class="text-center"><input type="checkbox" value="" id="@item.Pk_UserId"></td>
+                        <td align="center">@SerialNo</td>
+                        <td class="text-center">@item.Categoryname</td>
+                        @if (item.CustomerName == null)
+                        {
+                        <td class="text-center">@item.AccountName</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@item.CustomerName</td>
+                        }
+                        <td class="text-center">@item.UserName</td>
+                        <td class="text-center">@item.Rolename</td>
+                        <td class="text-center">@item.EmailId </td>
+                        <td class="text-center">@item.MobileNo </td>
+                        <td class="text-center">@item.CountryName </td>
+                        <td class="text-center"> @item.statename</td>
+                        <td class="text-center"> @item.Cityname </td>
+                        <td class="text-center"> @item.CreatedDateTime </td>
+                       @*@if (item.VehicleSpecific)
+                        {
+                           
+                            <td align="center" class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Yes</td>
+                        }
+                        else
+                        {
+                           
+                            <td align="center" class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No</td>
+                        }*@
+                        @if (item.IsActive)
+                        {
+                           
+                            <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>
+                        }
+                        else
+                        {
+                           
+                            <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
+                        }
+                        <td class="text-center text-nowrap">
+                            <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditUser", new { id = item.Pk_UserId })"><i class="la la-pencil"></i></a>
+                            @if (item.UserName != ViewBag.userCheck)
+                            {
+                            <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteUser", new { id = item.Pk_UserId })"onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a><br />
+                            }
+                        </td>
+                    </tr> SerialNo++;
+                }
+            }
+        </tbody>
+
+
+    </table>
+
+</div>
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style','display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+</script>
+
+<!--#endregion GridShow  -->
+
+
+

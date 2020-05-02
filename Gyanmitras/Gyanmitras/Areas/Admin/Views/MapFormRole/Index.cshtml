@@ -1,0 +1,181 @@
+﻿@model GyanmitrasMDL.MapFormRoleMDL
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var user = Gyanmitras.Common.SessionInfo.User as GyanmitrasMDL.UserInfoMDL;
+
+}
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-12 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.FormRole</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item">@GyanmitrasLanguages.LocalResources.Resource.FormRole </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="NewformTabs">
+            <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                <li class="nav-item"> <a class="nav-link active" id="base-tab12" data-toggle="tab" aria-controls="tab12"  aria-expanded="false">@GyanmitrasLanguages.LocalResources.Resource.RoleRights</a> </li>
+            </ul>
+            <div class="tab-content px-1 py-1">
+                <div class="tab-pane active" id="tab12" aria-labelledby="base-tab12">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <form class="form form-horizontal">
+                                <div class="form-body">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.WebMobile<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            <select class="form-control" id="MappingFor">
+                                                <option value="WebApp" selected="selected">Web App</option>
+                                                <option value="MobileApp">Mobile App</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="display:none">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.CompanyName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CompanyId, new SelectList((System.Collections.IEnumerable)ViewData["CompanyList"], "ID", "Value"), "--Select Company--", new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.FK_CompanyId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput4">@GyanmitrasLanguages.LocalResources.Resource.RoleName<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E=>E.FK_RoleId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Role--", new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.Module<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_Parent_FormId, new SelectList((System.Collections.IEnumerable)ViewData["ParentFormsList"], "ID", "Value"), new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                    <div id="divFormRoleMapping">
+                                    </div>
+                                    
+                                </div>
+                                @*<div id="msgDiv" class="col-md-12">
+                                    @if (ViewBag.msg != null && ((ViewBag.msg).MessageId == 1 || (ViewBag.msg).MessageId == 2))
+                                    {
+                                        <div id="myAlert" class="alert alert-success">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            <strong>@ViewBag.msg.Message</strong>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.msg != null)
+                                        {
+                                            <div id="myAlert" class="alert alert-danger">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong> @ViewBag.msg.Message</strong>
+                                            </div>
+                                        }
+                                    }
+                                </div>*@
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function (e) {
+            //  debugger
+            if ('@ViewBag.msg') {
+                alert('@ViewBag.msg');
+                //location.href = '/Home/Index';
+            }
+            $(".select2").select2();
+           
+
+            BindRoles('0');
+
+
+            $(".alert").fadeTo(2000, 5000).slideUp(500, function () {
+                $(".alert").slideUp(500);
+            });
+
+            $('#MappingFor').change(function(){
+                BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(), $('#MappingFor').val(), 0);
+            });
+            $('#divFormRoleMapping').show();
+            
+
+            $('#FK_RoleId').change(function () {
+                BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(), $('#MappingFor').val(), 0);
+            });
+
+
+            $('#FK_Parent_FormId').change(function () {
+                BindSubMenu($('#FK_RoleId').val(), $('#FK_Parent_FormId').val(), $('#MappingFor').val(), 0);
+            });
+
+
+        });
+        
+      
+      
+        /**********************   To Bind Roles   **********************************/
+
+        function BindRoles(companyid) {
+            $("#FK_RoleId").html("");
+            $("#FK_RoleId").append(
+            $('<option></option>').val("").html("--Select Role--"));
+            
+            $.ajax({
+                url: "@Url.Action("BindRoles", "MapFormRole")",
+                type: "GET",
+                async: false,
+                data:{'FK_CompanyId':companyid},
+                success: function (Roles) {
+                    // debugger
+                    $.each(Roles, function (i, Role) {
+                        $("#FK_RoleId").append(
+                            $('<option></option>').val(Role.ID).html(Role.Value));
+                    });
+                    
+
+                }
+            });
+
+        }
+        /**********************   To Bind Sub Menu's   **********************************/
+
+        function BindSubMenu(RoleId, FormId,mappingFor,Companyid) {
+             debugger;
+            if (RoleId == null || RoleId == 0 || RoleId == '') {
+                return false;
+            }
+            $.ajax({
+                url: "@Url.Action("BindSubMenu", "MapFormRole")",
+                type: 'GET',
+                cache: false,
+                data: { 'FK_RoleId': RoleId, 'FK_FormId': FormId,'MappingFor':mappingFor,'FK_CompanyId':Companyid},
+                success: function (data) {
+
+                    $('#divFormRoleMapping').html(data);
+
+                }
+            });
+        }
+      
+    </script>
+}

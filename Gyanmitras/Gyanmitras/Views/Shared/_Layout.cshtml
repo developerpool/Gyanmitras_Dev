@@ -1,0 +1,251 @@
+﻿@{
+    var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYANMITRAS</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        footer {
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .copyRightLogin {
+            
+            text-align: center;
+         
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 175px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background: #494b5a;border-color: #080808;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            @if (user != null)
+            {
+                @user.CategoryName
+                if (user.CategoryId == 3)
+                {
+                    @Html.ActionLink("GYANMITRAS", "Index", "Volunteer", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                }
+                else if (user.CategoryId == 2)
+                {
+                    @Html.ActionLink("GYANMITRAS", "Index", "Counselor", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                }
+                else if (user.CategoryId == 1)
+                {
+                    @Html.ActionLink("GYANMITRAS", "Index", "Student", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                }
+                else
+                {
+                    @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                }
+
+            }
+            else
+            {
+                @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+            }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Resource", "#", new { }, new { @onclick = "$('#myModal').modal({show: 'true'});", @style = "color:white !important;", @href = "javascript:void(0);" })</li>
+
+
+                    @if (user != null)
+                    {
+                       
+                        if (user.CategoryId == 1 )
+                        {
+                            <li>@Html.ActionLink("Latest News", "LatestNews", "Student", new { @style = "color:white !important;" })</li>
+                            if (user.RoleId == 1)
+                            {
+                                <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @style = "color:white !important;" })</li>
+                            }
+                        }
+                        if (user.CategoryId == 2)
+                        {
+                            
+                            <li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:white !important;" })</li>
+                            <li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:white !important;" })</li>
+                            <li>@Html.ActionLink("Non-Adopted Student", "NonAdoptedStudentIndex", "Counselor", new { @style = "color:white !important;" })</li>
+                        }
+                        if (user.CategoryId == 3)
+                        {
+                            <li>@Html.ActionLink("How To Work", "HowToWork", "Volunteer", new { @style = "color:white !important;" })</li>
+                            <li>@Html.ActionLink("Latest News", "LatestNews", "Volunteer", new { @style = "color:white !important;" })</li>
+                        }
+                    }
+                    <li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:white !important;" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container ">
+        @RenderBody()
+        <hr />
+        <footer>
+
+            @Html.ActionLink("Contact Us", "Contact", "Home")
+            <br />
+            @if (user != null)
+            {
+                if (user.CategoryId == 3)
+                {
+                    <a href="https://www.blogger.com/about/?r=2">Blog</a>
+                }
+            }
+            <div class="copyRightLogin">@GyanmitrasLanguages.LocalResources.Resource.LoginFooter</div>
+
+        </footer>
+
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select States</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 offset-lg-1">
+                            <div class="form-group row">
+                                <label class="col-md-3 control-label text-center" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.State</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownList("FK_StateId", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 control-label text-center" for="eventRegInput1">Academic Group</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownList("FK_StateId", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 control-label text-center" for="eventRegInput1">Benifit Type</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownList("FK_StateId", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-actions center">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a  class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="/Home/Resource" id="btnsubmit">Submit</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+
+        <script>
+
+            /*End  Bind Vehicles By Customer Using Sumo Select  */
+            function StateBind() {
+                $("#FK_StateId").empty();
+                $("#FK_StateId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+                var input = { countryId: parseInt("1") };
+                $.ajax({
+                    url: "@Url.Action("GetStateDetailsByCountryId", "MSTAccount")",
+                    data: JSON.stringify(input),
+                    datatype: "json",
+                    async: false,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var Machinelist = new Array();
+                        if (data.length == 0) {
+                            $(this).val('');
+                        }
+                        else {
+                            for (var i = 0 ; i < data.length ; i++) {
+                                $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                            }
+                        }
+                    }
+                });
+            }
+          
+            
+        </script>
+    }
+</body>
+</html>

@@ -1,0 +1,170 @@
+﻿@model GyanmitrasMDL.FormAccountMappingMDL
+
+@{
+    ViewBag.Title = "AddEditFormAccountMapping";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-12 col-12 mb-2">
+            <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew @GyanmitrasLanguages.LocalResources.Resource.FormAccountMapping </h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="JavaScript:Void(0);">@GyanmitrasLanguages.LocalResources.Resource.Home </a> </li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index")">@GyanmitrasLanguages.LocalResources.Resource.FormAccountMapping</a> </li>
+                        <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="NewformTabs">
+            <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">@GyanmitrasLanguages.LocalResources.Resource.FormAccountMapping</a> </li>
+            </ul>
+            <div class="tab-content px-1 py-1">
+                <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                    @using (Html.BeginForm("AddEditFormAccountMapping", "FormAccountMapping", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(E => E.IsActive)
+                        @Html.HiddenFor(E => E.PK_Map_FormAccountId)
+                        @Html.HiddenFor(E => E.IsCustomerAccount)
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput2">@GyanmitrasLanguages.LocalResources.Resource.FormName<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_FormId, new SelectList((System.Collections.IEnumerable)ViewData["Form"], "ID", "Value"), "--Select Form--", new { @class = "form-control select2" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.AccCategory<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_CategoryId, new SelectList((System.Collections.IEnumerable)ViewData["Category"], "ID", "Value"), "--Select Category--", new { @class = "form-control select2" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.AccountName<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_AccountId, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), "--Select Account--", new { @class = "form-control select2" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                            <div class="col-md-7">
+                                                <select name="Status" id="Status" class="form-control">
+                                                    <option value="true">Active</option>
+                                                    <option value="false">InActive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-actions center"> <button id="btnSubmit" type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button> <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a> </div>
+                                </form>
+                            </div>
+                        </div>
+                        <input type="hidden" value="@Model.FK_CategoryId" id="hdnCategoryId" />
+                            <input type="hidden" id="hdnAccountID" value="@Model.FK_AccountId" />
+                    }
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            /////debugger
+            $(".select2").select2();
+            BindAccount($('#FK_CategoryId').val());
+            $('#FK_CategoryId').change(function () {
+                /////debugger
+                $('#hdnAccountID').val('0');
+                BindAccount($('#FK_CategoryId').val());
+            });
+            if ($('#PK_Map_FormAccountId').val() > 0) {
+                if ($('#IsActive').val() != '') {
+                    if ($('#IsActive').val().toLowerCase()== 'true') {
+                        $("#Status option[value='true']").attr("selected", "selected");
+                    }
+                    else {
+                        $("#Status option[value='false']").attr("selected", "selected");
+                    }
+                }
+            }
+
+            $('#btnSubmit').click(function (e) {
+                var IsCustomerAccount = false;
+                ///// debugger
+                if ($('#Status').val() != '') {
+                    $('#IsActive').val($('#Status').val());
+                }
+                if ($('#FK_FormId').val() == '' || $('#FK_FormId').val() == null || $('#FK_FormId').val() == "0") {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.FormNameValidation');
+                    e.preventDefault();
+                    return false;
+                }
+
+                if ($('#FK_CategoryId').val() == '' || $('#FK_CategoryId').val() == null || $('#FK_CategoryId').val() == "0") {
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.AccountCategoryValidation');
+                    e.preventDefault();
+                    return false;
+                }
+
+                if ($('#FK_AccountId').val() == '' || $('#FK_AccountId').val() == null || $('#FK_AccountId').val() == "0") {
+                    // alert('Please Select Account.');
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.RoleAccountValidation');
+                    e.preventDefault();
+                    return false;
+                }
+
+                if ($("#FK_CategoryId option:selected").text() == 'Customer')
+                {
+                    IsCustomerAccount = true;
+                }
+                $('#IsCustomerAccount').val(IsCustomerAccount);
+            });
+        });
+
+        /*Start Bind Accounts By Category */
+        function BindAccount(categoryId) {
+            $("#FK_AccountId").html("");
+            $("#FK_AccountId").append($('<option></option>').val("").html("--Select Account--"));
+            if (categoryId == "0" || categoryId == '' || categoryId==null) {
+                return false;
+            }
+            $.ajax({
+                url: "@Url.Action("GetAccountListByCategory", "MSTUserAccountMapping")",
+                type: "GET",
+            dataType: "JSON",
+            async: false,
+            data: { 'FK_CategoryId': categoryId },
+            success: function (Accounts) {
+                if (Accounts.length > 0) {
+                    for (var i = 0; i < Accounts.length; i++) {
+                        $('#FK_AccountId').append($('<option></option>').val(Accounts[i].ID).html(Accounts[i].Value));
+                    }
+                }
+                if ($('#hdnAccountID').val() != 0) {
+                    $('#FK_AccountId').val($('#hdnAccountID').val()).attr("selected", "selected");
+                }
+            }
+        });
+        }
+        /*End Bind Accounts By Category */
+    </script>
+}
+
+
+
+

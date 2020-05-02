@@ -1,0 +1,197 @@
+﻿@model GyanmitrasMDL.MstFormMDL
+@{
+    ViewBag.Title = "AddEditForm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("AddEditForm", "MstForm"))
+{
+    @Html.HiddenFor(E => E.Pk_FormId)
+
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.FormMaster</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href='@Url.Action("Index")'>@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href='@Url.Action("Index")'>@GyanmitrasLanguages.LocalResources.Resource.FormMaster</a> </li>
+                            <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.AddEditForm</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Form Master</a> </li>
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            @*<label id="lbl_FormName" class="control-label col-md-4" for="inputEmail">@BSLMDL.LocalResource.Resource.FormName<span style="color:red">*</span></label>*@
+                                            <label class="col-md-3 label-control" for="eventRegInput2">@Html.DisplayNameFor(E=>E.FormName)<span style="color:red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.FormName, new {
+                                               @class = "form-control",
+                                               maxlength = "50",
+                                               @placeholder = @Html.DisplayNameFor(E => E.FormName),
+                                               autocomplete = "off"
+                                              // onkeypress = "return AllowAlphaNumeric(event)"
+                                               })
+                                                @Html.ValidationMessageFor(E => E.FormName, null, new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput2">@Html.DisplayNameFor(E => E.ControllerName)<span style="color:red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.ControllerName, new
+                                           {
+                                               @class = "form-control",
+                                               maxlength = "50",
+                                               @placeholder = @Html.DisplayNameFor(E => E.ControllerName),
+                                               autocomplete = "off"
+                                             //  onkeypress = "return AllowAlphaNumeric(event)",
+                                              // onkeyup = "RemoveSpace();"
+                                           })
+                                                @Html.ValidationMessageFor(E => E.ControllerName, null, new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" style="display:none">
+                                            <label class="col-md-3 label-control" for="eventRegInput1">@Html.DisplayNameFor(E => E.PlatFormType)</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.PlatFormType, new List<SelectListItem>()
+                                                {
+                                                  new SelectListItem() { Value = "", Text = "--Select--",Selected=true },
+                                                  new SelectListItem() { Value="All", Text="All"},
+                                                  new SelectListItem() { Value = "Web", Text = "Web" },
+                                                  new SelectListItem() { Value = "Mobile", Text = "Mobile" }
+                                                }, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput4">@Html.DisplayNameFor(E => E.ActionName)<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.ActionName, new {
+                                               @class = "form-control",
+                                               maxlength = "50",
+                                               @placeholder = @Html.DisplayNameFor(E => E.ActionName),
+                                               autocomplete = "off"
+                                             //  onkeypress = "return AllowAlphaNumeric(event)",
+                                              // onkeyup = "RemoveSpace();"
+                                           })
+                                                @Html.ValidationMessageFor(E => E.ActionName, null, new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" >
+                                            <label class="col-md-3 label-control">@Html.DisplayNameFor(E => E.ClassName)</label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.ClassName, new
+                                           {
+                                               @class = "form-control",
+                                               maxlength = "50",
+                                               @placeholder = @Html.DisplayNameFor(E => E.ClassName),
+                                               autocomplete = "off"
+                                             //  onkeypress = "return AllowAlphaNumeric(event)",
+                                              // onkeyup = "RemoveSpace();"
+                                           })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@Html.DisplayNameFor(E => E.ParentId)</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.ParentId, new SelectList((System.Collections.IEnumerable)ViewData["ParentformSelectList"], "Value", "Text"), "---Select---", new { @class = "form-control select2" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@Html.DisplayNameFor(E => E.Area)</label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.Area, new
+                                           {
+                                               @class = "form-control",
+                                               maxlength = "50",
+                                               @placeholder = @Html.DisplayNameFor(E => E.Area),
+                                               autocomplete = "off"
+                                             //  onkeypress = "return AllowAlphaNumeric(event)",
+                                              // onkeyup = "RemoveSpace();"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" style="display:none">
+                                            <label class="col-md-3 label-control">@Html.DisplayNameFor(E => E.SolutionId)</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.SolutionId, new SelectList((System.Collections.IEnumerable)ViewData["ParentformSelectList"], "Value", "Text"), "---Select---", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">@Html.DisplayNameFor(E => E.IsActive)</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>()
+                                            {
+                                              new SelectListItem() { Value="true", Text="Active"},
+                                              new SelectListItem() { Value = "false", Text = "Inactive" }
+                                            }, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btn_Submit">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                                        <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1" id="btn_Cancel">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+}
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+<link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+<script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script type="text/javascript">
+        $('#divID').hide();
+        // debugger
+        $(".select2").select2();
+
+        //function AllowAlphaNumeric(event) {
+        //    var code = ('charCode' in event) ? event.charCode : event.keyCode;
+        //    if (!(code == 32) && // space
+        //      !(code > 47 && code < 58) && // numeric (0-9)
+        //      !(code > 64 && code < 91) && // upper alpha (A-Z)
+        //      !(code > 96 && code < 123)) { // lower alpha (a-z)
+
+        //        return false;
+        //    }
+        //}
+        //function RemoveSpace() {
+        //    var value = $('#ControllerName').val();
+        //    $('#ControllerName').val(value.trim());
+
+        //    var valueActionName = $('#ActionName').val();
+        //    $('#ActionName').val(valueActionName.trim());
+
+        //    var valueClassName = $('#ClassName').val();
+        //    $('#ClassName').val(valueClassName.trim());
+
+        //    var valueArea = $('#Area').val();
+        //    $('#Area').val(valueArea.trim());
+            
+        //}
+
+</script>
+}
