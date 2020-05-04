@@ -1,18 +1,18 @@
-﻿@model GyanmitrasMDL.User.VolunteerMDL
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<hr />
 
-@using (Html.BeginForm("Registration", "Volunteer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("UserProfile", "Volunteer", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.Partial("_VolunteerRegistration", (GyanmitrasMDL.User.VolunteerMDL)ViewBag.Registration)
 }
 @section scripts {
     <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
     <script type="text/javascript">
-        
+
     </script>
 }
 

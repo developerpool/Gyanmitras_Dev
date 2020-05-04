@@ -57,7 +57,8 @@ namespace Gyanmitras.Controllers
         public ActionResult Registration()
         {
             ViewBag.Title = "Volunteer Registration";
-
+            obj.FormType = "Volunteer Registration";
+            ViewBag.VolunteerRegistration = obj;
 
             return View(obj);
         }
@@ -78,9 +79,21 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "How To Work";
             return View();
         }
+        [HttpGet]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult UserProfile()
+        {
+            VolunteerMDL obj = new VolunteerMDL();
+            ViewBag.Title = "User Profile";
+            obj.FormType = "User Profile";
+            ViewBag.VolunteerRegistration = obj;
+
+            return View(obj);
+        }
 
         
-            
+
+
 
         //public JsonResult BindAreaOfInterestList(string type = "")
         //{

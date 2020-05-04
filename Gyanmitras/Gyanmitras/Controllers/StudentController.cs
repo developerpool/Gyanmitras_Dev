@@ -36,6 +36,7 @@ namespace Gyanmitras.Controllers
         [UserCustomAuthenticationAttribute]
         public ActionResult Registration()
         {
+            ViewBag.Title = "Student Registration";
             return View(obj);
         }
         public JsonResult BindAreaOfInterestList(string type = "")

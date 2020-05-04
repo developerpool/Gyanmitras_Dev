@@ -36,15 +36,7 @@ namespace Gyanmitras.Controllers
             return View();
         }
 
-        [SkipUserCustomAuthenticationAttribute]
-        [AllowAnonymous]
-        public ActionResult UserProfile()
-        {
-            ViewBag.Title = "Your Profile page.";
-
-            return View();
-        }
-
+      
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
         public ActionResult CommonChat()

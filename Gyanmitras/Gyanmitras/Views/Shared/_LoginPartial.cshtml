@@ -39,15 +39,15 @@ else
                 <div class="dropdown-content" style="left:0;">
                     @if (user.CategoryId == 3)
                     {
-                        @Html.ActionLink("Edit Profile", "Registration", "Volunteer", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
+                        @Html.ActionLink("Edit Profile", "UserProfile", "Volunteer", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
                     }
                     else if (user.CategoryId == 2)
                     {
-                        @Html.ActionLink("Edit Profile", "Registration", "Counselor", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
+                        @Html.ActionLink("Edit Profile", "UserProfile", "Counselor", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
                     }
                     else if (user.CategoryId == 1)
                     {
-                        @Html.ActionLink("Edit Profile", "Registration", "Student", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
+                        @Html.ActionLink("Edit Profile", "UserProfile", "Student", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
                     }
                     <div class="dropdown-divider"></div>
                     @Html.ActionLink("Log out", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "logoffLink" })
