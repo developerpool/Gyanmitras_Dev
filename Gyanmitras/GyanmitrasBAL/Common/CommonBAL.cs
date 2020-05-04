@@ -690,6 +690,31 @@ namespace GyanmitrasBAL.Common
 
         #endregion
 
-      
+        #region GetLanguage dropdown
+        public static List<DropDownMDL> GetLanguage()
+        {
+            return CommonDAL.GetLanguage();
+        }
+        #endregion
+        #region GetStream Dropdown
+        public static List<DropDownMDL> GetStream(string educationtype)
+        {
+            return CommonDAL.GetStream(educationtype);
+        }
+        #endregion
+        #region GetBoardType Dropdown
+        public static List<DropDownMDL> GetBoardType()
+        {
+            return CommonDAL.GetBoardType();
+        }
+        #endregion
+        #region Check userID
+        public static bool CheckUserId(string UserID)
+        {
+            return CommonDAL.CheckUserId(UserID);
+        }
+
+
+        #endregion
     }
 }

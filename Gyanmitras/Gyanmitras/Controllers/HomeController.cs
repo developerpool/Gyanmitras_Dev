@@ -176,5 +176,42 @@ namespace Gyanmitras.Controllers
 
         #endregion
 
+        #region Languages
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetLanguages()
+
+        {
+            return Json(CommonBAL.GetLanguage(), JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+        #region Get StreamDropdown
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetStream(string EducationType)
+        {
+            return Json(CommonBAL.GetStream(EducationType), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region Get BoardType
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetBoardType()
+        {
+            return Json(CommonBAL.GetBoardType(), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region check UserID
+
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult CheckUserId(string UID)
+        {
+            return Json(CommonBAL.CheckUserId(UID), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
     }
 }

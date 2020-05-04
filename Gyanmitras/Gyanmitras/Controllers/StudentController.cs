@@ -7,6 +7,12 @@ using GyanmitrasBAL.Common;
 using GyanmitrasMDL;
 using GyanmitrasMDL.User;
 using Gyanmitras.Filter;
+using Utility;
+using GyanmitrasBAL.User;
+using System.Text;
+using System.IO;
+using Gyanmitras.Common;
+
 namespace Gyanmitras.Controllers
 {
     public class StudentController : Controller
@@ -51,6 +57,73 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = user.RoleName +" Latest News";
 
             return View();
+        }
+        [HttpPost]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult Registration(StudentMDL student)
+        {
+            student.Password = ClsCrypto.Encrypt(student.Password);
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                HttpPostedFileBase Imgfile = student.Image;
+                if (Imgfile != null)
+                {
+
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Doc/User/StudentImages/")))
+                        Directory.CreateDirectory(Server.MapPath("~/App_Doc/User/StudentImages/"));
+
+                    CommonHelper.Upload(Imgfile, "~/App_Doc/User/StudentImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+
+                    if (!string.IsNullOrEmpty(student.ImageName))
+                    {
+                        var filePath = Server.MapPath("~/App_Doc/User/StudentImages/" + student.ImageName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+
+                    student.ImageName = Imgfile.FileName;
+                }
+                StudentBAL objStudentBAL = new StudentBAL();
+                string Msg = "";
+                StringBuilder objMsg = objStudentBAL.RegisterStudent(student);
+                Msg = objMsg.ToString();
+
+                if (Msg.Equals("Success"))
+                {
+
+                    string controllerName = "";
+                    string area = "";
+                    string actionName = "";
+
+                    area = "";
+                    actionName = "Index";
+                    controllerName = "Student";
+
+
+
+                    //SiteUserSessionInfo.User.LandingPageURL = (!string.IsNullOrEmpty(area) ? area + "/" : "") + controllerName + "/" + actionName;
+                    return RedirectToAction(actionName, controllerName, area);
+                }
+                else
+                {
+                    ViewBag.Message = "Submitting Form Went Wrong";
+                    return View(student);
+                }
+
+            }
+            else
+            {
+
+                ////ViewBag.Message = objMsg.Message;
+                return View(student);
+            }
         }
     }
 }

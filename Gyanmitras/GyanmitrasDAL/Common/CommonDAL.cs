@@ -2706,6 +2706,121 @@ namespace GyanmitrasDAL.Common
 
         #endregion
 
+        #region GetLanguage Dropdown
+
+
+        public static List<DropDownMDL> GetLanguage()
+        {
+            CommandText = "[siteusers].[usp_GetLanguage]";
+            SqlParameter param = new SqlParameter();
+            param = null;
+            DataSet ds = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, param);
+            List<DropDownMDL> _dropdownlist = new List<DropDownMDL>();
+            _dropdownlist = ds.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+            {
+                ID = dr.Field<int>("ID"),
+                Value = dr.Field<string>("LanguageName"),
+
+            }).ToList();
+            return _dropdownlist;
+        }
+        #endregion
+        #region GetStream Dropdown
+
+
+        public static List<DropDownMDL> GetStream(string EducationType)
+        {
+            CommandText = "[siteusers].[usp_GetStream]";
+            SqlParameter param = new SqlParameter()
+            {
+                ParameterName = "@EducationLevel",
+                Value = EducationType
+
+            };
+            DataSet ds = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, param);
+            List<DropDownMDL> _dropdownlist = new List<DropDownMDL>();
+            _dropdownlist = ds.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+            {
+                ID = dr.Field<int>("ID"),
+                Value = dr.Field<string>("StreamName"),
+
+            }).ToList();
+            return _dropdownlist;
+        }
+        #endregion
+        #region GetBoardType Dropdown
+
+
+        public static List<DropDownMDL> GetBoardType()
+        {
+            CommandText = "[siteusers].[usp_GetBoardType]";
+            SqlParameter param = new SqlParameter();
+            param = null;
+
+            DataSet ds = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, param);
+            List<DropDownMDL> _dropdownlist = new List<DropDownMDL>();
+            _dropdownlist = ds.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+            {
+                ID = dr.Field<int>("ID"),
+                Value = dr.Field<string>("BoardName"),
+
+            }).ToList();
+            return _dropdownlist;
+        }
+        #endregion
+
+        #region CheckUserID
+        public static bool CheckUserId(string UserID)
+        {
+            int msg;
+            try
+            {
+                DataSet objDataSet = new DataSet();
+
+                List<SqlParameter> parms = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserID",UserID),
+                };
+
+                CheckParameters.ConvertNullToDBNull(parms);
+                CommandText = "[siteusers].[sp_CheckUserID]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, parms);
+
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = objDataSet.Tables[0].Rows[0];
+
+                    msg = dr.Field<int>("Message");
+                    //return msg;
+                    if (msg == 2000)
+                    {
+                        // return "";
+                        return true;
+                    }
+                    else if (msg == -2000)
+                    {
+                        // return "UserID already exists";
+                        return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "ADDITIONAL REMARKS");
+                return false;
+            }
+        }
+        #endregion
     }
 
 }
