@@ -105,7 +105,7 @@ namespace Gyanmitras.Controllers
 
                     area = "";
                     actionName = "Index";
-                    controllerName = "Student";
+                    controllerName = "Home";
 
 
 
