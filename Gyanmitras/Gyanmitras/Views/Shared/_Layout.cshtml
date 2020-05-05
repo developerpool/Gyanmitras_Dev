@@ -78,31 +78,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            @if (user != null)
-            {
-                @user.CategoryName
-                if (user.CategoryId == 3)
+                @if (user != null)
                 {
-                    @Html.ActionLink("GYANMITRAS", "Index", "Volunteer", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
-                }
-                else if (user.CategoryId == 2)
-                {
-                    @Html.ActionLink("GYANMITRAS", "Index", "Counselor", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
-                }
-                else if (user.CategoryId == 1)
-                {
-                    @Html.ActionLink("GYANMITRAS", "Index", "Student", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                    @user.CategoryName
+                    if (user.CategoryId == 3)
+                    {
+                        @Html.ActionLink("GYANMITRAS", "Index", "Volunteer", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                    }
+                    else if (user.CategoryId == 2)
+                    {
+                        @Html.ActionLink("GYANMITRAS", "Index", "Counselor", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                    }
+                    else if (user.CategoryId == 1)
+                    {
+                        @Html.ActionLink("GYANMITRAS", "Index", "Student", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                    }
+
                 }
                 else
                 {
                     @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
                 }
-
-            }
-            else
-            {
-                @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
-            }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -111,8 +111,8 @@
 
                     @if (user != null)
                     {
-                       
-                        if (user.CategoryId == 1 )
+
+                        if (user.CategoryId == 1)
                         {
                             <li>@Html.ActionLink("Latest News", "LatestNews", "Student", new { @style = "color:white !important;" })</li>
                             if (user.RoleId == 1)
@@ -122,7 +122,7 @@
                         }
                         if (user.CategoryId == 2)
                         {
-                            
+
                             <li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:white !important;" })</li>
                             <li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:white !important;" })</li>
                             <li>@Html.ActionLink("Non-Adopted Student", "NonAdoptedStudentIndex", "Counselor", new { @style = "color:white !important;" })</li>
@@ -161,6 +161,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
@@ -206,7 +207,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a  class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="/Home/Resource" id="btnsubmit">Submit</a>
+                        <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="/Home/Resource" id="btnsubmit">Submit</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
 
@@ -217,7 +218,23 @@
     @section Scripts{
 
         <script>
-
+            $(document).ajaxStart(function () {
+                $.ajaxSetup({
+                    converters: {
+                        "text html": function (textValue) {
+                            if (textValue) {
+                                // Some parsing logic here
+                                var script = "<script type='text/javascript' language='javascript' > $.validator.unobtrusive.parse(\"form\");";
+                                var scriptend = "\<\/script>";
+                                return script + scriptend + " " + textValue;
+                            } else {
+                                // This will notify a parsererror for current request
+                                throw exceptionObject;
+                            }
+                        }
+                    }
+                });
+            });
             /*End  Bind Vehicles By Customer Using Sumo Select  */
             function StateBind() {
                 $("#FK_StateId").empty();
@@ -243,9 +260,10 @@
                     }
                 });
             }
-          
-            
+
+
         </script>
+
     }
 </body>
 </html>

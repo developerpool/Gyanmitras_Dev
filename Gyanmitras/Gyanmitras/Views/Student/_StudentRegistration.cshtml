@@ -451,7 +451,98 @@
                 }
             });
 
+            $("#TypeOfEducation").change(function () {
+                $("input[name=CompletionNature]").attr('checked', false);
+                $('#divpercentage').hide();
+                EducationSubCategoryType();
 
+
+            })
+            $("#Current_Education_subcategory").change(function () {
+                $('#divpercentage').hide();
+                $('#divpreviouseducationdetails').hide();
+                $("input[name=CompletionNature]").attr('checked', false);
+            })
+
+            $('input[type=radio][name=CompletionNature]').change(function () {
+                //  if (this.value == 'Completed' && $("#TypeOfEducation").val() != "Graduation") {
+                $('#Percentage').val('');
+                $('#TotalAggregatetillnow').val('');
+                $('#Current_semester').val('');
+                // $('#UniversityName').val('');
+                $('#PreviousBoardType').val('');
+                $('#PreviousclassPercentage').val('');
+
+                if (this.value == 'Completed') {
+                    $('#divpercentage').show();
+                    $('#divforgraduation').hide();
+                    $('#divpreviouseducationdetails').hide();
+                    $("#Percentage").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Enter Percentage"
+                        }
+                    });
+                    $("#PreviousBoardType").rules("remove", "required");
+                    $("#PreviousclassPercentage").rules("remove", "required");
+                    $("#TotalAggregatetillnow").rules("remove", "required");
+                    $("#Current_semester").rules("remove", "required");
+                  //  $("#UniversityName").rules("remove", "required");
+                }
+                else if (this.value == 'Pursuing' && $("#TypeOfEducation").val() == "Graduation") {
+                    $('#divpercentage').hide();
+                    $('#divforgraduation').show();
+                    $('#divpreviouseducationdetails').hide();
+                    $("#PreviousBoardType").rules("remove", "required");
+                    $("#PreviousclassPercentage").rules("remove", "required");
+                    $("#TotalAggregatetillnow").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Enter Percentage"
+                        }
+                    });
+                    $("#Current_semester").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Enter Current Semester"
+                        }
+                    });
+                    $("#UniversityName").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Enter University Name"
+                        }
+                    });
+                    $("#Percentage").rules("remove", "required");
+
+                }
+                else if (this.value == 'Pursuing' && $("#TypeOfEducation").val() != "Graduation") {
+                    $("#PreviousclassPercentage").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Enter Percentage"
+                        }
+                    });
+                    $("#PreviousBoardType").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Select Board"
+                        }
+                    });
+
+                    $("#Percentage").rules("remove", "required");
+                    $("#UniversityName").rules("remove", "required");
+                    $("#Current_semester").rules("remove", "required");
+                    $("#TotalAggregatetillnow").rules("remove", "required");
+                    $('#divpercentage').hide();
+                    $('#divpreviouseducationdetails').show();
+                    $('#divforgraduation').hide();
+                    previousclassdetails();
+                }
+            });
+            $("#btnsubmit").click(function () {
+                checkdeclaration();
+            });
 
 
 
@@ -617,13 +708,7 @@
               $("#TypeOfEducation").append('<option value = "Graduation">Graduation</option>');
 
         }
-        $("#TypeOfEducation").change(function () {
-            $("input[name=CompletionNature]").attr('checked', false);
-            $('#divpercentage').hide();
-            EducationSubCategoryType();
-
-
-            })
+      
         function EducationSubCategoryType() {
             $("#BoardType").empty();
             $("#BoardType").rules("add", {
@@ -690,7 +775,12 @@
                  BoardType();
              }
              else {
-
+                 $("#UniversityName").rules("add", {
+                     required: true,
+                     messages: {
+                         required: "Enter University Name"
+                     }
+                 });
                  $("#Current_Education_subcategory").rules("remove", "required");
                  $("#BoardType").rules("remove", "required");
                  $('#divpreviouseducationdetails').hide();
@@ -703,11 +793,7 @@
              }
 
         }
-        $("#Current_Education_subcategory").change(function () {
-            $('#divpercentage').hide();
-            $('#divpreviouseducationdetails').hide();
-            $("input[name=CompletionNature]").attr('checked', false);
-         })
+       
 
         function BoardType() {
 
@@ -740,83 +826,7 @@
             });
         }
 
-        $('input[type=radio][name=CompletionNature]').change(function () {
-          //  if (this.value == 'Completed' && $("#TypeOfEducation").val() != "Graduation") {
-            $('#Percentage').val('');
-            $('#TotalAggregatetillnow').val('');
-            $('#Current_semester').val('');
-           // $('#UniversityName').val('');
-            $('#PreviousBoardType').val('');
-            $('#PreviousclassPercentage').val('');
-
-            if (this.value == 'Completed') {
-                $('#divpercentage').show();
-                $('#divforgraduation').hide();
-                $('#divpreviouseducationdetails').hide();
-                $("#Percentage").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Enter Percentage"
-                    }
-                });
-                $("#PreviousBoardType").rules("remove", "required");
-                $("#PreviousclassPercentage").rules("remove", "required");
-                $("#TotalAggregatetillnow").rules("remove", "required");
-                $("#Current_semester").rules("remove", "required");
-                $("#UniversityName").rules("remove", "required");
-            }
-            else if (this.value == 'Pursuing' && $("#TypeOfEducation").val() == "Graduation") {
-                $('#divpercentage').hide();
-                $('#divforgraduation').show();
-                $('#divpreviouseducationdetails').hide();
-                $("#PreviousBoardType").rules("remove", "required");
-                $("#PreviousclassPercentage").rules("remove", "required");
-                $("#TotalAggregatetillnow").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Enter Percentage"
-                    }
-                });
-                $("#Current_semester").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Enter Current Semester"
-                    }
-                });
-                $("#UniversityName").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Enter University Name"
-                    }
-                });
-                $("#Percentage").rules("remove", "required");
-
-            }
-            else if (this.value == 'Pursuing' && $("#TypeOfEducation").val() != "Graduation") {
-                $("#PreviousclassPercentage").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Enter Percentage"
-                    }
-                });
-                $("#PreviousBoardType").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Select Board"
-                    }
-                });
-
-                $("#Percentage").rules("remove", "required");
-                $("#UniversityName").rules("remove", "required");
-                $("#Current_semester").rules("remove", "required");
-                $("#TotalAggregatetillnow").rules("remove", "required");
-                $('#divpercentage').hide();
-                $('#divpreviouseducationdetails').show();
-                $('#divforgraduation').hide();
-                previousclassdetails();
-            }
-        });
-
+    
         function previousclassdetails() {
             var currentclass = $("#Current_Education_subcategory").val();
             var prevclass = currentclass - 1;
@@ -831,9 +841,7 @@
             }
 
         }
-        $("#btnsubmit").click(function () {
-            checkdeclaration();
-        });
+     
         function checkdeclaration() {
             var x = document.getElementById("Declaration").checked;
             if (x == false) {
