@@ -43,13 +43,7 @@ namespace Gyanmitras.Controllers
         {
             return Json(CommonBAL.BindAreaOfInterestList(type), JsonRequestBehavior.AllowGet);
         }
-        [UserCustomAuthenticationAttribute]
-        public ActionResult StudentIndex()
-        {
-           
-            return View();
-        }
-
+       
         [HttpGet]
         [UserCustomAuthenticationAttribute]
         public ActionResult LatestNews()

@@ -30,7 +30,7 @@
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
-                        <li class="breadcrumb-item active">Student Registration</li>
+                        <li class="breadcrumb-item active">@Model.FormType</li>
                     </ol>
                 </div>
             </div>
@@ -183,11 +183,11 @@
                                     <div class="col-md-2">
                                         @if (string.IsNullOrEmpty(Model.ImageName))
                                         {
-                                        <img style="height:40px;width:40px;" id="Img" src="~/Images/default-image.png" />
+                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
                                         }
                                         else
                                         {
-                                        <img style="height:40px;width:40px;" id="Img" src="~/App_Doc/User/StudentImages/@Model.ImageName" />
+                                        <img style="height:40px;width:40px;" id="Img" src="~/SiteUserContents/Registration/StudentImages/@Model.ImageName" />
                                         }
                                     </div>
                                 </div>

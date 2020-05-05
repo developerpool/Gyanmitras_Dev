@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("UserProfile", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.Partial("_StudentRegistration", (GyanmitrasMDL.User.VolunteerMDL)ViewBag.Registration)
+}
+@section scripts {
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script src="~/assets/js/jquery.sumoselect.js"></script>
+    <script type="text/javascript">
+
+    </script>
+}
+
