@@ -75,14 +75,14 @@ namespace Gyanmitras.Controllers
                 {
 
 
-                    if (!Directory.Exists(Server.MapPath("~/App_Doc/User/StudentImages/")))
-                        Directory.CreateDirectory(Server.MapPath("~/App_Doc/User/StudentImages/"));
+                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/StudentImages/")))
+                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/StudentImages/"));
 
-                    CommonHelper.Upload(Imgfile, "~/App_Doc/User/StudentImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/StudentImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
 
                     if (!string.IsNullOrEmpty(student.ImageName))
                     {
-                        var filePath = Server.MapPath("~/App_Doc/User/StudentImages/" + student.ImageName);
+                        var filePath = Server.MapPath("~/SiteUserContents/Registration/StudentImages/" + student.ImageName);
                         if (System.IO.File.Exists(filePath))
                         {
                             System.IO.File.Delete(filePath);
