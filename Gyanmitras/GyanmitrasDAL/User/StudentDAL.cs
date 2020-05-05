@@ -25,7 +25,7 @@ namespace GyanmitrasDAL.User
             try
             {
                 decimal c = Convert.ToDecimal(objstudentMDL.PreviousclassPercentage);
-                if (objstudentMDL.Percentage != 0 || objstudentMDL.Percentage != null)
+                if (objstudentMDL.Percentage != 0 && objstudentMDL.Percentage != null)
                 {
                     percent = objstudentMDL.Percentage;
                 }
