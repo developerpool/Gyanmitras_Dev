@@ -126,5 +126,20 @@ namespace Gyanmitras.Controllers
                 return View(student);
             }
         }
+
+
+        [HttpGet]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult UserProfile()
+        {
+            StudentMDL obj = new StudentMDL();
+            ViewBag.Title = "User Profile";
+            obj.FormType = "User Profile";
+            ViewBag.VolunteerRegistration = obj;
+
+            return View(obj);
+        }
+
+
     }
 }

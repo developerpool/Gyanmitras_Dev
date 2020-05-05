@@ -1,4 +1,6 @@
-﻿@model GyanmitrasMDL.User.StudentMDL 
+﻿@model GyanmitrasMDL.User.StudentMDL
+<link href="/assets/css/sumoselect.css" rel="stylesheet" />
+<link href="/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet">
 
 <style>
     .control-label, .label-control {
@@ -14,10 +16,13 @@
         margin-left: 15px !important;
         width: 80% !important;
     }
+
+    .field-validation-error, .red {
+        color: red;
+    }
 </style>
 @Html.HiddenFor(E => E.PK_StudentID)
 @Html.HiddenFor(E => E.ImageName)
-
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-12 col-12 mb-2">
@@ -45,8 +50,6 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
                                     <div class="col-md-7">
@@ -55,23 +58,18 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Email<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.TextBoxFor(E => E.EmailID, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Email, @maxlength = "200" })
-
                                         @Html.ValidationMessageFor(E => E.EmailID)
                                     </div>
                                 </div>
-
 
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.MobileNo.<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.TextBoxFor(E => E.MobileNo, new { @class = "form-control ", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.MobileNo + ".", @maxlength = "10", @onkeydown = "return IsNum(event)" })
-
                                         @Html.ValidationMessageFor(E => E.MobileNo)
                                     </div>
                                 </div>
@@ -85,11 +83,9 @@
                                 <div class="row">
                                     <div class="col-12 mt-1 mb-2">
                                         <h4>@GyanmitrasLanguages.LocalResources.Resource.AddressDetail</h4>
-
                                         <hr>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Address<span class="red">*</span></label>
                                     <div class="col-md-7">
@@ -101,27 +97,21 @@
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
-
                                         @Html.ValidationMessageFor(E => E.ZipCode)
                                     </div>
                                 </div>
-
-
 
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                         @Html.ValidationMessageFor(E => E.FK_StateId)
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                         @Html.ValidationMessageFor(E => E.FK_CityId)
                                     </div>
                                 </div>
@@ -129,30 +119,23 @@
                                     <label class="control-label col-md-3">Language Known<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.DropDownListFor(E => E.languages, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                         @Html.ValidationMessageFor(E => E.languages)
                                     </div>
                                 </div>
 
-
                                 <div class="row">
                                     <div class="col-12 mt-1 mb-2">
                                         <h4>@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</h4>
-
                                         <hr>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
-
                                         @Html.ValidationMessageFor(E => E.UID)
                                     </div>
                                 </div>
-
-
 
                                 <div class="form-group row">
                                     <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
@@ -161,7 +144,6 @@
                                         @Html.ValidationMessageFor(E => E.Password)
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
                                     <div class="col-md-7">
@@ -172,10 +154,6 @@
 
 
 
-
-
-
-
                                 <div class="row">
                                     <div class="col-12 mt-1 mb-2">
                                         <h4>Other Details</h4>
@@ -183,19 +161,14 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">Area Of Interest<span class="red">*</span></label>
                                     <div class="col-md-7">
-
                                         @Html.DropDownListFor(E => E.AreaOfInterest, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
-
 
                                         @Html.ValidationMessageFor(E => E.AreaOfInterest)
                                     </div>
                                 </div>
-
-
 
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="eventRegInput3">Your Image</label>
@@ -204,30 +177,26 @@
                                             @Html.TextBoxFor(E => E.Image, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('Img').src = window.URL.createObjectURL(this.files[0])" })
                                             @Html.ValidationMessageFor(E => E.Image)
 
-
                                             Your Image Should be in (jpg, jpeg, png) format.
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         @if (string.IsNullOrEmpty(Model.ImageName))
                                         {
-                                            <img style="height:40px;width:40px;" id="Img" src="~/Images/default-image.png" />
+                                        <img style="height:40px;width:40px;" id="Img" src="~/Images/default-image.png" />
                                         }
                                         else
                                         {
-                                            <img style="height:40px;width:40px;" id="Img" src="~/App_Doc/User/StudentImages/@Model.ImageName" />
+                                        <img style="height:40px;width:40px;" id="Img" src="~/App_Doc/User/StudentImages/@Model.ImageName" />
                                         }
-
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">Do You have Smart Phone?<span class="red">*</span></label>
                                     <div class="col-md-7">
                                         Yes: @Html.RadioButtonFor(E => E.HaveSmartPhone, "Yes")
                                         No: @Html.RadioButtonFor(E => E.HaveSmartPhone, "No")
                                         @Html.ValidationMessageFor(E => E.HaveSmartPhone)
-
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -254,27 +223,20 @@
                                 </div>
 
 
-
-
                                 <div class="form-group row">
                                     <label class="control-label col-md-3" style="text-align: center">Current Academic Details:</label>
-
                                 </div>
-
-
 
                                 <div class="form-group row">
                                     <label class="col-md-3 control-label" for="eventRegInput1">Education Type<span class="red">*</span></label>
                                     <div class="col-md-3">
                                         @Html.DropDownListFor(E => E.TypeOfEducation, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                         @Html.ValidationMessageFor(E => E.TypeOfEducation)
                                     </div>
                                     <div class="col-md-3" id="divclass">
                                         <label class="col-md-4 control-label" for="eventRegInput1">Class  <span class="red">*</span></label>
                                         <div class="col-md-7">
                                             @Html.DropDownListFor(E => E.Current_Education_subcategory, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                             @Html.ValidationMessageFor(E => E.Current_Education_subcategory)
                                             @*@Html.HiddenFor(E=> E.Current_Education_subcategory)*@
                                         </div>
@@ -290,13 +252,11 @@
                                         <label class="col-md-4 control-label" for="eventRegInput1">Board <span class="red">*</span></label>
                                         <div class="col-md-7">
                                             @Html.DropDownListFor(E => E.BoardType, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                             @Html.ValidationMessageFor(E => E.BoardType)
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row" id="divlessthan10" style="display:none">
-
                                     <label class="col-md-3 control-label" for="eventRegInput1">Nature of Completion <span class="red">*</span></label>
                                     <div class="col-md-3">
                                         @Html.RadioButtonFor(E => E.CompletionNature, "Completed") Completed
@@ -304,16 +264,12 @@
                                         <br />
                                         @Html.ValidationMessageFor(E => E.CompletionNature)
                                         @*@Html.DropDownListFor(E => E.CompletionNature, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })*@
-
                                     </div>
-
                                 </div>
                                 <div class="form-group row" id="divof12" style="display:none">
-
                                     <label class="col-md-3 control-label" for="eventRegInput1">Stream <span class="red">*</span></label>
                                     <div class="col-md-3">
                                         @Html.DropDownListFor(E => E.StreamType, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                         @Html.ValidationMessageFor(E => E.StreamType)
                                     </div>
                                     <div class="col-md-5">
@@ -328,22 +284,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row" id="divpercentage" style="display:none">
-
                                     <label class="col-md-6 control-label" for="eventRegInput1">Percentage(%) <span class="red">*</span></label>
                                     <div class="col-md-6">
                                         @Html.TextBoxFor(E => E.Percentage, new { @class = "form-control ", @placeholder = "Please enter your Aggregate Percentage" })
                                         @Html.ValidationMessageFor(E => E.Percentage)
                                     </div>
-
                                 </div>
                                 <div class="form-group row" id="divforgraduation" style="display:none">
-
                                     <label class="col-md-3 control-label" for="eventRegInput1">Current Semester <span class="red">*</span></label>
                                     <div class="col-md-2">
                                         @Html.TextBoxFor(E => E.Current_semester, new { @class = "form-control ", @placeholder = "current semester" })
                                         @Html.ValidationMessageFor(E => E.Current_semester)
                                     </div>
-
                                     <div class="col-md-5">
                                         <label class="col-md-6 control-label" for="eventRegInput1">Aggregate Percentage(%) <span class="red">*</span></label>
                                         <div class="col-md-6">
@@ -353,16 +305,12 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="form-group row" id="divpreviouseducationdetails" style="display:none">
                                     <label class="col-md-3 control-label" for="eventRegInput1">Enter class <span id="previousclass"></span> Details<span class="red">*</span></label>
-
                                     <div class="col-md-3" id="previousboard">
                                         <label class="col-md-4 control-label" for="eventRegInput1">Board <span class="red">*</span></label>
                                         <div class="col-md-7">
                                             @Html.DropDownListFor(E => E.PreviousBoardType, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
                                             @Html.ValidationMessageFor(E => E.PreviousBoardType)
                                         </div>
                                     </div>
@@ -378,15 +326,12 @@
                                     <label class="col-md-3 label-control" for="eventRegInput3"></label>
                                     <div class="col-md-7">
 
-
                                         @Html.CheckBoxFor(E => E.Declaration)
                                         I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer (Provide a hyperlink which data I will provide later )<br />
                                         @Html.ValidationMessageFor(E => E.Declaration)
 
-
                                     </div>
                                 </div>
-
                                 @*<div class="form-group row">
                                         <label class="control-label col-md-3">Why do you want to join us?</label>
                                         <div class="col-md-7">
@@ -397,25 +342,505 @@
 
 
 
-
-
-
                                 <div class="form-actions center">
-
                                     <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
                                     <a href='@Url.Action("StudentRegistration")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Clear</a>
                                 </div>
                                 @*</form>*@
-
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             </div>
         </section>
     </div>
 </div>
+
+
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script type="text/javascript">
+        var defaultRangeValidator = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            if (element.type === 'checkbox') {
+                // if it's a checkbox return true if it is checked
+                return element.checked;
+            } else {
+                // otherwise run the default validation function
+                return defaultRangeValidator.call(this, value, element, param);
+            }
+        }
+        var mycategoryval = new Array();
+        var mycategorytext = new Array();
+        $(document).ready(function () {
+    alert('asd');
+
+            BindAreaOfInterest("counselor");
+            StateBind();
+            LanguageBind();
+            EducationType();
+           // EducationSubCategoryType();
+           // StreamType();
+           // BoardType();
+            $(".select2").select2();
+
+
+            //$("button[type='submit']").click(function (e) {
+            //    alert('Comming Soon!');
+            //    return false;
+            //});
+
+
+
+
+            $("#FK_StateId").change(function () {
+                var cid = $(this).val();
+                var thisId = $(this).attr('id');
+                var countryId = 1;
+                if (thisId == "FK_StateId") {
+                    countryId = 1;
+                    $("#FK_CityId").empty();
+                    $("#FK_CityId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+                }
+
+                var input = { stateId: parseInt(cid) };
+                $.ajax({
+                    url: "@Url.Action("GetCityDetailsByStateId", "MSTAccount")",
+                    data: JSON.stringify(input),
+                    datatype: "json",
+                    type: "POST",
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var Machinelist = new Array();
+                        if (data.length == 0) {
+                            $(this).val('');
+                        }
+                        else {
+                            for (var i = 0 ; i < data.length ; i++) {
+                                $("#FK_CityId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                            }
+                        }
+                    }
+
+
+                });
+            });
+
+
+
+            $('INPUT[type="file"]').change(function () {
+
+                var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        break;
+                    case 'jpeg':
+                        break;
+                    case 'png':
+                        break;
+
+                    default:
+                        alert('@GyanmitrasLanguages.LocalResources.Resource.InvalidLogo');
+                        this.value = '';
+                }
+            });
+
+
+
+
+
+        })//Page Load End
+
+        /*Start Bind Vehicles By Customer Using Sumo Select  */
+        function BindAreaOfInterest(type) {
+            //debugger
+            $('#AreaOfInterest').html('');
+            $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+            $('#AreaOfInterest')[0].sumo.unload();
+            $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+
+            $.ajax({
+                url: "@Url.Action("BindAreaOfInterestList", "Counselor")",
+                type: "GET",
+                dataType: "JSON",
+                async: false,
+                data: { 'type': type },
+                success: function (Tags) {
+                    //debugger
+                    if (Tags.length > 0) {
+                        $.each(Tags, function (i, Tag) {
+                            //debugger
+                            $('#AreaOfInterest')[0].sumo.add(Tag.ID, Tag.Value);
+                            $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+                        });
+
+                    }
+
+                }
+
+            });
+        }
+
+        function StreamType(educationtype) {
+              $("#StreamType").empty();
+              $("#StreamType").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+            var input = { EducationType:educationtype };
+            $.ajax({
+                url: "@Url.Action("GetStream", "Home")",
+                data: JSON.stringify(input),
+                datatype: "json",
+                async: false,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var Machinelist = new Array();
+                    if (data.length == 0) {
+                        $(this).val('');
+                    }
+                    else {
+                        for (var i = 0 ; i < data.length ; i++) {
+                            $("#StreamType").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                        }
+                    }
+                }
+            });
+        }
+        function LanguageBind() {
+            $("#languages").empty();
+            $("#languages").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+            var input = { countryId: parseInt("1") };
+            $.ajax({
+                url: "@Url.Action("GetLanguages", "Home")",
+                data: JSON.stringify(input),
+                datatype: "json",
+                async: false,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var Machinelist = new Array();
+                    if (data.length == 0) {
+                        $(this).val('');
+                    }
+                    else {
+                        for (var i = 0 ; i < data.length ; i++) {
+                            $("#languages").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                        }
+                    }
+                }
+            });
+        }
+
+        function StateBind() {
+            $("#FK_StateId").empty();
+            $("#FK_StateId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+            var input = { countryId: parseInt("1") };
+            $.ajax({
+                url: "@Url.Action("GetStateDetailsByCountryId", "MSTAccount")",
+                data: JSON.stringify(input),
+                datatype: "json",
+                async: false,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var Machinelist = new Array();
+                    if (data.length == 0) {
+                        $(this).val('');
+                    }
+                    else {
+                        for (var i = 0 ; i < data.length ; i++) {
+                            $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                        }
+                    }
+                }
+            });
+        }
+
+        function CheckUserName(a) {
+            if ($.trim($(a).val())) {
+                $.ajax({
+                    url: "@Url.Action("CheckUser", "MSTAccount")",
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { username: $.trim($(a).val()), type: "Counselor" },
+                    success: function (data) {
+                        if (Number(data.MessageId) == 1) {
+                            $(a).css('border', '1px solid red');
+                            $(a).val('');
+                            //$(a).focus();
+                            $(a).parent().find('span[data-valmsg-for="Username"]').text('@GyanmitrasLanguages.LocalResources.Resource.UserAlreadyExist').css('color', 'red');
+                        }
+                        else {
+                            $(a).removeAttr('style');
+                            $(a).parent().find('span[data-valmsg-for="Username"]').text('');
+                        }
+                    }
+                });
+            }
+        }
+
+
+
+        function IsNum(event) {
+            // Prevent shift key since its not needed
+            if (event.shiftKey == true) {
+                //alert('Only number allowed.');
+
+                event.preventDefault();
+                return false;
+            }
+            // Allow Only: keyboard 0-9, numpad 0-9, backspace, tab, left arrow, right arrow, delete
+            if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+                // Allow normal operation
+            } else {
+                // Prevent the rest
+                alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
+                event.preventDefault();
+                return false;
+            }
+        }
+
+
+        function EducationType() {
+
+            $("#divclass").hide();
+            $("#divof12").hide();
+              $("#TypeOfEducation").empty();
+              $("#TypeOfEducation").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+              $("#TypeOfEducation").append('<option value = "Secondry">Secondry</option>');
+              $("#TypeOfEducation").append('<option value = "Higher Secondry">Higher Secondry</option>');
+              $("#TypeOfEducation").append('<option value = "Graduation">Graduation</option>');
+
+        }
+        $("#TypeOfEducation").change(function () {
+            $("input[name=CompletionNature]").attr('checked', false);
+            $('#divpercentage').hide();
+            EducationSubCategoryType();
+
+
+            })
+        function EducationSubCategoryType() {
+            $("#BoardType").empty();
+            $("#BoardType").rules("add", {
+                required: true,
+                messages: {
+                    required: "Select Board"
+                }
+            });
+
+            $("#Current_Education_subcategory").rules("add", {
+                required: true,
+                messages: {
+                    required: "Select Class"
+                }
+            });
+            $("#StreamType").empty();
+            $("#StreamType").rules("add", {
+                required: true,
+                messages: {
+                    required: "Select Stream"
+                }
+            });
+            $('#divforgraduation').hide();
+            $('#divlessthan10').hide();
+             $("#Current_Education_subcategory").empty();
+             $("#Current_Education_subcategory").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+             var typeofeducation = $("#TypeOfEducation").val();
+             if (typeofeducation == "") {
+                 $('#divpreviouseducationdetails').hide();
+                 $("#divclass").hide();
+                 $("#divlessthan10").hide();
+                 $("#universitydetails").hide();
+                 $("#currentboarddetails").hide();
+                 $("#divof12").hide();
+                 $("#universitydetails").hide();
+
+             }
+             else if (typeofeducation == "Secondry") {
+
+                 $("#StreamType").rules("remove", "required");
+                 $('#divpreviouseducationdetails').hide();
+                 $("#divclass").show();
+                 $("#divlessthan10").show();
+                 $("#currentboarddetails").show();
+                 $("#universitydetails").hide();
+                 $("#divof12").hide();
+                 $("#Current_Education_subcategory").append('<option value = "6">6</option>');
+                 $("#Current_Education_subcategory").append('<option value = "7">7</option>');
+                 $("#Current_Education_subcategory").append('<option value = "8">8</option>');
+                 $("#Current_Education_subcategory").append('<option value = "9">9</option>');
+                 $("#Current_Education_subcategory").append('<option value = "10">10</option>');
+                 BoardType();
+             }
+             else if (typeofeducation == "Higher Secondry") {
+                 $('#divpreviouseducationdetails').hide();
+                 $("#universitydetails").hide();
+                 $("#currentboarddetails").show();
+                 $("#divlessthan10").hide();
+                 $("#divclass").show();
+                 $("#divof12").show();
+                 $("#Current_Education_subcategory").append('<option value = "11">11</option>');
+                 $("#Current_Education_subcategory").append('<option value = "12">12</option>');
+                 StreamType('Higher Secondry');
+                 BoardType();
+             }
+             else {
+
+                 $("#Current_Education_subcategory").rules("remove", "required");
+                 $("#BoardType").rules("remove", "required");
+                 $('#divpreviouseducationdetails').hide();
+                 $("#universitydetails").show();
+                 $("#currentboarddetails").hide();
+                 $("#divlessthan10").hide();
+                 $("#divclass").hide();
+                 $("#divof12").show();
+                 StreamType('Graduation');
+             }
+
+        }
+        $("#Current_Education_subcategory").change(function () {
+            $('#divpercentage').hide();
+            $('#divpreviouseducationdetails').hide();
+            $("input[name=CompletionNature]").attr('checked', false);
+         })
+
+        function BoardType() {
+
+            $('#divpreviouseducationdetails').hide();
+
+            $("#PreviousBoardType").empty();
+            $("#PreviousBoardType").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+            $("#BoardType").empty();
+            $("#BoardType").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+          //  var input = { countryId: parseInt("1") };
+            $.ajax({
+                url: "@Url.Action("GetBoardType", "Home")",
+                data: {},
+                datatype: "json",
+                async: false,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var Machinelist = new Array();
+                    if (data.length == 0) {
+                        $(this).val('');
+                    }
+                    else {
+                        for (var i = 0 ; i < data.length ; i++) {
+                            $("#PreviousBoardType").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                            $("#BoardType").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                        }
+                    }
+                }
+            });
+        }
+
+        $('input[type=radio][name=CompletionNature]').change(function () {
+          //  if (this.value == 'Completed' && $("#TypeOfEducation").val() != "Graduation") {
+            $('#Percentage').val('');
+            $('#TotalAggregatetillnow').val('');
+            $('#Current_semester').val('');
+           // $('#UniversityName').val('');
+            $('#PreviousBoardType').val('');
+            $('#PreviousclassPercentage').val('');
+
+            if (this.value == 'Completed') {
+                $('#divpercentage').show();
+                $('#divforgraduation').hide();
+                $('#divpreviouseducationdetails').hide();
+                $("#Percentage").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Enter Percentage"
+                    }
+                });
+                $("#PreviousBoardType").rules("remove", "required");
+                $("#PreviousclassPercentage").rules("remove", "required");
+                $("#TotalAggregatetillnow").rules("remove", "required");
+                $("#Current_semester").rules("remove", "required");
+                $("#UniversityName").rules("remove", "required");
+            }
+            else if (this.value == 'Pursuing' && $("#TypeOfEducation").val() == "Graduation") {
+                $('#divpercentage').hide();
+                $('#divforgraduation').show();
+                $('#divpreviouseducationdetails').hide();
+                $("#PreviousBoardType").rules("remove", "required");
+                $("#PreviousclassPercentage").rules("remove", "required");
+                $("#TotalAggregatetillnow").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Enter Percentage"
+                    }
+                });
+                $("#Current_semester").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Enter Current Semester"
+                    }
+                });
+                $("#UniversityName").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Enter University Name"
+                    }
+                });
+                $("#Percentage").rules("remove", "required");
+
+            }
+            else if (this.value == 'Pursuing' && $("#TypeOfEducation").val() != "Graduation") {
+                $("#PreviousclassPercentage").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Enter Percentage"
+                    }
+                });
+                $("#PreviousBoardType").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Select Board"
+                    }
+                });
+
+                $("#Percentage").rules("remove", "required");
+                $("#UniversityName").rules("remove", "required");
+                $("#Current_semester").rules("remove", "required");
+                $("#TotalAggregatetillnow").rules("remove", "required");
+                $('#divpercentage').hide();
+                $('#divpreviouseducationdetails').show();
+                $('#divforgraduation').hide();
+                previousclassdetails();
+            }
+        });
+
+        function previousclassdetails() {
+            var currentclass = $("#Current_Education_subcategory").val();
+            var prevclass = currentclass - 1;
+            if (currentclass <= 10) {
+
+                $('#previousclass').text(prevclass);
+            }
+            else if (currentclass > 10) {
+                $('#previousclass').text('10');
+                $('#previousboard').show();
+
+            }
+
+        }
+        $("#btnsubmit").click(function () {
+            checkdeclaration();
+        });
+        function checkdeclaration() {
+            var x = document.getElementById("Declaration").checked;
+            if (x == false) {
+                alert('check declaration');
+            }
+        }
+
+</script>
 
 
