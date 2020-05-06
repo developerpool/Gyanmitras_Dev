@@ -2753,19 +2753,31 @@ namespace GyanmitrasDAL.Common
 
         public static List<DropDownMDL> GetBoardType()
         {
-            CommandText = "[siteusers].[usp_GetBoardType]";
-            SqlParameter param = new SqlParameter();
-            param = null;
-
-            DataSet ds = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, param);
-            List<DropDownMDL> _dropdownlist = new List<DropDownMDL>();
-            _dropdownlist = ds.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+           
+            List<DropDownMDL> List = new List<DropDownMDL>();
+            try
             {
-                ID = dr.Field<int>("ID"),
-                Value = dr.Field<string>("BoardName"),
+                DataSet objDataSet = new DataSet();
 
-            }).ToList();
-            return _dropdownlist;
+                _commandText = "[SiteUsers].[usp_GetBoardType]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet);
+
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    List = objDataSet.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+                    {
+                        ID = dr.Field<int>("ID"),
+                        Value = dr.Field<string>("BoardName")
+                    }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "");
+            }
+            return List;
         }
         #endregion
 

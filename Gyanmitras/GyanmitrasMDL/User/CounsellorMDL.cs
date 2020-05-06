@@ -37,6 +37,7 @@ namespace GyanmitrasMDL.User
         public string CreatedDateTime { get; set; }
         public HttpPostedFileBase BulkUpload { get; set; }
 
+        public string FormType { get; set; }
 
     }
 }

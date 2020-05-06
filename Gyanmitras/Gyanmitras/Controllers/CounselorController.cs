@@ -107,5 +107,23 @@ namespace Gyanmitras.Controllers
 
             return View();
         }
+
+
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public ActionResult UserProfile()
+        {
+            ViewBag.Title = "User Prifile";
+            ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
+            ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
+
+            ViewData["StreamList"] = CommonBAL.BindStreamDetailsList();
+            ViewData["BoardList"] = CommonBAL.BindBoardDetailsList();
+            ViewData["UniversityList"] = CommonBAL.BindBoardDetailsList();
+            ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
+
+
+            return View(obj);
+        }
     }
 }

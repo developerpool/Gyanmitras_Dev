@@ -3,13 +3,13 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<hr />
-@using (Html.BeginForm("Registration", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+
+@using (Html.BeginForm("UserProfile", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.Partial("_CounselorRegistration", (GyanmitrasMDL.User.CounselorMDL)ViewBag.Registration)
-
-
 }
+
 @section scripts {
     <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
     <script src="~/assets/js/jquery.sumoselect.js"></script>
@@ -17,4 +17,6 @@
 
     </script>
 }
+
+
 
