@@ -15,6 +15,7 @@ namespace GyanmitrasDAL.User
 {
     public class StudentDAL
     {
+
         static string CommandText = string.Empty;
         static DataFunctions objDataFunctions = new DataFunctions();
         #region register student
