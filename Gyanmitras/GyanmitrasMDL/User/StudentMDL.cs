@@ -71,6 +71,7 @@ namespace GyanmitrasMDL.User
         public string Current_semester { get; set; }
         public Decimal? TotalAggregatetillnow { get; set; }
 
+
         public bool IsTrue => true;
         //[Range(typeof(bool), "false", "true", ErrorMessage = "Please check Terms and Conditions")]
         [Required]
