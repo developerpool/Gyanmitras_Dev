@@ -33,7 +33,7 @@
                                             <div class="row match-height">
                                                 @if (ViewBag.RoleId == 1)
                                                 {
-                                                <div class="col-xl-3 col-md-3" id="SuggestionDev" onclick="$('#SuggestionSection').slideDown(500); $('#FeedbackSection').slideUp(500); $('#PlannedCommunicationSection').slideUp(500);">
+                                                <div class="col-xl-3 col-md-3" id="SuggestionDev" onclick="$('#FeedbackSection').slideUp(500); $('#SuggestionSection').slideDown(500); $('#AdminFeedSection').slideUp(500); $('#PlannedCommunicationSection').slideUp(500);">
                                                     <div class="card overflow-hidden" style="background:#c5d6c5" >
                                                         <div class="card-content" id="total">
                                                             <div class="media align-items-stretch">
@@ -48,7 +48,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-xl-3 col-md-3" onclick="$('#PlannedCommunicationSection').slideDown(500); $('#FeedbackSection').slideUp(500); $('#SuggestionSection').slideUp(500);">
+                                                <div class="col-xl-3 col-md-3" onclick="$('#FeedbackSection').slideUp(500); $('#PlannedCommunicationSection').slideDown(500); $('#AdminFeedSection').slideUp(500); $('#SuggestionSection').slideUp(500);">
                                                     <div class="card">
                                                         <div class="card-content" id="active">
                                                             <div class="media align-items-stretch">
@@ -57,6 +57,20 @@
                                                                 </div>
                                                                 <div class="media-right p-2 media-middle">
                                                                     <h1 class="success font-weight-bold" id="totalActiveValue">0</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3 col-md-3" id="FeedbackSectionDiv" onclick="$('#FeedbackSection').slideDown(500); $('#PlannedCommunicationSection').slideUp(500); $('#AdminFeedSection').slideUp(500); $('#SuggestionSection').slideUp(500);">
+                                                    <div class="card overflow-hidden">
+                                                        <div class="card-content" id="inactive">
+                                                            <div class="media align-items-stretch">
+                                                                <div class="media-body p-2">
+                                                                    <h4>Feedback</h4>
+                                                                </div>
+                                                                <div class="media-right p-2 media-middle">
+                                                                    <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -78,7 +92,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-xl-3 col-md-3" id="FeedbackSectionDiv" onclick="$('#PlannedCommunicationSection').slideUp(500); $('#FeedbackSection').slideDown(500); $('#SuggestionSection').slideUp(500);">
+                                                <div class="col-xl-3 col-md-3" id="AdminFeedSectionDiv" onclick="$('#FeedbackSection').slideUp(500);$('#PlannedCommunicationSection').slideUp(500); $('#AdminFeedSection').slideDown(500); $('#SuggestionSection').slideUp(500);">
                                                     <div class="card overflow-hidden">
                                                         <div class="card-content" id="inactive">
                                                             <div class="media align-items-stretch">
@@ -92,6 +106,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                               
 
                                             </div>
                                         </section>
@@ -171,11 +187,78 @@
                                     </div>
                                 </div>
 
+                                
 
-                                <section id="FeedbackSection" >
+                                <section id="FeedbackSection" style="display:none">
                                     <div class="row">
                                         <div class="col-12">
                                             <h4>Feedback</h4>
+                                            <div class="card">
+                                                <div class="card-header">
+
+                                                </div>
+                                                <div class="card-content collapse show" style="cursor: auto;">
+                                                    <div class="card-body card-dashboard  pt-0">
+                                                        <div class="dataTables_wrapper">
+                                                            <div id="GridDiv">
+                                                                <div class="table-responsive" style="max-height: 465px;">
+                                                                    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
+                                                                                <th class="text-center">No.</th>
+                                                                                <th class="text-center">Date & Time</th>
+                                                                                <th class="text-center">Description</th>
+                                                                                <th class="text-center">Status</th>
+                                                                                <th class="text-center">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @*<tr>
+                                                    <td colspan="14">
+                                                    <div class="text-danger">
+                                                    Data Not Found.
+                                                    </div>
+                                                    </td>
+                                                    </tr>*@
+                                                                            <tr>
+                                                                                <td><input type="checkbox" value=""></td>
+                                                                                <td class="text-center">1</td>
+
+
+                                                                                <td class="text-center">
+                                                                                    05/01/2020 11:00 PM
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    TEST19
+                                                                                </td>
+
+                                                                                <td align="center"><div class="success text-bold-600">Active</div></td>
+
+                                                                                <td align="center" class="text-nowrap text-center">
+                                                                                    <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
+                                                                                    <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;delete?')" href="/MstCustomer/DeleteCustomer/1562 "><i class="la la-trash-o"></i>Not Interested</a>
+
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section id="AdminFeedSection" >
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Admin Feed</h4>
                                             <div class="card">
                                                 <div class="card-header">
                                                      
@@ -193,6 +276,7 @@
                                                                                 <th class="text-center">Date & Time</th>
                                                                                 <th class="text-center">Description</th>
                                                                                 <th class="text-center">Status</th>
+                                                                                <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -237,6 +321,8 @@
                                     </div>
                                 </section>
 
+
+
                                 <section id="PlannedCommunicationSection" style="display:none">
                                     <div class="row">
                                         <div class="col-12">
@@ -260,6 +346,7 @@
                                                                                 <th class="text-center">Date & Time</th>
                                                                                 <th class="text-center">Description</th>
                                                                                 <th class="text-center">Status</th>
+                                                                                <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -326,6 +413,7 @@
                                                                                 <th class="text-center">Suggestion</th>
                                                                                 <th class="text-center">Date</th>
                                                                                 <th class="text-center">Status</th>
+                                                                                <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -393,14 +481,15 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(function () {
-            $("#FeedbackSectionDiv").trigger('click');
-
             $(".card").click(function () {
-                
+
                 $('.card').removeAttr('style');
                 $(this).attr('style', 'background:#c5d6c5');
 
             });
+            $("#AdminFeedSectionDiv").trigger('click');
+            $("#AdminFeedSectionDiv").find('.card').trigger('click');
+            
         })
     </script>
 }

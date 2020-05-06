@@ -134,6 +134,18 @@ namespace Gyanmitras.Controllers
             return View(obj);
         }
 
+        [HttpGet]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult AdoptionRequest()
+        {
+            StudentMDL obj = new StudentMDL();
+            ViewBag.Title = "Adoption Request";
 
+            return View();
+        }
+
+
+
+        
     }
 }

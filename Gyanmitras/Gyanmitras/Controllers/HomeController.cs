@@ -64,6 +64,16 @@ namespace Gyanmitras.Controllers
         }
 
 
+        [HttpGet]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult LatestNews()
+        {
+
+            ViewBag.Title = "Latest News";
+
+            return View();
+        }
+
 
         #region User Account
 

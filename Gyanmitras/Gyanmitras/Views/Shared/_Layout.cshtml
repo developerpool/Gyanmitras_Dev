@@ -117,6 +117,10 @@
                             {
                                 <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @style = "color:white !important;" })</li>
                             }
+                            else if (user.RoleId == 2)
+                            {
+                                <li>@Html.ActionLink("Adoption Request", "AdoptionRequest", "Student", new { @style = "color:white !important;" })</li>
+                            }
                         }
                         if (user.CategoryId == 2)
                         {
@@ -131,7 +135,14 @@
                             <li>@Html.ActionLink("Latest News", "LatestNews", "Volunteer", new { @style = "color:white !important;" })</li>
                         }
                     }
-                    <li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:white !important;" })</li>
+                    else
+                    {
+                        <li>
+                            <a href="https://www.blogger.com/about/?r=2" style="color:white !important;">Latest News</a>
+                        </li>
+                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Home", new { @style = "color:white !important;" })</li>*@
+                            }
+<li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:white !important;" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

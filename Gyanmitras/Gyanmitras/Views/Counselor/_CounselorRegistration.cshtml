@@ -268,8 +268,8 @@
                                     <label class="control-label col-md-3">Would You Like To Adopt A Student Later?</label>
                                     <div class="col-md-7">
 
-                                        Yes: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, "true")
-                                        No: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, "false")
+                                        Yes: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, "1")
+                                        No: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, "0")
                                         @Html.ValidationMessageFor(E => E.LikeAdoptStudentLater)
 
 
@@ -279,11 +279,12 @@
 
                                 <div id="LikeAdoptStudentLaterTermCon" style="display:none">
                                     <span class="red">*</span>
-                                    I hereby declare that information’s provided by me is valid and I will be
-                                    only liable to handle concerns evolved due to misleading information’s
-                                    provided by me either now or at any subsequent stages. Refer Terms and
-                                    conditions of academic adoption by a counselor (Provide a hyperlink
-                                    which data I will provide later
+                                    <a href="#">
+                                        I hereby declare that information’s provided by me is valid and I will be
+                                        only liable to handle concerns evolved due to misleading information’s
+                                        provided by me either now or at any subsequent stages. Refer Terms and
+                                        conditions of academic adoption by a counselor
+                                    </a>
                                 </div>
 
 
@@ -890,7 +891,7 @@
         var mycategoryval = new Array();
         var mycategorytext = new Array();
         $(document).ready(function () {
-
+            
             $("#StudentDoctoralYear,#StudentPostGraduationYear").append("<option value='Pursuing'>Pursuing</option>");
             BindAreaOfInterest("counselor");
             StateBind();
