@@ -41,8 +41,9 @@ namespace GyanmitrasMDL.User
 
         public string EmailID { get; set; }
         [Required(ErrorMessage = "Please Enter MobileNo")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
         public int? MobileNo { get; set; }
-
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
         public int? AlternateMobileNo { get; set; }
         [Required(ErrorMessage = "Please Select Area Of Interest")]
         public string AreaOfInterest { get; set; }
@@ -70,7 +71,10 @@ namespace GyanmitrasMDL.User
         public string Current_semester { get; set; }
         public Decimal? TotalAggregatetillnow { get; set; }
 
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Please check Terms and Conditions")]
+        public bool IsTrue => true;
+        //[Range(typeof(bool), "false", "true", ErrorMessage = "Please check Terms and Conditions")]
+        [Required]
+        [System.ComponentModel.DataAnnotations.Compare("IsTrue", ErrorMessage = "Please agree to Terms and Conditions")]
         public bool Declaration { get; set; }
         [Required(ErrorMessage = "Please Select the  Language Known")]
         public string languages { get; set; }

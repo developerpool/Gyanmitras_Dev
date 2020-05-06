@@ -38,6 +38,9 @@ namespace GyanmitrasDAL.User
                 List<SqlParameter> parms = new List<SqlParameter>()
                 {
 
+                    new SqlParameter("@DistrictAreaOfSearch",DBNull.Value),
+                     new SqlParameter("@StateAreaOfSearch",DBNull.Value),
+                     new SqlParameter("@Email",objstudentMDL.EmailID),
                      new SqlParameter("@Name",objstudentMDL.Name),
                      new SqlParameter("@Mobile_Number",objstudentMDL.MobileNo),
                      new SqlParameter("@Alternate_Mobile_Number",objstudentMDL.AlternateMobileNo),
@@ -64,9 +67,7 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@Currentsemester",objstudentMDL.Current_semester),
                      new SqlParameter("@UniversityName",objstudentMDL.UniversityName),
                      new SqlParameter("@NatureOFCompletion",objstudentMDL.CompletionNature),
-                      //  new SqlParameter("@Percentage",(objstudentMDL.Percentage).HasValue  ? Convert.ToDecimal(objstudentMDL.Percentage) : (Convert.ToDecimal(objstudentMDL.TotalAggregatetillnow))),
-                    
-                  new SqlParameter("@Percentage",Convert.ToDecimal(percent)),
+                     new SqlParameter("@Percentage",Convert.ToDecimal(percent)),
                      new SqlParameter("@Previous_Class",objstudentMDL.Previous_Education_subcategory),
                      new SqlParameter("@FK_Previous_Class_Board",String.IsNullOrEmpty(objstudentMDL.PreviousBoardType)  ? DBNull.Value : (object)(int.Parse(objstudentMDL.PreviousBoardType))),
                      new SqlParameter("@Previous_Class_Percentage",Convert.ToDecimal(objstudentMDL.PreviousclassPercentage)),

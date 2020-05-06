@@ -5,7 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using GyanmitrasBAL.Common;
+using GyanmitrasMDL;
+using GyanmitrasMDL.User;
+using Gyanmitras.Filter;
+using Utility;
+using GyanmitrasBAL.User;
+using System.Text;
+using System.IO;
+using Gyanmitras.Common;
 namespace Gyanmitras.Controllers
 {
     //[Authorize]
@@ -62,6 +70,76 @@ namespace Gyanmitras.Controllers
 
             return View(obj);
         }
+
+
+        [HttpPost]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult Registration(VolunteerMDL Voluntee)
+        {
+            Voluntee.Password = ClsCrypto.Encrypt(Voluntee.Password);
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                HttpPostedFileBase Imgfile = Voluntee.Image;
+                if (Imgfile != null)
+                {
+
+
+                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/")))
+                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/"));
+
+                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/VolunteerImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+
+                    if (!string.IsNullOrEmpty(Voluntee.ImageName))
+                    {
+                        var filePath = Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/" + Voluntee.ImageName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+
+                    Voluntee.ImageName = Imgfile.FileName;
+                }
+                VolunteerBAL objVolunteerBAL = new VolunteerBAL();
+                string Msg = "";
+                StringBuilder objMsg = objVolunteerBAL.RegisterVolunteer(Voluntee);
+                Msg = objMsg.ToString();
+
+                if (Msg.Equals("Success"))
+                {
+
+                    string controllerName = "";
+                    string area = "";
+                    string actionName = "";
+
+                    area = "";
+                    actionName = "Index";
+                    controllerName = "Home";
+
+
+
+                    //SiteUserSessionInfo.User.LandingPageURL = (!string.IsNullOrEmpty(area) ? area + "/" : "") + controllerName + "/" + actionName;
+                    return RedirectToAction(actionName, controllerName, area);
+                }
+                else
+                {
+                    ViewBag.Message = "Submitting Form Went Wrong";
+                    return View(Voluntee);
+                }
+
+            }
+            else
+            {
+
+                ////ViewBag.Message = objMsg.Message;
+                return View(Voluntee);
+            }
+        }
+
 
         [HttpGet]
         [UserCustomAuthenticationAttribute]

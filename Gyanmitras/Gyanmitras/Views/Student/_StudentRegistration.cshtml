@@ -329,6 +329,7 @@
                                         @Html.CheckBoxFor(E => E.Declaration)
                                         I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer (Provide a hyperlink which data I will provide later )<br />
                                         @Html.ValidationMessageFor(E => E.Declaration)
+                                        @Html.Hidden(nameof(Model.IsTrue), "true")
 
                                     </div>
                                 </div>
@@ -365,16 +366,16 @@
 <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
 
 <script type="text/javascript">
-        var defaultRangeValidator = $.validator.methods.range;
-        $.validator.methods.range = function (value, element, param) {
-            if (element.type === 'checkbox') {
-                // if it's a checkbox return true if it is checked
-                return element.checked;
-            } else {
-                // otherwise run the default validation function
-                return defaultRangeValidator.call(this, value, element, param);
-            }
-        }
+        //var defaultRangeValidator = $.validator.methods.range;
+        //$.validator.methods.range = function (value, element, param) {
+        //    if (element.type === 'checkbox') {
+        //        // if it's a checkbox return true if it is checked
+        //        return element.checked;
+        //    } else {
+        //        // otherwise run the default validation function
+        //        return defaultRangeValidator.call(this, value, element, param);
+        //    }
+        //}
         var mycategoryval = new Array();
         var mycategorytext = new Array();
         $(document).ready(function () {
