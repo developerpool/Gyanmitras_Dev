@@ -29,7 +29,7 @@ namespace Gyanmitras.Controllers
 
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
-        public ActionResult About(int x)
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -54,6 +54,8 @@ namespace Gyanmitras.Controllers
 
             return View();
         }
+
+        
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
         public ActionResult Resource()
@@ -168,6 +170,7 @@ namespace Gyanmitras.Controllers
 
         #endregion
 
+        #region Ajax Calling Methods
         #region Languages
         [SkipCustomAuthenticationAttribute]
         [AllowAnonymous]
@@ -202,6 +205,46 @@ namespace Gyanmitras.Controllers
         public JsonResult CheckUserId(string UID)
         {
             return Json(CommonBAL.CheckUserId(UID), JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
+
+
+
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetAcademicGroupList()
+        {
+            return Json(CommonBAL.GetAcademicGroupList(), JsonRequestBehavior.AllowGet);
+        }
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetBenifitTypeList()
+        {
+            return Json(CommonBAL.GetBenifitTypeList(), JsonRequestBehavior.AllowGet);
+        }
+
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetDropsForResource()
+        {
+            List<Dictionary<string, object>> myList = new List<Dictionary<string, object>>();
+
+            Dictionary<string, object> obj = new Dictionary<string, object>();
+            obj.Add("state", CommonBAL.GetStateDetailsByCountryId(1));
+            myList.Add(obj);
+
+            obj = new Dictionary<string, object>();
+            obj.Add("academicgroup", CommonBAL.GetAcademicGroupList());
+            myList.Add(obj);
+
+            obj = new Dictionary<string, object>();
+            obj.Add("benifittype", CommonBAL.GetBenifitTypeList());
+            myList.Add(obj);
+
+            return Json(myList, JsonRequestBehavior.AllowGet);
+
         }
         #endregion
 

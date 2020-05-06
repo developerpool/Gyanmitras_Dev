@@ -686,10 +686,6 @@ namespace GyanmitrasBAL.Common
         {
             return CommonDAL.BindYearOfPassingList();
         }
-
-
-        #endregion
-
         #region GetLanguage dropdown
         public static List<DropDownMDL> GetLanguage()
         {
@@ -715,6 +711,22 @@ namespace GyanmitrasBAL.Common
         }
 
 
+
         #endregion
+
+
+
+
+        public static List<DropDownMDL> GetAcademicGroupList()
+        {
+            return CommonDAL.GetAcademicGroupList();
+        }
+        public static List<DropDownMDL> GetBenifitTypeList()
+        {
+            return CommonDAL.GetBenifitTypeList();
+        }
+        #endregion
+
+
     }
 }

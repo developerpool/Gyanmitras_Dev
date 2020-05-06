@@ -19,9 +19,7 @@
         }
 
         .copyRightLogin {
-            
             text-align: center;
-         
         }
 
         .dropbtn {
@@ -160,11 +158,6 @@
 
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
 
 
 
@@ -181,23 +174,23 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 offset-lg-1">
                             <div class="form-group row">
-                                <label class="col-md-3 control-label text-center" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.State</label>
-                                <div class="col-md-9">
-                                    @Html.DropDownList("FK_StateId", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+                                <label class="col-md-4 control-label text-center" for="eventRegInput1">@GyanmitrasLanguages.LocalResources.Resource.State</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("State", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 control-label text-center" for="eventRegInput1">Academic Group</label>
-                                <div class="col-md-9">
-                                    @Html.DropDownList("FK_StateId", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+                                <label class="col-md-4 control-label text-center" for="eventRegInput1">Academic Group</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("Academic_Group", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 control-label text-center" for="eventRegInput1">Benifit Type</label>
-                                <div class="col-md-9">
-                                    @Html.DropDownList("FK_StateId", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
+                                <label class="col-md-4 control-label text-center" for="eventRegInput1">Benifit Type</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("Benifit_Type", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control" })
                                 </div>
                             </div>
 
@@ -207,7 +200,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="/Home/Resource" id="btnsubmit">Submit</a>
+                        <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="btnsubmit">Submit</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
 
@@ -215,73 +208,111 @@
             </div>
         </div>
     </div>
-    @section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
-        <script>
-            $(document).ajaxStart(function () {
-                $.ajaxSetup({
-                    converters: {
-                        "text html": function (textValue) {
-                            if (textValue) {
-                                // Some parsing logic here
-                                var script = "<script type='text/javascript' language='javascript' > $.validator.unobtrusive.parse(\"form\");";
-                                var scriptend = "\<\/script>";
-                                return script + scriptend + " " + textValue;
-                            } else {
-                                // This will notify a parsererror for current request
-                                throw exceptionObject;
-                            }
+
+    <script>
+        $(document).ajaxStart(function () {
+            $.ajaxSetup({
+                converters: {
+                    "text html": function (textValue) {
+                        if (textValue) {
+                            // Some parsing logic here
+                            var script = "<script type='text/javascript' language='javascript' > $.validator.unobtrusive.parse(\"form\");";
+                            var scriptend = "\<\/script>";
+                            return script + scriptend + " " + textValue;
+                        } else {
+                            // This will notify a parsererror for current request
+                            throw exceptionObject;
                         }
                     }
-                });
+                }
             });
+        });
 
-            @*$(document).ajaxError(function (xhr, props) {
+        @*$(document).ajaxError(function (xhr, props) {
                 // debugger;
                 if (props.status === 401) {
                     window.location.href = '@Url.Action("Login","Account", new { Area = "" })';
                 }
             });*@
 
-            $(function () {
-                // setTimeout() function will be fired after page is loaded
-                // it will wait for 5 sec. and then will fire
-                // $("#successMessage").hide() function
-                setTimeout(function () {
-                    $("#myAlert").hide('blind', {}, 500)
-                }, 10000);
+        $(function () {
+
+            // setTimeout() function will be fired after page is loaded
+            // it will wait for 5 sec. and then will fire
+            // $("#successMessage").hide() function
+            setTimeout(function () {
+                $("#myAlert").hide('blind', {}, 500)
+            }, 10000);
+
+
+            StateBind();
+            $("#btnsubmit").click(function (e) {
+                if (!$("#State").val()) {
+                    $("#State").focus();
+                    alert('State Selection Is Required!');
+                    return false;
+                    e.preventDefault();
+                }
+                if (!$("#Academic_Group").val()) {
+                    $("#Academic_Group").focus();
+                    alert('Academic Group Selection Is Required!');
+                    return false;
+                    e.preventDefault();
+                }
+                if (!$("#Benifit_Type").val()) {
+                    $("#Benifit_Type").focus();
+                    alert('Benifit Type Selection Is Required!');
+                    return false;
+                    e.preventDefault();
+                }
+
+                location.href = "/Home/Resource?State=" + $.trim($("#State").val()) + ",Academic_Group=" + $.trim($("#Academic_Group").val()) + ",Benifit_Type=" + $.trim($("#Benifit_Type").val()) + "";
+
             });
 
+        });
 
-            /*End  Bind Vehicles By Customer Using Sumo Select  */
-            function StateBind() {
-                $("#FK_StateId").empty();
-                $("#FK_StateId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
-                var input = { countryId: parseInt("1") };
-                $.ajax({
-                    url: "@Url.Action("GetStateDetailsByCountryId", "MSTAccount")",
-                    data: JSON.stringify(input),
-                    datatype: "json",
-                    async: false,
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        var Machinelist = new Array();
-                        if (data.length == 0) {
-                            $(this).val('');
-                        }
-                        else {
-                            for (var i = 0 ; i < data.length ; i++) {
-                                $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
-                            }
+
+        /*End  Bind Vehicles By Customer Using Sumo Select  */
+        function StateBind() {
+          
+            //var input = { countryId: parseInt("1") };
+            $.ajax({
+                url: "@Url.Action("GetDropsForResource", "Home")",
+                //data: JSON.stringify(input),
+                datatype: "json",
+                async: false,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    
+                    if ((data[0].state).length > 0) {
+                        for (var i = 0 ; i < (data[0].state).length ; i++) {
+                            $("#State").append('<option value = "' + (data[0].state)[i].ID + '">' + (data[0].state)[i].Value + '</option>');
                         }
                     }
-                });
-            }
+                    if ((data[1].academicgroup).length > 0) {
+                        for (var i = 0 ; i < (data[1].academicgroup).length ; i++) {
+                            $("#Academic_Group").append('<option value = "' + (data[1].academicgroup)[i].ID + '">' + (data[1].academicgroup)[i].Value + '</option>');
+                        }
+                    }
+                    if ((data[2].benifittype).length > 0) {
+                        for (var i = 0 ; i < (data[2].benifittype).length ; i++) {
+                            $("#Benifit_Type").append('<option value = "' + (data[2].benifittype)[i].ID + '">' + (data[2].benifittype)[i].Value + '</option>');
+                        }
+                    }
+
+                }
+            });
+        }
 
 
-        </script>
+    </script>
 
-    }
 </body>
 </html>
