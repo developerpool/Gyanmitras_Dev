@@ -1945,7 +1945,7 @@ namespace GyanmitrasDAL.Common
         /// CREATED BY : Sandeep Kumar.
         /// </summary>
         /// <returns></returns>
-        public static List<MonthMDL> FillMonth()
+        public static List<DropDownMDL> FillMonth()
         {
             List<MonthMDL> MonthList = new List<MonthMDL>();
 
@@ -1957,7 +1957,17 @@ namespace GyanmitrasDAL.Common
                 objMonthMDL.MonthName = months[i];
                 MonthList.Add(objMonthMDL);
             }
-            return MonthList;
+
+            List<DropDownMDL> obj = new List<DropDownMDL>();
+            
+            foreach (var item in MonthList)
+            {
+                obj.Add(new DropDownMDL() {
+                    ID= item.MonthId,
+                    Value = item.MonthName
+                });
+            }
+            return obj;
         }
 
         /// <summary>

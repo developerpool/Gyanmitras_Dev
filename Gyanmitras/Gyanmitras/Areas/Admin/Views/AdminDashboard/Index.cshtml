@@ -1,11 +1,12 @@
-﻿
+﻿@model GyanmitrasMDL.AdminDashboardMDL
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 
 
-
+@using (Html.BeginForm("Index", "AdminDashboard", FormMethod.Post))
+{
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
@@ -36,23 +37,24 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
-                                                        @Html.DropDownList("State", new SelectList((System.Collections.IEnumerable)ViewData["Year"]), GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
+                                                        @Html.DropDownListFor(e => e.FK_StateId, new SelectList((System.Collections.IEnumerable)ViewData["StateList"], "ID", "Value"), GyanmitrasLanguages.LocalResources.Resource.All, new { @class = "form-control select2" })
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="">@GyanmitrasLanguages.LocalResources.Resource.Year<span class="red">*</span></label>
-                                                        @Html.DropDownList("Year", new SelectList((System.Collections.IEnumerable)ViewData["Year"]), GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
+                                                        @Html.DropDownListFor(e => e.Year, new SelectList((System.Collections.IEnumerable)ViewData["Year"], "ID", "Value"), GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="">@GyanmitrasLanguages.LocalResources.Resource.Month<span class="red">*</span></label>
-                                                        @Html.DropDownList("MonthId", new SelectList((System.Collections.IEnumerable)ViewData["Month"], "MonthId", "MonthName"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
+                                                        @Html.DropDownListFor(e => e.Month, new SelectList((System.Collections.IEnumerable)ViewData["Month"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="" class="btn btn-dark round btn-icon searchBtn"><i class="la la-search"></i></a>
+                                            @*<a href="" class=""><i class="la la-search"></i></a>*@
+                                            <button id="btnsubmit" type="submit" class="btn btn-dark round btn-icon searchBtn"><i class="la la-search"></i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -72,10 +74,10 @@
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
                                             <p class="size-h2">
-                                                <span id="NoOfVeh">8</span>
+                                                <span id="NoOfVeh">@Model.StudentCount</span>
                                             </p><p class="text-muted"><h3>No. of Students</h3></p>
                                         </div>
-                                        <div class="align-self-center"> <div class="align-self-center"> <img src="../assets/icon/vehicle-icon.png" height="42" alt=""> </div> </div>
+                                        <div class="align-self-center"> <div class="align-self-center"> <img src="../assets/icon/user-h.png" height="42" alt=""> </div> </div>
                                     </div>
                                 </a>
                             </div>
@@ -88,9 +90,9 @@
                                 <a id="travelkm" onclick="validateDrill(event)" href="/Admin/AdminDashboard/CounselorDetails">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
-                                            <p class="size-h2"><span id="distanceTraveledFuel">0</span> </p>
+                                            <p class="size-h2"><span id="distanceTraveledFuel">@Model.CounselorCount</span> </p>
                                             <p class="text-muted"><h3>No. of Counselor</h3></p>
-                                        </div> <div class="align-self-center"> <img src="../assets/icon/distance-icon.png" height="42" alt=""> </div>
+                                        </div> <div class="align-self-center"> <img src="../assets/icon/account-h.png" height="42" alt=""> </div>
                                     </div>
                                 </a>
                             </div>
@@ -104,10 +106,10 @@
                                 <a id="travelkm" onclick="validateDrill(event)" href="/Admin/AdminDashboard/VolunteerDetails">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
-                                            <p class="size-h2"><span id="hrsTraveledFuel">0</span> </p>
+                                            <p class="size-h2"><span id="hrsTraveledFuel">@Model.VolunteerCount</span> </p>
                                             <p class="text-muted"><h3>No. of Volunteer</h3></p>
                                         </div>
-                                        <div class="align-self-center"> <img src="../assets/icon/clock-icon.png" height="42" alt=""> </div>
+                                        <div class="align-self-center"> <img src="../assets/icon/account.png" height="42" alt=""> </div>
                                     </div>
                                 </a>
                             </div>
@@ -124,6 +126,9 @@
     </div>
 </div>
 
+    <input type="hidden" id="hd_Month" value="@Model.Month" />
+    <input type="hidden" id="hd_Year" value="@Model.Year" />
+}
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
@@ -134,7 +139,14 @@
     <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
 
     <script type="text/javascript">
-
+        $(function () {
+            $("#Month").val($("#hd_Month").val()).attr('selected', 'selected');
+            $("#Year").val($("#hd_Year").val()).attr('selected', 'selected');
+            $("#btnsubmit").click(function (){
+                $("#FK_StateId").rules("remove", "required");
+                
+            });
+        })
     </script>
 }
 
