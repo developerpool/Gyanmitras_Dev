@@ -15,8 +15,8 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
 
         //#region 
-        private List<SiteUserMDL> _UserDatalist;
-        SiteUserMDL objUserBal = null;
+        private dynamic _UserDatalist;
+        SiteUserMDL objUserMDL = null;
         BasicPagingMDL objBasicPagingMDL = null;
         static TotalCountPagingMDL objTotalCountPagingMDL = null;
         //public MstUserController()
@@ -63,33 +63,34 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
 
-            //SiteUserMDL objUserMDL = new SiteUserMDL();
-            //// var accountid = objUserMDL.FK_AccountId;
-            //objUserBal.GetUserMstDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, SessionInfo.User.AccountId, SessionInfo.User.UserId, SessionInfo.User.FK_CustomerId, SessionInfo.User.LoginType, RowPerpage, CurrentPage, SearchBy, SearchValue);
+            CommonBAL objMDL = new CommonBAL();
+            _UserDatalist = new List<SiteUserMDL>();
+            objMDL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "admin", 0, 0);
 
-            objTotalCountPagingMDL = new TotalCountPagingMDL()
-            {
-                TotalItem = 0,
-                ThisMonth = 0,
-                LastMonth = 0,
-                TotalActive = 0,
-                TotalExpiredMonth = 0,
-                TotalExpiredSoonMonth = 0,
-                TotalInactive = 0,
-                RemovedUsers = 0,
-                //IsTotalItem = true,
-                //IsTotalActive = true,
-                //IsTotalInactive = true,
-                //IsThisMonth = true,
-                //IsLastMonth = true,
-                //IsTotalExpiredMonth = true,
-                //IsTotalExpiredSoonMonth = true,
-                IsPendingReplyUsers = true,
-                IsRemovedUsers = true,
 
-                IsNotSuperAdmin = true,
-            };
-            objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
+            //objTotalCountPagingMDL = new TotalCountPagingMDL()
+            //{
+            //    TotalItem = 0,
+            //    ThisMonth = 0,
+            //    LastMonth = 0,
+            //    TotalActive = 0,
+            //    TotalExpiredMonth = 0,
+            //    TotalExpiredSoonMonth = 0,
+            //    TotalInactive = 0,
+            //    RemovedUsers = 0,
+            //    //IsTotalItem = true,
+            //    //IsTotalActive = true,
+            //    //IsTotalInactive = true,
+            //    //IsThisMonth = true,
+            //    //IsLastMonth = true,
+            //    //IsTotalExpiredMonth = true,
+            //    //IsTotalExpiredSoonMonth = true,
+            //    IsPendingReplyUsers = true,
+            //    IsRemovedUsers = true,
+
+            //    IsNotSuperAdmin = true,
+            //};
+            //objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
 
 
 
@@ -133,61 +134,22 @@ namespace Gyanmitras.Areas.Admin.Controllers
                 return View("AddEditUser", obj);
             }
         }
-        /// <summary>
-        /// Post Method of User master(Insert Data of user master)
-        /// </summary>
-        /// <createdBy>Vinish</createdBy>
-        /// <param name="userMstMDL"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult AddEditUser(SiteUserMDL userMstMDL)
-        {
-
-            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
-            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
-            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
-            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-            try
-            {
-                if (SessionInfo.User.LoginType == "CUSTOMER")
-                {
-
-                    userMstMDL.FK_CategoryId = SessionInfo.User.CategoryId;
-                }
-                userMstMDL.UserId = SessionInfo.User.UserId;
-                string text = userMstMDL.UserName;
-                string trim = text.Replace(" ", "");
-                //var usernametrim=userMstMDL.UserName.Trim();
-                userMstMDL.UserName = trim;
-                if (userMstMDL.FK_RoleIdforcust > 0)
-                {
-                    var userid = userMstMDL.FK_RoleIdforcust;
-                    userMstMDL.FK_RoleId = userid;
-                }
-                //MessageMDL msg = objUserBal.AddEditUser(userMstMDL);
-                TempData["Message"] = new MessageMDL();
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception ex)
-            {
-            }
-            return RedirectToAction("AddEditUser");
-        }
+       
         /// <summary>
         /// Delete user by ID 
         /// </summary>
         /// <createdBy>Vinish</createdBy>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult DeleteUser(int id)
+        public ActionResult DeleteUser(Int64 id,bool recover)
         {
 
             ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
             ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-            MessageMDL msg = new MessageMDL();//objUserBal.DeleteUser(id, 1);
+            CommonBAL objMDL = new CommonBAL();
+            MessageMDL msg = objMDL.DeleteSiteUser(id,SessionInfo.User.UserId,recover);
             if (msg.MessageId == 1)
             {
                 msg.Message = msg.Message;
@@ -273,8 +235,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
             string FileType = (string)TempData["FileType"];
             List<SiteUserMDL> _listForExcel = (List<SiteUserMDL>)TempData["ExportData_Filtered"];
             _listForExcel.ForEach(e => e.Status = e.IsActive ? "Active" : "Inactive");
-            _listForExcel.ForEach(e => e.IsVehicleSpecific = e.VehicleSpecific ? "Yes" : "No");
-            _listForExcel.ForEach(e => e.AccountName = (e.CustomerName == null) ? e.AccountName : e.CustomerName);
+
             string[] columns = { @GyanmitrasLanguages.LocalResources.Resource.AccCategory, @GyanmitrasLanguages.LocalResources.Resource.AccountName, @GyanmitrasLanguages.LocalResources.Resource.UsruserName, @GyanmitrasLanguages.LocalResources.Resource.Role, @GyanmitrasLanguages.LocalResources.Resource.EmailId, @GyanmitrasLanguages.LocalResources.Resource.MobileNo, @GyanmitrasLanguages.LocalResources.Resource.Country, @GyanmitrasLanguages.LocalResources.Resource.State, @GyanmitrasLanguages.LocalResources.Resource.City, @GyanmitrasLanguages.LocalResources.Resource.IsVehicleSpecific, @GyanmitrasLanguages.LocalResources.Resource.Status };
             string MDLAttr = "Categoryname,AccountName,UserName,Rolename,EmailId,MobileNo,CountryName,statename,Cityname,IsVehicleSpecific,Status";
             ExcelExportHelper objExcelExportHelper = new ExcelExportHelper();

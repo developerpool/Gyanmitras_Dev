@@ -15,7 +15,19 @@
                 <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
                 <th class="text-center">Name</th>
-                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.CreatedDate</th>
+                <th class="text-center">CategoryName</th>
+                <th class="text-center">RoleName</th>
+                <th class="text-center">UID</th>
+                <th class="text-center">Password</th>
+                <th class="text-center">Address</th>
+                <th class="text-center">StateName</th>
+                <th class="text-center">CityName</th>
+                <th class="text-center">ZipCode</th>
+                <th class="text-center">EmailID</th>
+                <th class="text-center">MobileNo</th>
+                <th class="text-center">AlternateMobileNo</th>
+                <th class="text-center">CreatedDateTime</th>
+                <th class="text-center">ImageName</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
             </tr>
@@ -42,10 +54,28 @@
                         <td align="center">@SerialNo</td>
                         <td class="text-center">@item.Name</td>
 
-
+                        <td class="text-center">@item.CategoryName</td>
+                        <td class="text-center">@item.RoleName</td>
+                        <td class="text-center">@item.UID</td>
+                        <td class="text-center">@item.Password</td>
+                        <td class="text-center">@item.Address</td>
+                        <td class="text-center">@item.StateName</td>
+                        <td class="text-center">@item.CityName</td>
+                        <td class="text-center">@item.ZipCode</td>
+                        <td class="text-center">@item.EmailID</td>
+                        <td class="text-center">@item.MobileNo</td>
+                        <td class="text-center">@item.AlternateMobileNo</td>
 
                         <td class="text-center"> @item.CreatedDateTime </td>
 
+                        <td class="text-center">
+                            @if (!string.IsNullOrEmpty(item.ImageName))
+                            {
+                                <img src="~/SiteUserContents/Registration/VolunteerImages/@item.ImageName" height="50" width="50" />
+                                @*<img src="data:image/png;base64, @item.AccountLogoStream" height="100" width="100" alt="Account Logo" />*@
+                            }
+
+                        </td>
                         @if (item.IsActive)
                         {
                             <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>

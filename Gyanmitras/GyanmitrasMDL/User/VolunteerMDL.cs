@@ -53,9 +53,9 @@ namespace GyanmitrasMDL.User
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "MobileNoValidation")]
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
-        public int? MobileNo { get; set; }
+        public string MobileNo { get; set; }
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
-        public int? AlternateMobileNo { get; set; }
+        public string AlternateMobileNo { get; set; }
         //[Required(ErrorMessage = "Please Select Area Of Interest to search")]
         //public string AreaOfInterest { get; set; }//State, District
         [Required(ErrorMessage = "Please Select Area Of Interest in State")]
@@ -73,6 +73,7 @@ namespace GyanmitrasMDL.User
        
 
         public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public string Status { get; set; }
         public Int64 FK_RoleId { get; set; }
         public Int64 CreatedBy { get; set; }
@@ -81,7 +82,9 @@ namespace GyanmitrasMDL.User
 
         public string FormType { get; set; }
         public string UrlHome { get; set; }
-      
+        public string CategoryName { get; set; }
+        public string RoleName { get; set; }
+
 
     }
 }

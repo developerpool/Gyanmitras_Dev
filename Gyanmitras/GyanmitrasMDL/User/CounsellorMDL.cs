@@ -16,8 +16,9 @@ namespace GyanmitrasMDL.User
         public string Address { get; set; }
         public string ZipCode { get; set; }
         public Int64 FK_StateId { get; set; }
+        public string StateName { get; set; }
         public Int64 FK_CityId { get; set; }
-
+        public string CityName { get; set; }
         public string EmailID { get; set; }
         public string MobileNo { get; set; }
         public string AlternateMobileNo { get; set; }
@@ -31,13 +32,16 @@ namespace GyanmitrasMDL.User
         public bool Declaration { get; set; }
 
         public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public string Status { get; set; }
         public Int64 FK_RoleId { get; set; }
         public Int64 CreatedBy { get; set; }
         public string CreatedDateTime { get; set; }
         public HttpPostedFileBase BulkUpload { get; set; }
 
-        public string FormType { get; set; }
+        public string CategoryName { get; set; }
+        public string RoleName { get; set; }
+
 
     }
 }

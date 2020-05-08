@@ -1,5 +1,6 @@
 ﻿using GyanmitrasDAL.DataUtility;
 using GyanmitrasMDL;
+using GyanmitrasMDL.User;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utility;
 
 namespace GyanmitrasDAL.Common
 {
@@ -2913,6 +2915,322 @@ namespace GyanmitrasDAL.Common
         #endregion
 
 
+
+        #region Admin Panel Common Function
+
+
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Get Details
+        /// </summary>
+        public bool GetSiteUserDetails(out dynamic _Datalist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId)
+        {
+            bool result = false;
+            objBasicPagingMDL = new BasicPagingMDL();
+            _Datalist = new List<CounselorMDL>();
+            objTotalCountPagingMDL = new TotalCountPagingMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                     new SqlParameter("@iPK_Id",id),
+                     new SqlParameter("@iPK_UserId",UserId),
+                     new SqlParameter("@iRowPerpage",RowPerpage),
+                     new SqlParameter("@iCurrentPage",CurrentPage),
+                     new SqlParameter("@cSearchBy",SearchBy),
+                     new SqlParameter("@cSearchValue",SearchValue),
+                     new SqlParameter("@cLoginType",LoginType),
+                     new SqlParameter("@iFK_CategoryId",FK_CategoryId),
+                     new SqlParameter("@iFK_RoleId",FK_RoleId),
+
+                };
+                _commandText = "[SiteUsers].[USP_GetSiteUserDetails]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+
+                    if (objDataSet.Tables[0].Rows[0].Field<int>("Message_Id") == 1)
+                    {
+                        if (FK_CategoryId == 1)
+                        {
+                            _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new StudentMDL()
+                            {
+                                PK_StudentID = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
+                                UID = dr.Field<string>("UserName"),
+                                Password = ClsCrypto.Decrypt(dr.Field<string>("UserPassword")),
+                                Name = dr.Field<string>("Name"),
+                                Address = dr.Field<string>("Address"),
+                                ZipCode = dr.Field<int>("ZipCode"),
+                                EmailID = dr.Field<string>("Email"),
+                                MobileNo = dr.Field<string>("Mobile_Number"),
+                                AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
+                                AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
+
+                                //AreYou = dr.Field<string>("AreYou"),
+                                //JoinUsDescription = dr.Field<string>("JoinUsDescription"),
+                                HavePC = dr.Field<bool>("HavePC"),
+                                Declaration = dr.Field<bool>("Declaration"),
+                                //
+                                //LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
+                                IsActive = dr.Field<bool>("IsActive"),
+                                IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
+                                FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
+                                FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
+                                StateName = dr.Field<string>("StateName"),
+                                CityName = dr.Field<string>("CityName"),
+                                ImageName = dr.Field<string>("Image"),
+                                CreatedDateTime = dr.Field<string>("CreatedDateTime"),
+                                CategoryName = dr.Field<string>("CategoryName"),
+                                RoleName = dr.Field<string>("RoleName")
+
+
+
+
+
+                            }).ToList();
+                        }
+                        else if (FK_CategoryId == 2)
+                        {
+                            _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new CounselorMDL()
+                            {
+                                PK_CounselorID = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
+                                UID = dr.Field<string>("UserName"),
+                                Password = ClsCrypto.Decrypt(dr.Field<string>("UserPassword")),
+                                Name = dr.Field<string>("Name"),
+                                Address = dr.Field<string>("Address"),
+                                ZipCode = Convert.ToString(dr.Field<int>("ZipCode")),
+                                EmailID = dr.Field<string>("Email"),
+                                MobileNo = dr.Field<string>("Mobile_Number"),
+                                AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
+                                AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
+
+                                AreYou = dr.Field<string>("AreYou"),
+                                JoinUsDescription = dr.Field<string>("JoinUsDescription"),
+                                HavePC = dr.Field<bool>("HavePC"),
+                                Declaration = dr.Field<bool>("Declaration"),
+                                //
+                                LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
+                                IsActive = dr.Field<bool>("IsActive"),
+                                IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
+                                FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
+                                FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
+                                StateName = dr.Field<string>("StateName"),
+                                CityName = dr.Field<string>("CityName"),
+                                ImageName = dr.Field<string>("Image"),
+                                CreatedDateTime = dr.Field<string>("CreatedDateTime"),
+
+                                CategoryName = dr.Field<string>("CategoryName"),
+                                RoleName = dr.Field<string>("RoleName")
+
+
+                            }).ToList();
+                        }
+
+                        else if (FK_CategoryId == 3)
+                        {
+                            _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new VolunteerMDL()
+                            {
+                                PK_VolunteerId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
+                                UID = dr.Field<string>("UserName"),
+                                Password = ClsCrypto.Decrypt(dr.Field<string>("UserPassword")),
+                                Name = dr.Field<string>("Name"),
+                                Address = dr.Field<string>("Address"),
+                                ZipCode = dr.Field<int>("ZipCode"),
+                                EmailID = dr.Field<string>("Email"),
+                                MobileNo = dr.Field<string>("Mobile_Number"),
+                                AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
+                                //AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
+                                //AreYou = dr.Field<string>("AreYou"),
+                                //JoinUsDescription = dr.Field<string>("JoinUsDescription"),
+                                //HavePC = dr.Field<bool>("HavePC"),
+                                Declaration = dr.Field<bool>("Declaration"),
+                                //
+                                //LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
+                                IsActive = dr.Field<bool>("IsActive"),
+                                IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
+                                FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
+                                FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
+                                StateName = dr.Field<string>("StateName"),
+                                CityName = dr.Field<string>("CityName"),
+                                ImageName = dr.Field<string>("Image"),
+                                CreatedDateTime = dr.Field<string>("CreatedDateTime"),
+                                CategoryName = dr.Field<string>("CategoryName"),
+                                RoleName = dr.Field<string>("RoleName")
+
+
+                            }).ToList();
+                        }
+                        else {
+                            _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new SiteUserMDL()
+                            {
+                                Pk_UserId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
+                                UID = dr.Field<string>("UserName"),
+                                Password = ClsCrypto.Decrypt(dr.Field<string>("UserPassword")),
+                                Name = dr.Field<string>("Name"),
+                                Address = dr.Field<string>("Address"),
+                                ZipCode = dr.Field<int>("ZipCode"),
+                                EmailID = dr.Field<string>("Email"),
+                                MobileNo = dr.Field<string>("Mobile_Number"),
+                                AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
+                                AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
+
+                                //AreYou = dr.Field<string>("AreYou"),
+                                //JoinUsDescription = dr.Field<string>("JoinUsDescription"),
+                                HavePC = dr.Field<bool>("HavePC"),
+                                Declaration = dr.Field<bool>("Declaration"),
+                                //
+                                //LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
+                                IsActive = dr.Field<bool>("IsActive"),
+                                IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
+                                FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
+                                FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
+                                StateName = dr.Field<string>("StateName"),
+                                CityName = dr.Field<string>("CityName"),
+                                ImageName = dr.Field<string>("Image"),
+                                CreatedDateTime = dr.Field<string>("CreatedDateTime"),
+                                CategoryName = dr.Field<string>("CategoryName"),
+                                RoleName = dr.Field<string>("RoleName")
+
+
+
+
+
+                            }).ToList();
+                        }
+                        objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
+
+
+                        objBasicPagingMDL = new BasicPagingMDL()
+                        {
+                            TotalItem = WrapDbNull.WrapDbNullValue<int>(objDataSet.Tables[2].Rows[0].Field<int?>("TotalItem")),
+                            RowParPage = RowPerpage,
+                            CurrentPage = CurrentPage
+                        };
+                        objBasicPagingMDL.TotalPage = objBasicPagingMDL.TotalItem / objBasicPagingMDL.RowParPage;
+                        if (objBasicPagingMDL.TotalItem % objBasicPagingMDL.RowParPage == 0)
+                        {
+                            objBasicPagingMDL.TotalPage++;
+                        }
+                        objBasicPagingMDL = new BasicPagingMDL()
+                        {
+                            TotalItem = WrapDbNull.WrapDbNullValue<int>(objDataSet.Tables[2].Rows[0].Field<int?>("TotalItem")),
+                            RowParPage = RowPerpage,
+                            CurrentPage = CurrentPage
+                        };
+                        if (objBasicPagingMDL.TotalItem % objBasicPagingMDL.RowParPage == 0)
+                        {
+                            objBasicPagingMDL.TotalPage = objBasicPagingMDL.TotalItem / objBasicPagingMDL.RowParPage;
+                        }
+                        else
+                            objBasicPagingMDL.TotalPage = objBasicPagingMDL.TotalItem / objBasicPagingMDL.RowParPage + 1;
+
+                        objDataSet.Dispose();
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+
+                }
+
+                if (objDataSet.Tables[2].Rows.Count > 0)
+                {
+
+                   
+                    objTotalCountPagingMDL = new TotalCountPagingMDL()
+                    {
+                        TotalItem = objDataSet.Tables[2].Rows[0].Field<int>("TotalItem"),
+                        TotalActive = objDataSet.Tables[2].Rows[0].Field<int>("TotalActive"),
+                        TotalInactive = objDataSet.Tables[2].Rows[0].Field<int>("TotalInActive"),
+                        ThisMonth = objDataSet.Tables[2].Rows[0].Field<int>("TotalCurrentMonth"),
+                        ApprovedCounselor = objDataSet.Tables[2].Rows[0].Field<int>("ApprovedCounselor"),
+                        LastMonth = objDataSet.Tables[2].Rows[0].Field<int>("LastMonth"),
+                        TotalExpiredMonth = objDataSet.Tables[2].Rows[0].Field<int>("TotalExpiredMonth"),
+                        RemovedUsers = objDataSet.Tables[2].Rows[0].Field<int>("RemovedUsers"),
+                        //Display Cards
+                        IsTotalItem = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalItem"),
+                        IsTotalActive = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalActive"),
+                        IsTotalInactive = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalInactive"),
+                        IsThisMonth = objDataSet.Tables[2].Rows[0].Field<bool>("IsThisMonth"),
+                        IsApprovedCounselor = objDataSet.Tables[2].Rows[0].Field<bool>("IsApprovedCounselor"),
+                        IsLastMonth = objDataSet.Tables[2].Rows[0].Field<bool>("IsLastMonth"),
+                        IsTotalExpiredMonth = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalExpiredMonth"),
+                        IsManageFeedBack = objDataSet.Tables[2].Rows[0].Field<bool>("IsManageFeedBack"),
+                        IsNotSuperAdmin = objDataSet.Tables[2].Rows[0].Field<bool>("IsNotSuperAdmin"),
+                        IsManageCreiticalSupport = objDataSet.Tables[2].Rows[0].Field<bool>("IsManageCreiticalSupport"),
+                        IsPendingReplyUsers = objDataSet.Tables[2].Rows[0].Field<bool>("IsPendingReplyUsers"),
+                        IsRemovedUsers = objDataSet.Tables[2].Rows[0].Field<bool>("IsRemovedUsers"),
+
+                    };
+                }
+
+            }
+            catch (Exception e)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+
+                result = false;
+            }
+            return result;
+        }
+
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Delete Customer Details
+        /// </summary>
+        public MessageMDL DeleteSiteUser(Int64 PK_CustomerId, Int64 UserId,bool recover = false)
+
+        {
+
+            MessageMDL msg = new MessageMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+            {
+                new SqlParameter("@iPK_Id", PK_CustomerId),
+                new SqlParameter("@iUserId", UserId),
+                new SqlParameter("@recover", recover),
+                
+                };
+                _commandText = "[SiteUsers].[USP_SiteUserDeleteUser]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //msg.Message = (msg.MessageId == 1)
+                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
+                    //                   : (msg.MessageId == -1)
+                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
+                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
+        #endregion
     }
 
 }

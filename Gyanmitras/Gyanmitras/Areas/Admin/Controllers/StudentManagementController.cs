@@ -15,7 +15,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
     {
        
         //#region 
-        private List<StudentMDL> _UserDatalist;
+        private dynamic _StudentDatalist;
         StudentMDL objUserBal = null;
         BasicPagingMDL objBasicPagingMDL = null;
         static TotalCountPagingMDL objTotalCountPagingMDL = null;
@@ -63,37 +63,37 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
 
-            //StudentMDL objUserMDL = new StudentMDL();
-            //// var accountid = objUserMDL.FK_AccountId;
-            //objUserBal.GetUserMstDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, SessionInfo.User.AccountId, SessionInfo.User.UserId, SessionInfo.User.FK_CustomerId, SessionInfo.User.LoginType, RowPerpage, CurrentPage, SearchBy, SearchValue);
+            CommonBAL objMDL = new CommonBAL();
+            _StudentDatalist = new List<StudentMDL>();
+            objMDL.GetSiteUserDetails( out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "", 1, 0);
 
-            objTotalCountPagingMDL = new TotalCountPagingMDL()
-            {
-                TotalItem = 0,
-                ThisMonth = 0,
-                LastMonth = 0,
-                TotalActive = 0,
-                TotalExpiredMonth = 0,
-                TotalExpiredSoonMonth = 0,
-                TotalInactive = 0,
-                ManageFeedBack = 0,
-                ManageCreiticalSupport = 0,
-                IsManageFeedBack = true,
-                IsManageCreiticalSupport = true,
-                IsTotalItem = true,
-                IsTotalActive = true,
-                //IsTotalInactive = true,
-                //IsThisMonth = true,
-                //IsApprovedCounselor = true,
-                //IsLastMonth = true,
-                //IsTotalExpiredMonth = true,
-                //IsTotalExpiredSoonMonth = true,
-                //IsPendingReplyUsers = true,
-                //IsRemovedUsers = true,
+            //objTotalCountPagingMDL = new TotalCountPagingMDL()
+            //{
+            //    TotalItem = 0,
+            //    ThisMonth = 0,
+            //    LastMonth = 0,
+            //    TotalActive = 0,
+            //    TotalExpiredMonth = 0,
+            //    TotalExpiredSoonMonth = 0,
+            //    TotalInactive = 0,
+            //    ManageFeedBack = 0,
+            //    ManageCreiticalSupport = 0,
+            //    IsManageFeedBack = true,
+            //    IsManageCreiticalSupport = true,
+            //    IsTotalItem = true,
+            //    IsTotalActive = true,
+            //    //IsTotalInactive = true,
+            //    //IsThisMonth = true,
+            //    //IsApprovedCounselor = true,
+            //    //IsLastMonth = true,
+            //    //IsTotalExpiredMonth = true,
+            //    //IsTotalExpiredSoonMonth = true,
+            //    //IsPendingReplyUsers = true,
+            //    //IsRemovedUsers = true,
 
-                IsNotSuperAdmin = true,
-            };
-            objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
+            //    IsNotSuperAdmin = true,
+            //};
+            //objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
 
 
 
@@ -104,7 +104,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
             //TempData["ExportData"] = _UserDatalist;
             //TempData["TotalItemCount"] = objTotalCountPagingMDL.TotalItem;
-            return PartialView("_StudentManagementGrid", _UserDatalist);
+            return PartialView("_StudentManagementGrid", _StudentDatalist);
         }
         /// <summary>
         /// Update method Of user master 
@@ -176,14 +176,15 @@ namespace Gyanmitras.Areas.Admin.Controllers
         /// <createdBy>Vinish</createdBy>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult DeleteStudentManagement(int id)
+        public ActionResult DeleteStudentManagement(Int64 id)
         {
 
             ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
             ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-            MessageMDL msg = new MessageMDL();//objUserBal.DeleteUser(id, 1);
+            CommonBAL objMDL = new CommonBAL();
+            MessageMDL msg = objMDL.DeleteSiteUser(id, SessionInfo.User.UserId);
             if (msg.MessageId == 1)
             {
                 msg.Message = msg.Message;

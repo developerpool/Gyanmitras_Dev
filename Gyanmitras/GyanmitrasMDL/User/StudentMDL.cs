@@ -36,21 +36,24 @@ namespace GyanmitrasMDL.User
         public Int64 FK_StateId { get; set; }
         [Required(ErrorMessage = "Please Select City")]
         public Int64 FK_CityId { get; set; }
+        public string CityName{ get; set; }
+        public string StateName { get; set; }
+
         [Required(ErrorMessage = "Please Enter Email ID")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessageResourceName = "EmailIdFormat", ErrorMessageResourceType = typeof(Resource))]
 
         public string EmailID { get; set; }
         [Required(ErrorMessage = "Please Enter MobileNo")]
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
-        public int? MobileNo { get; set; }
+        public string MobileNo { get; set; }
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
-        public int? AlternateMobileNo { get; set; }
+        public string AlternateMobileNo { get; set; }
         [Required(ErrorMessage = "Please Select Area Of Interest")]
         public string AreaOfInterest { get; set; }
         public HttpPostedFileBase Image { get; set; }
         public string ImageName { get; set; }
         [Required(ErrorMessage = "Please Select the Pc Option")]
-        public string HavePC { get; set; }
+        public bool HavePC { get; set; }
         [Required(ErrorMessage = "Please Select the Smart Phone Option")]
         public string HaveSmartPhone { get; set; }
         [Required(ErrorMessage = "Please Select the Adoption Wish Option")]
@@ -81,6 +84,7 @@ namespace GyanmitrasMDL.User
         public string languages { get; set; }
 
         public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public string Status { get; set; }
         public Int64 FK_RoleId { get; set; }
         public Int64 CreatedBy { get; set; }
@@ -88,6 +92,8 @@ namespace GyanmitrasMDL.User
         public HttpPostedFileBase BulkUpload { get; set; }
 
         public string FormType { get; set; }
+        public string CategoryName { get; set; }
+        public string RoleName { get; set; }
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Gyanmitras.Common;
 using GyanmitrasBAL.Common;
+using GyanmitrasBAL.User;
 using GyanmitrasMDL;
 using GyanmitrasMDL.User;
 using System;
@@ -16,14 +17,15 @@ namespace Gyanmitras.Areas.Admin.Controllers
         
 
         //#region 
-        private List<CounselorMDL> _UserDatalist;
-        CounselorMDL objUserBal = null;
+        private dynamic _UserDatalist;
+        CounselorMDL objUserMDL = null;
+        CounselorBAL objUserBAL = null;
         BasicPagingMDL objBasicPagingMDL = null;
         static TotalCountPagingMDL objTotalCountPagingMDL = null;
-        //public MstUserController()
-        //{
-        //    objUserBal = new MstUserBAL();
-        //}
+        public CounselorManagementController()
+        {
+            objUserBAL = new CounselorBAL();
+        }
         //#endregion
 
         #region Methods
@@ -64,55 +66,50 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
 
-            //CounselorMDL objUserMDL = new CounselorMDL();
-            //// var accountid = objUserMDL.FK_AccountId;
-            //objUserBal.GetUserMstDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, SessionInfo.User.AccountId, SessionInfo.User.UserId, SessionInfo.User.FK_CustomerId, SessionInfo.User.LoginType, RowPerpage, CurrentPage, SearchBy, SearchValue);
+            CommonBAL objMDL = new CommonBAL();
+            _UserDatalist = new List<CounselorMDL>();
+            objMDL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "", 2, 0);
+            //objTotalCountPagingMDL = new TotalCountPagingMDL()
+            //{
+            //    TotalItem = 0,
+            //    ThisMonth = 0,
+            //    LastMonth = 0,
+            //    TotalActive = 0,
+            //    TotalExpiredMonth = 0,
+            //    TotalExpiredSoonMonth = 0,
+            //    TotalInactive = 0,
+            //    RemovedUsers = 0,
+            //    ApprovedCounselor = 0,
+            //    ManageFeedBack = 0,
 
-            objTotalCountPagingMDL = new TotalCountPagingMDL()
-            {
-                TotalItem = 0,
-                ThisMonth = 0,
-                LastMonth = 0,
-                TotalActive = 0,
-                TotalExpiredMonth = 0,
-                TotalExpiredSoonMonth = 0,
-                TotalInactive = 0,
-                RemovedUsers = 0,
-                ApprovedCounselor = 0,
-                ManageFeedBack = 0,
+            //    IsTotalItem = true,
+            //    IsTotalActive = true,
+            //    IsTotalInactive = true,
+            //    IsThisMonth = true,
 
-                IsTotalItem = true,
-                IsTotalActive = true,
-                IsTotalInactive = true,
-                IsThisMonth = true,
+            //    IsApprovedCounselor = true,
+            //    IsLastMonth = true,
+            //    IsTotalExpiredMonth = true,
+            //    IsManageFeedBack = true,
 
-                IsApprovedCounselor = true,
-                IsLastMonth = true,
-                IsTotalExpiredMonth = true,
-                IsManageFeedBack = true,
+            //    //IsTotalExpiredSoonMonth = true,
+            //    //IsPendingReplyUsers = true,
+            //    //IsRemovedUsers = true,
 
-                //IsTotalExpiredSoonMonth = true,
-                //IsPendingReplyUsers = true,
-                //IsRemovedUsers = true,
-
-                IsNotSuperAdmin = true,
-            };
-            objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
-
-
+            //    IsNotSuperAdmin = true,
+            //};
+            //objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
 
             ViewBag.userCheck = SessionInfo.User.UserName;
             ViewBag.paging = objBasicPagingMDL;
             ViewBag.TotalCountPaging = objTotalCountPagingMDL;
 
 
-            //TempData["ExportData"] = _UserDatalist;
-            //TempData["TotalItemCount"] = objTotalCountPagingMDL.TotalItem;
+            TempData["ExportData"] = _UserDatalist;
+            TempData["TotalItemCount"] = objTotalCountPagingMDL.TotalItem;
             return PartialView("_CounselorManagementGrid", _UserDatalist);
         }
 
-
-        
 
 
         /// <summary>
@@ -214,14 +211,15 @@ namespace Gyanmitras.Areas.Admin.Controllers
         /// <createdBy>Vinish</createdBy>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult DeleteCounselorManagement(int id)
+        public ActionResult DeleteCounselorManagement(Int64 id)
         {
 
             ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
             ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-            MessageMDL msg = new MessageMDL();//objUserBal.DeleteUser(id, 1);
+            CommonBAL objMDL = new CommonBAL();
+            MessageMDL msg = objMDL.DeleteSiteUser(id, SessionInfo.User.UserId);
             if (msg.MessageId == 1)
             {
                 msg.Message = msg.Message;
