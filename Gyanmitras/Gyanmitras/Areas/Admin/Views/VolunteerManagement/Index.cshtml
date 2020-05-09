@@ -23,17 +23,17 @@
                 </div>
             </div>
         </div>
-      
+
 
 
         @if (ViewBag.CanAdd)
         {
             <div class="content-header-right col-md-6 col-12">
-                <a href="@Url.Action("AddEditSendFeeds")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2">
+                @*<a href="@Url.Action("AddEditSendFeeds")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2">
                     <i class="ft-plus-circle"></i>
                     Send Feeds
                 </a>
-                &nbsp;
+                &nbsp;*@
 
                 <a href="@Url.Action("AddEditVolunteerManagement")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2">
                     <i class="ft-plus-circle"></i>
@@ -150,64 +150,65 @@
 <!--#region Scripts  -->
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
-
-    $("#myAlert").fadeTo(2000, 5000).slideUp(500, function () {
-        $("#myAlert").slideUp(500);
-    });
-    //$("#tableMenu a").click(function (e) {
-    //    e.preventDefault(); // cancel the link behaviour
-    //    var selText = $(this).text();
-    //    $("#SearchCreteria").text(selText);
-    //});
-
-    //$("#tableMenu a").click(function (e) {
-    //    e.preventDefault(); // cancel the link behaviour
-    //    var selText = $(this).text();
-    //    $("#SearchCreteria").text(selText);
-    //});
-
-
-
-
-    $('#Select_NoRecord').change(function () {
-        paging(1);
-    })
-    $("#SearchValue").keyup(function () {
-        $(this).removeAttr('val');
-        $(this).attr('val', $(this).val())
-    });
-    $("#checkAll_Id").click(function () {
-        var checked = $(this).is(":checked");
-        $(this).closest('tr').parent().parent().find('tbody > tr').each(function () {
-            $(this).find('td:eq(0)').find('input').prop("checked", checked);
+    $(function () {
+        $("#myAlert").fadeTo(2000, 5000).slideUp(500, function () {
+            $("#myAlert").slideUp(500);
         });
-    });
+        //$("#tableMenu a").click(function (e) {
+        //    e.preventDefault(); // cancel the link behaviour
+        //    var selText = $(this).text();
+        //    $("#SearchCreteria").text(selText);
+        //});
 
-    $("#total,a[data-action='reload']").click(function () {
-        $("#SearchCreteria").text('');
-        $("#SearchCreteria").removeAttr('val');
-        $("#SearchCreteria").attr('val', '');
-        $("#SearchValue").val("");
-        $("#SearchValue").removeAttr('val');
-        $("#SearchValue").attr('val', '');
-        $("#RowPerpage").val("10");
-        paging(1);
-    });
-
-    $("#active,#inactive,#this_month").click(function () {
-        debugger;
-        $("#SearchCreteria").removeAttr('val');
-        $("#SearchCreteria").attr('val', ($(this).attr('id') == "active") ? "Status" : (($(this).attr('id') == "inactive") ? "Status" : "ThisMonth"));
-        // $("#SearchCreteria").text(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : "@GyanmitrasLanguages.LocalResources.Resource.ThisMonth"));
-
-        //$("#SearchValue").val(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Active" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Inactive" : ""));
-        $("#SearchValue").removeAttr('val');
-        $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" : (($(this).attr('id') == "inactive") ? "Inactive" : ""));
+        //$("#tableMenu a").click(function (e) {
+        //    e.preventDefault(); // cancel the link behaviour
+        //    var selText = $(this).text();
+        //    $("#SearchCreteria").text(selText);
+        //});
 
 
-        $("#RowPerpage").val("10");
-        paging(1);
-    });
+
+
+        $('#Select_NoRecord').change(function () {
+            paging(1);
+        })
+        $("#SearchValue").keyup(function () {
+            $(this).removeAttr('val');
+            $(this).attr('val', $(this).val())
+        });
+        $("#checkAll_Id").click(function () {
+            var checked = $(this).is(":checked");
+            $(this).closest('tr').parent().parent().find('tbody > tr').each(function () {
+                $(this).find('td:eq(0)').find('input').prop("checked", checked);
+            });
+        });
+
+        $("#total,a[data-action='reload']").click(function () {
+            $("#SearchCreteria").text('');
+            $("#SearchCreteria").removeAttr('val');
+            $("#SearchCreteria").attr('val', '');
+            $("#SearchValue").val("");
+            $("#SearchValue").removeAttr('val');
+            $("#SearchValue").attr('val', '');
+            $("#RowPerpage").val("10");
+            paging(1);
+        });
+
+        $("#active,#inactive,#this_month").click(function () {
+            debugger;
+            $("#SearchCreteria").removeAttr('val');
+            $("#SearchCreteria").attr('val', ($(this).attr('id') == "active") ? "Status" : (($(this).attr('id') == "inactive") ? "Status" : "ThisMonth"));
+            // $("#SearchCreteria").text(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : "@GyanmitrasLanguages.LocalResources.Resource.ThisMonth"));
+
+            //$("#SearchValue").val(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Active" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Inactive" : ""));
+            $("#SearchValue").removeAttr('val');
+            $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" : (($(this).attr('id') == "inactive") ? "Inactive" : ""));
+
+
+            $("#RowPerpage").val("10");
+            paging(1);
+        });
+    })
     /**EXPORT FILE .CSV OR .XLS**/
     function ExportToExcelOrCsvFile(FileType) {
         ///// debugger

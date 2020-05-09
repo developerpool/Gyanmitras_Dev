@@ -27,11 +27,11 @@
         @if (ViewBag.CanAdd)
         {
             <div class="content-header-right col-md-6 col-12">
-                <a href="@Url.Action("AddEditSendFeeds")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2">
+                @*<a href="@Url.Action("AddEditSendFeeds")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2">
                     <i class="ft-plus-circle"></i>
                     Send Feeds
                 </a>
-                &nbsp;
+                &nbsp;*@
 
                 <a href="@Url.Action("AddEditCounselorManagement")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2">
                     <i class="ft-plus-circle"></i>
@@ -150,7 +150,11 @@
 <!--#endregion html  -->
 <!--#region Scripts  -->
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 <script type="text/javascript">
+
+    $(function () {
+    
 
     $("#myAlert").fadeTo(2000, 5000).slideUp(500, function () {
         $("#myAlert").slideUp(500);
@@ -209,6 +213,7 @@
         $("#RowPerpage").val("10");
         paging(1);
     });
+    })
     /**EXPORT FILE .CSV OR .XLS**/
     function ExportToExcelOrCsvFile(FileType) {
         ///// debugger

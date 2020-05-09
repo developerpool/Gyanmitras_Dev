@@ -482,10 +482,10 @@
     <script>
         $(function () {
             $(".card").click(function () {
-
-                $('.card').removeAttr('style');
-                $(this).attr('style', 'background:#c5d6c5');
-
+                if ($(this).find('table > tbody > tr').length <= 0) {
+                    $('.card').removeAttr('style');
+                    $(this).attr('style', 'background:#c5d6c5');
+                }
             });
             $("#AdminFeedSectionDiv").trigger('click');
             $("#AdminFeedSectionDiv").find('.card').trigger('click');

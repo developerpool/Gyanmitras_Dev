@@ -18,15 +18,15 @@
                 <th class="text-center">Name</th>
                 <th class="text-center">CategoryName</th>
                 <th class="text-center">RoleName</th>
-                <th class="text-center">UID</th>
+                @*<th class="text-center">UID</th>
                 <th class="text-center">Password</th>
-                <th class="text-center">Address</th>
+                <th class="text-center">Address</th>*@
                 <th class="text-center">StateName</th>
                 <th class="text-center">CityName</th>
-                <th class="text-center">ZipCode</th>
+                @*<th class="text-center">ZipCode</th>*@
                 <th class="text-center">EmailID</th>
                 <th class="text-center">MobileNo</th>
-                <th class="text-center">AlternateMobileNo</th>
+                @*<th class="text-center">AlternateMobileNo</th>*@
                 <th class="text-center">CreatedDateTime</th>
                 <th class="text-center">ImageName</th>
 
@@ -62,15 +62,15 @@
 
                         <td class="text-center">@item.CategoryName</td>
                         <td class="text-center">@item.RoleName</td>
-                        <td class="text-center">@item.UID</td>
+                        @*<td class="text-center">@item.UID</td>
                         <td class="text-center">@item.Password</td>
-                        <td class="text-center">@item.Address</td>
+                        <td class="text-center">@item.Address</td>*@
                         <td class="text-center">@item.StateName</td>
                         <td class="text-center">@item.CityName</td>
-                        <td class="text-center">@item.ZipCode</td>
+                        @*<td class="text-center">@item.ZipCode</td>*@
                         <td class="text-center">@item.EmailID</td>
                         <td class="text-center">@item.MobileNo</td>
-                        <td class="text-center">@item.AlternateMobileNo</td>
+                        @*<td class="text-center">@item.AlternateMobileNo</td>*@
 
                         <td class="text-center"> @item.CreatedDateTime </td>
 
@@ -107,7 +107,7 @@
                                 else
                                 {
 
-                                    <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteUser", new { id = item.Pk_UserId, recover = false })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a>
+                                    <a class="btn btn-icon btn-danger btn-sm" title="Click Here, Delete This User." href="@Url.Action("DeleteUser", new { id = item.Pk_UserId, recover = false })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a>
 
                                 }
                             }

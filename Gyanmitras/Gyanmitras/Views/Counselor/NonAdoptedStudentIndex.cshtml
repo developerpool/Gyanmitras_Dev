@@ -255,7 +255,7 @@
         $(function () {
 
             $(".card").click(function () {
-                if (!$(this).find('table > tbody > tr').length == 1) {
+                if ($(this).find('table > tbody > tr').length <= 0) {
                     $('.card').removeAttr('style');
                     $(this).attr('style', 'background:#c5d6c5');
                 }

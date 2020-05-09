@@ -45,6 +45,14 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.totalcount = objTotalCountPagingMDL;
             return View();
         }
+
+
+
+        [HttpGet]
+        public ActionResult PendingForReplyUser()
+        {
+            return View();
+        }
         /// <summary>
         /// Get Details Of User Master in List
         /// </summary>
