@@ -1,4 +1,5 @@
-﻿@{
+﻿@model GyanmitrasMDL.User.CounselorMDL
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -7,7 +8,7 @@
 
 @using (Html.BeginForm("UserProfile", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.Partial("_CounselorRegistration", (GyanmitrasMDL.User.CounselorMDL)ViewBag.Registration)
+    @Html.Partial("_CounselorRegistration",(GyanmitrasMDL.User.CounselorMDL)ViewBag.UserProfile)
 }
 
 @section scripts {

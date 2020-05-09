@@ -59,9 +59,6 @@ namespace Gyanmitras.Controllers
         {
             student.Password = ClsCrypto.Encrypt(student.Password);
 
-
-
-
             if (ModelState.IsValid)
             {
                 HttpPostedFileBase Imgfile = student.Image;
@@ -93,18 +90,16 @@ namespace Gyanmitras.Controllers
                 if (Msg.Equals("Success"))
                 {
 
-                    string controllerName = "";
-                    string area = "";
-                    string actionName = "";
+                    //string controllerName = "";
+                    //string area = "";
+                    //string actionName = "";
 
-                    area = "";
-                    actionName = "Index";
-                    controllerName = "Home";
-
-
-
-                    //SiteUserSessionInfo.User.LandingPageURL = (!string.IsNullOrEmpty(area) ? area + "/" : "") + controllerName + "/" + actionName;
-                    return RedirectToAction(actionName, controllerName, area);
+                    //area = "";
+                    //actionName = "Index";
+                    //controllerName = "Home";
+                    ViewBag.Message = "Registration Sucessfull.Please Login to Contineu.";
+                    return View(student);
+                    //  return RedirectToAction(actionName, controllerName, area);
                 }
                 else
                 {
@@ -115,8 +110,6 @@ namespace Gyanmitras.Controllers
             }
             else
             {
-
-                ////ViewBag.Message = objMsg.Message;
                 return View(student);
             }
         }
@@ -130,9 +123,94 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "User Profile";
             obj.FormType = "User Profile";
             ViewBag.VolunteerRegistration = obj;
-
+            StudentBAL objStudentBAL = new StudentBAL();
+            var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+            ViewBag.type = "Edit";
+            obj = objStudentBAL.GetStudentProfile(user.UserName);
             return View(obj);
         }
+        #region post of userprofile
+        [HttpPost]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult UserProfile(StudentMDL student)
+        {
+            ModelState.Remove("ZipCode");
+            ModelState.Remove("Password");
+            ModelState.Remove("FK_StateId");
+            ModelState.Remove("FK_CityId");
+            ModelState.Remove("AreaOfInterest");
+            ModelState.Remove("AdoptionWish");
+            ModelState.Remove("TypeOfEducation");
+            ModelState.Remove("CompletionNature");
+            ModelState.Remove("UID");
+            ModelState.Remove("ConfirmPassword");
+            ModelState.Remove("Name");
+            ModelState.Remove("languages");
+            
+
+            if (ModelState.IsValid)
+            {
+                HttpPostedFileBase Imgfile = student.Image;
+                if (Imgfile != null)
+                {
+
+
+                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/StudentImages/")))
+                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/StudentImages/"));
+
+                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/StudentImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+
+                    if (!string.IsNullOrEmpty(student.ImageName))
+                    {
+                        var filePath = Server.MapPath("~/SiteUserContents/Registration/StudentImages/" + student.ImageName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+
+                    student.ImageName = Imgfile.FileName;
+                }
+                StudentBAL objStudentBAL = new StudentBAL();
+                string Msg = "";
+                StringBuilder objMsg = objStudentBAL.UpdateStudentProfile(student);
+                Msg = objMsg.ToString();
+
+                if (Msg.Equals("Success"))
+                {
+
+                    //string controllerName = "";
+                    //string area = "";
+                    //string actionName = "";
+
+                    //area = "";
+                    //actionName = "Index";
+                    //controllerName = "Home";
+                    ViewBag.Message = "Profile Updated Sucessfully.";
+                    ViewBag.Redirect = "Yes";
+                    return View(student);
+                    //  return RedirectToAction(actionName, controllerName, area);
+                }
+                else
+                {
+                    ViewBag.Message = "Submitting Form Went Wrong";
+                    return View(student);
+                }
+
+            }
+            else
+            {
+                string Message = string.Join("\n", ModelState.Values
+                                       .SelectMany(x => x.Errors)
+                                       .Select(x => x.ErrorMessage));
+                StudentMDL student1 = new StudentMDL();
+               // student1.UID = SessionInfo.User.UserName;
+              //  student1.IsActive = true;
+                return View("UserProfile", student1);
+                // return View(student);
+            }
+        }
+        #endregion
 
         [HttpGet]
         [UserCustomAuthenticationAttribute]

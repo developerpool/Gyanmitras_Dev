@@ -1,4 +1,5 @@
 ﻿@model GyanmitrasMDL.User.CounselorMDL
+
 <link href="/assets/css/sumoselect.css" rel="stylesheet" />
 <link href="/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet">
 
@@ -16,9 +17,10 @@
         margin-left: 15px !important;
         width: 80% !important;
     }
-     .field-validation-error, .red {
-            color: red;
-        }
+
+    .field-validation-error, .red {
+        color: red;
+    }
 </style>
 @Html.HiddenFor(E => E.PK_CounselorID)
 @Html.HiddenFor(E => E.ImageName)
@@ -29,7 +31,7 @@
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                        <li class="breadcrumb-item"><a href="@Url.Action(" Index","Home")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
                         <li class="breadcrumb-item active">@ViewBag.Title</li>
                     </ol>
                 </div>
@@ -51,15 +53,16 @@
                                 </div>
 
 
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
-                                        @Html.ValidationMessageFor(E => E.Name)
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
+                                            @Html.ValidationMessageFor(E => E.Name)
+                                        </div>
                                     </div>
-                                </div>
-
+                                }
 
 
                                 <div class="form-group row">
@@ -102,72 +105,82 @@
                                         @Html.ValidationMessageFor(E => E.Address)
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
 
-                                        @Html.ValidationMessageFor(E => E.ZipCode)
+                                            @Html.ValidationMessageFor(E => E.ZipCode)
+                                        </div>
                                     </div>
-                                </div>
 
 
 
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>
+                                             () { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
 
-                                        @Html.ValidationMessageFor(E => E.FK_StateId)
+                                            @Html.ValidationMessageFor(E => E.FK_StateId)
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>
+                                             () { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
 
-                                        @Html.ValidationMessageFor(E => E.FK_CityId)
+                                            @Html.ValidationMessageFor(E => E.FK_CityId)
+                                        </div>
                                     </div>
-                                </div>
-
-
-
-                                <div class="row">
-                                    <div class="col-12 mt-1 mb-2">
-                                        <h4>@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</h4>
-
-                                        <hr>
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">Language Known<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.languages, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(E => E.languages)
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
-                                        @Html.ValidationMessageFor(E => E.UID)
+
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            <h4>@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</h4>
+
+                                            <hr>
+                                        </div>
                                     </div>
-                                </div>
 
-
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
-                                        @Html.ValidationMessageFor(E => E.Password)
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
+                                            @Html.ValidationMessageFor(E => E.UID)
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBox("RePassword", "", new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
-                                        @Html.ValidationMessageFor(E => E.Password)
+
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                            @Html.ValidationMessageFor(E => E.Password)
+                                        </div>
                                     </div>
-                                </div>
 
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                            @Html.ValidationMessageFor(E => E.ConfirmPassword)
+                                        </div>
+                                    </div>
 
+                                }
 
 
 
@@ -180,50 +193,43 @@
                                     </div>
                                 </div>
 
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">Area Of Interest<span class="red">*</span></label>
+                                        <div class="col-md-7">
 
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">Area Of Interest<span class="red">*</span></label>
-                                    <div class="col-md-7">
-
-                                        @Html.DropDownListFor(E => E.AreaOfInterest, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
+                                            @Html.DropDownListFor(E => E.AreaOfInterest, new SelectList(Enumerable.Empty<SelectListItem>
+                                             (), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
 
 
-                                        @Html.ValidationMessageFor(E => E.AreaOfInterest)
+                                            @Html.ValidationMessageFor(E => E.AreaOfInterest)
+                                        </div>
                                     </div>
-                                </div>
 
 
-
-
-
-
-
-
-
-
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">Are You<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.AreYou, new List<SelectListItem>() {
-                                        new SelectListItem() {Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""},
-                                        new SelectListItem() {Text = "Student",Value = "StudentDiv"},
-                                        new SelectListItem() {Text ="Employed",Value = "EmployedDiv"},
-                                        new SelectListItem() {Text ="Retired",Value = "RetiredDiv"}
-                                        }, new
-                                        {
-                                            @class = "form-control select2",
-                                            @onchange = "$('#'+$(this).val()).modal({show: 'true'});"
-                                        })
-                                        @Html.ValidationMessageFor(E => E.AreYou)
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">Are You<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.AreYou, new List<SelectListItem>
+                                             () {
+                                                new SelectListItem() {Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""},
+                                                new SelectListItem() {Text = "Student",Value = "StudentDiv"},
+                                                new SelectListItem() {Text ="Employed",Value = "EmployedDiv"},
+                                                new SelectListItem() {Text ="Retired",Value = "RetiredDiv"}
+                                                }, new
+                                                {
+                                                    @class = "form-control select2"
+                                                })
+                                            @Html.ValidationMessageFor(E => E.AreYou)
+                                        </div>
                                     </div>
-                                </div>
-
+                                }
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="eventRegInput3">Your Image</label>
                                     <div class="col-md-7">
                                         <div class="custom-file">
-                                            @Html.TextBoxFor(E => E.Image, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" })
+                                            @Html.TextBoxFor(E => E.Image, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('Img').src = window.URL.createObjectURL(this.files[0])" })
                                             @Html.ValidationMessageFor(E => E.Image)
 
 
@@ -233,67 +239,69 @@
                                     <div class="col-md-2">
                                         @if (string.IsNullOrEmpty(Model.ImageName))
                                         {
-                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                            <img style="height:40px;width:40px;" id="Img" src="~/SiteUserContents/default-image.png" />
                                         }
                                         else
                                         {
-                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/Registration/StudentImages/@Model.ImageName" />
+                                            <img style="height:40px;width:40px;" id="Img" src="~/SiteUserContents/Registration/CoounselorImages/@Model.ImageName" />
                                         }
 
                                     </div>
                                 </div>
 
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">Why do you want to join us?<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextAreaFor(E => E.JoinUsDescription, new { @class = "form-control", @placeholder = "Why do you want to join us?", @maxlength = "200" })
-                                        @Html.ValidationMessageFor(E => E.JoinUsDescription)
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">Why do you want to join us?<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextAreaFor(E => E.JoinUsDescription, new { @class = "form-control", @placeholder = "Why do you want to join us?", @maxlength = "200" })
+                                            @Html.ValidationMessageFor(E => E.JoinUsDescription)
+                                        </div>
                                     </div>
-                                </div>
-
+                                }
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">Do You Have A PC</label>
                                     <div class="col-md-7">
-
-
-                                        Yes: @Html.RadioButtonFor(E => E.HavePC, "true")
-                                        No: @Html.RadioButtonFor(E => E.HavePC, "false")
+                                        Yes: @Html.RadioButtonFor(E => E.HavePC, true)
+                                        No: @Html.RadioButtonFor(E => E.HavePC, false)
                                         @Html.ValidationMessageFor(E => E.HavePC)
-
-
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">Would You Like To Adopt A Student Later?</label>
-                                    <div class="col-md-7">
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">Would You Like To Adopt A Student Later?</label>
+                                        <div class="col-md-7">
 
-                                        Yes: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, "1")
-                                        No: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, "0")
-                                        @Html.ValidationMessageFor(E => E.LikeAdoptStudentLater)
-
-
-                                        @Html.ValidationMessageFor(E => E.LikeAdoptStudentLater)
+                                            Yes: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, true)
+                                            No: @Html.RadioButtonFor(E => E.LikeAdoptStudentLater, false)
+                                            @Html.ValidationMessageFor(E => E.LikeAdoptStudentLater)
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div id="LikeAdoptStudentLaterTermCon" style="display:none">
-                                    <span class="red">*</span>
-                                    <a href="#">
-                                        I hereby declare that information’s provided by me is valid and I will be
-                                        only liable to handle concerns evolved due to misleading information’s
-                                        provided by me either now or at any subsequent stages. Refer Terms and
-                                        conditions of academic adoption by a counselor
-                                    </a>
-                                </div>
+                                    <div id="LikeAdoptStudentLaterTermCon" style="display:none;">
+                                        <span class="red">*</span>
+                                        <div class="col-md-7">
 
+                                            @Html.CheckBoxFor(E => E.Declaration)
+                                            I hereby declare that information’s provided by me is valid and I will be
+                                            only liable to handle concerns evolved due to misleading information’s
+                                            provided by me either now or at any subsequent stages.
+                                            @Html.ValidationMessageFor(E => E.Declaration)
+                                            @Html.Hidden(nameof(Model.IsTrue), "true")
+                                        </div>
+                                        <br /> <a href="#">
+                                            Terms and conditions of academic adoption by a counselor
+                                        </a>
+                                    </div>
+                                }
 
 
 
 
                                 <div class="form-actions center">
                                     @*<a href="customer.html" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit</a>
-                                        <a href="customer.html" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>*@
+            <a href="customer.html" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>*@
                                     <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
                                     <a href='@Url.Action("Registration")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Clear</a>
                                 </div>
@@ -341,7 +349,8 @@
                                                     <div class="row">
                                                         <div class="col-12 mt-1 ">
 
-                                                            @Html.DropDownList("EmployedExpertiseDetails", new SelectList((System.Collections.IEnumerable)ViewData["EmployedExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["EmployedExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Expertise_Details)
                                                         </div>
                                                     </div>
                                                 </td>
@@ -404,7 +413,8 @@
 
 
 
-                                                            @Html.DropDownList("RetiredExpertiseDetails", new SelectList((System.Collections.IEnumerable)ViewData["RetiredExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Retired_Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["RetiredExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Expertise_Details)
                                                         </div>
                                                     </div>
                                                 </td>
@@ -489,21 +499,25 @@
                                                 <td colspan="2">
                                                     <div class="row">
                                                         <div class="col-4 mt-1 ">
-                                                            @Html.DropDownList("StudentMatriculationBoard", new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Secondry_Education_Board, new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Secondry_Education_Board)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td colspan="2">
                                                     <div class="row">
                                                         <div class="col-4 mt-1 ">
-                                                            @Html.TextBox("StudentMatriculationPercentage", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Secondry_Percentage, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Secondry_Percentage)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
+
                                                     <div class="row">
                                                         <div class="col-4 mt-1 ">
-                                                            @Html.DropDownList("StudentMatriculationYear", new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Secondry_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Secondry_Year_of_Passing)
                                                         </div>
                                                     </div>
                                                 </td>
@@ -557,33 +571,39 @@
                                                 <td colspan="2">
                                                     <div class="row">
                                                         <div class="col-3 mt-1 ">
-                                                            @Html.DropDownList("StudentIntermediateBoard", new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.HigherSecondry_Education_Board, new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_Education_Board)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-3 mt-1 ">
-                                                            @Html.DropDownList("StudentIntermediateStream", new List<SelectListItem>() {
-                                                               new SelectListItem() { Text="Commerce",Value="Commerce" },
-                                                               new SelectListItem() { Text="Science-Math",Value="Science-Math" },
-                                                               new SelectListItem() { Text="Science-Biology",Value="Science-Biology" },
-                                                               new SelectListItem() { Text="Art",Value="Art" }
-                                                           }, @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.HigherSecondry_StreamType, new List<SelectListItem>
+                                                                () {
+                                                                new SelectListItem() { Text="Commerce",Value="Commerce" },
+                                                                new SelectListItem() { Text="Science",Value="Science" },
+                                                                new SelectListItem() { Text="Biology",Value="Biology" },
+                                                                new SelectListItem() { Text="Arts",Value="Arts" }
+                                                                }, @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_StreamType)
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.HigherSecondry_Percentage, "", new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_Percentage)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-3 mt-1 ">
-                                                            @Html.TextBox("StudentMatriculationPercentage", "", new { @class = "form-control myTableInput" })
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-3 mt-1 ">
-                                                            @Html.DropDownList("StudentIntermediateYear", new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.HigherSecondry_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_Year_of_Passing)
                                                         </div>
                                                     </div>
                                                 </td>
@@ -645,7 +665,8 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-4 mt-1 ">
-                                                            @Html.TextBox("StudentGraduationUniversity", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Graduation_UniversityName, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_UniversityName)
 
                                                         </div>
                                                     </div>
@@ -653,38 +674,42 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.DropDownList("StudentGraduationStream", new SelectList((System.Collections.IEnumerable)ViewData["StreamList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Graduation_StreamType, new SelectList((System.Collections.IEnumerable)ViewData["StreamListgraduation"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_StreamType)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBox("StudentGraduationCourse", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Graduation_CourseName, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_CourseName)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBox("StudentGraduationPercentage", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Graduation_Percentage, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_Percentage)
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.DropDownList("StudentGraduationYear", new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Graduation_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_Year_of_Passing)
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-
+                                           
                                             <tr>
                                                 <td colspan="5">
                                                     <div class="row">
                                                         <div class="col-12 mt-1 ">
-                                                            <h4 style="margin-left: 15px;">Post-Graduation details<span class="red">*</span></h4>
+                                                            <h4 style="margin-left: 15px;">Post-Graduation details</h4>
 
                                                         </div>
                                                     </div>
@@ -735,7 +760,7 @@
                                                     <div class="row">
                                                         <div class="col-4 mt-1 ">
 
-                                                            @Html.TextBox("StudentPostGraduationUniversity", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.PostGraduation_UniversityName, new { @class = "form-control myTableInput" })
 
                                                         </div>
                                                     </div>
@@ -743,28 +768,28 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.DropDownList("StudentPostGraduationStream", new SelectList((System.Collections.IEnumerable)ViewData["StreamList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.PostGraduation_StreamType, new SelectList((System.Collections.IEnumerable)ViewData["StreamListpostgraduation"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBox("StudentPostGraduationCourse", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.PostGraduation_CourseName, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBox("StudentPostGraduationPercentage", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.PostGraduation_Percentage, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.DropDownList("StudentPostGraduationYear", new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.PostGraduation_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
@@ -824,35 +849,35 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-4 mt-1 ">
-                                                            @Html.TextBox("StudentDoctoralUniversity", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Docterate_UniversityName, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBox("StudentDoctoralSpecification", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Specification, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.DropDownList("StudentDoctoralYear", new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.DropDownListFor(E => E.Docterate_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBox("StudentDoctoralNETJRF", "", new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.NET_JRF_Percentage, new { @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextArea("StudentDoctoralExtraWorks", "", new { @rows = "1", @class = "form-control myTableInput" })
+                                                            @Html.TextAreaFor(E => E.Extra_work, new { @rows = "1", @class = "form-control myTableInput" })
                                                         </div>
                                                     </div>
                                                 </td>
@@ -888,177 +913,329 @@
 <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
 
 <script type="text/javascript">
-        var mycategoryval = new Array();
-        var mycategorytext = new Array();
-        $(document).ready(function () {
-            
-            $("#StudentDoctoralYear,#StudentPostGraduationYear").append("<option value='Pursuing'>Pursuing</option>");
-            BindAreaOfInterest("counselor");
-            StateBind();
-            $(".select2").select2();
-
-            $("#LikeAdoptStudentLater,#HavePC").val('');
-            //$("#StudentDivTable,#RetiredDivTable,#EmployedDivTable").find("h4").click(function () {
-            //    var myaction =  $(this).attr('myaction');
-            //    $(this).closest('tr').parent().find('tr').each(function () {
-            //        if (!$(this).find('h4'))
-            //        {
-            //            if (!myaction) {
-            //                $(this).slideDown(500);
-            //            }
-            //            else {
-            //                $(this).slideUp(500);
-            //            }
-            //        }
-            //    });
-            //});
-
-            //$("#StudentDivTable,#RetiredDivTable,#EmployedDivTable > tbody > tr").each(function () {
-            //    var myaction = false;
-            //    if ($(this).find('td').length > 1) {
-
-            //        if (!myaction) {
-            //            $(this).slideUp(500);
-            //        }
-            //        else {
-            //            $(this).slideDown(500);
-            //        }
-            //    }
-            //});
-
-
-            //$("#dropBillingAddress").change(function () {
-            //    if ($(this).val() == "0") {
-            //        $("#divBillingAddress").slideDown(500);
-
-            //    }
-            //    else {
-
-            //        $("#divBillingAddress").slideUp(500);
-            //    }
-            //});
-
-
-            $("button[type='submit']").click(function (e) {
-                alert('Comming Soon!');
-                return false;
-            });
-
-
-
-
-            $("#FK_StateId").change(function () {
-                var cid = $(this).val();
-                var thisId = $(this).attr('id');
-                var countryId = 1;
-                if (thisId == "FK_StateId") {
-                    countryId = 1;
-                    $("#FK_CityId").empty();
-                    $("#FK_CityId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
-                }
-
-                var input = { stateId: parseInt(cid) };
-                $.ajax({
-                    url: "@Url.Action("GetCityDetailsByStateId", "MSTAccount")",
-                    data: JSON.stringify(input),
-                    datatype: "json",
-                    type: "POST",
-                    async: false,
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        var Machinelist = new Array();
-                        if (data.length == 0) {
-                            $(this).val('');
-                        }
-                        else {
-                            for (var i = 0 ; i < data.length ; i++) {
-                                $("#FK_CityId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
-                            }
-                        }
-                    }
-
-
-                });
-            });
-            $('#LikeAdoptStudentLater').change(function () {
-                if ($(this).val() == '1') {
-                    $('#LikeAdoptStudentLaterTermCon').slideDown(500);
-                }
-                else {
-                    $('#LikeAdoptStudentLaterTermCon').slideUp(500);
-                }
-            });
-
-            $('INPUT[type="file"]').change(function () {
-
-                var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
-                switch (ext.toLowerCase()) {
-                    case 'jpg':
-                        break;
-                    case 'jpeg':
-                        break;
-                    case 'png':
-                        break;
-
-                    default:
-                        alert('@GyanmitrasLanguages.LocalResources.Resource.InvalidLogo');
-                        this.value = '';
-                }
-            });
-
-
-
-
-
-        })//Page Load End
-
-
-        function BindAreaOfInterest(type) {
-            //debugger
-            $('#AreaOfInterest').html('');
-            $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
-            $('#AreaOfInterest')[0].sumo.unload();
-            $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
-
-            $.ajax({
-                url: "@Url.Action("BindAreaOfInterestList", "Counselor")",
-                type: "GET",
-                dataType: "JSON",
-                async: false,
-                data: { 'type': type },
-                success: function (Tags) {
-                    //debugger
-                    if (Tags.length > 0) {
-                        $.each(Tags, function (i, Tag) {
-                            //debugger
-                            $('#AreaOfInterest')[0].sumo.add(Tag.ID, Tag.Value);
-                            $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
-                        });
-
-                    }
-
-                    //if ($('#name').val() != '' && $('#name').val() != null) {
-
-                    //    var SelectedTagsArray = [];
-                    //    SelectedTagsArray = $('#id').val().split(',');
-                    //    for (var i = 0; i < SelectedTagsArray.length; i++) {
-                    //        $('#AreaOfInterest')[0].sumo.selectItem(SelectedTagsArray[i].trim());
-                    //        SelectedTagsArray[i].selected = true;
-                    //    }
-                    //}
-                }
-
-            });
+      $(function () {
+        if ('@ViewBag.Message') {
+            alert('@ViewBag.Message');
+           if ('@ViewBag.Redirect' == "Yes")
+            {
+                location.href = '/Counselor/Index';
+            }
+            else {
+                location.href = '/Home/Index';
+            }
         }
 
+    });
+    var mycategoryval = new Array();
+    var mycategorytext = new Array();
+    $(document).ready(function () {
+        $("#PostGraduation_Year_of_Passing,#Docterate_Year_of_Passing").append("<option value='Pursuing'>Pursuing</option>");
+        BindAreaOfInterest("counselor");
+        StateBind1();
+        $(".select2").select2();
+
+        $("#AreYou").change(function () {
+            var type = $("#AreYou").val();
+            if (type == "StudentDiv") {
+                $("#Secondry_Education_Board").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Please Select Board"
+                    }
+                });
+
+                $("#HigherSecondry_Education_Board").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Please Select Board"
+                    }
+                });
+
+                   $("#Secondry_Percentage").rules("add", {
+                        required: true,
+                        messages: {
+                            required: "Please Enter Percentage"
+                        }
+                   });
+
+                     $("#Secondry_Year_of_Passing").rules("add", {
+                            required: true,
+                            messages: {
+                                required: "Please Select Year Of Passing"
+                            }
+                        });
+
+                            $("#HigherSecondry_StreamType").rules("add", {
+                                required: true,
+                                messages: {
+                                    required: "Please Select Stream."
+                                }
+                            });
+                           $("#HigherSecondry_Percentage").rules("add", {
+                                    required: true,
+                                    messages: {
+                                        required: "Please Enter Percentage"
+                                    }
+                                });
+
+                                    $("#HigherSecondry_Year_of_Passing").rules("add", {
+                                        required: true,
+                                        messages: {
+                                            required: "Please Select Year Of Passing"
+                                        }
+                                    });
+
+                                        $("#Graduation_UniversityName").rules("add", {
+                                            required: true,
+                                            messages: {
+                                                required: "Please Enter University Name"
+                                            }
+                                        });
+
+                                                $("#Graduation_StreamType").rules("add", {
+                                                required: true,
+                                                messages: {
+                                                    required: "Please Select Stream"
+                                                }
+                                            });
+
+                                          $("#Graduation_CourseName").rules("add", {
+                                                    required: true,
+                                                    messages: {
+                                                        required: "Please Enter Course Name"
+                                                    }
+                                          });
+
+                                                    $("#Graduation_Percentage").rules("add", {
+                                                        required: true,
+                                                        messages: {
+                                                            required: "Please Enter Percentage"
+                                                        }
+                                                    });
+
+                                                 $("#Graduation_Year_of_Passing").rules("add", {
+                                                            required: true,
+                                                            messages: {
+                                                                required: "Please Select Year Of Passing"
+                                                            }
+                                                 });
+
+                $("#Secondry_Education_Board").val('');
+                $("#HigherSecondry_Education_Board").val('');
+                $("#Secondry_Percentage").val('');
+                $("#Secondry_Year_of_Passing").val('');
+                $("#HigherSecondry_StreamType").val('');
+                $("#HigherSecondry_Percentage").val('');
+
+                $("#Graduation_UniversityName").val('');
+                $("#Graduation_StreamType").val('');
+                $("#Graduation_CourseName").val('');
+                $("#Graduation_Percentage").val('');
+                $("#Graduation_Year_of_Passing").val('');
+                 $("#Expertise_Details").val('');
+                $("#Retired_Expertise_Details").val('');
+                $("#Expertise_Details").rules("remove", "required");
+                $("#Retired_Expertise_Details").rules("remove", "required");
+                $('#StudentDiv').show();
+            }
+            else if (type == "EmployedDiv") {
+                $("#Expertise_Details").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Please Select Expertise"
+                    }
+                });
+                $("#Secondry_Education_Board").rules("remove", "required");
+                $("#Retired_Expertise_Details").rules("remove", "required");
+                $("#Secondry_Percentage").rules("remove", "required");
+                $("#Secondry_Year_of_Passing").rules("remove", "required");
+                $("#HigherSecondry_StreamType").rules("remove", "required");
+                $("#HigherSecondry_Percentage").rules("remove", "required");
+                $("#HigherSecondry_Year_of_Passing").rules("remove", "required");
+                $("#Graduation_UniversityName").rules("remove", "required");
+                $("#Graduation_StreamType").rules("remove", "required");
+                $("#Graduation_Percentage").rules("remove", "required");
+                $("#Graduation_Year_of_Passing").rules("remove", "required");
+                $("#HigherSecondry_Education_Board").rules("remove", "required");
+                $("#Secondry_Education_Board").val('');
+                $("#HigherSecondry_Education_Board").val('');
+                $("#Secondry_Percentage").val('');
+                $("#Secondry_Year_of_Passing").val('');
+                $("#HigherSecondry_StreamType").val('');
+                $("#HigherSecondry_Percentage").val('');
+
+                $("#Graduation_UniversityName").val('');
+                $("#Graduation_StreamType").val('');
+                $("#Graduation_CourseName").val('');
+                $("#Graduation_Percentage").val('');
+                $("#Graduation_Year_of_Passing").val('');
+                $("#Expertise_Details").val('');
+                $("#Retired_Expertise_Details").val('');
+                $('#EmployedDiv').show();
+            }
+            else if (type == "RetiredDiv") {
+                $("#Retired_Expertise_Details").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Please Select Expertise"
+                    }
+                });
+
+                $("#Secondry_Education_Board").rules("remove", "required");
+                $("#Expertise_Details").rules("remove", "required");
+                $("#Secondry_Percentage").rules("remove", "required");
+                $("#Secondry_Year_of_Passing").rules("remove", "required");
+                $("#HigherSecondry_StreamType").rules("remove", "required");
+                $("#HigherSecondry_Percentage").rules("remove", "required");
+                $("#HigherSecondry_Year_of_Passing").rules("remove", "required");
+                $("#Graduation_UniversityName").rules("remove", "required");
+                $("#Graduation_StreamType").rules("remove", "required");
+                $("#Graduation_Percentage").rules("remove", "required");
+                $("#Graduation_Year_of_Passing").rules("remove", "required");
+                $("#HigherSecondry_Education_Board").rules("remove", "required");
+                $("#Secondry_Education_Board").val('');
+                $("#HigherSecondry_Education_Board").val('');
+                $("#Secondry_Percentage").val('');
+                $("#Secondry_Year_of_Passing").val('');
+                $("#HigherSecondry_StreamType").val('');
+                $("#HigherSecondry_Percentage").val('');
+
+                $("#Graduation_UniversityName").val('');
+                $("#Graduation_StreamType").val('');
+                $("#Graduation_CourseName").val('');
+                $("#Graduation_Percentage").val('');
+                $("#Graduation_Year_of_Passing").val('');
+                $("#Expertise_Details").val('');
+                $("#Retired_Expertise_Details").val('');
+                $('#RetiredDiv').show();
+            }
 
 
-        function StateBind() {
-            $("#FK_StateId").empty();
-            $("#FK_StateId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+    });
+        $("#LikeAdoptStudentLater,#HavePC").val('');
+        //$("#StudentDivTable,#RetiredDivTable,#EmployedDivTable").find("h4").click(function () {
+        //    var myaction =  $(this).attr('myaction');
+        //    $(this).closest('tr').parent().find('tr').each(function () {
+        //        if (!$(this).find('h4'))
+        //        {
+        //            if (!myaction) {
+        //                $(this).slideDown(500);
+        //            }
+        //            else {
+        //                $(this).slideUp(500);
+        //            }
+        //        }
+        //    });
+        //});
+
+        //$("#StudentDivTable,#RetiredDivTable,#EmployedDivTable > tbody > tr").each(function () {
+        //    var myaction = false;
+        //    if ($(this).find('td').length > 1) {
+
+        //        if (!myaction) {
+        //            $(this).slideUp(500);
+        //        }
+        //        else {
+        //            $(this).slideDown(500);
+        //        }
+        //    }
+        //});
+
+
+        //$("#dropBillingAddress").change(function () {
+        //    if ($(this).val() == "0") {
+        //        $("#divBillingAddress").slideDown(500);
+
+        //    }
+        //    else {
+
+        //        $("#divBillingAddress").slideUp(500);
+        //    }
+        //});
+
+
+
+
+
+        $("#FK_StateId").change(function () {
+            var cid = $(this).val();
+            var thisId = $(this).attr('id');
+            var countryId = 1;
+            if (thisId == "FK_StateId") {
+                countryId = 1;
+                $("#FK_CityId").empty();
+                $("#FK_CityId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+            }
+
+            var input = { stateId: parseInt(cid) };
+            $.ajax({
+                url: "@Url.Action("GetCityDetailsByStateId", "MSTAccount")",
+                data: JSON.stringify(input),
+                datatype: "json",
+                type: "POST",
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var Machinelist = new Array();
+                    if (data.length == 0) {
+                        $(this).val('');
+                    }
+                    else {
+                        for (var i = 0; i < data.length; i++) {
+                            $("#FK_CityId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                        }
+                    }
+                }
+
+
+            });
+        });
+        $('#LikeAdoptStudentLater').change(function () {
+            if ($(this).val() == '1') {
+                $("#Declaration").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Please Agree to Terms & Conditions"
+                    }
+                });
+
+                $('#LikeAdoptStudentLaterTermCon').slideDown(500);
+            }
+            else {
+                $("#Declaration").rules("remove", "required");
+                $('#LikeAdoptStudentLaterTermCon').slideUp(500);
+            }
+        });
+
+        $('INPUT[type="file"]').change(function () {
+
+            var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
+            switch (ext.toLowerCase()) {
+                case 'jpg':
+                    break;
+                case 'jpeg':
+                    break;
+                case 'png':
+                    break;
+
+                default:
+                    alert('@GyanmitrasLanguages.LocalResources.Resource.InvalidLogo');
+                    this.value = '';
+            }
+        });
+
+
+        LanguageBind();
+
+
+    })//Page Load End
+
+ function LanguageBind() {
+            $("#languages").empty();
+            $("#languages").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
             var input = { countryId: parseInt("1") };
             $.ajax({
-                url: "@Url.Action("GetStateDetailsByCountryId", "MSTAccount")",
+                url: "@Url.Action("GetLanguages", "Home")",
                 data: JSON.stringify(input),
                 datatype: "json",
                 async: false,
@@ -1071,70 +1248,110 @@
                     }
                     else {
                         for (var i = 0 ; i < data.length ; i++) {
-                            $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                            $("#languages").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
                         }
                     }
                 }
             });
         }
 
-        function CheckUserName(a) {
-            if ($.trim($(a).val())) {
-                $.ajax({
-                    url: "@Url.Action("CheckUser", "MSTAccount")",
-                    type: "GET",
-                    dataType: "JSON",
-                    data: { username: $.trim($(a).val()), type: "Counselor" },
-                    success: function (data) {
-                        if (Number(data.MessageId) == 1) {
-                            $(a).css('border', '1px solid red');
-                            $(a).val('');
-                            //$(a).focus();
-                            $(a).parent().find('span[data-valmsg-for="Username"]').text('@GyanmitrasLanguages.LocalResources.Resource.UserAlreadyExist').css('color', 'red');
-                        }
-                        else {
-                            $(a).removeAttr('style');
-                            $(a).parent().find('span[data-valmsg-for="Username"]').text('');
-                        }
+    function BindAreaOfInterest(type) {
+        //debugger
+        $('#AreaOfInterest').html('');
+        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+        $('#AreaOfInterest')[0].sumo.unload();
+        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+
+        $.ajax({
+            url: "@Url.Action("BindAreaOfInterestList", "Counselor")",
+            type: "GET",
+            dataType: "JSON",
+            async: false,
+            data: { 'type': type },
+            success: function (Tags) {
+                //debugger
+                if (Tags.length > 0) {
+                    $.each(Tags, function (i, Tag) {
+                        //debugger
+                        $('#AreaOfInterest')[0].sumo.add(Tag.ID, Tag.Value);
+                        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+                    });
+
+                }
+
+            }
+
+        });
+    }
+
+
+
+    function StateBind1() {
+        $("#FK_StateId").empty();
+        $("#FK_StateId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+        var input = { countryId: parseInt("1") };
+        $.ajax({
+            url: "@Url.Action("GetStateDetailsByCountryId", "MSTAccount")",
+            data: JSON.stringify(input),
+            datatype: "json",
+            async: false,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var Machinelist = new Array();
+                if (data.length == 0) {
+                    $(this).val('');
+                }
+                else {
+                    for (var i = 0; i < data.length; i++) {
+                        $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
                     }
-                });
+                }
             }
+        });
+    }
+
+    function CheckUserName(a) {
+        if ($.trim($(a).val())) {
+            $.ajax({
+                url: "@Url.Action("CheckUser", "MSTAccount")",
+                type: "GET",
+                dataType: "JSON",
+                data: { username: $.trim($(a).val()), type: "Counselor" },
+                success: function (data) {
+                    if (Number(data.MessageId) == 1) {
+                        $(a).css('border', '1px solid red');
+                        $(a).val('');
+                        //$(a).focus();
+                        $(a).parent().find('span[data-valmsg-for="Username"]').text('@GyanmitrasLanguages.LocalResources.Resource.UserAlreadyExist').css('color', 'red');
+                    }
+                    else {
+                        $(a).removeAttr('style');
+                        $(a).parent().find('span[data-valmsg-for="Username"]').text('');
+                    }
+                }
+            });
         }
-        function IsNum(event) {
-            // Prevent shift key since its not needed
-            if (event.shiftKey == true) {
-                //alert('Only number allowed.');
+    }
+    function IsNum(event) {
+        // Prevent shift key since its not needed
+        if (event.shiftKey == true) {
+            //alert('Only number allowed.');
 
-                event.preventDefault();
-                return false;
-            }
-            // Allow Only: keyboard 0-9, numpad 0-9, backspace, tab, left arrow, right arrow, delete
-            if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-                // Allow normal operation
-            } else {
-                // Prevent the rest
-                alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
-                event.preventDefault();
-                return false;
-            }
+            event.preventDefault();
+            return false;
         }
-
-
-        function ShowHideTR(a) {
-
-            //var rowid = $(a).attr('rowid');
-            //var bool = $(a).attr('bool');
-            //if (bool == 'true') {
-            //    $(a).parent().find('tr:eq(' + (rowid + 1) + ')').slideDown(500);
-            //    $(a).parent().find('tr:eq(' + (rowid + 2) + ')').slideDown(500);
-            //    $(a).removeAttr('bool');
-            //    $(a).attr('bool', 'false');
-            //}
-            //else {
-            //    $(a).parent().find('tr:eq(' + (rowid + 1) + ')').slideUp(500);
-            //    $(a).parent().find('tr:eq(' + (rowid + 2) + ')').slideDown(500);
-            //    $(a).attr('bool','true');
-            //}
+        // Allow Only: keyboard 0-9, numpad 0-9, backspace, tab, left arrow, right arrow, delete
+        if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+            // Allow normal operation
+        } else {
+            // Prevent the rest
+            alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
+            event.preventDefault();
+            return false;
         }
+    }
+
+
 
 </script>

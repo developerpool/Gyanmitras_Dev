@@ -50,15 +50,16 @@
                                 </div>
 
 
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
-                                        @Html.ValidationMessageFor(E => E.Name)
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
+                                            @Html.ValidationMessageFor(E => E.Name)
+                                        </div>
                                     </div>
-                                </div>
-
+                                }
 
 
                                 <div class="form-group row">
@@ -101,74 +102,14 @@
                                         @Html.ValidationMessageFor(E => E.Address)
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
-
-                                        @Html.ValidationMessageFor(E => E.ZipCode)
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
-                                        @Html.ValidationMessageFor(E => E.FK_StateId)
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
-                                        @Html.ValidationMessageFor(E => E.FK_CityId)
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row" style="display:none">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.BillingAddressSame</label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownList("dropBillingAddress", new List<SelectListItem>
-                                                () {
-                                                new SelectListItem() {
-                                                Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""
-                                                },
-
-                                                new SelectListItem() {
-                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Yes,Value = "1"
-                                                },
-
-                                                new SelectListItem() {
-                                                Text =@GyanmitrasLanguages.LocalResources.Resource.No,Value = "0"
-                                                }
-                                                }, new { @class = "form-control select2" })
-
-                                    </div>
-                                </div>
-
-                                <div style="display:none" id="divBillingAddress">
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.BillingAddress<span class="red">*</span></label>
-                                        <div class="col-md-7">
-                                            @Html.TextAreaFor(E => E.BillingAddress, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.BillingAddress, @maxlength = "100" })
-
-                                            @Html.ValidationMessageFor(E => E.BillingAddress)
-                                        </div>
-                                    </div>
-
+                                @if (ViewBag.type != "Edit")
+                                {
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.ZipCode_Billing, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
 
-                                            @Html.ValidationMessageFor(E => E.ZipCode_Billing)
+                                            @Html.ValidationMessageFor(E => E.ZipCode)
                                         </div>
                                     </div>
 
@@ -176,62 +117,123 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.DropDownListFor(E => E.FK_StateId_Billing, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                            @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
 
-                                            @Html.ValidationMessageFor(E => E.FK_StateId_Billing)
+                                            @Html.ValidationMessageFor(E => E.FK_StateId)
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.DropDownListFor(E => E.FK_CityId_Billing, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                            @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
 
-                                            @Html.ValidationMessageFor(E => E.FK_CityId_Billing)
+                                            @Html.ValidationMessageFor(E => E.FK_CityId)
                                         </div>
                                     </div>
 
-                                </div>
 
+                                    <div class="form-group row" style="display:none">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.BillingAddressSame</label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownList("dropBillingAddress", new List<SelectListItem>
+                                                 () {
+                                                    new SelectListItem() {
+                                                    Text = @GyanmitrasLanguages.LocalResources.Resource.select,Value = ""
+                                                    },
 
+                                                    new SelectListItem() {
+                                                    Text = @GyanmitrasLanguages.LocalResources.Resource.Yes,Value = "1"
+                                                    },
 
+                                                    new SelectListItem() {
+                                                    Text =@GyanmitrasLanguages.LocalResources.Resource.No,Value = "0"
+                                                    }
+                                                    }, new { @class = "form-control select2" })
 
-
-                                <div class="row">
-                                    <div class="col-12 mt-1 mb-2">
-                                        <h4>@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</h4>
-
-                                        <hr>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
-                                        @Html.ValidationMessageFor(E => E.UID)
+                                    <div style="display:none" id="divBillingAddress">
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.BillingAddress<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextAreaFor(E => E.BillingAddress, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.BillingAddress, @maxlength = "100" })
+
+                                                @Html.ValidationMessageFor(E => E.BillingAddress)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.ZipCode_Billing, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+
+                                                @Html.ValidationMessageFor(E => E.ZipCode_Billing)
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_StateId_Billing, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+
+                                                @Html.ValidationMessageFor(E => E.FK_StateId_Billing)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_CityId_Billing, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+
+                                                @Html.ValidationMessageFor(E => E.FK_CityId_Billing)
+                                            </div>
+                                        </div>
+
                                     </div>
-                                </div>
 
 
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
-                                        @Html.ValidationMessageFor(E => E.Password)
+
+
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            <h4>@GyanmitrasLanguages.LocalResources.Resource.AccountDetails</h4>
+
+                                            <hr>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
-                                        @Html.ValidationMessageFor(E => E.ConfirmPassword)
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
+                                            @Html.ValidationMessageFor(E => E.UID)
+                                        </div>
                                     </div>
-                                </div>
 
 
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                            @Html.ValidationMessageFor(E => E.Password)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                            @Html.ValidationMessageFor(E => E.ConfirmPassword)
+                                        </div>
+                                    </div>
+
+                                }
 
 
 
@@ -244,92 +246,93 @@
                                     </div>
                                 </div>
 
+                                @if (ViewBag.type != "Edit")
+                                {
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-3">Area Of Interest To Search</label>
+                                        @*<div class="col-md-7">
 
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3">Area Of Interest To Search</label>
-                                    @*<div class="col-md-7">
+                    @Html.DropDownListFor(E => E.AreaOfInterest,
+                            new List<SelectListItem>() {
+                                new SelectListItem() {Text = "----Select----",Value = ""},
+                                new SelectListItem() {Text = "State",Value = "StateSearch"},
+                                 new SelectListItem() {Text ="District",Value = "DistrictSearch"}
+                                }
+                       , new
+                       {
+                           @class = "form-control select2"
 
-                @Html.DropDownListFor(E => E.AreaOfInterest,
-                        new List<SelectListItem>() {
-                            new SelectListItem() {Text = "----Select----",Value = ""},
-                            new SelectListItem() {Text = "State",Value = "StateSearch"},
-                             new SelectListItem() {Text ="District",Value = "DistrictSearch"}
-                            }
-                   , new
-                   {
-                       @class = "form-control select2"
-
-                     ,
-                       @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select
-                       //,
-                       //    @onchange = "myAreaOfSearch(this)"
-                   })
-
-
-                @Html.ValidationMessageFor(E => E.AreaOfInterest)
-            </div>*@
-                                </div>
+                         ,
+                           @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select
+                           //,
+                           //    @onchange = "myAreaOfSearch(this)"
+                       })
 
 
-
-
-                                <div class="form-group row" id="StateSearch">
-                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.FK_State_AreaOfSearch, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
-                                        @Html.ValidationMessageFor(E => E.FK_State_AreaOfSearch)
+                    @Html.ValidationMessageFor(E => E.AreaOfInterest)
+                </div>*@
                                     </div>
-                                </div>
-                                
-
-                                <div class="form-group row" id="DistrictSearch">
-                                    <label class="control-label col-md-3">District<span class="red">*</span></label>
-                                    <div class="col-md-7">
-                                        @Html.DropDownListFor(E => E.FK_District_AreaOfSearch, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-
-                                        @Html.ValidationMessageFor(E => E.FK_District_AreaOfSearch)
-                                    </div>
-                                </div>
 
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="eventRegInput3">Your Image</label>
-                                    <div class="col-md-7">
-                                        <div class="custom-file">
-                                            @Html.TextBoxFor(E => E.Image, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" })
-                                            @Html.ValidationMessageFor(E => E.Image)
 
 
-                                            Your Image Should be in (jpg, jpeg, png) format.
+                                    <div class="form-group row" id="StateSearch">
+                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_State_AreaOfSearch, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+
+                                            @Html.ValidationMessageFor(E => E.FK_State_AreaOfSearch)
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        @if (string.IsNullOrEmpty(Model.ImageName))
-                                        {
-                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
-                                        }
-                                        else
-                                        {
-                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/Registration/StudentImages/@Model.ImageName" />
-                                        }
 
+
+                                    <div class="form-group row" id="DistrictSearch">
+                                        <label class="control-label col-md-3">District<span class="red">*</span></label>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(E => E.FK_District_AreaOfSearch, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+
+                                            @Html.ValidationMessageFor(E => E.FK_District_AreaOfSearch)
+                                        </div>
                                     </div>
-                                </div>
+                                }
 
-                                <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="eventRegInput3"></label>
-                                    <div class="col-md-7">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput3">Your Image</label>
+                                        <div class="col-md-7">
+                                            <div class="custom-file">
+                                                @Html.TextBoxFor(E => E.Image, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" })
+                                                @Html.ValidationMessageFor(E => E.Image)
 
-                                        @Html.CheckBoxFor(E => E.Declaration)
-                                        <span class="red">*</span>I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer (Provide a hyperlink which data I will provide later )<br />
-                                        @Html.ValidationMessageFor(E => E.Declaration)
-                                        @Html.Hidden(nameof(Model.IsTrue), "true")
 
+                                                Your Image Should be in (jpg, jpeg, png) format.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            @if (string.IsNullOrEmpty(Model.ImageName))
+                                            {
+                                                <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                            }
+                                            else
+                                            {
+                                                <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/Registration/VolunteerImages/@Model.ImageName" />
+                                            }
+
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput3"></label>
+                                        <div class="col-md-7">
+
+                                            @Html.CheckBoxFor(E => E.Declaration)
+                                            <span class="red">*</span>I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer (Provide a hyperlink which data I will provide later )<br />
+                                            @Html.ValidationMessageFor(E => E.Declaration)
+                                            @Html.Hidden(nameof(Model.IsTrue), "true")
+
+                                        </div>
+                                    </div>
+
+                                </div>
 
 
 
@@ -359,11 +362,23 @@
 <link href="/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet">
 <script src="/app-assets/vendors/js/forms/select/select2.min.js"></script>
 <script type="text/javascript">
-     
+      $(function () {
+        if ('@ViewBag.Message') {
+            alert('@ViewBag.Message');
+              if ('@ViewBag.Redirect' == "Yes")
+            {
+                location.href = '/Volunteer/Index';
+            }
+            else {
+                location.href = '/Home/Index';
+            }
+        }
+
+    });
     $(document).ready(function () {
         //$("#StateSearch").slideUp(500);
         //$("#DistrictSearch").slideUp(500);
-        StateBind();
+        StateBind1();
         $(".select2").select2();
         //$("#dropBillingAddress").change(function () {
         //    if ($(this).val() == "0") {
@@ -384,7 +399,7 @@
         //});
 
 
-        
+
 
         $("#FK_StateId,#FK_StateId_Billing,#FK_State_AreaOfSearch").change(function () {
             var cid = $(this).val();
@@ -471,7 +486,7 @@
 
 
 
-    function StateBind() {
+    function StateBind1() {
         $("#FK_StateId,#FK_StateId_Billing,#FK_State_AreaOfSearch").empty();
         $("#FK_StateId,#FK_StateId_Billing,#FK_State_AreaOfSearch").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
 

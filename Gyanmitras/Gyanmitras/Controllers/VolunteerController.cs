@@ -112,18 +112,15 @@ namespace Gyanmitras.Controllers
                 if (Msg.Equals("Success"))
                 {
 
-                    string controllerName = "";
-                    string area = "";
-                    string actionName = "";
-
-                    area = "";
-                    actionName = "Index";
-                    controllerName = "Home";
-
-
-
-                    //SiteUserSessionInfo.User.LandingPageURL = (!string.IsNullOrEmpty(area) ? area + "/" : "") + controllerName + "/" + actionName;
-                    return RedirectToAction(actionName, controllerName, area);
+                    //string controllerName = "";
+                    //string area = "";
+                    //string actionName = "";
+                    //area = "";
+                    //actionName = "Index";
+                    //controllerName = "Home";
+                    // return RedirectToAction(actionName, controllerName, area);
+                    ViewBag.Message = "Registration Sucessfull.Please Login to Contineu.";
+                    return View(Voluntee);
                 }
                 else
                 {
@@ -165,11 +162,94 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "User Profile";
             obj.FormType = "User Profile";
             ViewBag.VolunteerRegistration = obj;
-
+            VolunteerBAL objVolunteerBAL = new VolunteerBAL();
+            var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+            ViewBag.type = "Edit";
+            obj = objVolunteerBAL.GetVolunteerProfile(user.UserName);
             return View(obj);
         }
 
-        
+        #region post of userprofile
+        [HttpPost]
+        [UserCustomAuthenticationAttribute]
+        public ActionResult UserProfile(VolunteerMDL volunteer)
+        {
+             
+            ModelState.Remove("ZipCode");
+            ModelState.Remove("Password");
+            ModelState.Remove("FK_StateId");
+            ModelState.Remove("FK_CityId");
+            ModelState.Remove("FK_State_AreaOfSearch");
+            ModelState.Remove("FK_District_AreaOfSearch");
+            ModelState.Remove("UID");
+            ModelState.Remove("ConfirmPassword");
+            ModelState.Remove("Name");
+            ModelState.Remove("languages");
+
+
+            if (ModelState.IsValid)
+            {
+                HttpPostedFileBase Imgfile = volunteer.Image;
+                if (Imgfile != null)
+                {
+
+
+                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/")))
+                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/"));
+
+                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/VolunteerImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+
+                    if (!string.IsNullOrEmpty(volunteer.ImageName))
+                    {
+                        var filePath = Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/" + volunteer.ImageName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+
+                    volunteer.ImageName = Imgfile.FileName;
+                }
+                VolunteerBAL objStudentBAL = new  VolunteerBAL();
+                string Msg = "";
+                StringBuilder objMsg = objStudentBAL.UpdateVolunteerProfile(volunteer);
+                Msg = objMsg.ToString();
+
+                if (Msg.Equals("Success"))
+                {
+
+                    //string controllerName = "";
+                    //string area = "";
+                    //string actionName = "";
+
+                    //area = "";
+                    //actionName = "Index";
+                    //controllerName = "Home";
+                    ViewBag.Message = "Profile Updated Sucessfully.";
+                    ViewBag.Redirect = "Yes";
+                    return View(volunteer);
+                    //  return RedirectToAction(actionName, controllerName, area);
+                }
+                else
+                {
+                    ViewBag.Message = "Submitting Form Went Wrong";
+                    return View(volunteer);
+                }
+
+            }
+            else
+            {
+                string Message = string.Join("\n", ModelState.Values
+                                       .SelectMany(x => x.Errors)
+                                       .Select(x => x.ErrorMessage));
+                VolunteerMDL volunteer1 = new  VolunteerMDL();
+                // student1.UID = SessionInfo.User.UserName;
+                //  student1.IsActive = true;
+                return View("UserProfile", volunteer1);
+                // return View(student);
+            }
+        }
+        #endregion
 
 
 

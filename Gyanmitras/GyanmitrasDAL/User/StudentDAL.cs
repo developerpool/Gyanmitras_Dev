@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using GyanmitrasLanguages.LocalResources;
 using GyanmitrasMDL.User;
 using GyanmitrasDAL.Common;
+using System.Data.SqlTypes;
 
 namespace GyanmitrasDAL.User
 {
@@ -34,7 +35,29 @@ namespace GyanmitrasDAL.User
                 {
                     percent = objstudentMDL.TotalAggregatetillnow;
                 }
-
+                DataTable dt = new DataTable();
+                dt.Columns.Add("FK_UserName");
+                dt.Columns.Add("Education_Type");
+                dt.Columns.Add("Class");
+                dt.Columns.Add("FK_BoardID");
+                dt.Columns.Add("FK_StreamID");
+                dt.Columns.Add("Currentsemester");
+                dt.Columns.Add("UniversityName");
+                dt.Columns.Add("NatureOFCompletion");
+                dt.Columns.Add("Percentage");
+                dt.Columns.Add("Previous_Class");
+                dt.Columns.Add("FK_Previous_Class_Board");
+                dt.Columns.Add("Previous_Class_Percentage");
+                dt.Columns.Add("Year_of_Passing");
+                dt.Columns.Add("OtherWork");
+                dt.Columns.Add("Specification");
+                dt.Columns.Add("CourseName");
+                dt.Rows.Add(objstudentMDL.UID, objstudentMDL.TypeOfEducation, objstudentMDL.Current_Education_subcategory, String.IsNullOrEmpty(objstudentMDL.BoardType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.BoardType)),
+                    String.IsNullOrEmpty(objstudentMDL.StreamType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.StreamType)),
+                    objstudentMDL.Current_semester, objstudentMDL.UniversityName, objstudentMDL.CompletionNature, Convert.ToDecimal(percent), objstudentMDL.Previous_Education_subcategory,
+                    String.IsNullOrEmpty(objstudentMDL.PreviousBoardType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.PreviousBoardType)),
+                            Convert.ToDecimal(objstudentMDL.PreviousclassPercentage),DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
+           
 
                 List<SqlParameter> parms = new List<SqlParameter>()
                 {
@@ -61,18 +84,14 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@HaveSmartPhone",objstudentMDL.HaveSmartPhone),
                      new SqlParameter("@HavePC",objstudentMDL.HavePC),
                         new SqlParameter("@AdoptionWish",objstudentMDL.AdoptionWish),
-                     new SqlParameter("@Education_Type",objstudentMDL.TypeOfEducation),
-                     new SqlParameter("@Class",objstudentMDL.Current_Education_subcategory),
-                     new SqlParameter("@BoardID",String.IsNullOrEmpty(objstudentMDL.BoardType)  ? DBNull.Value : (object)(int.Parse(objstudentMDL.BoardType))),
-                        new SqlParameter("@FK_StreamID",String.IsNullOrEmpty(objstudentMDL.StreamType)  ? DBNull.Value : (object)(int.Parse(objstudentMDL.StreamType))),
-                     new SqlParameter("@Currentsemester",objstudentMDL.Current_semester),
-                     new SqlParameter("@UniversityName",objstudentMDL.UniversityName),
-                     new SqlParameter("@NatureOFCompletion",objstudentMDL.CompletionNature),
-                     new SqlParameter("@Percentage",Convert.ToDecimal(percent)),
-                     new SqlParameter("@Previous_Class",objstudentMDL.Previous_Education_subcategory),
-                     new SqlParameter("@FK_Previous_Class_Board",String.IsNullOrEmpty(objstudentMDL.PreviousBoardType)  ? DBNull.Value : (object)(int.Parse(objstudentMDL.PreviousBoardType))),
-                     new SqlParameter("@Previous_Class_Percentage",Convert.ToDecimal(objstudentMDL.PreviousclassPercentage)),
+                          new SqlParameter("@Academicdata",dt),
+               
+                    new SqlParameter("@Createddatetime",DateTime.Now),
+                   new SqlParameter("@EmployedExpertise",DBNull.Value),
+                   new SqlParameter("@RetiredExpertise",DBNull.Value),
+                    new SqlParameter("@AreYou",DBNull.Value),
                 };
+              
                 CheckParameters.ConvertNullToDBNull(parms);
                 CommandText = "[siteusers].[sp_SubmitRegistration]";
                 DataSet ds = new DataSet();
@@ -90,5 +109,91 @@ namespace GyanmitrasDAL.User
             return jsonResult;
         }
         #endregion
+
+        #region get student profile
+        public StudentMDL GetStudentProfile(string Username)
+        {
+            CommandText = "[siteusers].[usp_GetStudentProfile]";
+            StudentMDL stdmdl = new StudentMDL();
+
+            SqlParameter param = new SqlParameter()
+            {
+                ParameterName = "@UserName",
+                Value = Username
+
+            };
+            DataSet ds = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, param);
+            if (ds != null)
+            {
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    stdmdl.AlternateMobileNo = ds.Tables[0].Rows[0]["Alternate_Mobile_Number"].ToString();
+                    stdmdl.Address = ds.Tables[0].Rows[0]["Address"].ToString();
+                    stdmdl.HavePC = Convert.ToBoolean(ds.Tables[0].Rows[0]["HavePC"]);
+                    stdmdl.HaveSmartPhone = Convert.ToBoolean(ds.Tables[0].Rows[0]["HaveSmartPhone"]);
+                    stdmdl.ImageName = ds.Tables[0].Rows[0]["Image"].ToString();
+                    stdmdl.EmailID = ds.Tables[0].Rows[0]["Email"].ToString();
+                    stdmdl.MobileNo = ds.Tables[0].Rows[0]["Mobile_Number"].ToString();
+                    stdmdl.PK_StudentID = Convert.ToInt32(ds.Tables[0].Rows[0]["UID"]);
+                    stdmdl.UID = ds.Tables[0].Rows[0]["UserName"].ToString();
+                  
+                }
+
+                else
+                {
+                    stdmdl = null;
+                }
+            }
+            else
+            {
+                stdmdl = null;
+            }
+            return stdmdl;
+        }
+
+
+        #endregion
+
+
+        #region Update student profile
+        public StringBuilder UpdateStudentProfile(StudentMDL objstudentMDL)
+        {
+
+            var jsonResult = new StringBuilder();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                      new SqlParameter("@PK_userID",objstudentMDL.PK_StudentID),
+                       new SqlParameter("@CategoryID",1),
+                     new SqlParameter("@RoleID",1),
+                     new SqlParameter("@Image",objstudentMDL.ImageName),
+                     new SqlParameter("@HaveSmartPhone",objstudentMDL.HaveSmartPhone),
+                     new SqlParameter("@HavePC",objstudentMDL.HavePC),
+                      new SqlParameter("@Email",objstudentMDL.EmailID),
+                       new SqlParameter("@Mobile_Number",objstudentMDL.MobileNo),
+                     new SqlParameter("@Alternate_Mobile_Number",objstudentMDL.AlternateMobileNo),
+                       new SqlParameter("@Address",objstudentMDL.Address),
+                        new SqlParameter("@Updateddatetime",DateTime.Now),
+                 
+                };
+                CheckParameters.ConvertNullToDBNull(parms);
+                CommandText = "[siteusers].[sp_UpdateRegistration]";
+                DataSet ds = new DataSet();
+                ds = (DataSet)objDataFunctions.getQueryResult(CommandText, DataReturnType.DataSet, parms);
+                jsonResult.Append(ds.Tables[0].Rows[0]["Column1"].ToString());
+
+            }
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "ADDITIONAL REMARKS");
+
+                jsonResult.Append("Failled");
+            }
+            return jsonResult;
+        }
+        #endregion
+
     }
 }

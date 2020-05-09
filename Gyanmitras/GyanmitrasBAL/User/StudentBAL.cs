@@ -23,5 +23,19 @@ namespace GyanmitrasBAL.User
             return objstudentDAL.RegisterStudent(objstudentMDL);
         }
         #endregion
+
+        #region get student profile
+        public StudentMDL GetStudentProfile(string Username)
+        {
+            return objstudentDAL.GetStudentProfile(Username);
+        }
+        #endregion
+        #region Update student profile
+        public StringBuilder UpdateStudentProfile(StudentMDL objstudentMDL)
+        {
+            return objstudentDAL.UpdateStudentProfile(objstudentMDL);
+        }
+        #endregion
+        
     }
 }

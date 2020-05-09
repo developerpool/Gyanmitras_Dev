@@ -23,5 +23,17 @@ namespace GyanmitrasBAL.User
             return objVolunteerDAL.RegisterVolunteer(objVolunteerMDL);
         }
         #endregion
+        #region get student profile
+        public VolunteerMDL GetVolunteerProfile(string Username)
+        {
+            return objVolunteerDAL.GetVolunteerProfile(Username);
+        }
+        #endregion
+        #region Update student profile
+        public StringBuilder UpdateVolunteerProfile(VolunteerMDL objVolunteerMDL)
+        {
+            return objVolunteerDAL.UpdateVolunteerProfile(objVolunteerMDL);
+        }
+        #endregion
     }
 }
