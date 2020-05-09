@@ -101,8 +101,8 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.TotalCountPaging = objTotalCountPagingMDL;
 
 
-            //TempData["ExportData"] = _UserDatalist;
-            //TempData["TotalItemCount"] = objTotalCountPagingMDL.TotalItem;
+            TempData["ExportData"] = _UserDatalist;
+            TempData["TotalItemCount"] = objTotalCountPagingMDL.TotalItem;
             return PartialView("_VolunteerManagementGrid", _UserDatalist);
         }
         /// <summary>
@@ -304,8 +304,24 @@ namespace Gyanmitras.Areas.Admin.Controllers
             List<VolunteerMDL> _listForExcel = (List<VolunteerMDL>)TempData["ExportData_Filtered"];
             _listForExcel.ForEach(e => e.Status = e.IsActive ? "Active" : "Inactive");
 
-            string[] columns = { @GyanmitrasLanguages.LocalResources.Resource.AccCategory, @GyanmitrasLanguages.LocalResources.Resource.AccountName, @GyanmitrasLanguages.LocalResources.Resource.UsruserName, @GyanmitrasLanguages.LocalResources.Resource.Role, @GyanmitrasLanguages.LocalResources.Resource.EmailId, @GyanmitrasLanguages.LocalResources.Resource.MobileNo, @GyanmitrasLanguages.LocalResources.Resource.Country, @GyanmitrasLanguages.LocalResources.Resource.State, @GyanmitrasLanguages.LocalResources.Resource.City, @GyanmitrasLanguages.LocalResources.Resource.IsVehicleSpecific, @GyanmitrasLanguages.LocalResources.Resource.Status };
-            string MDLAttr = "Categoryname,AccountName,UserName,Rolename,EmailId,MobileNo,CountryName,statename,Cityname,IsVehicleSpecific,Status";
+            string[] columns = {
+                "Name",
+                "Category Name",
+                "Role Name",
+                "UID",
+                "Password",
+                "Address",
+                "State Name",
+                "City Name",
+                "Zip Code",
+                "Email ID",
+                "Mobile No.",
+                "Alternate Mobile No",
+                "Created Date Time",
+                "Status",
+            };
+            string MDLAttr =
+               "Name,CategoryName,RoleName,UID,Password,Address,StateName,CityName,ZipCode,EmailID,MobileNo,AlternateMobileNo,CreatedDateTime,Status";
             ExcelExportHelper objExcelExportHelper = new ExcelExportHelper();
             return objExcelExportHelper.ExportExcel(_listForExcel, "User Account", FileType, MDLAttr, columns);
         }
