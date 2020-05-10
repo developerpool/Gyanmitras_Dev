@@ -31,7 +31,7 @@ namespace GyanmitrasMDL.User
         [Required(ErrorMessage = "Please Enter Address")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Please Enter ZipCode")]
-        public int? ZipCode { get; set; }
+        public string ZipCode { get; set; }
         [Required(ErrorMessage = "Please Select State")]
         public Int64 FK_StateId { get; set; }
         [Required(ErrorMessage = "Please Select City")]

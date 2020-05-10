@@ -29,7 +29,7 @@ namespace GyanmitrasMDL.User
         //[StringLength(10, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ExceedCharacters")]
         //[RegularExpression(@"^[a-zA-Z0-9]*$", ErrorMessageResourceName = "InvalidZipCode", ErrorMessageResourceType = typeof(Resource))]
         [Required(ErrorMessage = "Please Enter ZipCode")]
-        public int? ZipCode { get; set; }
+        public string ZipCode { get; set; }
         public string StateName { get; set; }
         public string CityName { get; set; }
         [Required(ErrorMessage = "Please Select State")]
