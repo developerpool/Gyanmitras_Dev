@@ -36,9 +36,8 @@ namespace GyanmitrasMDL.User
         public Int64 FK_StateId { get; set; }
         [Required(ErrorMessage = "Please Select City")]
         public Int64 FK_CityId { get; set; }
-        public string CityName{ get; set; }
+          public string CityName{ get; set; }
         public string StateName { get; set; }
-
         [Required(ErrorMessage = "Please Enter Email ID")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessageResourceName = "EmailIdFormat", ErrorMessageResourceType = typeof(Resource))]
 
@@ -55,9 +54,9 @@ namespace GyanmitrasMDL.User
         [Required(ErrorMessage = "Please Select the Pc Option")]
         public bool HavePC { get; set; }
         [Required(ErrorMessage = "Please Select the Smart Phone Option")]
-        public string HaveSmartPhone { get; set; }
+        public bool HaveSmartPhone { get; set; }
         [Required(ErrorMessage = "Please Select the Adoption Wish Option")]
-        public string AdoptionWish { get; set; }
+        public bool AdoptionWish { get; set; }
         [Required(ErrorMessage = "Please Select the  Type Of Education")]
         public string TypeOfEducation { get; set; }
         [Display(Name = "Class")]

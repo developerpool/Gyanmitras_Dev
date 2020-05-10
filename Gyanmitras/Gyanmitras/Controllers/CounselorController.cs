@@ -198,6 +198,13 @@ namespace Gyanmitras.Controllers
         [UserCustomAuthenticationAttribute]
         public ActionResult UserProfile()
         {
+            ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
+            ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
+            //ViewData["StreamList"] = CommonBAL.BindStreamDetailsList();
+            ViewData["StreamListgraduation"] = CommonBAL.GetStream("Graduation");
+            ViewData["StreamListpostgraduation"] = CommonBAL.GetStream("PostGraduation");
+            ViewData["BoardList"] = CommonBAL.GetBoardType();
+            ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
             CounselorMDL obj = new CounselorMDL();
             ViewBag.Title = "User Profile";
             obj.FormType = "User Profile";
@@ -274,14 +281,12 @@ namespace Gyanmitras.Controllers
 
                 if (Msg.Equals("Success"))
                 {
-
-                    //string controllerName = "";
-                    //string area = "";
-                    //string actionName = "";
-
-                    //area = "";
-                    //actionName = "Index";
-                    //controllerName = "Home";
+                    ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
+                    ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
+                    ViewData["StreamListgraduation"] = CommonBAL.GetStream("Graduation");
+                    ViewData["StreamListpostgraduation"] = CommonBAL.GetStream("PostGraduation");
+                    ViewData["BoardList"] = CommonBAL.GetBoardType();
+                    ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
                     ViewBag.Message = "Profile Updated Sucessfully.";
                     ViewBag.Redirect = "Yes";
                     return View(counselor);

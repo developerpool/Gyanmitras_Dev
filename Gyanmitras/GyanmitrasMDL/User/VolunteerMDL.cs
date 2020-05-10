@@ -70,7 +70,7 @@ namespace GyanmitrasMDL.User
         [Required]
         [System.ComponentModel.DataAnnotations.Compare("IsTrue", ErrorMessage = "Please agree to Terms and Conditions")]
         public bool Declaration { get; set; }
-       
+
 
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }

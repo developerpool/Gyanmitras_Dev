@@ -171,6 +171,7 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@Alternate_Mobile_Number",objcounselorMDL.AlternateMobileNo),
                        new SqlParameter("@Address",objcounselorMDL.Address),
                         new SqlParameter("@Updateddatetime",DateTime.Now),
+                         new SqlParameter("@HaveSmartPhone",DBNull.Value),
 
                 };
                 CheckParameters.ConvertNullToDBNull(parms);
