@@ -114,5 +114,11 @@ namespace GyanmitrasMDL.User
         public string CategoryName { get; set; }
         public string RoleName { get; set; }
 
+
+        public bool IsPendingReplyUsers { get; set; }
+        public bool IsManageCreiticalSupport { get; set; }
+        public bool IsApprovedCounselor { get; set; }
+
+
     }
 }
