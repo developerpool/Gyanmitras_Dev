@@ -56,16 +56,16 @@
                                                         <div class="input-group-prepend">
                                                             <button id="SearchCreteria" type="button" val="" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                             <div class="dropdown-menu" id="tableMenu">
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="UserName" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.UsruserName</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="MobileNo" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.MobileNo</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="EmailId" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.EmailId</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="AccountCategory" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.AccountCategory</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="Role" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.Role</a>
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="AccountName" onclick="paging(1,this)">@GyanmitrasLanguages.LocalResources.Resource.AccountName</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="SiteUserCategory" onclick="paging(1,this)">User Category</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="SiteUserRole" onclick="paging(1,this)">User Role</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="Name" onclick="paging(1,this)">Name</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="StateName" onclick="paging(1,this)">State Name</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="CityName" onclick="paging(1,this)">City Name</a>
+
                                                             </div>
+                                                            <input type="text" class="form-control" id="SearchValue" placeholder="@GyanmitrasLanguages.LocalResources.Resource.Search" aria-label="Amount (to the nearest dollar)">
+                                                            <div class="input-group-append"> <span class="input-group-text" onclick="paging(1)"><i class="ficon ft-search" style="line-height: 0"></i></span> </div>
                                                         </div>
-                                                        <input type="text" class="form-control" id="SearchValue" placeholder="@GyanmitrasLanguages.LocalResources.Resource.Search" aria-label="Amount (to the nearest dollar)">
-                                                        <div class="input-group-append"> <span class="input-group-text" onclick="paging(1)"><i class="ficon ft-search" style="line-height: 0"></i></span> </div>
                                                     </div>
                                                 </fieldset>
                                             </div>
@@ -140,7 +140,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        
+
         $("#myAlert").fadeTo(2000, 5000).slideUp(500, function () {
             $("#myAlert").slideUp(500);
         });
@@ -184,19 +184,24 @@
             paging(1);
         });
 
-        $("#active,#inactive,#this_month,#IsRemovedUsers").click(function () {
+        $("#active,#inactive,#this_month,#IsRemovedUsers,#IsPendingReplyUsers").click(function () {
             debugger;
             $("#SearchCreteria").removeAttr('val');
             $("#SearchCreteria").attr('val', (($(this).attr('id') == "active") ? "Status" :
                                                     (($(this).attr('id') == "inactive") ? "Status" :
                                                     (($(this).attr('id') == "this_month") ? "ThisMonth" :
-                                                    (($(this).attr('id') == "IsRemovedUsers") ? "Removed" : "")
+                                                    (($(this).attr('id') == "IsRemovedUsers") ? "Removed" : 
+                                                    (($(this).attr('id') == "IsPendingReplyUsers") ? "IsPendingReplyUsers" : "")
+                                                    )
                                               ))));
             // $("#SearchCreteria").text(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : "@GyanmitrasLanguages.LocalResources.Resource.ThisMonth"));
 
             //$("#SearchValue").val(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Active" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Inactive" : ""));
             $("#SearchValue").removeAttr('val');
-            $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" : (($(this).attr('id') == "inactive") ? "Inactive" : ""));
+            $("#SearchValue").attr('val', ($(this).attr('id') == "active") ? "Active" :
+                                            (($(this).attr('id') == "inactive") ? "Inactive" :
+
+                                            ""));
 
 
             $("#RowPerpage").val("10");
@@ -260,7 +265,7 @@
 
     /*************Paging**************/
     function paging(currentpage, a) {
-        
+
         if (currentpage == NaN || currentpage <= 0) {
             return false;
         }

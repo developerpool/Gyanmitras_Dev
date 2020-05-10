@@ -72,7 +72,12 @@
                                                         <div class="input-group-prepend">
                                                             <button id="SearchCreteria" type="button" val="" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                             <div class="dropdown-menu" id="tableMenu">
-                                                                <a class="dropdown-item" href="javascript:void(0)" val="UserName" onclick="paging(1,this)">Site User Role</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="SiteUserCategory" onclick="paging(1,this)">User Category</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="SiteUserRole" onclick="paging(1,this)">User Role</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="Name" onclick="paging(1,this)">Name</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="StateName" onclick="paging(1,this)">State Name</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="CityName" onclick="paging(1,this)">City Name</a>
+
 
                                                             </div>
                                                         </div>
@@ -199,10 +204,16 @@
         paging(1);
     });
 
-    $("#active,#inactive,#this_month").click(function () {
+    $("#active,#inactive,#this_month,#IsApprovedCounselor").click(function () {
         debugger;
         $("#SearchCreteria").removeAttr('val');
-        $("#SearchCreteria").attr('val', ($(this).attr('id') == "active") ? "Status" : (($(this).attr('id') == "inactive") ? "Status" : "ThisMonth"));
+       
+        $("#SearchCreteria").attr('val', (($(this).attr('id') == "active") ? "Status" :
+                                                (($(this).attr('id') == "inactive") ? "Status" :
+                                                (($(this).attr('id') == "this_month") ? "ThisMonth" :
+                                                (($(this).attr('id') == "IsApprovedCounselor") ? "IsApprovedCounselor" : "")
+                                          ))));
+
         // $("#SearchCreteria").text(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Status" : "@GyanmitrasLanguages.LocalResources.Resource.ThisMonth"));
 
         //$("#SearchValue").val(($(this).attr('id') == "active") ? "@GyanmitrasLanguages.LocalResources.Resource.Active" : (($(this).attr('id') == "inactive") ? "@GyanmitrasLanguages.LocalResources.Resource.Inactive" : ""));

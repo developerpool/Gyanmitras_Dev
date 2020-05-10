@@ -2984,12 +2984,10 @@ namespace GyanmitrasDAL.Common
                                 ImageName = dr.Field<string>("Image"),
                                 CreatedDateTime = dr.Field<string>("CreatedDateTime"),
                                 CategoryName = dr.Field<string>("CategoryName"),
-                                RoleName = dr.Field<string>("RoleName")
-
-
-
-
-
+                                RoleName = dr.Field<string>("RoleName"),
+                                IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
+                                IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
+                                IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
                             }).ToList();
                         }
                         else if (FK_CategoryId == 2)
@@ -3024,8 +3022,10 @@ namespace GyanmitrasDAL.Common
                                 CreatedDateTime = dr.Field<string>("CreatedDateTime"),
 
                                 CategoryName = dr.Field<string>("CategoryName"),
-                                RoleName = dr.Field<string>("RoleName")
-
+                                RoleName = dr.Field<string>("RoleName"),
+                                IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
+                                IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
+                                IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
 
                             }).ToList();
                         }
@@ -3060,8 +3060,11 @@ namespace GyanmitrasDAL.Common
                                 ImageName = dr.Field<string>("Image"),
                                 CreatedDateTime = dr.Field<string>("CreatedDateTime"),
                                 CategoryName = dr.Field<string>("CategoryName"),
-                                RoleName = dr.Field<string>("RoleName")
+                                RoleName = dr.Field<string>("RoleName"),
+                                IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
+                                IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
 
+                                IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
 
                             }).ToList();
                         }
@@ -3095,8 +3098,10 @@ namespace GyanmitrasDAL.Common
                                 ImageName = dr.Field<string>("Image"),
                                 CreatedDateTime = dr.Field<string>("CreatedDateTime"),
                                 CategoryName = dr.Field<string>("CategoryName"),
-                                RoleName = dr.Field<string>("RoleName")
-
+                                RoleName = dr.Field<string>("RoleName"),
+                                IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
+                                IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
+                                IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
 
 
 
@@ -3154,6 +3159,8 @@ namespace GyanmitrasDAL.Common
                         LastMonth = objDataSet.Tables[2].Rows[0].Field<int>("LastMonth"),
                         TotalExpiredMonth = objDataSet.Tables[2].Rows[0].Field<int>("TotalExpiredMonth"),
                         RemovedUsers = objDataSet.Tables[2].Rows[0].Field<int>("RemovedUsers"),
+                        PendingReplyUsers = objDataSet.Tables[2].Rows[0].Field<int>("PendingReplyUsers"),
+                        ManageCreiticalSupport = objDataSet.Tables[2].Rows[0].Field<int>("ManageCreiticalSupport"),
                         //Display Cards
                         IsTotalItem = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalItem"),
                         IsTotalActive = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalActive"),

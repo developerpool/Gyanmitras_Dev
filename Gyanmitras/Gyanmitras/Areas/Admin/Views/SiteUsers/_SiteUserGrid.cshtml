@@ -15,24 +15,25 @@
                 @*<th><input type="checkbox" value="" id="checkAll" onclick="checkAll(this)"></th>*@
                 <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
                 <th class="text-center">Name</th>
-                <th class="text-center">CategoryName</th>
-                <th class="text-center">RoleName</th>
+                <th class="text-center">Category Name</th>
+                <th class="text-center">Role Name</th>
                 @*<th class="text-center">UID</th>
                 <th class="text-center">Password</th>
                 <th class="text-center">Address</th>*@
-                <th class="text-center">StateName</th>
-                <th class="text-center">CityName</th>
+                <th class="text-center">State Name</th>
+                <th class="text-center">City Name</th>
                 @*<th class="text-center">ZipCode</th>*@
-                <th class="text-center">EmailID</th>
-                <th class="text-center">MobileNo</th>
+                <th class="text-center">Email ID</th>
+                <th class="text-center">Mobile No</th>
                 @*<th class="text-center">AlternateMobileNo</th>*@
-                <th class="text-center">CreatedDateTime</th>
-                <th class="text-center">ImageName</th>
+                <th class="text-center">Created Date Time</th>
+                <th class="text-center">Image</th>
 
                 @*<th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.IsVehicleSpecific</th>*@
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
-                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -56,6 +57,33 @@
                         </td>
                         <td class="text-center"><input type="checkbox" value="" id="@item.Pk_UserId"></td>
                         <td align="center">@SerialNo</td>
+                        <td class="text-center text-nowrap">
+                            @if (item.IsPendingReplyUsers)
+                            {
+                            <a class="btn btn-icon btn-success btn-sm" href="@Url.Action("MarkAdReplyUser", new { id = item.Pk_UserId })" onclick="return confirm('Are you sure you want to mark as reply!');"><i class="la la-mail-reply-all"></i></a>
+                            }
+
+                            @if (ViewBag.CanEdit)
+                            {
+                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditUser", new { id = item.Pk_UserId })"><i class="la la-pencil"></i></a>
+                            }
+                            @if (ViewBag.CanDelete)
+                            {
+                                if (item.IsDeleted)
+                                {
+                                    <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("DeleteUser", new { id = item.Pk_UserId, recover = true })" onclick="return confirm('Are you sure you want to undo delete!');"><i class="la la-undo"></i></a>
+
+                                }
+                                else
+                                {
+
+                                    <a class="btn btn-icon btn-danger btn-sm" title="Click Here, Delete This User." href="@Url.Action("DeleteUser", new { id = item.Pk_UserId, recover = false })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a>
+
+                                }
+                            }
+
+
+                        </td>
                         <td class="text-center">@item.Name</td>
 
 
@@ -92,28 +120,7 @@
 
                             <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
                         }
-                        <td class="text-center text-nowrap">
-                            @if (ViewBag.CanEdit)
-                            {
-                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditUser", new { id = item.Pk_UserId })"><i class="la la-pencil"></i></a>
-                            }
-                            @if (ViewBag.CanDelete)
-                            {
-                                if (item.IsDeleted)
-                                {
-                                    <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("DeleteUser", new { id = item.Pk_UserId, recover = true })" onclick="return confirm('Are you sure you want to undo delete!');"><i class="la la-undo"></i></a>
-
-                                }
-                                else
-                                {
-
-                                    <a class="btn btn-icon btn-danger btn-sm" title="Click Here, Delete This User." href="@Url.Action("DeleteUser", new { id = item.Pk_UserId, recover = false })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a>
-
-                                }
-                            }
-
-
-                        </td>
+                        
                     </tr> SerialNo++;
                 }
             }

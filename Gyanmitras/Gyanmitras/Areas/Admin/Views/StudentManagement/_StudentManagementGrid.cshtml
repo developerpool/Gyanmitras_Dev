@@ -14,12 +14,13 @@
                 @*<th><input type="checkbox" value="" id="checkAll" onclick="checkAll(this)"></th>*@
                 <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
                 <th class="text-center">Name</th>
                 <th class="text-center">CategoryName</th>
                 <th class="text-center">RoleName</th>
                 @*<th class="text-center">UID</th>
-                <th class="text-center">Password</th>
-                <th class="text-center">Address</th>*@
+                    <th class="text-center">Password</th>
+                    <th class="text-center">Address</th>*@
                 <th class="text-center">StateName</th>
                 <th class="text-center">CityName</th>
                 @*<th class="text-center">ZipCode</th>*@
@@ -28,9 +29,9 @@
                 @*<th class="text-center">AlternateMobileNo</th>*@
                 <th class="text-center">CreatedDateTime</th>
                 <th class="text-center">ImageName</th>
-                
+
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
-                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+
             </tr>
         </thead>
         <tbody>
@@ -53,13 +54,30 @@
                         </td>
                         <td class="text-center"><input type="checkbox" value="" id="@item.PK_StudentID"></td>
                         <td align="center">@SerialNo</td>
+                        <td class="text-center text-nowrap">
+                            <a class="btn btn-icon btn-warning btn-sm" onclick="return confirm('Are you sure to give feedback to this student');" title="Click Here, Give Feedback To This Student." href="@Url.Action("AddEditManageResource", new { id = item.PK_StudentID })"><i class="la la-warning"></i></a>
+
+                            @if (item.IsManageCreiticalSupport)
+                            {
+                                <a class="btn btn-icon btn-red btn-sm" onclick="return confirm('Are you sure to give Cretical Support to this student');" title="Click Here, Give Cretical Support To This Student." href="@Url.Action("AddEditManageResource", new { id = item.PK_StudentID })"><i class="la la-support"></i></a>
+                            }
+
+                            @if (ViewBag.CanEdit)
+                            {
+                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditStudentManagement", new { id = item.PK_StudentID })"><i class="la la-pencil"></i></a>
+                            }
+                            @if (ViewBag.CanDelete)
+                            {
+                                <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteStudentManagement", new { id = item.PK_StudentID })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a><br />
+                            }
+                        </td>
                         <td class="text-center">@item.Name</td>
 
                         <td class="text-center">@item.CategoryName</td>
                         <td class="text-center">@item.RoleName</td>
                         @*<td class="text-center">@item.UID</td>
-                        <td class="text-center">@item.Password</td>
-                        <td class="text-center">@item.Address</td>*@
+                            <td class="text-center">@item.Password</td>
+                            <td class="text-center">@item.Address</td>*@
                         <td class="text-center">@item.StateName</td>
                         <td class="text-center">@item.CityName</td>
                         @*<td class="text-center">@item.ZipCode</td>*@
@@ -86,19 +104,7 @@
                         {
                             <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
                         }
-                        <td class="text-center text-nowrap">
-                            <a class="btn btn-icon btn-warning btn-sm" onclick="return confirm('Are you sure to give feedback to this counselor');" title="Click Here, Give Feedback This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_StudentID })"><i class="la la-warning"></i></a>
-                            
 
-                            @if (ViewBag.CanEdit)
-                            {
-                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditStudentManagement", new { id = item.PK_StudentID })"><i class="la la-pencil"></i></a>
-                            }
-                            @if (ViewBag.CanDelete)
-                            {
-                                <a class="btn btn-icon btn-danger btn-sm" href="@Url.Action("DeleteStudentManagement", new { id = item.PK_StudentID })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a><br />
-                            }
-                        </td>
                     </tr> SerialNo++;
                 }
             }
@@ -113,7 +119,7 @@
 
         if ($('tbody > tr').length <= 1) {
             if ($('tbody > tr').find("td").length <= 1) {
-                $("#exportdiv").attr('style','display: none !important');
+                $("#exportdiv").attr('style', 'display: none !important');
             }
             else {
                 $("#exportdiv").removeAttr('style');
