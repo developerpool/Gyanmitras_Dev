@@ -933,7 +933,7 @@
         BindAreaOfInterest("counselor");
         StateBind1();
         $(".select2").select2();
-
+      
         $("#AreYou").change(function () {
             var type = $("#AreYou").val();
             if (type == "StudentDiv") {
@@ -1036,7 +1036,7 @@
                 $("#Retired_Expertise_Details").val('');
                 $("#Expertise_Details").rules("remove", "required");
                 $("#Retired_Expertise_Details").rules("remove", "required");
-                $('#StudentDiv').show();
+                $("#StudentDiv").modal('show');
             }
             else if (type == "EmployedDiv") {
                 $("#Expertise_Details").rules("add", {
@@ -1071,8 +1071,8 @@
                 $("#Graduation_Year_of_Passing").val('');
                 $("#Expertise_Details").val('');
                 $("#Retired_Expertise_Details").val('');
-                $('#EmployedDiv').show();
-            }
+                $("#EmployedDiv").modal('show');
+               }
             else if (type == "RetiredDiv") {
                 $("#Retired_Expertise_Details").rules("add", {
                     required: true,
@@ -1107,8 +1107,8 @@
                 $("#Graduation_Year_of_Passing").val('');
                 $("#Expertise_Details").val('');
                 $("#Retired_Expertise_Details").val('');
-                $('#RetiredDiv').show();
-            }
+                $("#RetiredDiv").modal('show');
+              }
 
 
     });
