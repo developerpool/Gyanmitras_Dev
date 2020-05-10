@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Gyanmitras.Areas.Admin.Controllers
 {
-    public class ManageResourcesController : Controller
+    public class ManagePagesContentController : BaseController
     {
         //#region 
         private List<SiteUserContantResourceMDL> _UserDatalist;
@@ -25,9 +25,28 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
         #region Methods
         // GET: UserMaster
+        [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Title = "Management Site Contant Resources";
+            ViewBag.Title = "Management Page Contant";
+            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
+            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
+            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
+            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
+
+            var a = SessionInfo.User;
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Msg = (MessageMDL)TempData["Message"];
+                TempData["Message"] = null;
+            }
+           
+            return View();
+        }
+
+        public ActionResult ManageResourcesIndex()
+        {
+            ViewBag.Title = "Manage Site Contant Resources Page";
             ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
             ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
@@ -41,6 +60,45 @@ namespace Gyanmitras.Areas.Admin.Controllers
             }
             GetResources();
             ViewBag.totalcount = objTotalCountPagingMDL;
+            return View();
+        }
+
+    
+
+
+        public ActionResult ManageHomeIndex()
+        {
+            ViewBag.Title = "Manage Site Contant Home Page";
+            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
+            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
+            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
+            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
+
+            var a = SessionInfo.User;
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Msg = (MessageMDL)TempData["Message"];
+                TempData["Message"] = null;
+            }
+           
+            return View();
+        }
+
+        public ActionResult ManageAboutUsIndex()
+        {
+            ViewBag.Title = "Manage Site Contant About Us Page";
+            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
+            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
+            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
+            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
+
+            var a = SessionInfo.User;
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Msg = (MessageMDL)TempData["Message"];
+                TempData["Message"] = null;
+            }
+           
             return View();
         }
         /// <summary>

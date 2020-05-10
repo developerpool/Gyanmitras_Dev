@@ -1,0 +1,106 @@
+﻿
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title">@ViewBag.Title</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a> </li>
+                        <li class="breadcrumb-item active">@ViewBag.Title</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-6 col-12"> </div>
+    </div>
+    <div class="content-body">
+        <!-- Table -->
+        <section id="">
+            <div class="row" id="UpperBoxes">
+
+                <div class="col-md-4 col-sm-6" id="divNoOfVehicles">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <a id="travelkm" onclick="validateDrill(event)" href="/Admin/ManagePagesContent/ManageResourcesIndex">
+                                    <div class="media d-flex">
+                                        <div class="media-body text-left">
+                                            <p class="size-h2">
+                                                @*<span id="NoOfVeh">@Model.StudentCount</span>*@
+                                            </p><p class="text-muted"><h3>Manage Resource Page Content</h3></p>
+                                        </div>
+                                        <div class="align-self-center"> <div class="align-self-center"> @*<img src="../assets/icon/user-h.png" height="42" alt="">*@ </div> </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-sm-6" id="divNoOfVehicles">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <a id="travelkm" onclick="validateDrill(event)" href="/Admin/ManagePagesContent/ManageHomeIndex">
+                                    <div class="media d-flex">
+                                        <div class="media-body text-left">
+                                            <p class="size-h2">
+                                                @*<span id="NoOfVeh">@Model.StudentCount</span>*@
+                                            </p><p class="text-muted"><h3>Manage Home Page <br />Content</h3></p>
+                                        </div>
+                                        <div class="align-self-center"> <div class="align-self-center"> @*<img src="../assets/icon/user-h.png" height="42" alt="">*@ </div> </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-sm-6" id="divNoOfVehicles">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <a id="travelkm" onclick="validateDrill(event)" href="/Admin/ManagePagesContent/ManageAboutUsIndex">
+                                    <div class="media d-flex">
+                                        <div class="media-body text-left">
+                                            <p class="size-h2">
+                                                @*<span id="NoOfVeh">@Model.StudentCount</span>*@
+                                            </p><p class="text-muted"><h3>Manage About Us Page Content</h3></p>
+                                        </div>
+                                        <div class="align-self-center"> <div class="align-self-center"> @*<img src="../assets/icon/user-h.png" height="42" alt="">*@ </div> </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="DivAllChartsContainer" class="row">
+            </div>
+        </section>
+        <!--/ Zero configuration table -->
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script type="text/javascript">
+        $(function () {
+    
+        })
+    </script>
+}
+

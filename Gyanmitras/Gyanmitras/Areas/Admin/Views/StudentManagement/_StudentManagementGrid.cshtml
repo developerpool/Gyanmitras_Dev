@@ -55,6 +55,8 @@
                         <td class="text-center"><input type="checkbox" value="" id="@item.PK_StudentID"></td>
                         <td align="center">@SerialNo</td>
                         <td class="text-center text-nowrap">
+                            <a class="btn btn-icon btn-info btn-sm" onclick="return confirm('Are you sure to give feed to this student');" title="Click Here,Give Feed This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_StudentID })"><i class="la la-feed"></i></a>
+
                             <a class="btn btn-icon btn-warning btn-sm" onclick="return confirm('Are you sure to give feedback to this student');" title="Click Here, Give Feedback To This Student." href="@Url.Action("AddEditManageResource", new { id = item.PK_StudentID })"><i class="la la-warning"></i></a>
 
                             @if (item.IsManageCreiticalSupport)
