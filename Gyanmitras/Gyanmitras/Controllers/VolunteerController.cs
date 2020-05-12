@@ -21,6 +21,11 @@ namespace Gyanmitras.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class VolunteerController : Controller
     {
+        //#region 
+        private dynamic _StudentDatalist;
+        StudentMDL objUserBal = null;
+        BasicPagingMDL objBasicPagingMDL = null;
+        static TotalCountPagingMDL objTotalCountPagingMDL = null;
         VolunteerMDL obj = new VolunteerMDL();
         [HttpGet]
         [AllowAnonymous]
@@ -31,7 +36,37 @@ namespace Gyanmitras.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        [AllowAnonymous]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetStudents(int RowPerpage = 100, int CurrentPage = 1, string SearchBy = "", string SearchValue = "",int PK_ID = 0)
+        {
         
+            ViewBag.CanAdd = true;
+            ViewBag.CanEdit = true;
+            ViewBag.CanView = true;
+            ViewBag.CanDelete = true;
+            SearchBy = string.IsNullOrEmpty(SearchBy) ? "volunteer" : "suggestedVolunteer";
+            CommonBAL objMDL = new CommonBAL();
+            _StudentDatalist = new List<StudentMDL>();
+            objBasicPagingMDL = new BasicPagingMDL();
+            objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, SearchBy, 0,0);
+
+            ViewBag.paging = objBasicPagingMDL;
+            ViewBag.TotalCountPaging = objTotalCountPagingMDL;
+            TempData["ExportData"] = _StudentDatalist;
+
+            Dictionary<string, dynamic> myobj = new Dictionary<string, dynamic>();
+            //List<dynamic> myobj = new List<dynamic>();
+            myobj.Add("objBasicPagingMDL", objBasicPagingMDL);
+            myobj.Add("objTotalCountPagingMDL", objTotalCountPagingMDL);
+            myobj.Add("_Datalist", _StudentDatalist);
+
+            return Json(myobj, JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// Created By: Vinish
@@ -46,8 +81,13 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "Student Registration";
             if (id != 0)
             {
-                //objAccountBDL.GetAccountDetails(out _AccountMDL, out objBasicPagingMDL, out objTotalCountPagingMDL, id, SessionInfo.User.UserId, Convert.ToInt32(10), 1, "", "", SessionInfo.User.AccountId, SessionInfo.User.FK_CustomerId, SessionInfo.User.UserId, SessionInfo.User.LoginType);
-                //return View("AddEditAccount", _AccountMDL[0]);
+                CommonBAL objMDL = new CommonBAL();
+                _StudentDatalist = new List<StudentMDL>();
+                objBasicPagingMDL = new BasicPagingMDL();
+                objTotalCountPagingMDL = new TotalCountPagingMDL();
+                objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, 10, 1, "", "", SiteUserSessionInfo.User.UserId, "volunteer", 0, 0, "studentGetByVolunteer");
+                ViewBag.Registration = _StudentDatalist[0];
+                return View("StudentRegistration", _StudentDatalist[0]);
             }
             else
             {
@@ -56,6 +96,9 @@ namespace Gyanmitras.Controllers
                 //obj.IsActive = true;
                 //return View("AddEditAccount", obj);
             }
+            StudentMDL obj = new StudentMDL();
+            obj.FormType = "volunteer";
+            ViewBag.Registration = obj;
             return View("StudentRegistration");
         }
 

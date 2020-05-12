@@ -52,12 +52,14 @@ namespace GyanmitrasDAL.User
                 dt.Columns.Add("OtherWork");
                 dt.Columns.Add("Specification");
                 dt.Columns.Add("CourseName");
-                dt.Rows.Add(objstudentMDL.UID, objstudentMDL.TypeOfEducation, objstudentMDL.Current_Education_subcategory, String.IsNullOrEmpty(objstudentMDL.BoardType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.BoardType)),
-                    String.IsNullOrEmpty(objstudentMDL.StreamType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.StreamType)),
-                    objstudentMDL.Current_semester, objstudentMDL.UniversityName, objstudentMDL.CompletionNature, Convert.ToDecimal(percent), objstudentMDL.Previous_Education_subcategory,
-                    String.IsNullOrEmpty(objstudentMDL.PreviousBoardType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.PreviousBoardType)),
-                            Convert.ToDecimal(objstudentMDL.PreviousclassPercentage),DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
-           
+                if (objstudentMDL.FormType != "volunteer")
+                {
+                    dt.Rows.Add(objstudentMDL.UID, objstudentMDL.TypeOfEducation, objstudentMDL.Current_Education_subcategory, String.IsNullOrEmpty(objstudentMDL.BoardType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.BoardType)),
+                        String.IsNullOrEmpty(objstudentMDL.StreamType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.StreamType)),
+                        objstudentMDL.Current_semester, objstudentMDL.UniversityName, objstudentMDL.CompletionNature, Convert.ToDecimal(percent), objstudentMDL.Previous_Education_subcategory,
+                        String.IsNullOrEmpty(objstudentMDL.PreviousBoardType) ? DBNull.Value : (object)(int.Parse(objstudentMDL.PreviousBoardType)),
+                                Convert.ToDecimal(objstudentMDL.PreviousclassPercentage), DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
+                }
 
                 List<SqlParameter> parms = new List<SqlParameter>()
                 {
@@ -85,13 +87,14 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@HavePC",objstudentMDL.HavePC),
                         new SqlParameter("@AdoptionWish",objstudentMDL.AdoptionWish),
                           new SqlParameter("@Academicdata",dt),
-               
+
                     new SqlParameter("@Createddatetime",DateTime.Now),
                    new SqlParameter("@EmployedExpertise",DBNull.Value),
                    new SqlParameter("@RetiredExpertise",DBNull.Value),
                     new SqlParameter("@AreYou",DBNull.Value),
+
                 };
-              
+
                 CheckParameters.ConvertNullToDBNull(parms);
                 CommandText = "[siteusers].[sp_SubmitRegistration]";
                 DataSet ds = new DataSet();
@@ -136,7 +139,7 @@ namespace GyanmitrasDAL.User
                     stdmdl.MobileNo = ds.Tables[0].Rows[0]["Mobile_Number"].ToString();
                     stdmdl.PK_StudentID = Convert.ToInt32(ds.Tables[0].Rows[0]["UID"]);
                     stdmdl.UID = ds.Tables[0].Rows[0]["UserName"].ToString();
-                  
+
                 }
 
                 else
@@ -175,7 +178,7 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@Alternate_Mobile_Number",objstudentMDL.AlternateMobileNo),
                        new SqlParameter("@Address",objstudentMDL.Address),
                         new SqlParameter("@Updateddatetime",DateTime.Now),
-                 
+
                 };
                 CheckParameters.ConvertNullToDBNull(parms);
                 CommandText = "[siteusers].[sp_UpdateRegistration]";

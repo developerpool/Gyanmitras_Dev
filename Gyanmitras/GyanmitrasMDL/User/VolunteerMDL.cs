@@ -88,7 +88,7 @@ namespace GyanmitrasMDL.User
         public bool IsPendingReplyUsers { get; set; }
         public bool IsManageCreiticalSupport { get; set; }
         public bool IsApprovedCounselor { get; set; }
-
+        public bool IsAdoptedStudent { get; set; }
 
     }
 }

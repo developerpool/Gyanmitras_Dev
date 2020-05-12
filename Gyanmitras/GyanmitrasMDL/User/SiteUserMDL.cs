@@ -15,7 +15,7 @@ namespace GyanmitrasMDL
         public string Password { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public int? ZipCode { get; set; }
+        public string ZipCode { get; set; }
         public Int64 FK_StateId { get; set; }
         public Int64 FK_CityId { get; set; }
         public string CityName { get; set; }
@@ -64,6 +64,8 @@ namespace GyanmitrasMDL
         public bool IsPendingReplyUsers { get; set; }
         public bool IsManageCreiticalSupport { get; set; }
         public bool IsApprovedCounselor { get; set; }
+
+        public bool IsAdoptedStudent { get; set; }
 
     }
 }

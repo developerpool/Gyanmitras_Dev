@@ -2925,7 +2925,7 @@ namespace GyanmitrasDAL.Common
         /// Created Date:06-01-2020
         /// purpose: Get Details
         /// </summary>
-        public bool GetSiteUserDetails(out dynamic _Datalist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId)
+        public bool GetSiteUserDetails(out dynamic _Datalist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId, string type = "")
         {
             bool result = false;
             objBasicPagingMDL = new BasicPagingMDL();
@@ -2953,7 +2953,7 @@ namespace GyanmitrasDAL.Common
 
                     if (objDataSet.Tables[0].Rows[0].Field<int>("Message_Id") == 1)
                     {
-                        if (FK_CategoryId == 1)
+                        if (FK_CategoryId == 1 || type == "studentGetByVolunteer"  || type == "studentGetByCounselor")
                         {
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new StudentMDL()
                             {
@@ -2988,6 +2988,7 @@ namespace GyanmitrasDAL.Common
                                 IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
+                                IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
                             }).ToList();
                         }
                         else if (FK_CategoryId == 2)
@@ -3026,6 +3027,7 @@ namespace GyanmitrasDAL.Common
                                 IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
+                                IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
 
                             }).ToList();
                         }
@@ -3063,7 +3065,7 @@ namespace GyanmitrasDAL.Common
                                 RoleName = dr.Field<string>("RoleName"),
                                 IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
-
+                                IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
 
                             }).ToList();
@@ -3076,7 +3078,7 @@ namespace GyanmitrasDAL.Common
                                 Password = ClsCrypto.Decrypt(dr.Field<string>("UserPassword")),
                                 Name = dr.Field<string>("Name"),
                                 Address = dr.Field<string>("Address"),
-                                ZipCode = dr.Field<int>("ZipCode"),
+                                ZipCode = dr.Field<string>("ZipCode"),
                                 EmailID = dr.Field<string>("Email"),
                                 MobileNo = dr.Field<string>("Mobile_Number"),
                                 AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
@@ -3102,7 +3104,7 @@ namespace GyanmitrasDAL.Common
                                 IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
-
+                                IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
 
 
 
@@ -3161,6 +3163,9 @@ namespace GyanmitrasDAL.Common
                         RemovedUsers = objDataSet.Tables[2].Rows[0].Field<int>("RemovedUsers"),
                         PendingReplyUsers = objDataSet.Tables[2].Rows[0].Field<int>("PendingReplyUsers"),
                         ManageCreiticalSupport = objDataSet.Tables[2].Rows[0].Field<int>("ManageCreiticalSupport"),
+                        AdoptedStudent = objDataSet.Tables[2].Rows[0].Field<int>("AdoptedStudent"),
+                        PendingAdoptedStudent = objDataSet.Tables[2].Rows[0].Field<int>("PendingAdoptedStudent"),
+
                         //Display Cards
                         IsTotalItem = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalItem"),
                         IsTotalActive = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalActive"),

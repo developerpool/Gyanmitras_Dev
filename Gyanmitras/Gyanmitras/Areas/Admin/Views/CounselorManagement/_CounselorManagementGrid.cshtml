@@ -15,6 +15,7 @@
                 @*<th><input type="checkbox" value="" id="checkAll" onclick="checkAll(this)"></th>*@
                 <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
                 <th class="text-center">Name</th>
                 <th class="text-center">Category Name</th>
@@ -31,7 +32,7 @@
                 <th class="text-center">Created Date Time</th>
                 <th class="text-center">Image</th>
 
-                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                
 
             </tr>
         </thead>
@@ -55,6 +56,14 @@
                         </td>
                         <td class="text-center"><input type="checkbox" value="" id="@item.PK_CounselorID"></td>
                         <td align="center">@SerialNo</td>
+                        @if (item.IsActive)
+                        {
+                            <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>
+                        }
+                        else
+                        {
+                            <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
+                        }
                         <td class="text-center text-nowrap">
 
                             @if (item.IsApprovedCounselor)
@@ -101,14 +110,7 @@
 
                         </td>
 
-                        @if (item.IsActive)
-                        {
-                            <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>
-                        }
-                        else
-                        {
-                            <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
-                        }
+                      
 
                     </tr> SerialNo++;
                 }

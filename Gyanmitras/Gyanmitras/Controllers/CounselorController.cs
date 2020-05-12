@@ -115,6 +115,75 @@ namespace Gyanmitras.Controllers
         }
 
 
+
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Get Account Details By Id
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public ActionResult StudentRegistration(int id = 0)
+        {
+            ViewBag.Title = "Student Registration Details";
+            if (id != 0)
+            {
+
+
+
+
+                CommonBAL objMDL = new CommonBAL();
+                dynamic _StudentDatalist = new List<StudentMDL>();
+                BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+                TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+                objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, 10, 1, "", "", SiteUserSessionInfo.User.UserId, "counselor", 0, 0, "studentGetByCounselor");
+                ViewBag.Registration = _StudentDatalist[0];
+                _StudentDatalist[0].FormType = "counselor";
+                return View("StudentRegistration", _StudentDatalist[0]);
+            }
+            else
+            {
+                //MSTAccountMDL obj = new MSTAccountMDL();
+                //obj.FK_CompanyId = SessionInfo.User.fk_companyid;
+                //obj.IsActive = true;
+                //return View("AddEditAccount", obj);
+            }
+            StudentMDL obj = new StudentMDL();
+            obj.FormType = "counselor";
+            ViewBag.FormType = "counselor";
+            ViewBag.Registration = obj;
+            return View("StudentRegistration");
+        }
+
+
+        public JsonResult GetStudents(int RowPerpage = 100, int CurrentPage = 1, string SearchBy = "", string SearchValue = "", int PK_ID = 0)
+        {
+
+            ViewBag.CanAdd = true;
+            ViewBag.CanEdit = true;
+            ViewBag.CanView = true;
+            ViewBag.CanDelete = true;
+            SearchBy = string.IsNullOrEmpty(SearchBy) ? "counselor" : "";
+            CommonBAL objMDL = new CommonBAL();
+            dynamic _StudentDatalist = new List<StudentMDL>();
+            BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+            TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, SearchBy, 0, 0);
+
+            ViewBag.paging = objBasicPagingMDL;
+            ViewBag.TotalCountPaging = objTotalCountPagingMDL;
+            TempData["ExportData"] = _StudentDatalist;
+
+            Dictionary<string, dynamic> myobj = new Dictionary<string, dynamic>();
+            //List<dynamic> myobj = new List<dynamic>();
+            myobj.Add("objBasicPagingMDL", objBasicPagingMDL);
+            myobj.Add("objTotalCountPagingMDL", objTotalCountPagingMDL);
+            myobj.Add("_Datalist", _StudentDatalist);
+
+            return Json(myobj, JsonRequestBehavior.AllowGet);
+        }
         //[HttpGet]
         //[SkipUserCustomAuthenticationAttribute]
         //public ActionResult UserProfile()

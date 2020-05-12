@@ -66,7 +66,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
             CommonBAL objMDL = new CommonBAL();
             _UserDatalist = new List<SiteUserMDL>();
-            objMDL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "admin", 0, 0);
+            objMDL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "siteusers", 0, 0);
 
 
             //objTotalCountPagingMDL = new TotalCountPagingMDL()

@@ -33,6 +33,9 @@ namespace GyanmitrasMDL
         public bool IsManageFeedBack { get; set; }
         public int ManageCreiticalSupport { get; set; }
         public bool IsManageCreiticalSupport { get; set; }
+        public int AdoptedStudent { get; set; }
+        public int PendingAdoptedStudent { get; set; }
+        
 
 
 

@@ -30,7 +30,7 @@
                                             <div class="row match-height">
                                                 <div class="col-xl-3 col-md-3" id="RegisteredStudentDev" onclick="$('#RegisteredStudentSection').slideDown(500); $('#AdminFeedSection').slideUp(500); ">
                                                     <div class="card overflow-hidden" style="background:#c5d6c5">
-                                                        <div class="card-content" id="total">
+                                                        <div class="card-content" id="totalitemsCard">
                                                             <div class="media align-items-stretch">
                                                                 <div class="media-body p-2">
                                                                     <h4>Registered Student</h4>
@@ -242,7 +242,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <h4>
-                                                Registered Student
+                                                Registered Student Details
                                             </h4>
                                             <div class="card">
                                                 <div class="card-header">
@@ -256,26 +256,20 @@
                                                                     <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
+                                                                                @*<th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>*@
                                                                                 <th class="text-center">No.</th>
                                                                                 <th class="text-center">Name Of Student</th>
                                                                                 <th class="text-center">Contact of student</th>
-                                                                                <th class="text-center">Guardian’s Contact</th>
+                                                                                @*<th class="text-center">Guardian’s Contact</th>*@
                                                                                 <th class="text-center">Email ID .</th>
                                                                                 <th class="text-center">Do you have a PC?</th>
                                                                                 <th class="text-center">Status</th>
                                                                                 <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody>
+                                                                        <tbody id="datalisttbody">
+                                                                           
                                                                             @*<tr>
-                                                                                    <td colspan="14">
-                                                                                        <div class="text-danger">
-                                                                                            Data Not Found.
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>*@
-                                                                            <tr>
                                                                                 <td><input type="checkbox"  value="" ></td>
                                                                                 <td class="text-center">1</td>
                                                                                 <td class="text-center">
@@ -303,7 +297,7 @@
 
 
                                                                                 </td>
-                                                                            </tr>
+                                                                            </tr>*@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -532,7 +526,7 @@
             $("#RegisteredStudentDev").trigger('click');
             $("#RegisteredStudentDev").find('.card').trigger('click');
 
-            
+            paging(1, this);
         });
         var StudentActionPanel_Flag = false;
         function StudentActionPanelFun()
@@ -548,6 +542,63 @@
             }
         }
         
+
+
+        /*************Paging**************/
+        function paging(currentpage, a, MySearchCreteria, MySearchValue,type) {
+            debugger;
+            $('#datalisttbody').html("<tr><td colspan='9' style='color:red' >No Record Found!</td></tr>");
+          
+            if (currentpage == NaN || currentpage <= 0) {
+                return false;
+            }
+            var SearchCreteria = "";
+            var SearchValue = "";
+            if (a) {
+                SearchCreteria = $(a).attr('searchby');
+                SearchValue = $(a).attr('searchvalue');
+            }
+            else {
+                SearchCreteria = MySearchCreteria;
+                SearchValue = MySearchValue;
+            }
+           
+            var PK_ID = 0;
+            $.ajax({
+                url: "@Url.Action("GetStudents", "Counselor")",
+                type: 'GET',
+            cache: false,
+            data: { 'CurrentPage': parseInt(currentpage), 'RowPerpage': $('#Select_NoRecord').val(), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue, 'PK_ID': PK_ID },
+            success: function (data) {
+
+                //var obj = JSON.stringify(data);
+                
+                var html = "";
+                //var objBasicPagingMDL = data.objBasicPagingMDL;
+                var objTotalCountPagingMDL = data.objTotalCountPagingMDL;
+                var _Datalist = data._Datalist;
+                
+                if (!type) {
+                    $("#totalValue").text(objTotalCountPagingMDL.TotalItem);
+                    //$("#approved_active").text(objTotalCountPagingMDL.AdoptedStudent);
+                    //$("#approval_pending").text(objTotalCountPagingMDL.PendingAdoptedStudent);
+
+                    for (var i = 0; i < _Datalist.length; i++) {
+                        html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (_Datalist[i].HavePC == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (_Datalist[i].Status == "false" ? "InActive" : "Active") + '</div></td>  <td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="/Counselor/StudentRegistration/' + _Datalist[i].Pk_UserId + '"><i class="la la-pencil"></i>View Details</a> <a class="btn btn-icon btn-dark btn-sm" href="#" PK_ID="' + _Datalist[i].Pk_UserId + '" onclick="StudentActionPanelFun()"><i class="la la-pencil"></i>Counsel</a> ';
+
+                    }
+                    if (_Datalist.length <= 0) {
+                        $('#datalisttbody').html("<tr><td colspan='9'  style='color:red'  >No Record Found!</td></tr>");
+                    }
+                    else {
+                        $('#datalisttbody').html(html);
+                    }
+                }
+                
+            },
+        });
+        return false;
+        }
 
     </script>
 }

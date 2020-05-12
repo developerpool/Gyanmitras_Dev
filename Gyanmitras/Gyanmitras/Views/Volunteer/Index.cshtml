@@ -5,6 +5,18 @@
 }
 
 <br />
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="content-wrapper">
 
     <div class="content-body">
@@ -20,7 +32,7 @@
                                         <hr>
                                     </div>
                                 </div>
-                                <div class="row">
+                                @*<div class="row">
                                     <div class="col-lg-12 offset-lg-1">
                                         <div class="form-body">
                                             <div class="row">
@@ -31,7 +43,7 @@
                                             </div>
 
                                             <div class="col-sm-12 col-md-12">
-                                                @*<input type="text" class="form-control" placeholder="Search Trip From Admin" id="SearchValue" aria-label="Amount (to the nearest dollar)">*@
+                                                <input type="text" class="form-control" placeholder="Search Trip From Admin" id="SearchValue" aria-label="Amount (to the nearest dollar)">
 
                                                 <input type='text'
                                                        placeholder="Search Trip From Admin"
@@ -57,7 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br />
+                                <br />*@
                                 <div class="row">
                                     <div class="text-right col-md-12 col-12">
                                         <a href="/Volunteer/StudentRegistration" class="btn btn-primary btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> New Student Registration</a>
@@ -69,13 +81,14 @@
                                             <div class="row match-height">
                                                 <div class="col-xl-4 col-md-4">
                                                     <div class="card overflow-hidden">
-                                                        <div class="card-content" id="total">
+                                                        <div class="card-content" id="totalitemsCard" searchby="" searchval="">
                                                             <div class="media align-items-stretch">
                                                                 <div class="media-body p-2">
                                                                     <h4>Total</h4>
                                                                 </div>
                                                                 <div class="media-right p-2 media-middle">
-                                                                    <h1 class="info font-weight-bold" id="totalValue">0</h1>
+                                                                    
+                                                                    <h1 class="info font-weight-bold" id="totalitems">0</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -83,13 +96,13 @@
                                                 </div>
                                                 <div class="col-xl-4 col-md-4">
                                                     <div class="card">
-                                                        <div class="card-content" id="active">
+                                                        <div class="card-content" id="approved_activeCard" searchby="IsAdoptedStudent" searchval="">
                                                             <div class="media align-items-stretch">
                                                                 <div class="media-body p-2">
-                                                                    <h4>Approved & Active</h4>
+                                                                    <h4>Adopted & Active</h4>
                                                                 </div>
                                                                 <div class="media-right p-2 media-middle">
-                                                                    <h1 class="success font-weight-bold" id="totalActiveValue">0</h1>
+                                                                    <h1 class="success font-weight-bold" id="approved_active">0</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -97,13 +110,13 @@
                                                 </div>
                                                 <div class="col-xl-4 col-md-4">
                                                     <div class="card overflow-hidden">
-                                                        <div class="card-content" id="inactive">
+                                                        <div class="card-content" id="approval_pendingCard" searchby="IsNotAdoptedStudent" searchval="">
                                                             <div class="media align-items-stretch">
                                                                 <div class="media-body p-2">
                                                                     <h4>Pending</h4>
                                                                 </div>
                                                                 <div class="media-right p-2 media-middle">
-                                                                    <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                    <h1 class="danger font-weight-bold" id="approval_pending">0</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -200,29 +213,28 @@
                                                     <div class="card-body card-dashboard  pt-0">
                                                         <div class="dataTables_wrapper">
                                                             <div id="GridDiv">
+
+                                                            
+
+
                                                                 <div class="table-responsive" style="max-height: 465px;">
                                                                     <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
+                                                                                @*<th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>*@
                                                                                 <th class="text-center">No.</th>
                                                                                 <th class="text-center">Name Of Student</th>
                                                                                 <th class="text-center">Contact of student</th>
-                                                                                <th class="text-center">Guardian’s Contact</th>
+                                                                                @*<th class="text-center">Guardian’s Contact</th>*@
                                                                                 <th class="text-center">Email ID .</th>
                                                                                 <th class="text-center">Do you have a PC?</th>
                                                                                 <th class="text-center">Status</th>
+                                                                                @*<th class="text-center">Action</th>*@
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody>
+                                                                        <tbody id="datalisttbody">
+                                                                       <tr><td colspan="7" style="color:red" >No Record Found!</td></tr>
                                                                             @*<tr>
-                                                                                    <td colspan="14">
-                                                                                        <div class="text-danger">
-                                                                                            Data Not Found.
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>*@
-                                                                            <tr>
 
                                                                                 <td class="text-center">1</td>
                                                                                 <td class="text-center">
@@ -250,7 +262,7 @@
 
 
                                                                                 </td>
-                                                                            </tr>
+                                                                            </tr>*@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -312,18 +324,13 @@
                                                                                 <th class="text-center">Volunteer Name</th>
                                                                                 <th class="text-center">Email</th>
                                                                                 <th class="text-center">Mobile No.</th>
-
+                                                                                @*<th class="text-center">Action</th>*@
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody>
+                                                                        <tbody id="volunteerlisttbody">
+                                                                       <tr><td colspan="7" style="color:red" >No Record Found!</td></tr>
+                                                                            
                                                                             @*<tr>
-                                                                                    <td colspan="14">
-                                                                                        <div class="text-danger">
-                                                                                            Data Not Found.
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>*@
-                                                                            <tr>
 
                                                                                 <td class="text-center">1</td>
                                                                                 <td class="text-center">
@@ -336,7 +343,7 @@
                                                                                     325247383
                                                                                 </td>
 
-                                                                            </tr>
+                                                                            </tr>*@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -433,12 +440,90 @@
                     $(this).attr('style', 'background:#c5d6c5');
                 }
             });
-            $("#total").trigger('click');
             
+            
+            $("#totalitemsCard,#approved_activeCard,#approval_pendingCard").click(function () {
+                paging(1,this);
+            });
+            $("#totalitemsCard").trigger('click');
 
-           
-
-
+            paging(1, null, "suggestedVolunteer", "", 'volunteer');
         });
+
+
+
+        
+        /*************Paging**************/
+        function paging(currentpage, a, MySearchCreteria, MySearchValue,type) {
+            debugger;
+            $('#datalisttbody').html("<tr><td colspan='7' style='color:red' >No Record Found!</td></tr>");
+            if (type == "volunteer") {
+                $('#volunteerlisttbody').html("<tr><td colspan='7'  style='color:red'  >No Record Found!</td></tr>");
+            }
+            if (currentpage == NaN || currentpage <= 0) {
+                return false;
+            }
+            var SearchCreteria = "";
+            var SearchValue = "";
+            if (a) {
+                SearchCreteria = $(a).attr('searchby');
+                SearchValue = $(a).attr('searchvalue');
+            }
+            else {
+                SearchCreteria = MySearchCreteria;
+                SearchValue = MySearchValue;
+            }
+           
+            var PK_ID = 0;
+            $.ajax({
+                url: "@Url.Action("GetStudents", "Volunteer")",
+                type: 'GET',
+            cache: false,
+            data: { 'CurrentPage': parseInt(currentpage), 'RowPerpage': $('#Select_NoRecord').val(), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue, 'PK_ID': PK_ID },
+            success: function (data) {
+
+                var obj = JSON.stringify(data);
+                
+                var html = "";
+                var objBasicPagingMDL = data.objBasicPagingMDL;
+                var objTotalCountPagingMDL = data.objTotalCountPagingMDL;
+                var _Datalist = data._Datalist;
+                
+                if (!type) {
+                    $("#totalitems").text(objTotalCountPagingMDL.TotalItem);
+                    $("#approved_active").text(objTotalCountPagingMDL.AdoptedStudent);
+                    $("#approval_pending").text(objTotalCountPagingMDL.PendingAdoptedStudent);
+
+                    for (var i = 0; i < _Datalist.length; i++) {
+                        html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (_Datalist[i].HavePC == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (_Datalist[i].Status == "false" ? "InActive" : "Active") + '</div></td> ';
+
+                        //<td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="/Volunteer/StudentRegistration/' + _Datalist[i].Pk_UserId + '"><i class="la la-pencil"></i>Edit</a> </td>
+                    }
+                    if (_Datalist.length <= 0) {
+                        $('#datalisttbody').html("<tr><td colspan='7'  style='color:red'  >No Record Found!</td></tr>");
+                    }
+                    else {
+                        $('#datalisttbody').html(html);
+                    }
+                }
+                else if (type == "volunteer")
+                {
+                    for (var i = 0; i < _Datalist.length; i++) {
+                        html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> ';
+
+                        //<td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="/Volunteer/StudentRegistration/' + _Datalist[i].Pk_UserId + '"><i class="la la-pencil"></i>View Details</a> </td>
+                    }
+                    if (_Datalist.length <= 0) {
+
+                        $('#volunteerlisttbody').html("<tr><td colspan='7'  style='color:red'  >No Record Found!</td></tr>");
+                    }
+                    else {
+                        $('#volunteerlisttbody').html(html);
+                    }
+                }
+            },
+        });
+        return false;
+        }
     </script>
 }

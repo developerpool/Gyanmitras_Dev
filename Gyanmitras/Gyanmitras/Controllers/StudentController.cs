@@ -57,7 +57,34 @@ namespace Gyanmitras.Controllers
         [UserCustomAuthenticationAttribute]
         public ActionResult Registration(StudentMDL student)
         {
-            student.Password = ClsCrypto.Encrypt(student.Password);
+            string controllerName = "";
+            string area = "";
+            string actionName = "";
+
+            area = "";
+
+            if (student.FormType == "volunteer")
+            {
+                controllerName = "Volunteer";
+                actionName = "StudentRegistration";
+            }
+            else
+            {
+                controllerName = "Home";
+                actionName = "Index";
+            }
+            student.Password = string.IsNullOrEmpty(student.Password) ? "" :  ClsCrypto.Encrypt(student.Password);
+
+            if (student.FormType == "volunteer")
+            {
+                ModelState.Remove("Password");
+                ModelState.Remove("ConfirmPassword");
+                ModelState.Remove("EmailID");
+                ModelState.Remove("AreaOfInterest");
+                ModelState.Remove("TypeOfEducation");
+                ModelState.Remove("CompletionNature");
+                ModelState.Remove("languages");
+            }
 
             if (ModelState.IsValid)
             {
@@ -90,28 +117,26 @@ namespace Gyanmitras.Controllers
                 if (Msg.Equals("Success"))
                 {
 
-                    //string controllerName = "";
-                    //string area = "";
-                    //string actionName = "";
-
-                    //area = "";
-                    //actionName = "Index";
-                    //controllerName = "Home";
-                    ViewBag.Message = "Registration Sucessfull.Please Login to Contineu.";
-                    return View(student);
-                    //  return RedirectToAction(actionName, controllerName, area);
+                    TempData["Message"] = "Registration Sucessfull.Please Login to continue.";
+                    
                 }
                 else
                 {
-                    ViewBag.Message = "Submitting Form Went Wrong";
-                    return View(student);
+                    TempData["Message"] = "Submitting Form Went Wrong";
+
                 }
 
             }
             else
             {
-                return View(student);
+                string Message = string.Join("\n", ModelState.Values
+                                    .SelectMany(x => x.Errors)
+                                    .Select(x => x.ErrorMessage));
+
+
+               
             }
+            return RedirectToAction(actionName, controllerName, area);
         }
 
 

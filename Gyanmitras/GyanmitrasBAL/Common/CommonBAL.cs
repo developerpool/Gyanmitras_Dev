@@ -746,12 +746,12 @@ namespace GyanmitrasBAL.Common
         /// Created Date:06-01-2020
         /// purpose: Get Details
         /// </summary>
-        public bool GetSiteUserDetails(out dynamic _DataList, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId)
+        public bool GetSiteUserDetails(out dynamic _DataList, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId,string type="")
         {
             CommonDAL objDAL = new CommonDAL();
             _DataList = new List<CounselorMDL>();
             objBasicPagingMDL = new BasicPagingMDL();
-            return objDAL.GetSiteUserDetails(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, id, RowPerpage, CurrentPage, SearchBy, SearchValue, UserId, LoginType, FK_CategoryId, FK_RoleId);
+            return objDAL.GetSiteUserDetails(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, id, RowPerpage, CurrentPage, SearchBy, SearchValue, UserId, LoginType, FK_CategoryId, FK_RoleId,type);
 
         }
 
