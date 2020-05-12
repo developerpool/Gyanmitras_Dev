@@ -130,11 +130,13 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
             if (id != 0)
             {
+                ViewBag.RoleId = "Admin";
                 //objUserBal.GetUserMstDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, SessionInfo.User.AccountId, SessionInfo.User.UserId, SessionInfo.User.FK_CustomerId, SessionInfo.User.LoginType, 10, 1);
                 return View("AddEditStudentManagement", new List<StudentMDL>() { new StudentMDL() });
             }
             else
             {
+                ViewBag.RoleId = "Admin";
                 StudentMDL obj = new StudentMDL();
                 obj.IsActive = true;
                 return View("AddEditStudentManagement", obj);
