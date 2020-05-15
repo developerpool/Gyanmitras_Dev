@@ -1,0 +1,923 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool IsAdoptedStudentCounselor = ViewBag.IsAdoptedStudentCounselor;
+    IsAdoptedStudentCounselor = true;
+    Int64 FK_CounselorID = Gyanmitras.Common.SiteUserSessionInfo.User.UserId;
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+<style>
+    .card:hover {
+        box-sizing: border-box;
+        margin-bottom: 1.875rem;
+        border: none;
+        -webkit-box-shadow: 0 1px 15px 1px rgba(62, 57, 107, .07);
+        box-shadow: 0 1px 1px 4px rgba(62, 57, 107, .07);
+    }
+</style>
+<br />
+<div class="content-wrapper">
+
+    <div class="content-body">
+        <section class="NewformTabs">
+            <div class="tab-content px-1 py-1">
+                <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                    <div class="row">
+                        <div class="col-lg-12 offset-lg-1">
+                            <div class="form-body">
+
+                                <div class="row">
+                                    <div class="col-12 mt-1 mb-2">
+                                        <section id="stats-icon-subtitle">
+                                            <div class="row match-height">
+                                                @if (IsAdoptedStudentCounselor)
+                                                {
+                                                    <div class="col-xl-3 col-md-3" id="RegisteredStudentDev" onclick="$('#RegisteredStudentSection').slideDown(500); $('#AdminFeedSection').slideUp(500); ">
+                                                        <div class="card overflow-hidden" style="background:#c5d6c5">
+                                                            <div class="card-content" id="totalitemsCard">
+                                                                <div class="media align-items-stretch">
+                                                                    <div class="media-body p-2">
+                                                                        <h4>Registered (Non Adopted) Student </h4>
+                                                                    </div>
+                                                                    <div class="media-right p-2 media-middle">
+                                                                        <h1 class="info font-weight-bold" id="totalValue">0</h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @if (IsAdoptedStudentCounselor)
+                                                {
+                                                <div class="col-xl-3 col-md-3" id="MyAdoptionDev" onclick="$('#RegisteredStudentSection').slideDown(500); $('#AdminFeedSection').slideUp(500); ">
+                                                    <div class="card overflow-hidden">
+                                                        <div class="card-content" id="inactive">
+                                                            <div class="media align-items-stretch">
+                                                                <div class="media-body p-2">
+                                                                    <h4>
+                                                                       My Aadoption
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="media-right p-2 media-middle">
+                                                                    <h1 class="danger font-weight-bold" id="TotalMyAdoption">0</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                                <div class="col-xl-3 col-md-3" id="AdminFeedSectionDiv" onclick="$('#AdminFeedSection').slideDown(500); $('#RegisteredStudentSection').slideUp(500);">
+                                                    <div class="card overflow-hidden">
+                                                        <div class="card-content" id="inactive">
+                                                            <div class="media align-items-stretch">
+                                                                <div class="media-body p-2">
+                                                                    <h4>Admin Feeds</h4>
+                                                                </div>
+                                                                <div class="media-right p-2 media-middle">
+                                                                    <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-3" onclick="location.href = '/Counselor/ProduceCounselingMaterials?CounselorId=12##$ASD'">
+                                                    <div class="card overflow-hidden">
+                                                        <div class="card-content" id="inactive">
+                                                            <div class="media align-items-stretch">
+                                                                <div class="media-body p-2">
+                                                                    <h4>Produce Counseling Materials</h4>
+                                                                </div>
+                                                                <div class="media-right p-2 media-middle">
+                                                                    <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </section>
+                                        <style>
+                                            .overflow-hidden {
+                                                overflow: hidden;
+                                            }
+
+                                            .p-2 {
+                                                padding: 1.5rem !important;
+                                            }
+
+                                            .media-body {
+                                                -webkit-box-flex: 1;
+                                                /*-webkit-flex: 1;
+                                                -moz-box-flex: 1;
+                                                -ms-flex: 1;*/
+                                                flex: 1;
+                                            }
+
+                                            .card {
+                                                box-sizing: border-box;
+                                                margin-bottom: 1.875rem;
+                                                border: none;
+                                                -webkit-box-shadow: 0 1px 15px 1px rgba(62, 57, 107, .07);
+                                                box-shadow: 0 1px 15px 1px rgba(62, 57, 107, .07);
+                                            }
+
+                                            .align-items-stretch {
+                                                -webkit-box-align: stretch !important;
+                                                /*-webkit-align-items: stretch !important;
+                                                -moz-box-align: stretch !important;
+                                                -ms-flex-align: stretch !important;*/
+                                                align-items: stretch !important;
+                                            }
+
+                                            .media {
+                                                display: -webkit-box;
+                                                /*display: -webkit-flex;
+                                                display: -moz-box;
+                                                display: -ms-flexbox;*/
+                                                display: flex;
+                                                /*-webkit-box-align: start;
+                                                -webkit-align-items: flex-start;
+                                                -moz-box-align: start;
+                                                -ms-flex-align: start;
+                                                align-items: flex-start;*/
+                                            }
+
+                                            .card {
+                                                position: relative;
+                                                display: -webkit-box;
+                                                display: -webkit-flex;
+                                                display: -moz-box;
+                                                display: -ms-flexbox;
+                                                display: flex;
+                                                flex-direction: column;
+                                                min-width: 0;
+                                                word-wrap: break-word;
+                                                border: 1px solid rgba(0, 0, 0, .06);
+                                                border-radius: .35rem;
+                                                background-color: #fff;
+                                                background-clip: border-box;
+                                                -webkit-box-orient: vertical;
+                                                -webkit-box-direction: normal;
+                                                -webkit-flex-direction: column;
+                                                -moz-box-orient: vertical;
+                                                -moz-box-direction: normal;
+                                                -ms-flex-direction: column;
+                                            }
+
+                                            .card-content:hover {
+                                                cursor: pointer;
+                                            }
+                                        </style>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <section id="AdminFeedSection" style="display:none">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Admin Feeds</h4>
+                                            <div class="card">
+                                                <div class="card-header">
+
+                                                </div>
+                                                <div class="card-content collapse show" style="cursor: auto;">
+                                                    <div class="card-body card-dashboard  pt-0">
+                                                        <div class="dataTables_wrapper">
+                                                            <div id="GridDiv">
+                                                                <div class="table-responsive">
+                                                                    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
+                                                                                <th class="text-center">No.</th>
+                                                                                <th class="text-center">Date & Time</th>
+                                                                                <th class="text-center">Description</th>
+                                                                                <th class="text-center">Status</th>
+                                                                                <th class="text-center">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @*<tr>
+                                                                                <td colspan="14">
+                                                                                <div class="text-danger">
+                                                                                Data Not Found.
+                                                                                </div>
+                                                                                </td>
+                                                                                </tr>*@
+                                                                            <tr>
+                                                                                <td><input type="checkbox" value=""></td>
+                                                                                <td class="text-center">1</td>
+
+
+                                                                                <td class="text-center">
+                                                                                    05/01/2020 11:00 PM
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    TEST19
+                                                                                </td>
+
+                                                                                <td align="center"><div class="success text-bold-600">Active</div></td>
+
+                                                                                <td align="center" class="text-nowrap text-center">
+                                                                                    <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
+                                                                                    <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;delete?')" href="/MstCustomer/DeleteCustomer/1562 "><i class="la la-trash-o"></i>Not Interested</a>
+
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                @if (IsAdoptedStudentCounselor)
+                                {
+                                    <section id="RegisteredStudentSection">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4>
+                                                    Registered Student Details
+                                                </h4>
+                                                <div class="card">
+                                                    <div class="card-header">
+
+                                                    </div>
+                                                    <div class="card-content collapse show" style="cursor: auto;">
+                                                        <div class="card-body card-dashboard  pt-0">
+                                                            <div class="dataTables_wrapper">
+                                                                <div id="GridDiv">
+                                                                    <div class="table-responsive">
+                                                                        <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    @*<th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>*@
+                                                                                    <th class="text-center">No.</th>
+                                                                                    <th class="text-center">Name Of Student</th>
+                                                                                    <th class="text-center">Contact of student</th>
+                                                                                    @*<th class="text-center">Guardian’s Contact</th>*@
+                                                                                    <th class="text-center">Email ID .</th>
+                                                                                    
+                                                                                    <th class="text-center">Do you have a PC?</th>
+                                                                                    <th class="text-center">Status</th>
+                                                                                    <th class="text-center">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="datalisttbody">
+
+                                                                                @*<tr>
+                                                                                        <td><input type="checkbox"  value="" ></td>
+                                                                                        <td class="text-center">1</td>
+                                                                                        <td class="text-center">
+                                                                                            TEST19
+                                                                                        </td>
+
+                                                                                        <td class="text-center">
+                                                                                            325247383
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            325247383
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            jhbdfjv@tfavjdhfb.com
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            Yes
+                                                                                        </td>
+
+                                                                                        <td align="center"><div class="success text-bold-600">Active</div></td>
+
+                                                                                        <td align="center" class="text-nowrap text-center">
+                                                                                            <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
+                                                                                            <a class="btn btn-icon btn-dark btn-sm" href="#" onclick="StudentActionPanelFun()"><i class="la la-pencil"></i>Counsel</a>
+
+
+                                                                                        </td>
+                                                                                    </tr>*@
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                }
+
+
+
+
+                                <div id="StudentActionPanel" style="display:none">
+                                    <div class="col-12 mt-1 mb-2">
+                                        <section id="stats-icon-subtitle">
+                                            <div class="row match-height">
+
+                                                <div class="col-xl-3 col-md-3" id="PlannedCommunicationSectionDiv" onclick="$('#PlannedCommunicationSection').slideDown(500); $('#FeedbackSection').slideUp(500);">
+                                                    <div class="card">
+                                                        <div class="card-content" id="active">
+                                                            <div class="media align-items-stretch">
+                                                                <div class="media-body p-2">
+                                                                    <h4>Planned Communication</h4>
+                                                                </div>
+                                                                <div class="media-right p-2 media-middle">
+                                                                    <h1 class="success font-weight-bold" id="totalPlannedCommunication">0</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-3" onclick="$('#FeedbackSection').slideDown(500); $('#PlannedCommunicationSection').slideUp(500);">
+                                                    <div class="card">
+                                                        <div class="card-content" id="active">
+                                                            <div class="media align-items-stretch">
+                                                                <div class="media-body p-2">
+                                                                    <h4>Feedback</h4>
+                                                                </div>
+                                                                <div class="media-right p-2 media-middle">
+                                                                    <h1 class="success font-weight-bold" id="totalFeedback">0</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </section>
+
+                                        <section id="PlannedCommunicationSection">
+
+                                            <div class="row">
+                                                <div class="text-right col-md-12 col-12">
+                                                    <a href="javascript:void(0)" onclick="$('#myModal').modal('show');" class="btn btn-primary btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> New Plan Communication</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h4>
+                                                        Planned Communication
+                                                    </h4>
+                                                    <div class="card">
+                                                        <div class="card-header">
+
+                                                        </div>
+                                                        <div class="card-content collapse show" style="cursor: auto;">
+                                                            <div class="card-body card-dashboard  pt-0">
+                                                                <div class="dataTables_wrapper">
+                                                                    <div id="GridDiv">
+                                                                        <div class="table-responsive">
+                                                                            <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
+                                                                                        <th class="text-center">No.</th>
+                                                                                        <th class="text-center">Date & Time</th>
+                                                                                        <th class="text-center">Description</th>
+                                                                                        <th class="text-center">Status</th>
+                                                                                        @*<th class="text-center">Action</th>*@
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="tbodyPlanned">
+                                                                                    @*<tr>
+                                                                                            <td colspan="14">
+                                                                                                <div class="text-danger">
+                                                                                                    Data Not Found.
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>*@
+
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                        <section id="FeedbackSection" style="display:none">
+
+                                            <div class="row">
+                                                <div class="text-right col-md-12 col-12">
+                                                    <a href="/Counselor/NewStudentFeedback" class="btn btn-primary btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i>New Feedback</a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h4>
+                                                        Feedback
+                                                    </h4>
+                                                    <div class="card">
+                                                        <div class="card-header">
+
+                                                        </div>
+                                                        <div class="card-content collapse show" style="cursor: auto;">
+                                                            <div class="card-body card-dashboard  pt-0">
+                                                                <div class="dataTables_wrapper">
+                                                                    <div id="GridDiv">
+                                                                        <div class="table-responsive">
+                                                                            <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
+                                                                                        <th class="text-center">No.</th>
+                                                                                        <th class="text-center">Date & Time</th>
+                                                                                        <th class="text-center">Description</th>
+                                                                                        <th class="text-center">Status</th>
+                                                                                        <th class="text-center">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @*<tr>
+                                                                                            <td colspan="14">
+                                                                                                <div class="text-danger">
+                                                                                                    Data Not Found.
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>*@
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" value=""></td>
+                                                                                        <td class="text-center">1</td>
+
+
+                                                                                        <td class="text-center">
+                                                                                            05/01/2020 11:00 PM
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            TEST19
+                                                                                        </td>
+
+                                                                                        <td align="center"><div class="success text-bold-600">Active</div></td>
+
+                                                                                        <td align="center" class="text-nowrap text-center">
+                                                                                            <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
+                                                                                            <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;delete?')" href="/MstCustomer/DeleteCustomer/1562 "><i class="la la-trash-o"></i>Not Interested</a>
+
+
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*<div class="col-lg-3 offset-lg-1">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12 mt-1 mb-2">
+                                            <h4>Advertisement</h4>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Plan Communication</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 offset-lg-1">
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label text-center" for="eventRegInput1">Time Slot</label>
+                            <div class="col-md-9">
+                                @Html.TextBox("TimeSlot", "", new { @class = "form-control", @type = "datetime" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label text-center" for="eventRegInput1">Plan Description</label>
+                            <div class="col-md-9">
+                                @Html.TextArea("PlanDescription", new { @class = "form-control", @row = "3" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12" style="text-align:right">
+                                <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="addPlanCommunication">Add</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+
+                            </div>
+                            <div class="card-content collapse show" style="cursor: auto;">
+                                <div class="card-body card-dashboard  pt-0">
+                                    <div class="dataTables_wrapper">
+                                        <div id="GridDiv">
+                                            <div class="table-responsive">
+                                                <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">No.</th>
+                                                            <th class="text-center">Date & Time</th>
+                                                            <th class="text-center">Description</th>
+                                                            <th class="text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbodyPlanCommunication">
+                                                        <tr>
+                                                            <td colspan="14">
+                                                                <div class="text-danger">
+                                                                    Data Not Found.
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="submitPlanCommunication">Submit</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/daterangepicker.css" />
+    <script>
+        var PlanCommunication = new Array();
+        $(function () {
+
+            $("#TimeSlot").attr('readonly', 'readonly');
+
+
+            $("#TimeSlot").daterangepicker({
+                datepickerOptions: {
+                    numberOfMonths: 1
+                },
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm:ss'
+                },
+                //"startDate": moment().hours(24).minutes(00),
+                //"endDate": moment().hours(24).minutes(00),
+                ranges: {
+                    'Today': [moment().hours(0).minutes(0), moment().hours(24).minutes(00)],
+                    //'Yesterday': [moment().subtract('days', 1).hours(0).minutes(0), moment().subtract('days', 1).hours(23).minutes(59)],
+                    //'Last 7 Days': [moment().subtract('days', 6).hours(0).minutes(0), moment().hours(24).minutes(00)],
+                    //'Last 30 Days': [moment().subtract('days', 29).hours(0).minutes(0), moment().hours(24).minutes(00)],
+                    'This Month': [moment().startOf('month').hours(0).minutes(0), moment().endOf('month').hours(24).minutes(00)],
+                },
+                "minDate": moment().endOf("day"),
+                timePicker: true
+
+            });
+            $("#RegisteredStudentDev").click(function (e) {
+                paging(1, this);
+            });
+            $("#MyAdoptionDev").click(function (e) {
+                $('#datalisttbody').empty();
+                if (!MyAdoptHtml) {
+                    $('#datalisttbody').html("<tr><td colspan='9' style='color:red' >No Record Found!</td></tr>");
+                }
+                else {
+                    $('#datalisttbody').html(MyAdoptHtml);
+                }
+                
+            });
+
+            $(".card").click(function () {
+                if ($(this).find('table > tbody > tr').length <= 0) {
+                    $('.card').removeAttr('style');
+                    $(this).attr('style', 'background:#c5d6c5');
+                }
+            });
+            if ('@IsAdoptedStudentCounselor' == 'True') {
+                $("#RegisteredStudentDev").find('.card').trigger('click');
+            }
+            else {
+                $("#AdminFeedSection").show();
+                $("#AdminFeedSectionDiv").trigger('click');
+                $("#AdminFeedSectionDiv").find('.card').trigger('click');
+            }
+
+
+
+
+
+            $("#addPlanCommunication").click(function (e) {
+                debugger;
+                var TimeSlot = $("#TimeSlot").val();
+                var DateTimeFrom = TimeSlot.split(' - ')[0];
+                var DateTimeTo = TimeSlot.split(' - ')[1];
+                var DateFrom = DateTimeFrom.split(' ');
+                var DateTo = DateTimeTo.split(' ');
+
+                if (!$("#TimeSlot").val()) {
+                    $("#TimeSlot").focus();
+                    alert("Time Slot Is Required!");
+                    return false;
+                    e.preventDefault();
+                }
+                if (!$("#PlanDescription").val()) {
+                    $("#PlanDescription").focus();
+                    alert("Plan Description Is Required!");
+                    return false;
+                    e.preventDefault();
+                }
+                if (DateFrom[0] != DateTo[0]) {
+                    alert("From Date And To Date can't be different,time slot will be different between 24Hours!");
+                    return false;
+                    e.preventDefault();
+                }
+
+                if (PlanCommunication.length > 0) {
+                    for (var i = 0; i < PlanCommunication.length; i++) {
+                        if (PlanCommunication[i].DateTimeFrom == DateTimeFrom && PlanCommunication[i].DateTimeTo == DateTimeTo) {
+                            alert("A Time Slot already have, please select different Time Slot between 24Hours!");
+                            return false;
+                            e.preventDefault();
+                        }
+                    }
+
+                    
+                }
+                var bool = false;
+                $("#tbodyPlanned > tr").each(function () {
+                    var TimeSlot1 = $.trim($(this).find('td:eq(2)').text());
+                    var DateTimeFrom1 = TimeSlot1.split(' - ')[0];
+                    var DateTimeTo1 = TimeSlot1.split(' - ')[1];
+                    if (DateTimeFrom == DateTimeFrom1 && DateTimeTo == DateTimeTo1) {
+                        bool = true;
+                    }
+                });
+
+                if (bool)
+                {
+                    alert("A Time Slot already have, please select different Time Slot between 24Hours!");
+                    return false;
+                    e.preventDefault();
+                }
+
+                var PlanDescription = $("#PlanDescription").val();
+                PlanCommunication.push({
+
+                    "FK_CounselorID": '@FK_CounselorID',
+                    "FK_StudentID": $.trim(PK_ID),
+                    "DateTimeFrom": $.trim(DateTimeFrom),
+                    'DateTimeTo': $.trim(DateTimeTo),
+                    "CommunicationPlan": $.trim(PlanDescription),
+
+                });
+                if ($.trim($("#tbodyPlanCommunication").find('div[class="text-danger"]').text()) == 'Data Not Found.') {
+                    $("#tbodyPlanCommunication").empty();
+                }
+                $("#tbodyPlanCommunication").append('<tr><td class="text-center">' + ((PlanCommunication.length == 0) ? 1 : PlanCommunication.length) + '</td><td class="text-center">' + $.trim(DateTimeFrom) + ' - ' + $.trim(DateTimeTo) + '</td><td class="text-center">' + $.trim(PlanDescription) + '</td>   <td class="text-center">  <a class="btn btn-icon btn-danger btn-sm delete" href="javascript:void(0)" rowid="' + ((PlanCommunication.length == 0) ? 1 : PlanCommunication.length) + '" onclick="remove(this)"><i class="la la-trash-o"></i>Remove</a>  </td>  </tr>');
+
+                $("#TimeSlot").val('');
+                $("#PlanDescription").val('');
+
+
+
+            });
+
+            $("#submitPlanCommunication").click(function (e) {
+
+                if (PlanCommunication.length <= 0) {
+                    alert("Please select Time Slot!");
+                    return false;
+                    e.preventDefault();
+                }
+
+
+                $.ajax({
+                    url: "@Url.Action("AddPlannedCommunication", "Counselor")",
+                    type: 'GET',
+                    cache: false,
+                    beforeSend: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").show();
+                    },
+                    complete: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").hide();
+                    },
+                    data: { 'json_PlanCommunication': JSON.stringify(PlanCommunication) ,"IsAdopt" : "false"},
+                    success: function (data) {
+                        if (String(data.MessageId) == "1") {
+                            alert(data.Message);
+                            $('#myModal').modal('hide');
+                            StudentActionPanelFun(this,PK_ID);
+                        }
+                        else {
+                            alert('Somthing Went Wrong!');
+                        }
+                    }
+                });
+            });
+
+
+
+        });
+
+
+        function remove(a) {
+            $(a).closest("tr").remove();
+            PlanCommunication.pop($(a).attr('rowid'));
+        }
+
+        var StudentActionPanel_Flag = false;
+        var PK_ID = 0;
+        function StudentActionPanelFun(a, myPK_ID) {
+            debugger;
+            if (myPK_ID) {
+                PK_ID = myPK_ID;
+            }
+            else {
+                PK_ID = $(a).attr('pk_id');
+            }
+            $("#tbodyPlanned").empty();
+            $("#tbodyPlanned").append('<tr> <td colspan="5"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
+            if (!StudentActionPanel_Flag) {
+                $("#PlannedCommunicationSectionDiv").find('.card').trigger('click');
+                $('#StudentActionPanel').slideDown(500);
+            }
+            else {
+                $('#StudentActionPanel').slideUp(500);
+            }
+
+            $.ajax({
+                url: "@Url.Action("GetPlannedCommunication", "Counselor")",
+                type: 'GET',
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                data: { 'FK_StudentID': parseInt(PK_ID) },
+                success: function (data) {
+                    
+                    if (data.length > 0) {
+                        $("#totalPlannedCommunication").text(data.length);
+                        $("#tbodyPlanned").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#tbodyPlanned").append('<tr> <td><input id="' + i + '" type="checkbox" value=""></td> <td class="text-center">' + Number(i + 1) + '</td> <td class="text-center"> ' + data[i].DateTimeFrom + ' - ' + data[i].DateTimeTo + ' </td> <td class="text-center">  ' + data[i].CommunicationPlan + ' </td> <td align="center"><div class="success text-bold-600">' + (String(data[i].IsActive) == "true" ? "Active" : "Closed") + '</div></td> </tr>');
+                        }
+                    }
+                    else {
+                        
+                    }
+                }
+            });
+
+            $("#tbodyPlanned").focus();
+
+        }
+
+        var MyAdoptHtml = '';
+        var html = "";
+
+        /*************Paging**************/
+        function paging(currentpage, a, MySearchCreteria, MySearchValue, type) {
+            debugger;
+            $('#datalisttbody').html("<tr><td colspan='9' style='color:red' >No Record Found!</td></tr>");
+
+            if (currentpage == NaN || currentpage <= 0) {
+                return false;
+            }
+            var SearchCreteria = "";
+            var SearchValue = "";
+            if (a) {
+                SearchCreteria = $(a).attr('searchby');
+                SearchValue = $(a).attr('searchvalue');
+            }
+            else {
+                SearchCreteria = MySearchCreteria;
+                SearchValue = MySearchValue;
+            }
+
+            var PK_ID = 0;
+            $.ajax({
+                url: "@Url.Action("GetStudents", "Counselor")",
+                type: 'GET',
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                data: { 'CurrentPage': parseInt(currentpage), 'RowPerpage': $('#Select_NoRecord').val(), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue, 'PK_ID': PK_ID },
+                success: function (data) {
+                    var mytotal  = 0 ;
+                    //var obj = JSON.stringify(data);
+                     MyAdoptHtml = '';
+                     html = "";
+                    //var objBasicPagingMDL = data.objBasicPagingMDL;
+                    var objTotalCountPagingMDL = data.objTotalCountPagingMDL;
+                    var _Datalist = data._Datalist;
+
+                    if (!type) {
+                       
+                        //$("#approved_active").text(objTotalCountPagingMDL.AdoptedStudent);
+                        //$("#approval_pending").text(objTotalCountPagingMDL.PendingAdoptedStudent);
+
+                        for (var i = 0; i < _Datalist.length; i++) {
+                            
+                            
+                            if (String(_Datalist[i].MyAdoption) == 'true') {
+                                MyAdoptHtml += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (String(_Datalist[i].HavePC) == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (String(_Datalist[i].IsAdoptedStudent) == "true" ? "Adopted" : "Non-Adopted") + '</div></td>  <td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="/Counselor/StudentAdoption/' + _Datalist[i].Pk_UserId + '"><i class="la la-pencil"></i>View Details</a> <a class="btn btn-icon btn-dark btn-sm" href="#" PK_ID="' + _Datalist[i].Pk_UserId + '" onclick="StudentActionPanelFun(this)"><i class="la la-pencil"></i>Counsel</a> ';
+                            }
+                            else {
+                                if (String(_Datalist[i].IsMachingStudentsForCounselor) == 'true' && String(_Datalist[i].IsAdoptedStudent) == "false") {
+                                    mytotal++ ;
+                                    html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (String(_Datalist[i].HavePC) == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (String(_Datalist[i].IsAdoptedStudent) == "true" ? "Adopted" : "Non-Adopted") + '</div></td>  <td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="/Counselor/StudentAdoption/' + _Datalist[i].Pk_UserId + '"><i class="la la-pencil"></i>View Details</a>';
+                                }
+                                //<a class="btn btn-icon btn-dark btn-sm" href="#" PK_ID="' + _Datalist[i].Pk_UserId + '" onclick="StudentActionPanelFun(this)"><i class="la la-pencil"></i>Counsel</a> 
+                            }
+                        }
+                        if (_Datalist.length <= 0) {
+                            $('#datalisttbody').html("<tr><td colspan='9'  style='color:red'  >No Record Found!</td></tr>");
+                        }
+                        else {
+                           
+
+                            $("#totalValue").text(mytotal);
+                            $("#TotalMyAdoption").text(objTotalCountPagingMDL.TotalAdoptedStudentByCounselor);
+                            $('#datalisttbody').html(html);
+
+                            if (mytotal == 0) {
+                                $('#datalisttbody').html("<tr><td colspan='9'  style='color:red'  >No Record Found!</td></tr>");
+                            }
+                        }
+                    }
+
+                },
+            });
+            return false;
+        }
+
+    </script>
+}

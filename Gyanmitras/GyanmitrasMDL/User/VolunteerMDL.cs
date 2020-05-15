@@ -89,6 +89,18 @@ namespace GyanmitrasMDL.User
         public bool IsManageCreiticalSupport { get; set; }
         public bool IsApprovedCounselor { get; set; }
         public bool IsAdoptedStudent { get; set; }
+        public bool MyAdoption { get; set; }
+
+        public bool AdoptionWish { get; set; }
+        public bool HaveSmartPhone { get; set; }
+        
+
+
+        public bool IsMachingStudentsForCounselor { get; set; }
+        public List<SiteUserEducationDetailsMDL> EducationDetails { get; set; }
+
+
+        public string JSON_EducationDetails { get; set; }
 
     }
 }

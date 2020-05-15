@@ -35,6 +35,7 @@ namespace GyanmitrasMDL
         public bool IsManageCreiticalSupport { get; set; }
         public int AdoptedStudent { get; set; }
         public int PendingAdoptedStudent { get; set; }
+        public int TotalAdoptedStudentByCounselor { get; set; }
         
 
 

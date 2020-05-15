@@ -42,22 +42,25 @@ namespace GyanmitrasDAL.User
                 dt.Columns.Add("OtherWork");
                 dt.Columns.Add("Specification");
                 dt.Columns.Add("CourseName");
-                dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("Secondry"), Convert.ToString("10"), objCounselorMDL.Secondry_Education_Board, DBNull.Value, DBNull.Value, DBNull.Value, Convert.ToString("Completed"),
+                if (objCounselorMDL.AreYou == "StudentDiv")
+                {
+                    dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("Secondry"), Convert.ToString("10"), objCounselorMDL.Secondry_Education_Board, DBNull.Value, DBNull.Value, DBNull.Value, Convert.ToString("Completed"),
                    objCounselorMDL.Secondry_Percentage, DBNull.Value, DBNull.Value, DBNull.Value, objCounselorMDL.Secondry_Year_of_Passing, DBNull.Value, DBNull.Value, DBNull.Value);
 
-                dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("HigherSecondry"), Convert.ToString("12"), objCounselorMDL.HigherSecondry_Education_Board, objCounselorMDL.HigherSecondry_StreamType, DBNull.Value, DBNull.Value, Convert.ToString("Completed"),
-                   objCounselorMDL.HigherSecondry_Percentage, DBNull.Value, DBNull.Value, DBNull.Value, objCounselorMDL.HigherSecondry_Year_of_Passing, DBNull.Value, DBNull.Value, DBNull.Value);
+                    dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("HigherSecondry"), Convert.ToString("12"), objCounselorMDL.HigherSecondry_Education_Board, objCounselorMDL.HigherSecondry_StreamType, DBNull.Value, DBNull.Value, Convert.ToString("Completed"),
+                       objCounselorMDL.HigherSecondry_Percentage, DBNull.Value, DBNull.Value, DBNull.Value, objCounselorMDL.HigherSecondry_Year_of_Passing, DBNull.Value, DBNull.Value, DBNull.Value);
 
-                dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("Graduation"), DBNull.Value, DBNull.Value, objCounselorMDL.Graduation_StreamType, objCounselorMDL.Graduation_UniversityName, DBNull.Value, Convert.ToString("Completed"),
-                   objCounselorMDL.Graduation_Percentage, DBNull.Value, DBNull.Value, DBNull.Value, objCounselorMDL.Graduation_Year_of_Passing, DBNull.Value, DBNull.Value, objCounselorMDL.Graduation_CourseName);
+                    dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("Graduation"), DBNull.Value, DBNull.Value, objCounselorMDL.Graduation_StreamType, objCounselorMDL.Graduation_UniversityName, DBNull.Value, Convert.ToString("Completed"),
+                       objCounselorMDL.Graduation_Percentage, DBNull.Value, DBNull.Value, DBNull.Value, objCounselorMDL.Graduation_Year_of_Passing, DBNull.Value, DBNull.Value, objCounselorMDL.Graduation_CourseName);
 
-                dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("PostGraduation"), DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.PostGraduation_StreamType) ? DBNull.Value : (object)(int.Parse(objCounselorMDL.PostGraduation_StreamType)), String.IsNullOrEmpty(objCounselorMDL.PostGraduation_UniversityName) ? DBNull.Value : (object)(objCounselorMDL.PostGraduation_UniversityName), DBNull.Value, DBNull.Value,
-                 Convert.ToDecimal(objCounselorMDL.PostGraduation_Percentage), DBNull.Value, DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.PostGraduation_Year_of_Passing) ? DBNull.Value : (object)(objCounselorMDL.PostGraduation_Year_of_Passing), DBNull.Value, DBNull.Value,
-                 String.IsNullOrEmpty(objCounselorMDL.PostGraduation_CourseName) ? DBNull.Value : (object)(objCounselorMDL.PostGraduation_CourseName));
+                    dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("PostGraduation"), DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.PostGraduation_StreamType) ? DBNull.Value : (object)(int.Parse(objCounselorMDL.PostGraduation_StreamType)), String.IsNullOrEmpty(objCounselorMDL.PostGraduation_UniversityName) ? DBNull.Value : (object)(objCounselorMDL.PostGraduation_UniversityName), DBNull.Value, DBNull.Value,
+                     Convert.ToDecimal(objCounselorMDL.PostGraduation_Percentage), DBNull.Value, DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.PostGraduation_Year_of_Passing) ? DBNull.Value : (object)(objCounselorMDL.PostGraduation_Year_of_Passing), DBNull.Value, DBNull.Value,
+                     String.IsNullOrEmpty(objCounselorMDL.PostGraduation_CourseName) ? DBNull.Value : (object)(objCounselorMDL.PostGraduation_CourseName));
 
-                dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("Docterate"), DBNull.Value, DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.Docterate_UniversityName) ? DBNull.Value : (object)(objCounselorMDL.Docterate_UniversityName), DBNull.Value, DBNull.Value,
-                   Convert.ToDecimal(objCounselorMDL.NET_JRF_Percentage), DBNull.Value, DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.Docterate_Year_of_Passing) ? DBNull.Value : (object)(objCounselorMDL.Docterate_Year_of_Passing), String.IsNullOrEmpty(objCounselorMDL.Specification) ? DBNull.Value : (object)(objCounselorMDL.Specification), String.IsNullOrEmpty(objCounselorMDL.Extra_work) ? DBNull.Value : (object)(objCounselorMDL.Extra_work), DBNull.Value);
-
+                    dt.Rows.Add(objCounselorMDL.UID, Convert.ToString("Docterate"), DBNull.Value, DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.Docterate_UniversityName) ? DBNull.Value : (object)(objCounselorMDL.Docterate_UniversityName), DBNull.Value, DBNull.Value,
+                       Convert.ToDecimal(objCounselorMDL.NET_JRF_Percentage), DBNull.Value, DBNull.Value, DBNull.Value, String.IsNullOrEmpty(objCounselorMDL.Docterate_Year_of_Passing) ? DBNull.Value : (object)(objCounselorMDL.Docterate_Year_of_Passing), String.IsNullOrEmpty(objCounselorMDL.Specification) ? DBNull.Value : (object)(objCounselorMDL.Specification), String.IsNullOrEmpty(objCounselorMDL.Extra_work) ? DBNull.Value : (object)(objCounselorMDL.Extra_work), DBNull.Value);
+                }
+               
                 List<SqlParameter> parms = new List<SqlParameter>()
                 {
                      new SqlParameter("@DistrictAreaOfSearch",DBNull.Value),
@@ -71,7 +74,7 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@StateID",objCounselorMDL.FK_StateId),
                      new SqlParameter("@CityID",objCounselorMDL.FK_CityId),
                      new SqlParameter("@LanguageKnownID",String.IsNullOrEmpty(objCounselorMDL.languages)  ? DBNull.Value : (object)(int.Parse(objCounselorMDL.languages))),
-                     new SqlParameter("@AreaOfInterestID",String.IsNullOrEmpty(objCounselorMDL.AreaOfInterest)  ? DBNull.Value : (object)(int.Parse(objCounselorMDL.AreaOfInterest))),
+                     new SqlParameter("@AreaOfInterestID",objCounselorMDL.AreaOfInterest),
                      new SqlParameter("@UserName",objCounselorMDL.UID),
                      new SqlParameter("@CategoryID",2),
                      new SqlParameter("@RoleID",2),
@@ -79,7 +82,7 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@Password",objCounselorMDL.Password),
                         new SqlParameter("@IsActive",1),
                      new SqlParameter("@Image",objCounselorMDL.ImageName),
-                          new SqlParameter("@Createddatetime",DateTime.Now),
+                          
                     new SqlParameter("@HaveSmartPhone",DBNull.Value),
                      new SqlParameter("@HavePC",objCounselorMDL.HavePC),
                         new SqlParameter("@AdoptionWish",objCounselorMDL.LikeAdoptStudentLater),
@@ -89,7 +92,7 @@ namespace GyanmitrasDAL.User
 
                       new SqlParameter("@EmployedExpertise",objCounselorMDL.Expertise_Details),
                    new SqlParameter("@RetiredExpertise",objCounselorMDL.Retired_Expertise_Details),
-                    new SqlParameter("@AreYou",objCounselorMDL.AreYou),
+                    new SqlParameter("@AreYou",objCounselorMDL.AreYou.Replace("Div","")),
                 };
                 CheckParameters.ConvertNullToDBNull(parms);
                 CommandText = "[siteusers].[sp_SubmitRegistration]";

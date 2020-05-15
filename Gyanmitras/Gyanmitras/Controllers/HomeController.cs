@@ -141,7 +141,7 @@ namespace Gyanmitras.Controllers
 
 
                     area = "";
-                    actionName = _User.CategoryId == 2 ? "AdoptedStudentIndex" : "Index" ;
+                    actionName = "Index" ;
                     controllerName = _User.CategoryId == 1 ? "Student" : (_User.CategoryId == 2 ? "Counselor" : (_User.CategoryId == 3 ? "Volunteer" : ""));
 
 

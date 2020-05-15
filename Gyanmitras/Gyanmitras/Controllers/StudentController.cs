@@ -80,7 +80,7 @@ namespace Gyanmitras.Controllers
                 ModelState.Remove("Password");
                 ModelState.Remove("ConfirmPassword");
                 ModelState.Remove("EmailID");
-                ModelState.Remove("AreaOfInterest");
+                ModelState.Remove("AreaOfInterestIds");
                 ModelState.Remove("TypeOfEducation");
                 ModelState.Remove("CompletionNature");
                 ModelState.Remove("languages");
@@ -88,15 +88,32 @@ namespace Gyanmitras.Controllers
 
             if (ModelState.IsValid)
             {
+                if (student.AreaOfInterestIds != null)
+                {
+
+                    foreach (var item in student.AreaOfInterestIds)
+                    {
+                        student.AreaOfInterest += item.ToString() + ",";
+                    }
+                    student.AreaOfInterest = student.AreaOfInterest.Substring(0, student.AreaOfInterest.LastIndexOf(','));
+
+                }
+                else {
+                    student.AreaOfInterest = "";
+                }
                 HttpPostedFileBase Imgfile = student.Image;
                 if (Imgfile != null)
                 {
 
 
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                                "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                                Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
+
                     if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/StudentImages/")))
                         Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/StudentImages/"));
 
-                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/StudentImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/StudentImages/", filenamemodefied );
 
                     if (!string.IsNullOrEmpty(student.ImageName))
                     {
@@ -107,10 +124,11 @@ namespace Gyanmitras.Controllers
                         }
                     }
 
-                    student.ImageName = Imgfile.FileName;
+                    student.ImageName = filenamemodefied;
                 }
                 StudentBAL objStudentBAL = new StudentBAL();
                 string Msg = "";
+                student.CreatedBy = SiteUserSessionInfo.User == null ? 0 : SiteUserSessionInfo.User.UserId;
                 StringBuilder objMsg = objStudentBAL.RegisterStudent(student);
                 Msg = objMsg.ToString();
 
@@ -118,7 +136,9 @@ namespace Gyanmitras.Controllers
                 {
 
                     TempData["Message"] = "Registration Sucessfull.Please Login to continue.";
-                    
+                    ViewBag.FormType = "";
+
+
                 }
                 else
                 {
@@ -133,10 +153,12 @@ namespace Gyanmitras.Controllers
                                     .SelectMany(x => x.Errors)
                                     .Select(x => x.ErrorMessage));
 
+                TempData["ErrorMessage"] = "Somthing went wrong!";
 
-               
+
             }
-            return RedirectToAction(actionName, controllerName, area);
+            return View(student);
+            //return RedirectToAction(actionName, controllerName, area);
         }
 
 
@@ -248,7 +270,15 @@ namespace Gyanmitras.Controllers
         }
 
 
+        public JsonResult GetPlannedCommunication(Int64 FK_StudentID)
+        {
+            StudentBAL obj = new StudentBAL();
+            Int64 FK_CounselorID = 0;
+            string LoginType = "student";
+            return Json(obj.GetPlannedCommunication(FK_CounselorID, FK_StudentID, LoginType), JsonRequestBehavior.AllowGet);
+        }
 
-        
+
+
     }
 }

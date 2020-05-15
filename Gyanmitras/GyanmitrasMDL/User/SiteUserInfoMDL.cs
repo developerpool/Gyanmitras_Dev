@@ -15,6 +15,8 @@ namespace GyanmitrasMDL.User
         public string CategoryName { get; set; }
         public string LoginType { get; set; }
         public string LandingPageURL { get; set; }
+        public bool IsAdoptedStudentCounselor { get; set; }
+
         public static SiteUserRoleAndRightsMDL GetUserRoleAndRights
         {
             get

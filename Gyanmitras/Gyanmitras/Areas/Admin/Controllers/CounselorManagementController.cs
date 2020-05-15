@@ -235,6 +235,37 @@ namespace Gyanmitras.Areas.Admin.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Delete user by ID 
+        /// </summary>
+        /// <createdBy>Vinish</createdBy>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ApproveCounselor(Int64 id)
+        {
+            string type = "approve_counselor";
+            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
+            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
+            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
+            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
+            CommonBAL objMDL = new CommonBAL();
+            MessageMDL msg = objMDL.SiteUserActionManagementByAdmin(id, SessionInfo.User.UserId, type);
+            if (msg.MessageId == 1)
+            {
+                msg.Message = msg.Message;
+                TempData["Message"] = msg;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                msg.Message = msg.Message;
+                TempData["Message"] = msg;
+                return RedirectToAction("Index");
+            }
+        }
+        
+
         /// <summary>
         /// Get State By Country ID using of Common Bal 
         /// </summary>

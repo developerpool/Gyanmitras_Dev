@@ -48,6 +48,7 @@ namespace GyanmitrasMDL.User
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceName = "MobileNoIsValid", ErrorMessageResourceType = typeof(Resource))]
         public string AlternateMobileNo { get; set; }
         [Required(ErrorMessage = "Please Select Area Of Interest")]
+        public string[] AreaOfInterestIds { get; set; }
         public string AreaOfInterest { get; set; }
         public HttpPostedFileBase Image { get; set; }
         public string ImageName { get; set; }
@@ -100,7 +101,11 @@ namespace GyanmitrasMDL.User
         public bool IsApprovedCounselor { get; set; }
         public bool IsAdoptedStudent { get; set; }
 
+        public bool MyAdoption { get; set; }
+        public bool IsMachingStudentsForCounselor { get; set; }
+        public List<SiteUserEducationDetailsMDL> EducationDetails { get; set; }
 
+        public string JSON_EducationDetails { get; set; }
     }
 }
 

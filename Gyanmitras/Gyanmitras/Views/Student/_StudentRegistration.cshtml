@@ -4,15 +4,15 @@
     bool IsProfile = false;
     bool IsRegistration = true;
     bool IsCounselor = false;
-    if (Model.FormType == "volunteer")
+    if (ViewBag.FormType == "volunteer")
     {
         IsVolunteer = true;
     }
-    else if (ViewBag.type != "Edit")
+    else if (ViewBag.type == "Edit")
     {
         IsProfile = true;
     }
-    if (Model.FormType == "counselor" || ViewBag.FormType == "counselor")
+    else if (ViewBag.FormType == "counselor")
     {
         IsRegistration = true;
         IsCounselor = true;
@@ -158,7 +158,7 @@
                                             </div>
                                         </div>
                                     }
-                                    if (!IsVolunteer)
+                                    if (!IsVolunteer && !IsCounselor)
                                     {
                                         <div class="row">
                                             <div class="col-12 mt-1 mb-2">
@@ -202,9 +202,9 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">Area Of Interest<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.DropDownListFor(E => E.AreaOfInterest, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
+                                            @Html.DropDownListFor(E => E.AreaOfInterestIds, new SelectList(Enumerable.Empty<SelectListItem>(), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
 
-                                            @Html.ValidationMessageFor(E => E.AreaOfInterest)
+                                            @Html.ValidationMessageFor(E => E.AreaOfInterestIds)
                                         </div>
                                     </div>
                                 }
@@ -259,7 +259,7 @@
                                             @Html.ValidationMessageFor(E => E.AdoptionWish)
                                         </div>
                                     </div>
-                                    if (!IsVolunteer)
+                                    if (!IsVolunteer && !IsCounselor)
                                     {
                                         <div class="row">
                                             <div class="col-12 mt-1 mb-2">
@@ -375,7 +375,8 @@
                                     <div class="col-md-7">
 
                                         @Html.CheckBoxFor(E => E.Declaration)
-                                        I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer (Provide a hyperlink which data I will provide later )<br />
+                                        I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer @*(Provide a hyperlink which data I will provide later )*@
+                                        <br />
                                         @Html.ValidationMessageFor(E => E.Declaration)
                                         @Html.Hidden(nameof(Model.IsTrue), "true")
 
@@ -392,9 +393,19 @@
 
                                 @if (!IsCounselor)
                                 {
-                                    <div class="form-actions center">
+                                    <div class="form-actions center" style="text-align:center;">
                                         <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
                                         <a href='@Url.Action("StudentRegistration")' class="btn btn-default">Clear</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-actions center" style="text-align:center;">
+                                            @if (!Model.IsAdoptedStudent)
+                                            {
+                                            <a  onclick="$('#myModal').modal('show');"  class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Adopt</a>
+                                            }
+                                        <a href='@Url.Action("Index")' class="btn btn-default">Clear</a>
                                     </div>
                                 }
                                 @*</form>*@
@@ -408,6 +419,14 @@
     </div>
 </div>
 
+<input type="hidden" id="hd_AreaOfInterest" value="@Model.AreaOfInterest" />
+<input type="hidden" id="hd_FK_StateId" value="@Model.FK_StateId" />
+<input type="hidden" id="hd_FK_CityId" value="@Model.FK_CityId" />
+<input type="hidden" id="hd_languages" value="@Model.languages" />
+<input type="hidden" id="hd_JSON_EducationDetails" value="@Model.JSON_EducationDetails" />
+
+<input type="hidden" id="hd_AdoptionWish" value="@Model.AdoptionWish" />
+
 
 <script src="/Scripts/jquery-1.10.2.js"></script>
 <script src="/Scripts/bootstrap.js"></script>
@@ -418,7 +437,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        debugger;
+        //debugger;
         if ('@TempData["Message"]') {
 
             if ('@IsVolunteer' == 'True') {
@@ -435,8 +454,57 @@
                 }
             }
         }
+        else if ('@TempData["ErrorMessage"]') {
+            alert('@TempData["ErrorMessage"]');
+        }
 
         StateBind1();
+
+        $("#FK_StateId").change(function () {
+            //debugger;
+            var cid = $(this).val();
+            var thisId = $(this).attr('id');
+            var countryId = 1;
+            if (thisId == "FK_StateId") {
+                countryId = 1;
+                $("#FK_CityId").empty();
+                $("#FK_CityId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+            }
+
+            var input = { stateId: parseInt(cid) };
+            $.ajax({
+                url: "@Url.Action("GetCityDetailsByStateId", "MSTAccount")",
+                data: JSON.stringify(input),
+                datatype: "json",
+                type: "POST",
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                success: function (data) {
+                    var Machinelist = new Array();
+                    if (data.length == 0) {
+                        $(this).val('');
+                    }
+                    else {
+                        for (var i = 0 ; i < data.length ; i++) {
+                            $("#FK_CityId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                        }
+                    }
+
+                    if ($("#hd_FK_CityId").val() != "0") {
+                        $("#FK_CityId").val($("#hd_FK_CityId").val());
+                    }
+                }
+
+
+            });
+        });
+
         if (!('@IsVolunteer' == 'True' || '@IsProfile' == "True")) {
             BindAreaOfInterest("counselor");
             LanguageBind();
@@ -466,39 +534,7 @@
 
 
 
-        $("#FK_StateId").change(function () {
-            var cid = $(this).val();
-            var thisId = $(this).attr('id');
-            var countryId = 1;
-            if (thisId == "FK_StateId") {
-                countryId = 1;
-                $("#FK_CityId").empty();
-                $("#FK_CityId").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
-            }
 
-            var input = { stateId: parseInt(cid) };
-            $.ajax({
-                url: "@Url.Action("GetCityDetailsByStateId", "MSTAccount")",
-                data: JSON.stringify(input),
-                datatype: "json",
-                type: "POST",
-                async: false,
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    var Machinelist = new Array();
-                    if (data.length == 0) {
-                        $(this).val('');
-                    }
-                    else {
-                        for (var i = 0 ; i < data.length ; i++) {
-                            $("#FK_CityId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
-                        }
-                    }
-                }
-
-
-            });
-        });
 
 
 
@@ -614,15 +650,53 @@
 
 
 
+        if ($("#PK_StudentID").val() != "0") {
+            //$("#FK_StateId").val($("#hd_FK_StateId").val());
+            
+            $("#languages").val($("#hd_languages").val());
+            $("#ConfirmPassword").val($("#Password").val());
+            $("#FK_StateId").trigger('change');
+
+            var JSON_EducationDetails = JSON.parse($("#hd_JSON_EducationDetails").val());
+            //console.log(JSON_EducationDetails);
+            debugger;
+            if (JSON_EducationDetails.length > 0)
+            {
+                $("#TypeOfEducation").val(String(JSON_EducationDetails[0].Education_Type));
+                //if (JSON_EducationDetails[0].Education_Type == "Secondry") {
+                //    $("#TypeOfEducation").val("Secondry");
+
+                //    //$("#Current_Education_subcategory").val(JSON_EducationDetails[0].Class);
+                //    //$("#Current_Education_subcategory").trigger('change');
+                //    //$("#BoardType").val(JSON_EducationDetails[0].FK_BoardID);
+                //    //$("#StreamType").val(JSON_EducationDetails[0].NatureOFCompletion);
+                //    //$('input[type=radio][name=CompletionNature]').val(JSON_EducationDetails[0].NatureOFCompletion);
+                //    //$('input[type=radio][name=CompletionNature]').trigger('change');
+                //    //if( JSON_EducationDetails[0].NatureOFCompletion == "Pursuing")
+                //    //{
+                //    //    $("#Percentage").val(JSON_EducationDetails[0].NatureOFCompletion);
+                //    //}
+                //    //else if (JSON_EducationDetails[0].NatureOFCompletion == "Pursuing")
+                //    //{
+                //    //    $("#PreviousBoardType").val(JSON_EducationDetails[0].NatureOFCompletion);
+                //    //    $("#PreviousclassPercentage").val(JSON_EducationDetails[0].NatureOFCompletion);
+                //    //}
+                    
+                //}
+
+            }
+
+        }
+
     })//Page Load End
 
     /*Start Bind Vehicles By Customer Using Sumo Select  */
     function BindAreaOfInterest(type) {
-        //debugger
-        $('#AreaOfInterest').html('');
-        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
-        $('#AreaOfInterest')[0].sumo.unload();
-        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+        debugger
+        $('#AreaOfInterestIds').html('');
+        $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+        $('#AreaOfInterestIds')[0].sumo.unload();
+        $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
 
         $.ajax({
             url: "@Url.Action("BindAreaOfInterestList", "Counselor")",
@@ -630,15 +704,30 @@
             dataType: "JSON",
             async: false,
             data: { 'type': type },
+            beforeSend: function () {
+                $(".modalBgLoader, .modalLoaderCenter").show();
+            },
+            complete: function () {
+                $(".modalBgLoader, .modalLoaderCenter").hide();
+            },
             success: function (Tags) {
-                //debugger
+                debugger
                 if (Tags.length > 0) {
                     $.each(Tags, function (i, Tag) {
-                        //debugger
-                        $('#AreaOfInterest')[0].sumo.add(Tag.ID, Tag.Value);
-                        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+                        ////debugger
+                        $('#AreaOfInterestIds')[0].sumo.add(Tag.ID, Tag.Value);
+                        $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
                     });
+                }
 
+                if ($('#hd_AreaOfInterest').val() != '' && $('#hd_AreaOfInterest').val() != null) {
+
+                    var SelectedTagsArray = [];
+                    SelectedTagsArray = $('#hd_AreaOfInterest').val().split(',');
+                    for (var i = 0; i < SelectedTagsArray.length; i++) {
+                        $('#AreaOfInterestIds')[0].sumo.selectItem(SelectedTagsArray[i].trim());
+                        SelectedTagsArray[i].selected = true;
+                    }
                 }
 
             }
@@ -657,6 +746,12 @@
             async: false,
             type: "POST",
             contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $(".modalBgLoader, .modalLoaderCenter").show();
+            },
+            complete: function () {
+                $(".modalBgLoader, .modalLoaderCenter").hide();
+            },
             success: function (data) {
                 var Machinelist = new Array();
                 if (data.length == 0) {
@@ -681,6 +776,12 @@
             async: false,
             type: "POST",
             contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $(".modalBgLoader, .modalLoaderCenter").show();
+            },
+            complete: function () {
+                $(".modalBgLoader, .modalLoaderCenter").hide();
+            },
             success: function (data) {
                 var Machinelist = new Array();
                 if (data.length == 0) {
@@ -691,6 +792,12 @@
                         $("#languages").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
                     }
                 }
+
+                if ($("#hd_languages").val() != "0") {
+
+                    $("#languages").val($("#hd_languages").val());
+                }
+
             }
         });
     }
@@ -706,6 +813,12 @@
             async: false,
             type: "POST",
             contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $(".modalBgLoader, .modalLoaderCenter").show();
+            },
+            complete: function () {
+                $(".modalBgLoader, .modalLoaderCenter").hide();
+            },
             success: function (data) {
                 var Machinelist = new Array();
                 if (data.length == 0) {
@@ -715,6 +828,11 @@
                     for (var i = 0 ; i < data.length ; i++) {
                         $("#FK_StateId").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
                     }
+                }
+
+                if ($("#hd_FK_StateId").val() != "0") {
+                    $("#FK_StateId").val($("#hd_FK_StateId").val());
+
                 }
             }
         });
@@ -727,6 +845,12 @@
                 type: "GET",
                 dataType: "JSON",
                 data: { username: $.trim($(a).val()), type: "Counselor" },
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
                 success: function (data) {
                     if (Number(data.MessageId) == 1) {
                         $(a).css('border', '1px solid red');
@@ -778,6 +902,7 @@
     }
 
     function EducationSubCategoryType() {
+        debugger;
         $("#BoardType").empty();
         $("#BoardType").rules("add", {
             required: true,
@@ -879,6 +1004,12 @@
             async: false,
             type: "POST",
             contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $(".modalBgLoader, .modalLoaderCenter").show();
+            },
+            complete: function () {
+                $(".modalBgLoader, .modalLoaderCenter").hide();
+            },
             success: function (data) {
                 var Machinelist = new Array();
                 if (data.length == 0) {
@@ -918,5 +1049,3 @@
     }
 
 </script>
-
-

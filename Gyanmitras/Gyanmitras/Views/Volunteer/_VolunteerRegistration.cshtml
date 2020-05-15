@@ -29,7 +29,7 @@
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="@Model.UrlHome">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
-                        <li class="breadcrumb-item active">@Model.FormType</li>
+                        <li class="breadcrumb-item active">@ViewBag.FormType</li>
                     </ol>
                 </div>
             </div>
@@ -325,7 +325,7 @@
                                         <div class="col-md-7">
 
                                             @Html.CheckBoxFor(E => E.Declaration)
-                                            <span class="red">*</span>I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer (Provide a hyperlink which data I will provide later )<br />
+                                            <span class="red">*</span>I hereby declare that information’s provided by me is valid and I will be only liable to handle concerns evolved due to misleading information’s provided by me either now or at any subsequent stages. Refer Terms and conditions of volunteer @*(Provide a hyperlink which data I will provide later )*@<br />
                                             @Html.ValidationMessageFor(E => E.Declaration)
                                             @Html.Hidden(nameof(Model.IsTrue), "true")
 
@@ -340,7 +340,7 @@
                                 @*<a href="customer.html" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit</a>
                                     <a href="customer.html" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>*@
                                 <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
-                                <a href='#' class="btn btn-default">Clear</a>
+                                <a  href='@Url.Action("Volunteer")' class="btn btn-default">Clear</a>
                             </div>
                             @*</form>*@
 

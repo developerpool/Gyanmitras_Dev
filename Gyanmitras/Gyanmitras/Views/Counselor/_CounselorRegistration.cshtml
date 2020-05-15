@@ -199,11 +199,11 @@
                                         <label class="control-label col-md-3">Area Of Interest<span class="red">*</span></label>
                                         <div class="col-md-7">
 
-                                            @Html.DropDownListFor(E => E.AreaOfInterest, new SelectList(Enumerable.Empty<SelectListItem>
+                                            @Html.DropDownListFor(E => E.AreaOfInterestIds, new SelectList(Enumerable.Empty<SelectListItem>
                                              (), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
 
 
-                                            @Html.ValidationMessageFor(E => E.AreaOfInterest)
+                                            @Html.ValidationMessageFor(E => E.AreaOfInterestIds)
                                         </div>
                                     </div>
 
@@ -279,31 +279,32 @@
                                         </div>
                                     </div>
 
-                                    <div id="LikeAdoptStudentLaterTermCon" style="display:none;">
+                                    <div id="LikeAdoptStudentLaterTermCon" >
                                         <span class="red">*</span>
-                                        <div class="col-md-7">
+                                        <div class="col-md-12">
 
                                             @Html.CheckBoxFor(E => E.Declaration)
                                             I hereby declare that information’s provided by me is valid and I will be
                                             only liable to handle concerns evolved due to misleading information’s
                                             provided by me either now or at any subsequent stages.
+                                            <br /> @*<a href="#">
+                                                Terms and conditions of academic adoption by a counselor
+                                            </a>*@
                                             @Html.ValidationMessageFor(E => E.Declaration)
-                                            @Html.Hidden(nameof(Model.IsTrue), "true")
+
                                         </div>
-                                        <br /> <a href="#">
-                                            Terms and conditions of academic adoption by a counselor
-                                        </a>
+                                       
                                     </div>
                                 }
 
 
 
 
-                                <div class="form-actions center">
+                                <div class="form-actions " style="text-align:center;">
                                     @*<a href="customer.html" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit</a>
                                         <a href="customer.html" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>*@
-                                    <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
-                                    <a href='@Url.Action("Registration")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Clear</a>
+                                    <button type="submit" id="btnSubmitCounselor" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                                    <a href='@Url.Action("Registration")' class="btn btn-default">Clear</a>
                                 </div>
                                 @*</form>*@
 
@@ -318,608 +319,607 @@
     </div>
 </div>
 
-    <div id="EmployedDiv" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="width: 90% !important;">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">You Are Employed</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 offset-lg-1">
+<div id="EmployedDiv" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 90% !important;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">You Are Employed</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 offset-lg-1">
 
-                            <div class="form-actions center">
-                                <div>
+                        <div class="form-actions center">
+                            <div>
 
-                                    <div class="table-responsive">
-                                        <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="EmployedDivTable" width="100%" style="cursor:auto">
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Expertise Details<span class="red">*</span></h4>
-                                                            </div>
+                                <div class="table-responsive">
+                                    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="EmployedDivTable" width="100%" style="cursor:auto">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Expertise Details<span class="red">*</span></h4>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
 
-                                                                @Html.DropDownListFor(E => E.Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["EmployedExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Expertise_Details)
-                                                            </div>
+                                                            @Html.DropDownListFor(E => E.Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["EmployedExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Expertise_Details)
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-
+                                        </tbody>
+                                    </table>
 
                                 </div>
 
+
                             </div>
+
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="Javascript:Void();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmitEmployedDiv">Submit</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-
                 </div>
+                <div class="modal-footer">
+                    <a href="Javascript:Void();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmitEmployedDiv">Submit</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
 
-    <div id="RetiredDiv" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="width: 90% !important;">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">You Are Retired</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 offset-lg-1">
+<div id="RetiredDiv" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 90% !important;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">You Are Retired</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 offset-lg-1">
 
-                            <div class="form-actions center">
-                                <div>
+                        <div class="form-actions center">
+                            <div>
 
-                                    <div class="table-responsive">
-                                        <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="RetiredDivTable" width="100%" style="cursor:auto">
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Expertise Details<span class="red">*</span></h4>
-                                                            </div>
+                                <div class="table-responsive">
+                                    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="RetiredDivTable" width="100%" style="cursor:auto">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Expertise Details<span class="red">*</span></h4>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
 
 
 
-                                                                @Html.DropDownListFor(E => E.Retired_Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["RetiredExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Expertise_Details)
-                                                            </div>
+                                                            @Html.DropDownListFor(E => E.Retired_Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["RetiredExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Expertise_Details)
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-
+                                        </tbody>
+                                    </table>
 
                                 </div>
 
+
                             </div>
+
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="Javascript:Void();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmitRetiredDiv">Submit</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-
                 </div>
+                <div class="modal-footer">
+                    <a href="Javascript:Void();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmitRetiredDiv">Submit</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
-    <div id="StudentDiv" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="width: 90% !important;">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">You Are Student</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 offset-lg-1">
+<div id="StudentDiv" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 90% !important;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">You Are Student</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 offset-lg-1">
 
-                            <div class="form-actions center">
-                                <div>
+                        <div class="form-actions center">
+                            <div>
 
-                                    <div class="table-responsive">
-                                        <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="StudentDivTable" width="100%" style="cursor:auto">
-                                            <tbody>
-                                                <tr onclick="ShowHideTR(this)" rowid="0" bool="true" style="cursor:pointer">
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Matriculation Details<span class="red">*</span></h4>
+                                <div class="table-responsive">
+                                    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="StudentDivTable" width="100%" style="cursor:auto">
+                                        <tbody id="tbodyStudentForm">
+                                            <tr onclick="ShowHideTR(this)" rowid="0" bool="true" style="cursor:pointer">
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Matriculation Details<span class="red">*</span></h4>
 
-                                                            </div>
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Board</h5>
-                                                            </div>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Board</h5>
                                                         </div>
-                                                    </td>
-                                                    <td colspan="2">
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Percentage</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Percentage</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Year Of Passing</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Year Of Passing</h5>
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.Secondry_Education_Board, new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Secondry_Education_Board)
-                                                            </div>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.Secondry_Education_Board, new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Secondry_Education_Board)
                                                         </div>
-                                                    </td>
-                                                    <td colspan="2">
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.Secondry_Percentage, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Secondry_Percentage)
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.Secondry_Percentage, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Secondry_Percentage)
                                                         </div>
-                                                    </td>
-                                                    <td>
+                                                    </div>
+                                                </td>
+                                                <td>
 
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.Secondry_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Secondry_Year_of_Passing)
-                                                            </div>
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.Secondry_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Secondry_Year_of_Passing)
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Intermediate Details<span class="red">*</span></h4>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Intermediate Details<span class="red">*</span></h4>
 
-                                                            </div>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Board</h5>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Board</h5>
 
-                                                            </div>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Stream</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Stream</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Percentage</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Percentage</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Year Of Passing</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Year Of Passing</h5>
                                                         </div>
-                                                    </td>
+                                                    </div>
+                                                </td>
 
-                                                </tr>
+                                            </tr>
 
 
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.HigherSecondry_Education_Board, new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.HigherSecondry_Education_Board)
-                                                            </div>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.HigherSecondry_Education_Board, new SelectList((System.Collections.IEnumerable)ViewData["BoardList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_Education_Board)
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.HigherSecondry_StreamType, new List<SelectListItem>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.HigherSecondry_StreamType, new List<SelectListItem>
              () {
-                                                                    new SelectListItem() { Text="Commerce",Value="Commerce" },
-                                                                    new SelectListItem() { Text="Science",Value="Science" },
-                                                                    new SelectListItem() { Text="Biology",Value="Biology" },
-                                                                    new SelectListItem() { Text="Arts",Value="Arts" }
+                                                                    new SelectListItem() { Text="Commerce",Value="1" },
+                                                                    new SelectListItem() { Text="Science",Value="2" },
+                                                                    new SelectListItem() { Text="Biology",Value="3" },
+                                                                    new SelectListItem() { Text="Arts",Value="4" }
                                                                     }, @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.HigherSecondry_StreamType)
-                                                            </div>
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_StreamType)
                                                         </div>
-                                                    </td>
-                                                    <td>
+                                                    </div>
+                                                </td>
+                                                <td>
 
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.HigherSecondry_Percentage, "", new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.HigherSecondry_Percentage)
-                                                            </div>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.HigherSecondry_Percentage, "", new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_Percentage)
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.HigherSecondry_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.HigherSecondry_Year_of_Passing)
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.HigherSecondry_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.HigherSecondry_Year_of_Passing)
                                                         </div>
-                                                    </td>
+                                                    </div>
+                                                </td>
 
-                                                </tr>
+                                            </tr>
 
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Graduation<span class="red">*</span></h4>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Graduation<span class="red">*</span></h4>
 
-                                                            </div>
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">University</h5>
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">University</h5>
 
-                                                            </div>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Stream</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Stream</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Course</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Course</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Percentage</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Percentage</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Year Of Passing</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Year Of Passing</h5>
                                                         </div>
-                                                    </td>
-                                                </tr>
-
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.Graduation_UniversityName, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Graduation_UniversityName)
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.Graduation_StreamType, new SelectList((System.Collections.IEnumerable)ViewData["StreamListgraduation"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Graduation_StreamType)
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.Graduation_CourseName, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Graduation_CourseName)
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.Graduation_Percentage, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Graduation_Percentage)
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.Graduation_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                                @Html.ValidationMessageFor(E => E.Graduation_Year_of_Passing)
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Post-Graduation details</h4>
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">University</h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Stream</h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Course</h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Percentage</h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Year Of Passing</h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
 
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.Graduation_UniversityName, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_UniversityName)
 
-                                                                @Html.TextBoxFor(E => E.PostGraduation_UniversityName, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.Graduation_StreamType, new SelectList((System.Collections.IEnumerable)ViewData["StreamListgraduation"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_StreamType)
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.Graduation_CourseName, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_CourseName)
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.Graduation_Percentage, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_Percentage)
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.Graduation_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                            @Html.ValidationMessageFor(E => E.Graduation_Year_of_Passing)
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.PostGraduation_StreamType, new SelectList((System.Collections.IEnumerable)ViewData["StreamListpostgraduation"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.PostGraduation_CourseName, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.PostGraduation_Percentage, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.PostGraduation_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Post-Graduation details</h4>
 
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <div class="row">
-                                                            <div class="col-12 mt-1 ">
-                                                                <h4 style="margin-left: 15px;">Doctoral details</h4>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                            </div>
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">University</h5>
                                                         </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">University</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Stream</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Specification</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Course</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Year Of Passing</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Percentage</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">NET/JRF</h5>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Year Of Passing</h5>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-3 mt-1 ">
-                                                                <h5 style="margin-left: 15px;">Extra works </h5>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
 
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-4 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.Docterate_UniversityName, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.Specification, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.DropDownListFor(E => E.Docterate_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextBoxFor(E => E.NET_JRF_Percentage, new { @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-2 mt-1 ">
-                                                                @Html.TextAreaFor(E => E.Extra_work, new { @rows = "1", @class = "form-control myTableInput" })
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
 
-                                            </tbody>
-                                        </table>
+                                                            @Html.TextBoxFor(E => E.PostGraduation_UniversityName, new { @class = "form-control myTableInput" })
 
-                                    </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.PostGraduation_StreamType, new SelectList((System.Collections.IEnumerable)ViewData["StreamListpostgraduation"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.PostGraduation_CourseName, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.PostGraduation_Percentage, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.PostGraduation_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="row">
+                                                        <div class="col-12 mt-1 ">
+                                                            <h4 style="margin-left: 15px;">Doctoral details</h4>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">University</h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Specification</h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Year Of Passing</h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">NET/JRF</h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-3 mt-1 ">
+                                                            <h5 style="margin-left: 15px;">Extra works </h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-4 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.Docterate_UniversityName, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.Specification, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.DropDownListFor(E => E.Docterate_Year_of_Passing, new SelectList((System.Collections.IEnumerable)ViewData["YearList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextBoxFor(E => E.NET_JRF_Percentage, new { @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-2 mt-1 ">
+                                                            @Html.TextAreaFor(E => E.Extra_work, new { @rows = "1", @class = "form-control myTableInput" })
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
 
                                 </div>
 
+
                             </div>
+
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="Javascript:Void();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmitStudentDiv">Submit</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-
                 </div>
+                <div class="modal-footer">
+                    <a href="Javascript:Void();" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmitStudentDiv">Submit</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 
+<input type="hidden" id="hd_AreaOfInterest" value="@Model.AreaOfInterest" />
 
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
 
-    <script src="/Scripts/jquery-1.10.2.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
-    <script src="/Scripts/respond.js"></script>
-    <script src="/Scripts/jquery.validate.js"></script>
-    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
-
-    <script type="text/javascript">
-      $(function () {
+<script type="text/javascript">
+    $(function () {
         if ('@ViewBag.Message') {
             alert('@ViewBag.Message');
-           if ('@ViewBag.Redirect' == "Yes")
-            {
-               location.href = '/Counselor/AdoptedStudentIndex';
+            if ('@ViewBag.Redirect' == "Yes") {
+                location.href = '/Counselor/Index';
             }
             else {
                 location.href = '/Home/Index';
@@ -930,6 +930,8 @@
     var mycategoryval = new Array();
     var mycategorytext = new Array();
     $(document).ready(function () {
+
+
         $("#PostGraduation_Year_of_Passing,#Docterate_Year_of_Passing").append("<option value='Pursuing'>Pursuing</option>");
         BindAreaOfInterest("counselor");
         StateBind1();
@@ -938,225 +940,20 @@
         $("#AreYou").change(function () {
             var type = $("#AreYou").val();
             if (type == "StudentDiv") {
-                $("#Secondry_Education_Board").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Please Select Board"
-                    }
-                });
-
-                $("#HigherSecondry_Education_Board").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Please Select Board"
-                    }
-                });
-
-                   $("#Secondry_Percentage").rules("add", {
-                        required: true,
-                        messages: {
-                            required: "Please Enter Percentage"
-                        }
-                   });
-
-                     $("#Secondry_Year_of_Passing").rules("add", {
-                            required: true,
-                            messages: {
-                                required: "Please Select Year Of Passing"
-                            }
-                        });
-
-                            $("#HigherSecondry_StreamType").rules("add", {
-                                required: true,
-                                messages: {
-                                    required: "Please Select Stream."
-                                }
-                            });
-                           $("#HigherSecondry_Percentage").rules("add", {
-                                    required: true,
-                                    messages: {
-                                        required: "Please Enter Percentage"
-                                    }
-                                });
-
-                                    $("#HigherSecondry_Year_of_Passing").rules("add", {
-                                        required: true,
-                                        messages: {
-                                            required: "Please Select Year Of Passing"
-                                        }
-                                    });
-
-                                        $("#Graduation_UniversityName").rules("add", {
-                                            required: true,
-                                            messages: {
-                                                required: "Please Enter University Name"
-                                            }
-                                        });
-
-                                                $("#Graduation_StreamType").rules("add", {
-                                                required: true,
-                                                messages: {
-                                                    required: "Please Select Stream"
-                                                }
-                                            });
-
-                                          $("#Graduation_CourseName").rules("add", {
-                                                    required: true,
-                                                    messages: {
-                                                        required: "Please Enter Course Name"
-                                                    }
-                                          });
-
-                                                    $("#Graduation_Percentage").rules("add", {
-                                                        required: true,
-                                                        messages: {
-                                                            required: "Please Enter Percentage"
-                                                        }
-                                                    });
-
-                                                 $("#Graduation_Year_of_Passing").rules("add", {
-                                                            required: true,
-                                                            messages: {
-                                                                required: "Please Select Year Of Passing"
-                                                            }
-                                                 });
-
-                $("#Secondry_Education_Board").val('');
-                $("#HigherSecondry_Education_Board").val('');
-                $("#Secondry_Percentage").val('');
-                $("#Secondry_Year_of_Passing").val('');
-                $("#HigherSecondry_StreamType").val('');
-                $("#HigherSecondry_Percentage").val('');
-
-                $("#Graduation_UniversityName").val('');
-                $("#Graduation_StreamType").val('');
-                $("#Graduation_CourseName").val('');
-                $("#Graduation_Percentage").val('');
-                $("#Graduation_Year_of_Passing").val('');
-                 $("#Expertise_Details").val('');
-                $("#Retired_Expertise_Details").val('');
-                $("#Expertise_Details").rules("remove", "required");
-                $("#Retired_Expertise_Details").rules("remove", "required");
+                ClearAcadmicDetails();
                 $("#StudentDiv").modal('show');
             }
             else if (type == "EmployedDiv") {
-                $("#Expertise_Details").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Please Select Expertise"
-                    }
-                });
-                $("#Secondry_Education_Board").rules("remove", "required");
-                $("#Retired_Expertise_Details").rules("remove", "required");
-                $("#Secondry_Percentage").rules("remove", "required");
-                $("#Secondry_Year_of_Passing").rules("remove", "required");
-                $("#HigherSecondry_StreamType").rules("remove", "required");
-                $("#HigherSecondry_Percentage").rules("remove", "required");
-                $("#HigherSecondry_Year_of_Passing").rules("remove", "required");
-                $("#Graduation_UniversityName").rules("remove", "required");
-                $("#Graduation_StreamType").rules("remove", "required");
-                $("#Graduation_Percentage").rules("remove", "required");
-                $("#Graduation_Year_of_Passing").rules("remove", "required");
-                $("#HigherSecondry_Education_Board").rules("remove", "required");
-                $("#Secondry_Education_Board").val('');
-                $("#HigherSecondry_Education_Board").val('');
-                $("#Secondry_Percentage").val('');
-                $("#Secondry_Year_of_Passing").val('');
-                $("#HigherSecondry_StreamType").val('');
-                $("#HigherSecondry_Percentage").val('');
-
-                $("#Graduation_UniversityName").val('');
-                $("#Graduation_StreamType").val('');
-                $("#Graduation_CourseName").val('');
-                $("#Graduation_Percentage").val('');
-                $("#Graduation_Year_of_Passing").val('');
-                $("#Expertise_Details").val('');
-                $("#Retired_Expertise_Details").val('');
+                ClearAcadmicDetails();
                 $("#EmployedDiv").modal('show');
-               }
+            }
             else if (type == "RetiredDiv") {
-                $("#Retired_Expertise_Details").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Please Select Expertise"
-                    }
-                });
-
-                $("#Secondry_Education_Board").rules("remove", "required");
-                $("#Expertise_Details").rules("remove", "required");
-                $("#Secondry_Percentage").rules("remove", "required");
-                $("#Secondry_Year_of_Passing").rules("remove", "required");
-                $("#HigherSecondry_StreamType").rules("remove", "required");
-                $("#HigherSecondry_Percentage").rules("remove", "required");
-                $("#HigherSecondry_Year_of_Passing").rules("remove", "required");
-                $("#Graduation_UniversityName").rules("remove", "required");
-                $("#Graduation_StreamType").rules("remove", "required");
-                $("#Graduation_Percentage").rules("remove", "required");
-                $("#Graduation_Year_of_Passing").rules("remove", "required");
-                $("#HigherSecondry_Education_Board").rules("remove", "required");
-                $("#Secondry_Education_Board").val('');
-                $("#HigherSecondry_Education_Board").val('');
-                $("#Secondry_Percentage").val('');
-                $("#Secondry_Year_of_Passing").val('');
-                $("#HigherSecondry_StreamType").val('');
-                $("#HigherSecondry_Percentage").val('');
-
-                $("#Graduation_UniversityName").val('');
-                $("#Graduation_StreamType").val('');
-                $("#Graduation_CourseName").val('');
-                $("#Graduation_Percentage").val('');
-                $("#Graduation_Year_of_Passing").val('');
-                $("#Expertise_Details").val('');
-                $("#Retired_Expertise_Details").val('');
+                ClearAcadmicDetails();
                 $("#RetiredDiv").modal('show');
-                  }
+            }
 
 
-    });
-        $("#LikeAdoptStudentLater,#HavePC").val('');
-        //$("#StudentDivTable,#RetiredDivTable,#EmployedDivTable").find("h4").click(function () {
-        //    var myaction =  $(this).attr('myaction');
-        //    $(this).closest('tr').parent().find('tr').each(function () {
-        //        if (!$(this).find('h4'))
-        //        {
-        //            if (!myaction) {
-        //                $(this).slideDown(500);
-        //            }
-        //            else {
-        //                $(this).slideUp(500);
-        //            }
-        //        }
-        //    });
-        //});
-
-        //$("#StudentDivTable,#RetiredDivTable,#EmployedDivTable > tbody > tr").each(function () {
-        //    var myaction = false;
-        //    if ($(this).find('td').length > 1) {
-
-        //        if (!myaction) {
-        //            $(this).slideUp(500);
-        //        }
-        //        else {
-        //            $(this).slideDown(500);
-        //        }
-        //    }
-        //});
-
-
-        //$("#dropBillingAddress").change(function () {
-        //    if ($(this).val() == "0") {
-        //        $("#divBillingAddress").slideDown(500);
-
-        //    }
-        //    else {
-
-        //        $("#divBillingAddress").slideUp(500);
-        //    }
-        //});
-
-
-
-
+        });
 
         $("#FK_StateId").change(function () {
             var cid = $(this).val();
@@ -1191,22 +988,15 @@
 
             });
         });
-        $('#LikeAdoptStudentLater').change(function () {
-            if ($(this).val() == '1') {
-                $("#Declaration").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Please Agree to Terms & Conditions"
-                    }
-                });
-
-                $('#LikeAdoptStudentLaterTermCon').slideDown(500);
-            }
-            else {
-                $("#Declaration").rules("remove", "required");
-                $('#LikeAdoptStudentLaterTermCon').slideUp(500);
-            }
-        });
+        //$('#LikeAdoptStudentLater').change(function () {
+        //    debugger;
+        //    if ($(this).val() == 'True') {
+        //        $('#LikeAdoptStudentLaterTermCon').slideDown(500);
+        //    }
+        //    else {
+        //        $('#LikeAdoptStudentLaterTermCon').slideUp(500);
+        //    }
+        //});
 
         $('INPUT[type="file"]').change(function () {
 
@@ -1229,39 +1019,295 @@
         LanguageBind();
 
 
-    })//Page Load End
 
- function LanguageBind() {
-            $("#languages").empty();
-            $("#languages").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
-            var input = { countryId: parseInt("1") };
-            $.ajax({
-                url: "@Url.Action("GetLanguages", "Home")",
-                data: JSON.stringify(input),
-                datatype: "json",
-                async: false,
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    var Machinelist = new Array();
-                    if (data.length == 0) {
-                        $(this).val('');
-                    }
-                    else {
-                        for (var i = 0 ; i < data.length ; i++) {
-                            $("#languages").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
-                        }
+
+
+        $("#btnSubmitCounselor").click(function (e) {
+            if ($(this).valid()) {
+                if ($("#AreYou").val() == "StudentDiv") {
+                    if (validStudentAcadmicDetails()) {
+                        $("#StudentDiv").modal('show');
+                        return false;
+                        e.preventDefault();
                     }
                 }
-            });
-        }
+                else if ($("#AreYou").val() == "EmployedDiv") {
+                    $("#EmployedDiv").modal('show');
+
+                    if (!$('#Expertise_Details').val()) {
+                        $('#Expertise_Details').focus();
+                        $('#Expertise_Details').css('border', '1px solid red');
+                        $('#Expertise_Details').attr('onfocus', '$(this).removeAttr("style")');
+                    }
+                    else {
+                        $('#Expertise_Details').removeAttr('style');
+                    }
+
+                }
+                else if ($("#AreYou").val() == "RetiredDiv") {
+                    $("#RetiredDiv").modal('show');
+
+                    if (!$('#Retired_Expertise_Details').val()) {
+                        $('#Retired_Expertise_Details').focus();
+                        $('#Retired_Expertise_Details').css('border', '1px solid red');
+                        $('#Retired_Expertise_Details').attr('onfocus', '$(this).removeAttr("style")');
+                    }
+                    else {
+                        $('#Retired_Expertise_Details').removeAttr('style');
+                    }
+
+                }
+
+                
+
+            }
+        });
+
+        $("#btnSubmitStudentDiv").click(function (e) {
+            if (validStudentAcadmicDetails()) {
+                return false;
+                e.preventDefault();
+            }
+            else {
+                $("#StudentDiv").modal('hide');
+            }
+        });
+        $("#btnSubmitEmployedDiv").click(function (e) {
+            if (!$('#Expertise_Details').val()) {
+                $('#Expertise_Details').focus();
+                $('#Expertise_Details').css('border', '1px solid red');
+                $('#Expertise_Details').attr('onfocus', '$(this).removeAttr("style")');
+                return false;
+                e.preventDefault();
+            }
+            else {
+                $('#Expertise_Details').removeAttr('style');
+                $("#EmployedDiv").modal('hide');
+
+            }
+        });
+        $("#btnSubmitRetiredDiv").click(function (e) {
+            if (!$('#Retired_Expertise_Details').val()) {
+                $('#Retired_Expertise_Details').focus();
+                $('#Retired_Expertise_Details').css('border', '1px solid red');
+                $('#Retired_Expertise_Details').attr('onfocus', '$(this).removeAttr("style")');
+                return false;
+                e.preventDefault();
+            }
+            else {
+                $('#Retired_Expertise_Details').removeAttr('style');
+                $("#RetiredDiv").modal('hide');
+            }
+
+        });
+
+
+
+    })//Page Load End
+
+
+    function ClearAcadmicDetails() {
+        $("#Secondry_Education_Board").val('');
+        $("#HigherSecondry_Education_Board").val('');
+        $("#Secondry_Percentage").val('');
+        $("#Secondry_Year_of_Passing").val('');
+        $("#HigherSecondry_StreamType").val('');
+        $("#HigherSecondry_Percentage").val('');
+
+        $("#Graduation_UniversityName").val('');
+        $("#Graduation_StreamType").val('');
+        $("#Graduation_CourseName").val('');
+        $("#Graduation_Percentage").val('');
+        $("#Graduation_Year_of_Passing").val('');
+        $("#Retired_Expertise_Details").val('');
+        $("#Expertise_Details").val('');
+
+        $("#Secondry_Education_Board").val('');
+        $("#HigherSecondry_Education_Board").val('');
+        $("#Secondry_Percentage").val('');
+        $("#Secondry_Year_of_Passing").val('');
+        $("#HigherSecondry_StreamType").val('');
+        $("#HigherSecondry_Percentage").val('');
+
+        $("#Graduation_UniversityName").val('');
+        $("#Graduation_StreamType").val('');
+        $("#Graduation_CourseName").val('');
+        $("#Graduation_Percentage").val('');
+        $("#Graduation_Year_of_Passing").val('');
+        $("#Expertise_Details").val('');
+        $("#Retired_Expertise_Details").val('');
+        $("#Secondry_Education_Board").val('');
+        $("#HigherSecondry_Education_Board").val('');
+        $("#Secondry_Percentage").val('');
+        $("#Secondry_Year_of_Passing").val('');
+        $("#HigherSecondry_StreamType").val('');
+        $("#HigherSecondry_Percentage").val('');
+
+        $("#Graduation_UniversityName").val('');
+        $("#Graduation_StreamType").val('');
+        $("#Graduation_CourseName").val('');
+        $("#Graduation_Percentage").val('');
+        $("#Graduation_Year_of_Passing").val('');
+        $("#Expertise_Details").val('');
+        $("#Retired_Expertise_Details").val('');
+    }
+    function validStudentAcadmicDetails() {
+        var bool = true;
+        $("#tbodyStudentForm > tr").each(function () {
+            if (!$(this).find('#Secondry_Education_Board').val()) {
+                $(this).find('#Secondry_Education_Board').focus();
+                $(this).find('#Secondry_Education_Board').css('border', '1px solid red');
+                $(this).find('#Secondry_Education_Board').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Secondry_Education_Board').removeAttr('style');
+            }
+
+            if (!$(this).find('#Secondry_Percentage').val()) {
+                $(this).find('#Secondry_Percentage').focus();
+                $(this).find('#Secondry_Percentage').css('border', '1px solid red');
+                $(this).find('#Secondry_Percentage').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Secondry_Percentage').removeAttr('style');
+            }
+
+            if (!$(this).find('#Secondry_Year_of_Passing').val()) {
+                $(this).find('#Secondry_Year_of_Passing').focus();
+                $(this).find('#Secondry_Year_of_Passing').css('border', '1px solid red');
+                $(this).find('#Secondry_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Secondry_Year_of_Passing').removeAttr('style');
+            }
+
+
+            if (!$(this).find('#HigherSecondry_Education_Board').val()) {
+                $(this).find('#HigherSecondry_Education_Board').focus();
+                $(this).find('#HigherSecondry_Education_Board').css('border', '1px solid red');
+                $(this).find('#HigherSecondry_Education_Board').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#HigherSecondry_Education_Board').removeAttr('style');
+            }
+
+            if (!$(this).find('#HigherSecondry_StreamType').val()) {
+                $(this).find('#HigherSecondry_StreamType').focus();
+                $(this).find('#HigherSecondry_StreamType').css('border', '1px solid red');
+                $(this).find('#HigherSecondry_StreamType').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#HigherSecondry_StreamType').removeAttr('style');
+            }
+
+            if (!$(this).find('#HigherSecondry_Percentage').val()) {
+                $(this).find('#HigherSecondry_Percentage').focus();
+                $(this).find('#HigherSecondry_Percentage').css('border', '1px solid red');
+                $(this).find('#HigherSecondry_Percentage').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#HigherSecondry_Percentage').removeAttr('style');
+            }
+
+            if (!$(this).find('#HigherSecondry_Year_of_Passing').val()) {
+                $(this).find('#HigherSecondry_Year_of_Passing').focus();
+                $(this).find('#HigherSecondry_Year_of_Passing').css('border', '1px solid red');
+                $(this).find('#HigherSecondry_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#HigherSecondry_Year_of_Passing').removeAttr('style');
+            }
+
+            if (!$(this).find('#Graduation_UniversityName').val()) {
+                $(this).find('#Graduation_UniversityName').focus();
+                $(this).find('#Graduation_UniversityName').css('border', '1px solid red');
+                $(this).find('#Graduation_UniversityName').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Graduation_UniversityName').removeAttr('style');
+            }
+
+            if (!$(this).find('#Graduation_StreamType').val()) {
+                $(this).find('#Graduation_StreamType').focus();
+                $(this).find('#Graduation_StreamType').css('border', '1px solid red');
+                $(this).find('#Graduation_StreamType').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Graduation_StreamType').removeAttr('style');
+            }
+
+            if (!$(this).find('#Graduation_CourseName').val()) {
+                $(this).find('#Graduation_CourseName').focus();
+                $(this).find('#Graduation_CourseName').css('border', '1px solid red');
+                $(this).find('#Graduation_CourseName').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Graduation_CourseName').removeAttr('style');
+            }
+
+            if (!$(this).find('#Graduation_Percentage').val()) {
+                $(this).find('#Graduation_Percentage').focus();
+                $(this).find('#Graduation_Percentage').css('border', '1px solid red');
+                $(this).find('#Graduation_Percentage').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Graduation_Percentage').removeAttr('style');
+            }
+
+            if (!$(this).find('#Graduation_Year_of_Passing').val()) {
+                $(this).find('#Graduation_Year_of_Passing').focus();
+                $(this).find('#Graduation_Year_of_Passing').css('border', '1px solid red');
+                $(this).find('#Graduation_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
+                bool = false;
+            }
+            else {
+                $(this).find('#Graduation_Year_of_Passing').removeAttr('style');
+            }
+        });
+        return bool;
+    }
+    function LanguageBind() {
+        $("#languages").empty();
+        $("#languages").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
+        var input = { countryId: parseInt("1") };
+        $.ajax({
+            url: "@Url.Action("GetLanguages", "Home")",
+            data: JSON.stringify(input),
+            datatype: "json",
+            async: false,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var Machinelist = new Array();
+                if (data.length == 0) {
+                    $(this).val('');
+                }
+                else {
+                    for (var i = 0 ; i < data.length ; i++) {
+                        $("#languages").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+                    }
+                }
+            }
+        });
+    }
 
     function BindAreaOfInterest(type) {
         //debugger
-        $('#AreaOfInterest').html('');
-        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
-        $('#AreaOfInterest')[0].sumo.unload();
-        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+        $('#AreaOfInterestIds').html('');
+        $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+        $('#AreaOfInterestIds')[0].sumo.unload();
+        $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
 
         $.ajax({
             url: "@Url.Action("BindAreaOfInterestList", "Counselor")",
@@ -1274,12 +1320,22 @@
                 if (Tags.length > 0) {
                     $.each(Tags, function (i, Tag) {
                         //debugger
-                        $('#AreaOfInterest')[0].sumo.add(Tag.ID, Tag.Value);
-                        $('#AreaOfInterest').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+                        $('#AreaOfInterestIds')[0].sumo.add(Tag.ID, Tag.Value);
+                        $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
                     });
 
                 }
 
+
+                if ($('#hd_AreaOfInterest').val() != '' && $('#hd_AreaOfInterest').val() != null) {
+
+                    var SelectedTagsArray = [];
+                    SelectedTagsArray = $('#hd_AreaOfInterest').val().split(',');
+                    for (var i = 0; i < SelectedTagsArray.length; i++) {
+                        $('#AreaOfInterestIds')[0].sumo.selectItem(SelectedTagsArray[i].trim());
+                        SelectedTagsArray[i].selected = true;
+                    }
+                }
             }
 
         });
@@ -1355,4 +1411,4 @@
 
 
 
-    </script>
+</script>

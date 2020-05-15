@@ -1961,11 +1961,12 @@ namespace GyanmitrasDAL.Common
             }
 
             List<DropDownMDL> obj = new List<DropDownMDL>();
-            
+
             foreach (var item in MonthList)
             {
-                obj.Add(new DropDownMDL() {
-                    ID= item.MonthId,
+                obj.Add(new DropDownMDL()
+                {
+                    ID = item.MonthId,
                     Value = item.MonthName
                 });
             }
@@ -2928,6 +2929,7 @@ namespace GyanmitrasDAL.Common
         public bool GetSiteUserDetails(out dynamic _Datalist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId, string type = "")
         {
             bool result = false;
+            FK_CategoryId = type == "counselor" ? 1 : FK_CategoryId;
             objBasicPagingMDL = new BasicPagingMDL();
             _Datalist = new List<CounselorMDL>();
             objTotalCountPagingMDL = new TotalCountPagingMDL();
@@ -2948,12 +2950,13 @@ namespace GyanmitrasDAL.Common
                 };
                 _commandText = "[SiteUsers].[USP_GetSiteUserDetails]";
                 objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                FK_CategoryId = type == "counselor" ? 0 : FK_CategoryId;
                 if (objDataSet.Tables[0].Rows.Count > 0)
                 {
 
                     if (objDataSet.Tables[0].Rows[0].Field<int>("Message_Id") == 1)
                     {
-                        if (FK_CategoryId == 1 || type == "studentGetByVolunteer"  || type == "studentGetByCounselor")
+                        if (FK_CategoryId == 1 || type == "studentGetByVolunteer" || type == "studentGetByCounselor")
                         {
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new StudentMDL()
                             {
@@ -2972,8 +2975,8 @@ namespace GyanmitrasDAL.Common
                                 //JoinUsDescription = dr.Field<string>("JoinUsDescription"),
                                 HavePC = dr.Field<bool>("HavePC"),
                                 Declaration = dr.Field<bool>("Declaration"),
-                                //
-                                //LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
+
+                                languages = Convert.ToString(dr.Field<int>("FK_LanguageKnown")),
                                 IsActive = dr.Field<bool>("IsActive"),
                                 IsDeleted = dr.Field<bool>("IsDeleted"),
                                 FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
@@ -2989,6 +2992,31 @@ namespace GyanmitrasDAL.Common
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
                                 IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
+                                MyAdoption = dr.Field<bool>("MyAdoption"),
+                                IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                AdoptionWish = dr.Field<bool>("AdoptionWish"),
+                                HaveSmartPhone = dr.Field<bool>("HaveSmartPhone"),
+                                EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
+                                {
+                                    ID = e_dr.Field<int>("ID"),
+                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    Class = e_dr.Field<string>("Class"),
+                                    FK_BoardID = e_dr.Field<int>("FK_BoardID"),
+                                    FK_StreamID = e_dr.Field<int>("FK_BoardID"),
+                                    Currentsemester = e_dr.Field<string>("Currentsemester"),
+                                    UniversityName = e_dr.Field<string>("UniversityName"),
+                                    NatureOFCompletion = e_dr.Field<string>("NatureOFCompletion"),
+                                    Percentage = e_dr.Field<decimal>("Percentage"),
+                                    Previous_Class = e_dr.Field<string>("Previous_Class"),
+                                    FK_Previous_Class_Board = e_dr.Field<int>("FK_Previous_Class_Board"),
+                                    Previous_Class_Percentage = e_dr.Field<decimal>("Previous_Class_Percentage"),
+                                    Year_of_Passing = e_dr.Field<string>("Year_of_Passing"),
+                                    Fk_UserName = e_dr.Field<string>("Fk_UserName"),
+                                    CourseName = e_dr.Field<string>("CourseName"),
+                                    Specification = e_dr.Field<string>("Specification"),
+                                    OtherWork = e_dr.Field<string>("OtherWork"),
+                                }).ToList()
+
                             }).ToList();
                         }
                         else if (FK_CategoryId == 2)
@@ -3005,7 +3033,7 @@ namespace GyanmitrasDAL.Common
                                 MobileNo = dr.Field<string>("Mobile_Number"),
                                 AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
                                 AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
-
+                                languages = Convert.ToString(dr.Field<int>("FK_LanguageKnown")),
                                 AreYou = dr.Field<string>("AreYou"),
                                 JoinUsDescription = dr.Field<string>("JoinUsDescription"),
                                 HavePC = dr.Field<bool>("HavePC"),
@@ -3028,6 +3056,31 @@ namespace GyanmitrasDAL.Common
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
                                 IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
+                                MyAdoption = dr.Field<bool>("MyAdoption"),
+                                AdoptionWish = dr.Field<bool>("AdoptionWish"),
+                                HaveSmartPhone = dr.Field<bool>("HaveSmartPhone"),
+                                IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
+                                {
+                                    ID = e_dr.Field<int>("ID"),
+                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    Class = e_dr.Field<string>("Class"),
+                                    FK_BoardID = e_dr.Field<int>("FK_BoardID"),
+                                    FK_StreamID = e_dr.Field<int>("FK_BoardID"),
+                                    Currentsemester = e_dr.Field<string>("Currentsemester"),
+                                    UniversityName = e_dr.Field<string>("UniversityName"),
+                                    NatureOFCompletion = e_dr.Field<string>("NatureOFCompletion"),
+                                    Percentage = e_dr.Field<decimal>("Percentage"),
+                                    Previous_Class = e_dr.Field<string>("Previous_Class"),
+                                    FK_Previous_Class_Board = e_dr.Field<int>("FK_Previous_Class_Board"),
+                                    Previous_Class_Percentage = e_dr.Field<decimal>("Previous_Class_Percentage"),
+                                    Year_of_Passing = e_dr.Field<string>("Year_of_Passing"),
+                                    Fk_UserName = e_dr.Field<string>("Fk_UserName"),
+                                    CourseName = e_dr.Field<string>("CourseName"),
+                                    Specification = e_dr.Field<string>("Specification"),
+                                    OtherWork = e_dr.Field<string>("OtherWork"),
+                                }).ToList()
+
 
                             }).ToList();
                         }
@@ -3067,10 +3120,35 @@ namespace GyanmitrasDAL.Common
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
+                                MyAdoption = dr.Field<bool>("MyAdoption"),
+                                AdoptionWish = dr.Field<bool>("AdoptionWish"),
+                                HaveSmartPhone = dr.Field<bool>("HaveSmartPhone"),
+                                IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
+                                {
+                                    ID = e_dr.Field<int>("ID"),
+                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    Class = e_dr.Field<string>("Class"),
+                                    FK_BoardID = e_dr.Field<int>("FK_BoardID"),
+                                    FK_StreamID = e_dr.Field<int>("FK_BoardID"),
+                                    Currentsemester = e_dr.Field<string>("Currentsemester"),
+                                    UniversityName = e_dr.Field<string>("UniversityName"),
+                                    NatureOFCompletion = e_dr.Field<string>("NatureOFCompletion"),
+                                    Percentage = e_dr.Field<decimal>("Percentage"),
+                                    Previous_Class = e_dr.Field<string>("Previous_Class"),
+                                    FK_Previous_Class_Board = e_dr.Field<int>("FK_Previous_Class_Board"),
+                                    Previous_Class_Percentage = e_dr.Field<decimal>("Previous_Class_Percentage"),
+                                    Year_of_Passing = e_dr.Field<string>("Year_of_Passing"),
+                                    Fk_UserName = e_dr.Field<string>("Fk_UserName"),
+                                    CourseName = e_dr.Field<string>("CourseName"),
+                                    Specification = e_dr.Field<string>("Specification"),
+                                    OtherWork = e_dr.Field<string>("OtherWork"),
+                                }).ToList()
 
                             }).ToList();
                         }
-                        else {
+                        else
+                        {
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new SiteUserMDL()
                             {
                                 Pk_UserId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
@@ -3083,7 +3161,7 @@ namespace GyanmitrasDAL.Common
                                 MobileNo = dr.Field<string>("Mobile_Number"),
                                 AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
                                 AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
-
+                                languages = Convert.ToString(dr.Field<int>("FK_LanguageKnown")),
                                 //AreYou = dr.Field<string>("AreYou"),
                                 //JoinUsDescription = dr.Field<string>("JoinUsDescription"),
                                 HavePC = dr.Field<bool>("HavePC"),
@@ -3105,11 +3183,37 @@ namespace GyanmitrasDAL.Common
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsApprovedCounselor = dr.Field<bool>("IsApprovedCounselor"),
                                 IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
-
+                                MyAdoption = dr.Field<bool>("MyAdoption"),
+                                AdoptionWish = dr.Field<bool>("AdoptionWish") ? "True" : "False",
+                                HaveSmartPhone = dr.Field<bool>("HaveSmartPhone") ? "True" : "False",
+                                IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
+                                {
+                                    ID = e_dr.Field<int>("ID"),
+                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    Class = e_dr.Field<string>("Class"),
+                                    FK_BoardID = e_dr.Field<int>("FK_BoardID"),
+                                    FK_StreamID = e_dr.Field<int>("FK_BoardID"),
+                                    Currentsemester = e_dr.Field<string>("Currentsemester"),
+                                    UniversityName = e_dr.Field<string>("UniversityName"),
+                                    NatureOFCompletion = e_dr.Field<string>("NatureOFCompletion"),
+                                    Percentage = e_dr.Field<decimal>("Percentage"),
+                                    Previous_Class = e_dr.Field<string>("Previous_Class"),
+                                    FK_Previous_Class_Board = e_dr.Field<int>("FK_Previous_Class_Board"),
+                                    Previous_Class_Percentage = e_dr.Field<decimal>("Previous_Class_Percentage"),
+                                    Year_of_Passing = e_dr.Field<string>("Year_of_Passing"),
+                                    Fk_UserName = e_dr.Field<string>("Fk_UserName"),
+                                    CourseName = e_dr.Field<string>("CourseName"),
+                                    Specification = e_dr.Field<string>("Specification"),
+                                    OtherWork = e_dr.Field<string>("OtherWork"),
+                                }).ToList()
 
 
                             }).ToList();
                         }
+
+
+
                         objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
 
 
@@ -3150,7 +3254,7 @@ namespace GyanmitrasDAL.Common
                 if (objDataSet.Tables[2].Rows.Count > 0)
                 {
 
-                   
+
                     objTotalCountPagingMDL = new TotalCountPagingMDL()
                     {
                         TotalItem = objDataSet.Tables[2].Rows[0].Field<int>("TotalItem"),
@@ -3165,6 +3269,8 @@ namespace GyanmitrasDAL.Common
                         ManageCreiticalSupport = objDataSet.Tables[2].Rows[0].Field<int>("ManageCreiticalSupport"),
                         AdoptedStudent = objDataSet.Tables[2].Rows[0].Field<int>("AdoptedStudent"),
                         PendingAdoptedStudent = objDataSet.Tables[2].Rows[0].Field<int>("PendingAdoptedStudent"),
+                        TotalAdoptedStudentByCounselor = objDataSet.Tables[2].Rows[0].Field<int>("TotalAdoptedStudentByCounselor"),
+                        
 
                         //Display Cards
                         IsTotalItem = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalItem"),
@@ -3200,7 +3306,7 @@ namespace GyanmitrasDAL.Common
         /// Created Date:06-01-2020
         /// purpose: Delete Customer Details
         /// </summary>
-        public MessageMDL DeleteSiteUser(Int64 PK_CustomerId, Int64 UserId,bool recover = false)
+        public MessageMDL DeleteSiteUser(Int64 PK_CustomerId, Int64 UserId, bool recover = false)
 
         {
 
@@ -3212,9 +3318,56 @@ namespace GyanmitrasDAL.Common
                 new SqlParameter("@iPK_Id", PK_CustomerId),
                 new SqlParameter("@iUserId", UserId),
                 new SqlParameter("@recover", recover),
-                
+
                 };
                 _commandText = "[SiteUsers].[USP_SiteUserDeleteUser]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //msg.Message = (msg.MessageId == 1)
+                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
+                    //                   : (msg.MessageId == -1)
+                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
+                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
+
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Delete Customer Details
+        /// </summary>
+        public MessageMDL SiteUserActionManagementByAdmin(Int64 PK_Id, Int64 UserId,string type)
+        {
+
+            MessageMDL msg = new MessageMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                    new SqlParameter("@iPK_Id", PK_Id),
+                    new SqlParameter("@iUserId", UserId),
+                    new SqlParameter("@type", type)
+                };
+                _commandText = "[SiteUsers].[SiteUserActionManagementByAdmin]";
                 objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
                 if (objDataSet.Tables[0].Rows.Count > 0)
                 {

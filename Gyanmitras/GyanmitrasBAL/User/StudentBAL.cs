@@ -36,6 +36,19 @@ namespace GyanmitrasBAL.User
             return objstudentDAL.UpdateStudentProfile(objstudentMDL);
         }
         #endregion
+
+
+
+        public List<SiteUserPlannedCommunication> GetPlannedCommunication(Int64 FK_CounselorID, Int64 FK_StudentID, string LoginType = "")
+        {
+            return objstudentDAL.GetPlannedCommunication(FK_CounselorID, FK_StudentID, LoginType);
+        }
+
+
+        public MessageMDL AddPlannedCommunication(List<SiteUserPlannedCommunication>  objPlannedCommunication,string IsAdopt)
+        {
+            return objstudentDAL.AddPlannedCommunication(objPlannedCommunication, IsAdopt);
+        }
         
     }
 }

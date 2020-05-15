@@ -47,12 +47,12 @@ namespace Gyanmitras.Controllers
             ViewBag.CanEdit = true;
             ViewBag.CanView = true;
             ViewBag.CanDelete = true;
-            SearchBy = string.IsNullOrEmpty(SearchBy) ? "volunteer" : "suggestedVolunteer";
+            //SearchBy = string.IsNullOrEmpty(SearchBy) ? "volunteer" : "suggestedVolunteer";
             CommonBAL objMDL = new CommonBAL();
             _StudentDatalist = new List<StudentMDL>();
             objBasicPagingMDL = new BasicPagingMDL();
             objTotalCountPagingMDL = new TotalCountPagingMDL();
-            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, SearchBy, 0,0);
+            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, "volunteer", 0,0);
 
             ViewBag.paging = objBasicPagingMDL;
             ViewBag.TotalCountPaging = objTotalCountPagingMDL;
@@ -97,7 +97,7 @@ namespace Gyanmitras.Controllers
                 //return View("AddEditAccount", obj);
             }
             StudentMDL obj = new StudentMDL();
-            obj.FormType = "volunteer";
+            ViewBag.FormType = "volunteer";
             ViewBag.Registration = obj;
             return View("StudentRegistration");
         }
@@ -108,7 +108,7 @@ namespace Gyanmitras.Controllers
         public ActionResult Registration()
         {
             ViewBag.Title = "Volunteer Registration";
-            obj.FormType = "Volunteer Registration";
+            ViewBag.FormType= "Volunteer Registration";
             ViewBag.VolunteerRegistration = obj;
 
             return View(obj);
@@ -129,6 +129,9 @@ namespace Gyanmitras.Controllers
                 HttpPostedFileBase Imgfile = Voluntee.Image;
                 if (Imgfile != null)
                 {
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                            "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                            Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
 
 
                     if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/")))
@@ -145,7 +148,7 @@ namespace Gyanmitras.Controllers
                         }
                     }
 
-                    Voluntee.ImageName = Imgfile.FileName;
+                    Voluntee.ImageName = filenamemodefied;
                 }
                 VolunteerBAL objVolunteerBAL = new VolunteerBAL();
                 string Msg = "";
@@ -203,7 +206,7 @@ namespace Gyanmitras.Controllers
         {
             VolunteerMDL obj = new VolunteerMDL();
             ViewBag.Title = "User Profile";
-            obj.FormType = "User Profile";
+            ViewBag.FormTypeFormType = "User Profile";
             ViewBag.VolunteerRegistration = obj;
             VolunteerBAL objVolunteerBAL = new VolunteerBAL();
             var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;

@@ -12,6 +12,8 @@ using GyanmitrasBAL.User;
 using System.Text;
 using System.IO;
 using Gyanmitras.Common;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Gyanmitras.Controllers
 {
@@ -28,9 +30,10 @@ namespace Gyanmitras.Controllers
         [AllowAnonymous]
         [SkipUserCustomAuthenticationAttribute]
         // GET: Counselor
-        public ActionResult AdoptedStudentIndex()
+        public ActionResult Index()
         {
-            ViewBag.Title = "Counselor : Adopted Student";
+            ViewBag.IsAdoptedStudentCounselor = SiteUserSessionInfo.User.IsAdoptedStudentCounselor;
+            ViewBag.Title = SiteUserSessionInfo.User.IsAdoptedStudentCounselor ? "Counselor : Adopted Student" : "Counselor : Non-Adopted Student";
             return View();
         }
 
@@ -69,7 +72,7 @@ namespace Gyanmitras.Controllers
             ViewData["StreamListpostgraduation"] = CommonBAL.GetStream("PostGraduation");
             ViewData["BoardList"] = CommonBAL.GetBoardType();
             ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
-
+            
 
             return View(obj);
         }
@@ -116,6 +119,54 @@ namespace Gyanmitras.Controllers
 
 
 
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Get Account Details By Id
+        /// </summary>
+        /// 
+        [HttpPost]
+        [SkipUserCustomAuthenticationAttribute]
+        public ActionResult StudentAdoption(string PlannedCommunication)
+        {
+
+            return View();
+        }
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Get Planned Communication
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetPlannedCommunication(Int64 FK_StudentID)
+        {
+            StudentBAL obj = new StudentBAL();
+            Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
+            return Json(obj.GetPlannedCommunication(FK_CounselorID, FK_StudentID), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Add Planned Communication
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult AddPlannedCommunication(string json_PlanCommunication,string IsAdopt = "false")
+        {
+            StudentBAL obj = new StudentBAL();
+            Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
+
+            var objPlannedCommunication = JsonConvert.DeserializeObject<List<SiteUserPlannedCommunication>>(json_PlanCommunication);
+            
+            return Json(obj.AddPlannedCommunication(objPlannedCommunication, IsAdopt), JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// Created By: Vinish
@@ -125,15 +176,12 @@ namespace Gyanmitras.Controllers
         /// 
         [HttpGet]
         [SkipUserCustomAuthenticationAttribute]
-        public ActionResult StudentRegistration(int id = 0)
+        public ActionResult StudentAdoption(int id = 0)
         {
-            ViewBag.Title = "Student Registration Details";
+            ViewBag.Title = "Counselor Student Adoption";
             if (id != 0)
             {
-
-
-
-
+                
                 CommonBAL objMDL = new CommonBAL();
                 dynamic _StudentDatalist = new List<StudentMDL>();
                 BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
@@ -141,7 +189,10 @@ namespace Gyanmitras.Controllers
                 objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, 10, 1, "", "", SiteUserSessionInfo.User.UserId, "counselor", 0, 0, "studentGetByCounselor");
                 ViewBag.Registration = _StudentDatalist[0];
                 _StudentDatalist[0].FormType = "counselor";
-                return View("StudentRegistration", _StudentDatalist[0]);
+                ViewBag.FormType = "counselor";
+                _StudentDatalist[0].JSON_EducationDetails = new JavaScriptSerializer().Serialize(_StudentDatalist[0].EducationDetails);
+                _StudentDatalist[0].Declaration = true;
+                return View("StudentAdoption", _StudentDatalist[0]);
             }
             else
             {
@@ -154,7 +205,7 @@ namespace Gyanmitras.Controllers
             obj.FormType = "counselor";
             ViewBag.FormType = "counselor";
             ViewBag.Registration = obj;
-            return View("StudentRegistration");
+            return View("StudentAdoption");
         }
 
 
@@ -165,12 +216,12 @@ namespace Gyanmitras.Controllers
             ViewBag.CanEdit = true;
             ViewBag.CanView = true;
             ViewBag.CanDelete = true;
-            SearchBy = string.IsNullOrEmpty(SearchBy) ? "counselor" : "";
+            //SearchBy = string.IsNullOrEmpty(SearchBy) ? "counselor" : "";
             CommonBAL objMDL = new CommonBAL();
             dynamic _StudentDatalist = new List<StudentMDL>();
             BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
             TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
-            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, SearchBy, 0, 0);
+            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, "counselor", 0, 0,"counselor");
 
             ViewBag.paging = objBasicPagingMDL;
             ViewBag.TotalCountPaging = objTotalCountPagingMDL;
@@ -207,11 +258,33 @@ namespace Gyanmitras.Controllers
         {
             counselor.Password = ClsCrypto.Encrypt(counselor.Password);
 
+            ViewBag.Title = "Counselor Registration";
+            ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
+            ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
+            //ViewData["StreamList"] = CommonBAL.BindStreamDetailsList();
+            ViewData["StreamListgraduation"] = CommonBAL.GetStream("Graduation");
+            ViewData["StreamListpostgraduation"] = CommonBAL.GetStream("PostGraduation");
+            ViewData["BoardList"] = CommonBAL.GetBoardType();
+            ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
+
+
             if (ModelState.IsValid)
             {
+
+                foreach (var item in counselor.AreaOfInterestIds)
+                {
+                    counselor.AreaOfInterest += item.ToString() + ",";
+                }
+                counselor.AreaOfInterest = counselor.AreaOfInterest.Substring(0, counselor.AreaOfInterest.LastIndexOf(','));
+
+
                 HttpPostedFileBase Imgfile = counselor.Image;
                 if (Imgfile != null)
                 {
+
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                                "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                                Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
 
 
                     if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/StudentImages/")))
@@ -228,7 +301,7 @@ namespace Gyanmitras.Controllers
                         }
                     }
 
-                    counselor.ImageName = Imgfile.FileName;
+                    counselor.ImageName = filenamemodefied;
                 }
                 CounselorBAL objCounselorBAL = new CounselorBAL();
                 string Msg = "";
@@ -258,6 +331,12 @@ namespace Gyanmitras.Controllers
             }
             else
             {
+                string Message = string.Join("\n", ModelState.Values
+                                   .SelectMany(x => x.Errors)
+                                   .Select(x => x.ErrorMessage));
+
+                TempData["ErrorMessage"] = "Somthing went wrong!";
+
                 return View(counselor);
             }
         }

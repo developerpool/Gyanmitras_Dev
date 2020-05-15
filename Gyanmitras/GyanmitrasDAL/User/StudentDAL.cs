@@ -19,6 +19,7 @@ namespace GyanmitrasDAL.User
 
         static string CommandText = string.Empty;
         static DataFunctions objDataFunctions = new DataFunctions();
+        static string _commandText = string.Empty;
         #region register student
         public StringBuilder RegisterStudent(StudentMDL objstudentMDL)
         {
@@ -75,7 +76,7 @@ namespace GyanmitrasDAL.User
                      new SqlParameter("@StateID",objstudentMDL.FK_StateId),
                      new SqlParameter("@CityID",objstudentMDL.FK_CityId),
                      new SqlParameter("@LanguageKnownID",String.IsNullOrEmpty(objstudentMDL.languages)  ? DBNull.Value : (object)(int.Parse(objstudentMDL.languages))),
-                     new SqlParameter("@AreaOfInterestID",String.IsNullOrEmpty(objstudentMDL.AreaOfInterest)  ? DBNull.Value : (object)(int.Parse(objstudentMDL.AreaOfInterest))),
+                     new SqlParameter("@AreaOfInterestID",objstudentMDL.AreaOfInterest),
                      new SqlParameter("@UserName",objstudentMDL.UID),
                      new SqlParameter("@CategoryID",1),
                      new SqlParameter("@RoleID",1),
@@ -89,6 +90,8 @@ namespace GyanmitrasDAL.User
                           new SqlParameter("@Academicdata",dt),
 
                     new SqlParameter("@Createddatetime",DateTime.Now),
+                    new SqlParameter("@CreatedBy",objstudentMDL.CreatedBy),
+
                    new SqlParameter("@EmployedExpertise",DBNull.Value),
                    new SqlParameter("@RetiredExpertise",DBNull.Value),
                     new SqlParameter("@AreYou",DBNull.Value),
@@ -197,6 +200,123 @@ namespace GyanmitrasDAL.User
             return jsonResult;
         }
         #endregion
+
+
+        public List<SiteUserPlannedCommunication> GetPlannedCommunication(Int64 FK_CounselorID, Int64 FK_StudentID,string LoginType = "")
+        {
+
+            List<SiteUserPlannedCommunication> List = new List<SiteUserPlannedCommunication>();
+            try
+            {
+                DataSet objDataSet = new DataSet();
+
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                     new SqlParameter("@FK_CounselorID",FK_CounselorID),
+                     new SqlParameter("@FK_StudentID",FK_StudentID),
+                     new SqlParameter("@LoginType",LoginType),
+                     
+                };
+                CheckParameters.ConvertNullToDBNull(parms);
+                _commandText = "[SiteUsers].[USP_GetPlannedCommunication]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    List = objDataSet.Tables[0].AsEnumerable().Select(dr => new SiteUserPlannedCommunication()
+                    {
+                        PK_PlannedCommunicationID = dr.Field<Int64>("PK_PlannedCommunicationID"),
+                        FK_CounselorID            = dr.Field<Int64>("FK_CounselorID"),
+                        FK_StudentID              = dr.Field<Int64>("FK_StudentID"),
+                        DateTimeFrom              = dr.Field<string>("DateTimeFrom"),
+                        DateTimeTo                = dr.Field<string>("DateTimeTo"),
+                        CommunicationPlan         = dr.Field<string>("CommunicationPlan"),
+                        IsActive                  = dr.Field<bool>("IsActive"),
+                        IsDeleted                 = dr.Field<bool>("IsDeleted")
+
+                    }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "");
+            }
+            return List;
+        }
+
+
+
+
+        public MessageMDL AddPlannedCommunication(List<SiteUserPlannedCommunication> objPlannedCommunication,string IsAdopt)
+        {
+            MessageMDL objMessageMDL = new MessageMDL();
+            List<SiteUserPlannedCommunication> List = new List<SiteUserPlannedCommunication>();
+            try
+            {
+                DataSet objDataSet = new DataSet();
+                DataTable objDataTable = new DataTable();
+                objDataTable.Columns.Add("FK_CounselorID",typeof(Int64));
+                objDataTable.Columns.Add("FK_StudentID", typeof(Int64));
+                objDataTable.Columns.Add("DateTimeFrom", typeof(string));
+                objDataTable.Columns.Add("DateTimeTo", typeof(string));
+                objDataTable.Columns.Add("CommunicationPlan", typeof(string));
+                objDataTable.Columns.Add("IsActive", typeof(bool));
+                objDataTable.Columns.Add("IsDeleted", typeof(bool));
+
+                
+                foreach (var item in objPlannedCommunication)
+                {
+                    DataRow dr = objDataTable.NewRow();
+                    dr["FK_CounselorID"] = item.FK_CounselorID;
+                    dr["FK_StudentID"] = item.FK_StudentID;
+                    dr["DateTimeFrom"] = item.DateTimeFrom;
+                    dr["DateTimeTo"] = item.DateTimeTo;
+                    dr["CommunicationPlan"] = item.CommunicationPlan;
+                    dr["IsActive"] = true;
+                    dr["IsDeleted"] = false;
+                    objDataTable.Rows.Add(dr);
+                }
+
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                     new SqlParameter("@PlannedCommunicationData",objDataTable),
+                     new SqlParameter("@IsAdoptStudent",IsAdopt == "true" ? true:false),
+                     
+                };
+                CheckParameters.ConvertNullToDBNull(parms);
+                _commandText = "[SiteUsers].[USP_AddEditPlannedCommunication]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    objMessageMDL.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    objMessageMDL.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //objMessageMDL.Message = (objMessageMDL.MessageId == 1)
+                    //                      ? @GyanmitrasLanguages.LocalResources.Resource.RecordInserted
+                    //                      : (objMessageMDL.MessageId == 2)
+                    //                      ? @GyanmitrasLanguages.LocalResources.Resource.RecordUpdated
+                    //                      : (objMessageMDL.MessageId == 3)
+                    //                      ? @GyanmitrasLanguages.LocalResources.Resource.EmailExists
+                    //                      : (objMessageMDL.MessageId == 4)
+                    //                      ? @GyanmitrasLanguages.LocalResources.Resource.MobileNoExist
+                    //                      : (objMessageMDL.MessageId == 5)
+                    //                      ? @GyanmitrasLanguages.LocalResources.Resource.AccountAlreadyExist
+                    //                      : (objMessageMDL.MessageId == 6)
+                    //                      ? @GyanmitrasLanguages.LocalResources.Resource.UserAlreadyExist
+
+                    //                      : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "");
+            }
+            return objMessageMDL;
+        }
 
     }
 }

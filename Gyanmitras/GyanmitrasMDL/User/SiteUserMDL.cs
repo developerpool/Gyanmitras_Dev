@@ -1,4 +1,5 @@
 ﻿using GyanmitrasLanguages.LocalResources;
+using GyanmitrasMDL.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -66,6 +67,18 @@ namespace GyanmitrasMDL
         public bool IsApprovedCounselor { get; set; }
 
         public bool IsAdoptedStudent { get; set; }
+        public bool MyAdoption { get; set; }
+
+        
+
+        
+
+        public bool IsMachingStudentsForCounselor { get; set; }
+
+        
+        public List<SiteUserEducationDetailsMDL> EducationDetails { get; set; }
+        public string JSON_EducationDetails { get; set; }
+
 
     }
 }

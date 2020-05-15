@@ -20,9 +20,9 @@
                 <th class="text-center">Name</th>
                 <th class="text-center">Category Name</th>
                 <th class="text-center">Role Name</th>
-                @*<th class="text-center">UID</th>
-                    <th class="text-center">Password</th>
-                    <th class="text-center">Address</th>*@
+                <th class="text-center">UID</th>
+                <th class="text-center">Password</th>
+                @*<th class="text-center">Address</th>*@
                 <th class="text-center">State Name</th>
                 <th class="text-center">City Name</th>
                 @*<th class="text-center">Zip Code</th>*@
@@ -32,7 +32,7 @@
                 <th class="text-center">Created Date Time</th>
                 <th class="text-center">Image</th>
 
-                
+
 
             </tr>
         </thead>
@@ -66,9 +66,9 @@
                         }
                         <td class="text-center text-nowrap">
 
-                            @if (item.IsApprovedCounselor)
+                            @if (!item.IsApprovedCounselor)
                             {
-                                <a class="btn btn-icon btn-success btn-sm" onclick="return confirm('Are you sure to approve this counselor');" title="Click Here, Approve This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-user-plus"></i></a>
+                                <a class="btn btn-icon btn-success btn-sm" onclick="return confirm('Are you sure to approve this counselor');" title="Click Here, Approve This Counselor." href="@Url.Action("ApproveCounselor", new { id = item.PK_CounselorID })"><i class="la la-user-plus"></i></a>
                             }
                             <a class="btn btn-icon btn-warning btn-sm" onclick="return confirm('Are you sure to give feedback to this counselor');" title="Click Here, Give Feedback This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-warning"></i></a>
                             <a class="btn btn-icon btn-info btn-sm" onclick="return confirm('Are you sure to give feed to this counselor');" title="Click Here,Give Feed This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-feed"></i></a>
@@ -89,9 +89,9 @@
 
                         <td class="text-center">@item.CategoryName</td>
                         <td class="text-center">@item.RoleName</td>
-                        @*<td class="text-center">@item.UID</td>
-                            <td class="text-center">@item.Password</td>
-                            <td class="text-center">@item.Address</td>*@
+                        <td class="text-center">@item.UID</td>
+                        <td class="text-center">@item.Password</td>
+                        @*<td class="text-center">@item.Address</td>*@
                         <td class="text-center">@item.StateName</td>
                         <td class="text-center">@item.CityName</td>
                         @*<td class="text-center">@item.ZipCode</td>*@
@@ -110,7 +110,7 @@
 
                         </td>
 
-                      
+
 
                     </tr> SerialNo++;
                 }

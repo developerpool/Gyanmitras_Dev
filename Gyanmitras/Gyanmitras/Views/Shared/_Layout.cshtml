@@ -65,6 +65,38 @@
         .dropdown:hover .dropbtn {
             background-color: #3e8e41;
         }
+
+
+
+        .modalBgLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 9998;
+            overflow: hidden;
+        }
+
+        .modalLoaderCenter {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            text-align: center;
+            margin-top: -114px;
+        }
+
+            .modalLoaderCenter span {
+                display: block;
+                text-align: center;
+                font-size: 21px;
+                padding-top: 15px;
+                color: #000;
+            }
     </style>
 
 </head>
@@ -113,7 +145,11 @@
 
                         if (user.CategoryId == 1)
                         {
-                            <li>@Html.ActionLink("Latest News", "LatestNews", "Student", new { @style = "color:white !important;" })</li>
+                            <li>
+                            <a href="https://gyanmitras.blogspot.com/" style = "color:white !important;">Latest News</a>
+                            @*@Html.ActionLink("Latest News", "LatestNews", "Student", new { @style = "color:white !important;" })*@
+                            
+                            </li>
                             if (user.RoleId == 1)
                             {
                                 <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @style = "color:white !important;" })</li>
@@ -125,15 +161,25 @@
                         }
                         if (user.CategoryId == 2)
                         {
-
-                            <li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:white !important;" })</li>
-                            <li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:white !important;" })</li>
-                            <li>@Html.ActionLink("Non-Adopted Student", "NonAdoptedStudentIndex", "Counselor", new { @style = "color:white !important;" })</li>
-                        }
-                        if (user.CategoryId == 3)
-                        {
+                            ///
+                            if (user.IsAdoptedStudentCounselor)
+                            {
+                                <li> <a href="Home/CommonChat?CounselorId=12##$ASD" style = "color:white !important;">Call & Mail</a></li>
+                            }
+                            else
+                            {
+                                <li> <a href="Home/CommonChat?CounselorId=12##$ASD" style="color:white !important;">Open Query</a></li>
+                            }
+                            @*<li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:white !important;" })</li>*@
+                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:white !important;" })</li>*@
+                            <li> <a href="https://gyanmitras.blogspot.com/" style = "color:white !important;">Latest News</a></li>
+                            @*<li>@Html.ActionLink("Non-Adopted Student", "Index", "Counselor", new { @style = "color:white !important;" })</li>*@
+                            }
+                            if (user.CategoryId == 3)
+                            {
                             <li>@Html.ActionLink("How To Work", "HowToWork", "Volunteer", new { @style = "color:white !important;" })</li>
-                            <li>@Html.ActionLink("Latest News", "LatestNews", "Volunteer", new { @style = "color:white !important;" })</li>
+                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Volunteer", new { @style = "color:white !important;" })</li>*@
+                            <li> <a href="https://gyanmitras.blogspot.com/" style = "color:white !important;">Latest News</a></li>
                         }
                     }
                     else
@@ -141,9 +187,9 @@
                         <li>
                             <a href="https://www.blogger.com/about/?r=2" style="color:white !important;">Latest News</a>
                         </li>
-                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Home", new { @style = "color:white !important;" })</li>*@
-                            }
-<li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:white !important;" })</li>
+                        @*<li>@Html.ActionLink("Latest News", "LatestNews", "Home", new { @style = "color:white !important;" })</li>*@
+                    }
+                    <li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:white !important;" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -151,6 +197,15 @@
     </div>
     <div class="container ">
         @RenderBody()
+        @*******Start Loader******@
+        <div class="modalBgLoader" style="display: none"></div>
+
+        <div class="modalLoaderCenter" style="display: none">
+            <img src="~/app-assets/images/loader.gif" />
+            <span>Loading...</span>
+        </div>
+
+        @*******End Loader******@
         <hr />
         <footer>
 
@@ -292,7 +347,7 @@
 
         /*End  Bind Vehicles By Customer Using Sumo Select  */
         function StateBind() {
-          
+
             //var input = { countryId: parseInt("1") };
             $.ajax({
                 url: "@Url.Action("GetDropsForResource", "Home")",
@@ -302,7 +357,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    
+
                     if ((data[0].state).length > 0) {
                         for (var i = 0 ; i < (data[0].state).length ; i++) {
                             $("#State").append('<option value = "' + (data[0].state)[i].ID + '">' + (data[0].state)[i].Value + '</option>');

@@ -1,0 +1,240 @@
+﻿@model GyanmitrasMDL.User.StudentMDL
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Int64 FK_CounselorID = Gyanmitras.Common.SiteUserSessionInfo.User.UserId;
+    
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+@using (Html.BeginForm("StudentAdoption", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.Partial("~/Views/Student/_StudentRegistration.cshtml", (GyanmitrasMDL.User.StudentMDL)ViewBag.Registration)
+}
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Plan Communication</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 offset-lg-1">
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label text-center" for="eventRegInput1">Time Slot</label>
+                            <div class="col-md-9">
+                                @Html.TextBox("TimeSlot", "", new { @class = "form-control", @type = "datetime" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label text-center" for="eventRegInput1">Plan Description</label>
+                            <div class="col-md-9">
+                                @Html.TextArea("PlanDescription", new { @class = "form-control", @row = "3" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12" style="text-align:right">
+                                <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="addPlanCommunication">Add</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+
+                            </div>
+                            <div class="card-content collapse show" style="cursor: auto;">
+                                <div class="card-body card-dashboard  pt-0">
+                                    <div class="dataTables_wrapper">
+                                        <div id="GridDiv">
+                                            <div class="table-responsive">
+                                                <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">No.</th>
+                                                            <th class="text-center">Date & Time</th>
+                                                            <th class="text-center">Description</th>
+                                                            <th class="text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbodyPlanCommunication">
+                                                        <tr>
+                                                            <td colspan="14">
+                                                                <div class="text-danger">
+                                                                    Data Not Found.
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="submitPlanCommunication">Submit</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script src="~/assets/js/jquery.sumoselect.js"></script>
+
+    <script type="text/javascript" src="~/assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/daterangepicker.css" />
+
+
+    <script type="text/javascript">
+        var PlanCommunication = new Array();
+        $(function () {
+
+
+            $("#TimeSlot").attr('readonly', 'readonly');
+
+
+            $("#TimeSlot").daterangepicker({
+                datepickerOptions: {
+                    numberOfMonths: 1
+                },
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm:ss'
+                },
+                //"startDate": moment().hours(24).minutes(00),
+                //"endDate": moment().hours(24).minutes(00),
+                ranges: {
+                    'Today': [moment().hours(0).minutes(0), moment().hours(24).minutes(00)],
+                    //'Yesterday': [moment().subtract('days', 1).hours(0).minutes(0), moment().subtract('days', 1).hours(23).minutes(59)],
+                    //'Last 7 Days': [moment().subtract('days', 6).hours(0).minutes(0), moment().hours(24).minutes(00)],
+                    //'Last 30 Days': [moment().subtract('days', 29).hours(0).minutes(0), moment().hours(24).minutes(00)],
+                    'This Month': [moment().startOf('month').hours(0).minutes(0), moment().endOf('month').hours(24).minutes(00)],
+                },
+                "minDate": moment().endOf("day"),
+                timePicker: true
+
+            });
+
+
+            $("#addPlanCommunication").click(function (e) {
+                debugger;
+                var TimeSlot = $("#TimeSlot").val();
+                var DateTimeFrom = TimeSlot.split(' - ')[0];
+                var DateTimeTo = TimeSlot.split(' - ')[1];
+                var DateFrom = DateTimeFrom.split(' ');
+                var DateTo = DateTimeTo.split(' ');
+
+                if (!$("#TimeSlot").val()) {
+                    $("#TimeSlot").focus();
+                    alert("Time Slot Is Required!");
+                    return false;
+                    e.preventDefault();
+                }
+                if (!$("#PlanDescription").val()) {
+                    $("#PlanDescription").focus();
+                    alert("Plan Description Is Required!");
+                    return false;
+                    e.preventDefault();
+                }
+                if (DateFrom[0] != DateTo[0]) {
+                    alert("From Date And To Date can't be different,time slot will be different between 24Hours!");
+                    return false;
+                    e.preventDefault();
+                }
+
+                if (PlanCommunication.length > 0) {
+                    for (var i = 0; i < PlanCommunication.length; i++) {
+                        if (PlanCommunication[i].DateTimeFrom == DateTimeFrom && PlanCommunication[i].DateTimeTo == DateTimeTo) {
+                            alert("A Time Slot already have, please select different Time Slot between 24Hours!");
+                            return false;
+                            e.preventDefault();
+                        }
+                    }
+
+
+                }
+                
+
+                var PlanDescription = $("#PlanDescription").val();
+                PlanCommunication.push({
+
+                    "FK_CounselorID": '@FK_CounselorID',
+                    "FK_StudentID": $.trim($("#PK_StudentID").val()),
+                    "DateTimeFrom": $.trim(DateTimeFrom),
+                    'DateTimeTo': $.trim(DateTimeTo),
+                    "CommunicationPlan": $.trim(PlanDescription),
+
+                });
+                if ($.trim($("#tbodyPlanCommunication").find('div[class="text-danger"]').text()) == 'Data Not Found.') {
+                    $("#tbodyPlanCommunication").empty();
+                }
+                $("#tbodyPlanCommunication").append('<tr><td class="text-center">' + ((PlanCommunication.length == 0) ? 1 : PlanCommunication.length) + '</td><td class="text-center">' + $.trim(DateTimeFrom) + ' - ' + $.trim(DateTimeTo) + '</td><td class="text-center">' + $.trim(PlanDescription) + '</td>   <td class="text-center">  <a class="btn btn-icon btn-danger btn-sm delete" href="javascript:void(0)" rowid="' + ((PlanCommunication.length == 0) ? 1 : PlanCommunication.length) + '" onclick="remove(this)"><i class="la la-trash-o"></i>Remove</a>  </td>  </tr>');
+
+                $("#TimeSlot").val('');
+                $("#PlanDescription").val('');
+
+
+
+            });
+
+            $("#submitPlanCommunication").click(function (e) {
+                if (PlanCommunication.length <= 0) {
+                    alert("Please select Time Slot!");
+                    return false;
+                    e.preventDefault();
+                }
+                $.ajax({
+                    url: "@Url.Action("AddPlannedCommunication", "Counselor")",
+                    type: 'GET',
+                    cache: false,
+                    beforeSend: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").show();
+                    },
+                    complete: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").hide();
+                    },
+                    data: { 'json_PlanCommunication': JSON.stringify(PlanCommunication) ,"IsAdopt" : "true"},
+                    success: function (data) {
+                        if (String(data.MessageId) == "1") {
+                            alert(data.Message);
+                            $('#myModal').modal('hide');
+                            location.href = '/counselor/Index';
+                        }
+                        else {
+                            alert('Somthing Went Wrong!');
+                        }
+                    }
+                });
+            });
+
+
+        })//Load Completed
+
+
+        function remove(a) {
+            $(a).closest("tr").remove();
+            PlanCommunication.pop($(a).attr('rowid'));
+        }
+
+    </script>
+}
+
