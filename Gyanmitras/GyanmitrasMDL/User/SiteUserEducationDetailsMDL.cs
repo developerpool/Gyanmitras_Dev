@@ -26,5 +26,9 @@ namespace GyanmitrasMDL.User
         public string CourseName { get; set; }
         public string Specification { get; set; }
         public string OtherWork { get; set; }
+        public string StreamName { get; set; }
+        public string PreviousClassBoardName { get; set; }
+        public string BoardName{ get; set; }
+        
     }
 }

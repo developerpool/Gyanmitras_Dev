@@ -3187,6 +3187,10 @@ namespace GyanmitrasDAL.Common
                                 AdoptionWish = dr.Field<bool>("AdoptionWish") ? "True" : "False",
                                 HaveSmartPhone = dr.Field<bool>("HaveSmartPhone") ? "True" : "False",
                                 IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+
+                                AreaOfInterestName = dr.Field<string>("AreaOfInterest"),
+                              LanguageKnownName=  dr.Field<string>("LanguageKnown"),
+
                                 EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
                                 {
                                     ID = e_dr.Field<int>("ID"),
@@ -3206,6 +3210,10 @@ namespace GyanmitrasDAL.Common
                                     CourseName = e_dr.Field<string>("CourseName"),
                                     Specification = e_dr.Field<string>("Specification"),
                                     OtherWork = e_dr.Field<string>("OtherWork"),
+                                     BoardName = e_dr.Field<string>("BoardType"),
+                                     PreviousClassBoardName = e_dr.Field<string>("PreviousClassBoard"),
+                                     StreamName = e_dr.Field<string>("Stream"),
+                                          
                                 }).ToList()
 
 

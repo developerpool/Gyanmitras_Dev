@@ -25,6 +25,8 @@ namespace GyanmitrasMDL
         public string MobileNo { get; set; }
         public string AlternateMobileNo { get; set; }
         public string AreaOfInterest { get; set; }
+        public string AreaOfInterestName { get; set; }
+        public string LanguageKnownName { get; set; }
         public string ImageName { get; set; }
         [Required(ErrorMessage = "Please Select the Pc Option")]
         public bool HavePC { get; set; }
