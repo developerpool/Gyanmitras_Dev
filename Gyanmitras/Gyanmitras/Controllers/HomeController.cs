@@ -128,6 +128,7 @@ namespace Gyanmitras.Controllers
                 //    obj.AdoptionWish
                 //}
                 obj.FormType = obj.Pk_UserId == 0 ? "NewSignUp" : "MailVerification";
+                obj.AdoptionWish = string.IsNullOrEmpty(obj.AdoptionWish) ? "" : obj.AdoptionWish;
                 MessageMDL message = objCommonBAL.SiteUserSignUp(obj);
                 if (message.MessageId == 1)
                 {
@@ -137,7 +138,7 @@ namespace Gyanmitras.Controllers
                     #region User mail after registration
                     string mailbody =
                         "Dear <b>" + obj.Name + "</b>,<br/>" +
-                        "Your request for "+ typereg + " registration has been received by management. <br/>" +
+                        "Your request for "+ typereg + " registration has been received by management." +
                         "<br/><br/>" +
                         "User ID : <b>" + obj.UID + "</b><br/>" +
                         "Password : <b>" + obj.Password + "</b><br/><br/>" +
@@ -152,6 +153,7 @@ namespace Gyanmitras.Controllers
                     #endregion
 
                     #region Admin mail after registration
+
                     mailbody =
                         "Dear Sir/Madam<br/>" +
                         "New request for "+ typereg + " registration from www.Gyanmitras.com. <br/>" +
@@ -160,8 +162,8 @@ namespace Gyanmitras.Controllers
                         "Name : <b>" + obj.Name + "</b><br/>" +
                         "Email : <b>" + obj.EmailID + "</b><br/>" +
                         "User ID : <b>" + obj.UID + "</b><br/>" +
-                        "Password : <b>" + obj.Password + "</b><br/><br/>" +
-                        "" + (!IsVolunteer && !IsCounselor ? "Do you want to be adopt." + " : <b>" + obj.AdoptionWish + "</b><br/>" : (IsCounselor ? "Do you want to adopt students in future." + " : <b>" + obj.AdoptionWish + "</b><br/><br/>" : "")) +
+                        "Password : <b>" + obj.Password + "</b><br/>" +
+                        "" + (!IsVolunteer && !IsCounselor ? "Do you want to be adopt." + " : <b>" + obj.AdoptionWish + "</b><br/><br/>" : (IsCounselor ? "Do you want to adopt students in future." + " : <b>" + (obj.AdoptionWish.ToLower() == "true" ? "Yes" : "No") + "</b><br/><br/>" : "")) +
                         
 
                         "Regards,<br/>" +
