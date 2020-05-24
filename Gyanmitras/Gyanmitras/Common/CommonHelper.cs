@@ -13,11 +13,7 @@ namespace Gyanmitras.Common
         {
             try
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var fileExtension = Path.GetExtension(fileName);
-                var filenamewithoutextension = "";
-                filenamewithoutextension = !String.IsNullOrEmpty(fileExtension) ? fileName.Replace(fileExtension, "") : fileName;
-                var filenamewithextension = NewName + fileExtension;//ResetFileNames(file, NewName);                  
+                var filenamewithextension = NewName;
                 bool folderExists = Directory.Exists(path);
                 if (folderExists)
                     Directory.CreateDirectory(path);
@@ -35,6 +31,19 @@ namespace Gyanmitras.Common
             var context = new ValidationContext(Obj, serviceProvider: null, items: null);
             var results = new List<ValidationResult>();
             return Validator.TryValidateObject(Obj, context, results);
+        }
+
+        public static string RandomString(string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", int stringCount = 5)
+        {
+            var stringChars = new char[stringCount];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            String mystr = new string(stringChars);
+            return mystr;
         }
 
     }

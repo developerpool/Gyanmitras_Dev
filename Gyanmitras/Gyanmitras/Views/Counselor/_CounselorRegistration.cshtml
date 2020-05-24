@@ -1,5 +1,18 @@
 ﻿@model GyanmitrasMDL.User.CounselorMDL
+@{
+    var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+    bool IsProfileFirstTime = user.IsUpdatedProfileAlert;
+    bool IsProfile = false;
+    if (ViewBag.type == "Edit")
+    {
+        IsProfile = true;
+    }
+    else if (IsProfileFirstTime)
+    {
+        IsProfile = false;
+    }
 
+}
 <link href="/assets/css/sumoselect.css" rel="stylesheet" />
 <link href="/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet">
 
@@ -53,22 +66,21 @@
                                 </div>
 
 
-                                @if (ViewBag.type != "Edit")
-                                {
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
-                                        <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
-                                            @Html.ValidationMessageFor(E => E.Name)
-                                        </div>
+
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
+                                        @Html.ValidationMessageFor(E => E.Name)
                                     </div>
-                                }
+                                </div>
+
 
 
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Email<span class="red">*</span></label>
                                     <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.EmailID, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Email, @maxlength = "200" })
+                                        @Html.TextBoxFor(E => E.EmailID, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Email, @maxlength = "200", @readonly = "readonly" })
 
                                         @Html.ValidationMessageFor(E => E.EmailID)
                                     </div>
@@ -78,7 +90,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.MobileNo.<span class="red">*</span></label>
                                     <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.MobileNo, new { @class = "form-control ", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.MobileNo + ".", @maxlength = "15", @onkeydown = "return IsNum(event)" })
+                                        @Html.TextBoxFor(E => E.MobileNo, new { @class = "form-control ", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.MobileNo + ".", @maxlength = "10", @onkeydown = "return IsNum(event)" })
 
                                         @Html.ValidationMessageFor(E => E.MobileNo)
                                     </div>
@@ -86,7 +98,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.AlternateMobileNo.</label>
                                     <div class="col-md-7">
-                                        @Html.TextBoxFor(E => E.AlternateMobileNo, new { @class = "form-control isMobile", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.AlternateMobileNo + ".", @maxlength = "15", @onkeydown = "return IsNum(event)" })
+                                        @Html.TextBoxFor(E => E.AlternateMobileNo, new { @class = "form-control isMobile", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.AlternateMobileNo + ".", @maxlength = "10", @onkeydown = "return IsNum(event)" })
                                         @Html.ValidationMessageFor(E => E.AlternateMobileNo)
                                     </div>
                                 </div>
@@ -105,12 +117,12 @@
                                         @Html.ValidationMessageFor(E => E.Address)
                                     </div>
                                 </div>
-                                @if (ViewBag.type != "Edit")
+                                @if (!IsProfile)
                                 {
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "6" })
 
                                             @Html.ValidationMessageFor(E => E.ZipCode)
                                         </div>
@@ -122,7 +134,7 @@
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.State<span class="red">*</span></label>
                                         <div class="col-md-7">
                                             @Html.DropDownListFor(E => E.FK_StateId, new List<SelectListItem>
-                                             () { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                          () { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
 
                                             @Html.ValidationMessageFor(E => E.FK_StateId)
                                         </div>
@@ -132,7 +144,7 @@
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.City<span class="red">*</span></label>
                                         <div class="col-md-7">
                                             @Html.DropDownListFor(E => E.FK_CityId, new List<SelectListItem>
-                                             () { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
+                                          () { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
 
                                             @Html.ValidationMessageFor(E => E.FK_CityId)
                                         </div>
@@ -144,7 +156,8 @@
                                             @Html.ValidationMessageFor(E => E.languages)
                                         </div>
                                     </div>
-
+                                }
+                               
 
                                     <div class="row">
                                         <div class="col-12 mt-1 mb-2">
@@ -157,7 +170,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
+                                            @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your User ID",@readonly= "readonly" })
                                             @Html.ValidationMessageFor(E => E.UID)
                                         </div>
                                     </div>
@@ -167,7 +180,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                            @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your Password" })
                                             @Html.ValidationMessageFor(E => E.Password)
                                         </div>
                                     </div>
@@ -175,16 +188,12 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                            @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your Password" })
                                             @Html.ValidationMessageFor(E => E.ConfirmPassword)
                                         </div>
                                     </div>
 
-                                }
-
-
-
-
+                             
 
                                 <div class="row">
                                     <div class="col-12 mt-1 mb-2">
@@ -193,7 +202,7 @@
                                     </div>
                                 </div>
 
-                                @if (ViewBag.type != "Edit")
+                                @if (!IsProfile)
                                 {
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">Area Of Interest<span class="red">*</span></label>
@@ -243,13 +252,13 @@
                                         }
                                         else
                                         {
-                                            <img style="height:40px;width:40px;" id="Img" src="~/SiteUserContents/Registration/CoounselorImages/@Model.ImageName" />
+                                            <img style="height:40px;width:40px;" id="Img" src="~/SiteUserContents/Registration/CounselorImages/@Model.ImageName" />
                                         }
 
                                     </div>
                                 </div>
 
-                                @if (ViewBag.type != "Edit")
+                                @if (!IsProfile)
                                 {
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">Why do you want to join us?<span class="red">*</span></label>
@@ -267,7 +276,7 @@
                                         @Html.ValidationMessageFor(E => E.HavePC)
                                     </div>
                                 </div>
-                                @if (ViewBag.type != "Edit")
+                                @if (!IsProfile)
                                 {
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">Would You Like To Adopt A Student Later?</label>
@@ -279,7 +288,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="LikeAdoptStudentLaterTermCon" >
+                                    <div id="LikeAdoptStudentLaterTermCon">
                                         <span class="red">*</span>
                                         <div class="col-md-12">
 
@@ -288,12 +297,12 @@
                                             only liable to handle concerns evolved due to misleading information’s
                                             provided by me either now or at any subsequent stages.
                                             <br /> @*<a href="#">
-                                                Terms and conditions of academic adoption by a counselor
-                                            </a>*@
+                                                    Terms and conditions of academic adoption by a counselor
+                                                </a>*@
                                             @Html.ValidationMessageFor(E => E.Declaration)
 
                                         </div>
-                                       
+
                                     </div>
                                 }
 
@@ -916,13 +925,17 @@
 
 <script type="text/javascript">
     $(function () {
+        debugger;
         if ('@ViewBag.Message') {
             alert('@ViewBag.Message');
-            if ('@ViewBag.Redirect' == "Yes") {
-                location.href = '/Counselor/Index';
+            if ('@ViewBag.IsProfileFirstTime' == "True") {
+                location.href = window.location.protocol + "//" + window.location.host + '/Home/LogOff';
+            }
+            else if ('@ViewBag.Redirect' == "Yes") {
+                location.href = window.location.protocol + "//" + window.location.host + '/Counselor/Index';
             }
             else {
-                location.href = '/Home/Index';
+                location.href = window.location.protocol + "//" + window.location.host + '/Home/Index';
             }
         }
 
@@ -1058,7 +1071,7 @@
 
                 }
 
-                
+
 
             }
         });
@@ -1403,7 +1416,7 @@
             // Allow normal operation
         } else {
             // Prevent the rest
-            alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
+            //alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
             event.preventDefault();
             return false;
         }

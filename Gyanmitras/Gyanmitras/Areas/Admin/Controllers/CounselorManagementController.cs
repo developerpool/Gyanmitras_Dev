@@ -66,9 +66,9 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
 
-            CommonBAL objMDL = new CommonBAL();
+            CommonBAL objCommonBAL = new CommonBAL();
             _UserDatalist = new List<CounselorMDL>();
-            objMDL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "", 2, 0);
+            objCommonBAL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue, SessionInfo.User.UserId, "", 2, 0);
             //objTotalCountPagingMDL = new TotalCountPagingMDL()
             //{
             //    TotalItem = 0,
@@ -218,8 +218,8 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-            CommonBAL objMDL = new CommonBAL();
-            MessageMDL msg = objMDL.DeleteSiteUser(id, SessionInfo.User.UserId);
+            CommonBAL objCommonBAL = new CommonBAL();
+            MessageMDL msg = objCommonBAL.DeleteSiteUser(id, SessionInfo.User.UserId);
             if (msg.MessageId == 1)
             {
                 msg.Message = msg.Message;
@@ -249,8 +249,8 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
             ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
             ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-            CommonBAL objMDL = new CommonBAL();
-            MessageMDL msg = objMDL.SiteUserActionManagementByAdmin(id, SessionInfo.User.UserId, type);
+            CommonBAL objCommonBAL = new CommonBAL();
+            MessageMDL msg = objCommonBAL.SiteUserActionManagementByAdmin(id, SessionInfo.User.UserId, type);
             if (msg.MessageId == 1)
             {
                 msg.Message = msg.Message;

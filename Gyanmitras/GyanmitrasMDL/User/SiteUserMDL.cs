@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GyanmitrasMDL
 {
-   public class SiteUserMDL
+    public class SiteUserMDL
     {
         public Int64 Pk_UserId { get; set; }
         public string UID { get; set; }
@@ -21,12 +21,16 @@ namespace GyanmitrasMDL
         public Int64 FK_CityId { get; set; }
         public string CityName { get; set; }
         public string StateName { get; set; }
+
+        public Int64 FK_AreaOfInterestStateId { get; set; }
+        public Int64 FK_AreaOfInterestDistrictId { get; set; }
+        public string AreaOfInterestDistrictName { get; set; }
+        public string AreaOfInterestStateName { get; set; }
+
         public string EmailID { get; set; }
         public string MobileNo { get; set; }
         public string AlternateMobileNo { get; set; }
         public string AreaOfInterest { get; set; }
-        public string AreaOfInterestName { get; set; }
-        public string LanguageKnownName { get; set; }
         public string ImageName { get; set; }
         [Required(ErrorMessage = "Please Select the Pc Option")]
         public bool HavePC { get; set; }
@@ -54,12 +58,17 @@ namespace GyanmitrasMDL
 
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-         
+
         public string Status { get; set; }
         public Int64 FK_RoleId { get; set; }
+        public Int64 FK_CategoryId { get; set; }
         public Int64 CreatedBy { get; set; }
         public string CreatedDateTime { get; set; }
-        
+        public Int64 UpdatedBy { get; set; }
+        public string UpdatedDateTime { get; set; }
+        public Int64 DeletedBy { get; set; }
+        public string DeletedDateTime { get; set; }
+
         public string FormType { get; set; }
         public string CategoryName { get; set; }
         public string RoleName { get; set; }
@@ -71,15 +80,28 @@ namespace GyanmitrasMDL
         public bool IsAdoptedStudent { get; set; }
         public bool MyAdoption { get; set; }
 
-        
 
-        
+
+
 
         public bool IsMachingStudentsForCounselor { get; set; }
+        public string AreaOfInterestName { get; set; }
+        public string LanguageKnownName { get; set; }
 
-        
+
         public List<SiteUserEducationDetailsMDL> EducationDetails { get; set; }
         public string JSON_EducationDetails { get; set; }
+
+
+        public string AreYou { get; set; }
+        public string JoinUsDescription { get; set; }
+        public bool LikeAdoptStudentLater { get; set; }
+        public string Retired_Expertise_Details { get; set; }
+        public string Secondry_Education_Board { get; set; }
+
+        public bool IsOTPVerified { get; set; }
+        public string OTP { get; set; }
+        public string OTPUserInput { get; set; }
 
 
     }

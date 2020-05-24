@@ -7,6 +7,7 @@ namespace Gyanmitras.Filter
 {
     public class SkipUserCustomAuthenticationAttribute : Attribute
     {
+        
     }
 
 }

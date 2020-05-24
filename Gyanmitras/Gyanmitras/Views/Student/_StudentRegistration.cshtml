@@ -2,7 +2,7 @@
 @{
     bool IsVolunteer = false;
     bool IsProfile = false;
-    bool IsRegistration = true;
+    bool IsRegistration = false;
     bool IsCounselor = false;
     if (ViewBag.FormType == "volunteer")
     {
@@ -16,6 +16,15 @@
     {
         IsRegistration = true;
         IsCounselor = true;
+    }
+    var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+    bool IsProfileFirstTime = user.IsUpdatedProfileAlert;
+    if (IsProfileFirstTime)
+    {
+        IsVolunteer = false;
+        IsProfile = false;
+        IsRegistration = true;
+        IsCounselor = false;
     }
 }
 <link href="/assets/css/sumoselect.css" rel="stylesheet" />
@@ -50,7 +59,7 @@
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
-                        @if (IsVolunteer)
+                        @if (IsVolunteer || IsProfileFirstTime)
                         {
                             <li class="breadcrumb-item active"><a href="@Url.Action("Index", "Volunteer")">Volunteer</a> </li>
                         }
@@ -74,26 +83,24 @@
                                         <hr>
                                     </div>
                                 </div>
-                                @if (!IsProfile)
-                                {
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
-                                        <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
-                                            @Html.ValidationMessageFor(E => E.Name)
-                                        </div>
+
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Name<span class="red">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(E => E.Name, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Name, @maxlength = "200" })
+                                        @Html.ValidationMessageFor(E => E.Name)
                                     </div>
-                                }
-                                @if (!IsVolunteer)
-                                {
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Email<span class="red">*</span></label>
-                                        <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.EmailID, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Email, @maxlength = "200" })
-                                            @Html.ValidationMessageFor(E => E.EmailID)
-                                        </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Email<span class="red">*</span></label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(E => E.EmailID, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.Email, @maxlength = "200" })
+                                        @Html.ValidationMessageFor(E => E.EmailID)
                                     </div>
-                                }
+                                </div>
+
                                 <div class="form-group row">
                                     <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.MobileNo.<span class="red">*</span></label>
                                     <div class="col-md-7">
@@ -129,7 +136,7 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.ZipCode<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "10" })
+                                            @Html.TextBoxFor(E => E.ZipCode, new { @class = "form-control", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.ZipCode, @maxlength = "6" })
                                             @Html.ValidationMessageFor(E => E.ZipCode)
                                         </div>
                                     </div>
@@ -153,8 +160,8 @@
                                         <div class="form-group row">
                                             <label class="control-label col-md-3">Language Known<span class="red">*</span></label>
                                             <div class="col-md-7">
-                                                @Html.DropDownListFor(E => E.languages, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control select2" })
-                                                @Html.ValidationMessageFor(E => E.languages)
+                                                @Html.DropDownListFor(E => E.LanguagesIDs, new List<SelectListItem>() { new SelectListItem() { Value = "", Text = @GyanmitrasLanguages.LocalResources.Resource.select } }, new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple" })
+                                                @Html.ValidationMessageFor(E => E.LanguagesIDs)
                                             </div>
                                         </div>
                                     }
@@ -169,7 +176,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
                                             <div class="col-md-7">
-                                                @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your User ID" })
+                                                @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your User ID" })
                                                 @Html.ValidationMessageFor(E => E.UID)
                                             </div>
                                         </div>
@@ -177,14 +184,14 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 control-label" for="eventRegInput1">Your Password<span class="red">*</span></label>
                                             <div class="col-md-7">
-                                                @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                                @Html.TextBoxFor(E => E.Password, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your Password" })
                                                 @Html.ValidationMessageFor(E => E.Password)
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 control-label" for="eventRegInput1">Re-Enter Password<span class="red">*</span></label>
                                             <div class="col-md-7">
-                                                @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "15", @placeholder = "Please enter your Password" })
+                                                @Html.TextBoxFor(E => E.ConfirmPassword, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your Password" })
                                                 @Html.ValidationMessageFor(E => E.ConfirmPassword)
                                             </div>
                                         </div>
@@ -401,10 +408,10 @@
                                 else
                                 {
                                     <div class="form-actions center" style="text-align:center;">
-                                            @if (!Model.IsAdoptedStudent)
-                                            {
-                                            <a  onclick="$('#myModal').modal('show');"  class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Adopt</a>
-                                            }
+                                        @if (!Model.IsAdoptedStudent)
+                                        {
+                                            <a onclick="$('#myModal').modal('show');" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Adopt</a>
+                                        }
                                         <a href='@Url.Action("Index")' class="btn btn-default">Clear</a>
                                     </div>
                                 }
@@ -437,25 +444,44 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        //debugger;
+
         if ('@TempData["Message"]') {
 
             if ('@IsVolunteer' == 'True') {
                 alert('Student Registration successfully.');
-                location.href = '/Volunteer/Index';
+                location.href = window.location.protocol + "//" + window.location.host + '/Volunteer/Index';
             }
             else {
                 alert('@TempData["Message"]');
                 if ('@TempData["Redirect"]' == "Yes") {
-                    location.href = '/Student/Index';
+                    location.href = window.location.protocol + "//" + window.location.host + '/Student/Index';
                 }
                 else {
-                    location.href = '/Home/Index';
+                    location.href = window.location.protocol + "//" + window.location.host + '/Home/Index';
                 }
             }
         }
         else if ('@TempData["ErrorMessage"]') {
             alert('@TempData["ErrorMessage"]');
+        }
+        else {
+            if ('@ViewBag.Message') {
+                alert('@ViewBag.Message');
+                if ('@ViewBag.IsProfileFirstTime' == "True") {
+                    location.href = window.location.protocol + "//" + window.location.host + '/Home/LogOff';
+                } else if ('@ViewBag.Redirect' == "Yes") {
+                    location.href = window.location.protocol + "//" + window.location.host + '/Student/Index';
+                }
+                else {
+                    location.href = window.location.protocol + "//" + window.location.host + '/Home/Index';
+                }
+            }
+        }
+
+
+        if ('@IsProfile' == "True" || '@IsProfileFirstTime' == 'True') {
+            $("#EmailID").attr('readonly', 'readonly');
+            $("#UID").attr('readonly', 'readonly');
         }
 
         StateBind1();
@@ -651,39 +677,40 @@
 
 
         if ($("#PK_StudentID").val() != "0") {
+            $("button[type='submit']").text('Update');
             //$("#FK_StateId").val($("#hd_FK_StateId").val());
-            
-            $("#languages").val($("#hd_languages").val());
+
             $("#ConfirmPassword").val($("#Password").val());
             $("#FK_StateId").trigger('change');
-
-            var JSON_EducationDetails = JSON.parse($("#hd_JSON_EducationDetails").val());
+            var JSON_EducationDetails = 'undefined';
+            if ($("#hd_JSON_EducationDetails").val()) {
+                JSON_EducationDetails = JSON.parse($("#hd_JSON_EducationDetails").val());
+            }
             //console.log(JSON_EducationDetails);
-            debugger;
-            if (JSON_EducationDetails.length > 0)
-            {
-                $("#TypeOfEducation").val(String(JSON_EducationDetails[0].Education_Type));
-                //if (JSON_EducationDetails[0].Education_Type == "Secondry") {
-                //    $("#TypeOfEducation").val("Secondry");
+            if (JSON_EducationDetails) {
+                if (JSON_EducationDetails.length > 0) {
+                    $("#TypeOfEducation").val(String(JSON_EducationDetails[0].Education_Type));
+                    //if (JSON_EducationDetails[0].Education_Type == "Secondry") {
+                    //    $("#TypeOfEducation").val("Secondry");
 
-                //    //$("#Current_Education_subcategory").val(JSON_EducationDetails[0].Class);
-                //    //$("#Current_Education_subcategory").trigger('change');
-                //    //$("#BoardType").val(JSON_EducationDetails[0].FK_BoardID);
-                //    //$("#StreamType").val(JSON_EducationDetails[0].NatureOFCompletion);
-                //    //$('input[type=radio][name=CompletionNature]').val(JSON_EducationDetails[0].NatureOFCompletion);
-                //    //$('input[type=radio][name=CompletionNature]').trigger('change');
-                //    //if( JSON_EducationDetails[0].NatureOFCompletion == "Pursuing")
-                //    //{
-                //    //    $("#Percentage").val(JSON_EducationDetails[0].NatureOFCompletion);
-                //    //}
-                //    //else if (JSON_EducationDetails[0].NatureOFCompletion == "Pursuing")
-                //    //{
-                //    //    $("#PreviousBoardType").val(JSON_EducationDetails[0].NatureOFCompletion);
-                //    //    $("#PreviousclassPercentage").val(JSON_EducationDetails[0].NatureOFCompletion);
-                //    //}
-                    
-                //}
+                    //    //$("#Current_Education_subcategory").val(JSON_EducationDetails[0].Class);
+                    //    //$("#Current_Education_subcategory").trigger('change');
+                    //    //$("#BoardType").val(JSON_EducationDetails[0].FK_BoardID);
+                    //    //$("#StreamType").val(JSON_EducationDetails[0].NatureOFCompletion);
+                    //    //$('input[type=radio][name=CompletionNature]').val(JSON_EducationDetails[0].NatureOFCompletion);
+                    //    //$('input[type=radio][name=CompletionNature]').trigger('change');
+                    //    //if( JSON_EducationDetails[0].NatureOFCompletion == "Pursuing")
+                    //    //{
+                    //    //    $("#Percentage").val(JSON_EducationDetails[0].NatureOFCompletion);
+                    //    //}
+                    //    //else if (JSON_EducationDetails[0].NatureOFCompletion == "Pursuing")
+                    //    //{
+                    //    //    $("#PreviousBoardType").val(JSON_EducationDetails[0].NatureOFCompletion);
+                    //    //    $("#PreviousclassPercentage").val(JSON_EducationDetails[0].NatureOFCompletion);
+                    //    //}
 
+                    //}
+                }
             }
 
         }
@@ -766,40 +793,46 @@
         });
     }
     function LanguageBind() {
-        $("#languages").empty();
-        $("#languages").append('<option value = "">@GyanmitrasLanguages.LocalResources.Resource.select</option>');
-        var input = { countryId: parseInt("1") };
+        $('#LanguagesIDs').html('');
+        $('#LanguagesIDs').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+        $('#LanguagesIDs')[0].sumo.unload();
+        $('#LanguagesIDs').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+
         $.ajax({
             url: "@Url.Action("GetLanguages", "Home")",
-            data: JSON.stringify(input),
-            datatype: "json",
+            type: "GET",
+            dataType: "JSON",
             async: false,
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
             beforeSend: function () {
                 $(".modalBgLoader, .modalLoaderCenter").show();
             },
             complete: function () {
                 $(".modalBgLoader, .modalLoaderCenter").hide();
             },
-            success: function (data) {
-                var Machinelist = new Array();
-                if (data.length == 0) {
-                    $(this).val('');
+            success: function (Tags) {
+                debugger
+                if (Tags.length > 0) {
+                    $.each(Tags, function (i, Tag) {
+                        ////debugger
+                        $('#LanguagesIDs')[0].sumo.add(Tag.ID, Tag.Value);
+                        $('#LanguagesIDs').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+                    });
                 }
-                else {
-                    for (var i = 0 ; i < data.length ; i++) {
-                        $("#languages").append('<option value = "' + data[i].ID + '">' + data[i].Value + '</option>');
+
+                if ($('#hd_languages').val() != '' && $('#hd_languages').val() != null) {
+
+                    var SelectedTagsArray = [];
+                    SelectedTagsArray = $('#hd_languages').val().split(',');
+                    for (var i = 0; i < SelectedTagsArray.length; i++) {
+                        $('#LanguagesIDs')[0].sumo.selectItem(SelectedTagsArray[i].trim());
+                        SelectedTagsArray[i].selected = true;
                     }
                 }
 
-                if ($("#hd_languages").val() != "0") {
-
-                    $("#languages").val($("#hd_languages").val());
-                }
-
             }
+
         });
+
     }
 
     function StateBind1() {
@@ -882,7 +915,7 @@
             // Allow normal operation
         } else {
             // Prevent the rest
-            alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
+            //alert('@GyanmitrasLanguages.LocalResources.Resource.OnlyNumber');
             event.preventDefault();
             return false;
         }

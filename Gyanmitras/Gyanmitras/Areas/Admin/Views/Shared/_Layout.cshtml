@@ -48,6 +48,13 @@
     @*@Scripts.Render("~/Admin/bundles/bootstrap")
         @RenderSection("scripts", required: false)*@
     <!-- END Custom CSS-->
+    <style>
+         .mylogo {
+            height: 58px !important;
+            margin-top: -17px;
+            margin-bottom: -14px;
+        }
+    </style>
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
     <!-- fixed-top-->
@@ -55,7 +62,7 @@
         <div class="navbar-wrapper">
             <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
-                    <li class="nav-item mobile-menu mr-auto"><a id="topMenu" class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+                    <li class="nav-item mobile-menu mr-auto"><a id="topMenu" class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1" style="color:black"></i></a></li>
                     <li class="nav-item  d-md-none">
                         <a class="navbar-brand" href="index.html">
                             <img class="brand-logo" alt="" logo" src="~/app-assets/images/logo/logo-light-is-logo.jpg">
@@ -70,8 +77,8 @@
                     <ul class="nav navbar-nav mr-auto float-left">
                         <li class="nav-item d-none d-md-block">
                             <a class="navbar-brand" id="logoIconeHref" href="javascript:void(0)">
-                                @*<img class="brand-logo" alt=" logo" src="~/app-assets/images/logo/logo-light.png">*@
-                                <h1><b style="color:white !important">GYANMITRAS</b></h1>
+                                <img class="brand-logo mylogo" alt="logo" src="~/app-assets/images/logo/LOGOR.png">
+                                @*<h1><b style="color:white !important">GYANMITRAS</b></h1>*@
 
                             </a>
                         </li>

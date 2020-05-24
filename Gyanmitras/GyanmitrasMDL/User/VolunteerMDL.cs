@@ -12,6 +12,8 @@ namespace GyanmitrasMDL.User
     public class VolunteerMDL
     {
         public Int64 PK_VolunteerId { get; set; }
+        public Int64 FK_CategoryId { get; set; }
+        
         [Required(ErrorMessage = "Please Enter UserID")]
         [Remote("CheckUserId", "Home", ErrorMessage = "UserID already exists")]
         public string UID { get; set; }
@@ -27,7 +29,7 @@ namespace GyanmitrasMDL.User
         [Required(ErrorMessage = "Please Enter Address")]
         public string Address { get; set; }
         //[StringLength(10, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ExceedCharacters")]
-        //[RegularExpression(@"^[a-zA-Z0-9]*$", ErrorMessageResourceName = "InvalidZipCode", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^[0-9]*$", ErrorMessageResourceName = "InvalidZipCode", ErrorMessageResourceType = typeof(Resource))]
         [Required(ErrorMessage = "Please Enter ZipCode")]
         public string ZipCode { get; set; }
         public string StateName { get; set; }
@@ -36,6 +38,10 @@ namespace GyanmitrasMDL.User
         public Int64 FK_StateId { get; set; }
         [Required(ErrorMessage = "Please Select City")]
         public Int64 FK_CityId { get; set; }
+        
+        public string AreaOfInterestDistrictName { get; set; }
+        public string AreaOfInterestStateName { get; set; }
+
         //Required If Billing Address is Yes
         public string BillingAddress { get; set; }
         [StringLength(10, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ExceedCharacters")]
@@ -78,6 +84,10 @@ namespace GyanmitrasMDL.User
         public Int64 FK_RoleId { get; set; }
         public Int64 CreatedBy { get; set; }
         public string CreatedDateTime { get; set; }
+        public Int64 UpdatedBy { get; set; }
+        public string UpdatedDateTime { get; set; }
+        public Int64 DeletedBy { get; set; }
+        public string DeletedDateTime { get; set; }
         public HttpPostedFileBase BulkUpload { get; set; }
 
         public string FormType { get; set; }
@@ -97,6 +107,8 @@ namespace GyanmitrasMDL.User
 
 
         public bool IsMachingStudentsForCounselor { get; set; }
+        public string AreaOfInterestName { get; set; }
+        public string LanguageKnownName { get; set; }
         public List<SiteUserEducationDetailsMDL> EducationDetails { get; set; }
 
 

@@ -9,6 +9,7 @@ namespace GyanmitrasMDL
    public class MessageMDL
     {
         public int MessageId { get; set; }
+        public dynamic ReturnInfo { get; set; }
         public string Message { get; set; }
     }
 }

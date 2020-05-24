@@ -16,6 +16,8 @@ namespace GyanmitrasMDL.User
     {
 
         public Int64 PK_StudentID { get; set; }
+        public Int64 FK_CategoryId { get; set; }
+
         [Required(ErrorMessage = "Please Enter UserID")]
         [Remote("CheckUserId", "Home", ErrorMessage = "UserID already exists")]
         public string UID { get; set; }
@@ -31,13 +33,20 @@ namespace GyanmitrasMDL.User
         [Required(ErrorMessage = "Please Enter Address")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Please Enter ZipCode")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessageResourceName = "InvalidZipCode", ErrorMessageResourceType = typeof(Resource))]
         public string ZipCode { get; set; }
         [Required(ErrorMessage = "Please Select State")]
         public Int64 FK_StateId { get; set; }
         [Required(ErrorMessage = "Please Select City")]
         public Int64 FK_CityId { get; set; }
-          public string CityName{ get; set; }
+        public string CityName{ get; set; }
         public string StateName { get; set; }
+
+        public Int64 FK_AreaOfInterestStateId { get; set; }
+        public Int64 FK_AreaOfInterestDistrictId { get; set; }
+        public string AreaOfInterestDistrictName { get; set; }
+        public string AreaOfInterestStateName { get; set; }
+
         [Required(ErrorMessage = "Please Enter Email ID")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessageResourceName = "EmailIdFormat", ErrorMessageResourceType = typeof(Resource))]
 
@@ -80,14 +89,18 @@ namespace GyanmitrasMDL.User
         [Required]
         [System.ComponentModel.DataAnnotations.Compare("IsTrue", ErrorMessage = "Please agree to Terms and Conditions")]
         public bool Declaration { get; set; }
-        [Required(ErrorMessage = "Please Select the  Language Known")]
+        
         public string languages { get; set; }
+        [Required(ErrorMessage = "Please Select the  Language Known")]
+        public string[] LanguagesIDs { get; set; }
 
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public string Status { get; set; }
         public Int64 FK_RoleId { get; set; }
         public Int64 CreatedBy { get; set; }
+        public Int64 UpdatedBy { get; set; }
+        
         public string CreatedDateTime { get; set; }
         public HttpPostedFileBase BulkUpload { get; set; }
 
@@ -103,6 +116,8 @@ namespace GyanmitrasMDL.User
 
         public bool MyAdoption { get; set; }
         public bool IsMachingStudentsForCounselor { get; set; }
+        public string AreaOfInterestName { get; set; }
+        public string LanguageKnownName { get; set; }
         public List<SiteUserEducationDetailsMDL> EducationDetails { get; set; }
 
         public string JSON_EducationDetails { get; set; }

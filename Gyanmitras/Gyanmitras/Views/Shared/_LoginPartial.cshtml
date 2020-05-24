@@ -29,11 +29,11 @@ else
             
             <li class="dropdown dropdown-user nav-item show dropdown">
                 <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown" aria-expanded="true">
-                    <span class="mr-1">
+                    <span class="mr-1" style="color:black">
                         Hello ,<span class="user-name text-bold-700">
                             @user.Name
                         </span>
-                    </span><span class="avatar avatar-online"><img src="/app-assets/images/avatar.jpg" alt="avatar"><i></i></span>
+                    </span><span class="avatar avatar-online"><img src="@user.ProfileImage" alt="avatar"><i></i></span>
                 </a>
 
                 <div class="dropdown-content" style="left:0;">
@@ -61,8 +61,8 @@ else
         }
         else
         {
-            <li class="dropdown">
-                <a href="javascript:void(0)" id="registerLink" style="color:white !important;">Register</a>
+            @*<li class="dropdown">
+                <a href="javascript:void(0)" id="registerLink" style="color:black !important;">Register</a>
                 <div class="dropdown-content" style="left:0;">
                     <a style="display:inline-block; " href="/Student/Registration"><i class="fa fa-book"></i>Student Registration</a>
                     <div class="dropdown-divider"></div>
@@ -71,9 +71,21 @@ else
                     <a style="display:inline-block; " href="/Volunteer/Registration">Volunteer Registration</a>
                 </div>
 
+            </li>*@
+
+            <li class="dropdown">
+                <a href="javascript:void(0)" id="registerLink" style="color:black !important;">Register</a>
+                <div class="dropdown-content" style="left:0;">
+                    <a style="display:inline-block; " href="/Home/Register?registerfor=Student"><i class="fa fa-book"></i>Student Registration</a>
+                    <div class="dropdown-divider"></div>
+                    <a style="display:inline-block; " href="/Home/Register?registerfor=Counselor">Counselor Registration</a>
+                    <div class="dropdown-divider"></div>
+                    <a style="display:inline-block; " href="/Home/Register?registerfor=Volunteer">Volunteer Registration</a>
+                </div>
+
             </li>
 
-            <li>@Html.ActionLink("Log in", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink", @style = "color:white !important;" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink", @style = "color:black !important;" })</li>
         }
 
     </ul>

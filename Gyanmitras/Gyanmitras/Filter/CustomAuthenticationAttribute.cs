@@ -25,6 +25,10 @@ namespace Gyanmitras.Filter
             }
             if (filterContext.ActionDescriptor.GetCustomAttributes(typeof(SkipUserCustomAuthenticationAttribute), false).Any())
             {
+                if (SiteUserSessionInfo.User != null)
+                {
+                    SiteUserSessionInfo.User.IsProfilePage = false;
+                }
                 return;
             }
             if (filterContext.ActionDescriptor.GetCustomAttributes(typeof(UserCustomAuthenticationAttribute), false).Any())

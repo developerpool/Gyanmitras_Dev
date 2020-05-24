@@ -2913,6 +2913,57 @@ namespace GyanmitrasDAL.Common
         }
         #endregion
 
+
+        public MessageMDL SiteUserSignUp(SiteUserMDL obj)
+        {
+
+            MessageMDL msg = new MessageMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                    new SqlParameter("@Name", obj.Name),
+                    new SqlParameter("@EmailID", obj.EmailID),
+                    new SqlParameter("@UserName", obj.UID),
+                    new SqlParameter("@UserPassword", ClsCrypto.Encrypt(obj.Password)),
+                    new SqlParameter("@AdoptionWish", obj.AdoptionWish),
+                    new SqlParameter("@FK_CategoryId", obj.FK_CategoryId),
+                    new SqlParameter("@FK_RoleId", obj.FK_RoleId),
+                    new SqlParameter("@type", obj.FormType),
+                    new SqlParameter("@PK_UserId", obj.Pk_UserId),
+                };
+                _commandText = "[SiteUsers].[SiteUserSignUp]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //msg.Message = (msg.MessageId == 1)
+                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
+                    //                   : (msg.MessageId == -1)
+                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
+                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
+
+
+
+
         #endregion
 
 
@@ -2958,6 +3009,7 @@ namespace GyanmitrasDAL.Common
                     {
                         if (FK_CategoryId == 1 || type == "studentGetByVolunteer" || type == "studentGetByCounselor")
                         {
+                            #region Student List ...
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new StudentMDL()
                             {
                                 PK_StudentID = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
@@ -2976,10 +3028,11 @@ namespace GyanmitrasDAL.Common
                                 HavePC = dr.Field<bool>("HavePC"),
                                 Declaration = dr.Field<bool>("Declaration"),
 
-                                languages = Convert.ToString(dr.Field<int>("FK_LanguageKnown")),
+                                languages = dr.Field<string>("FK_LanguageKnown"),
                                 IsActive = dr.Field<bool>("IsActive"),
                                 IsDeleted = dr.Field<bool>("IsDeleted"),
                                 FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
+                                FK_CategoryId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CategoryId")),
                                 FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
                                 FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
                                 StateName = dr.Field<string>("StateName"),
@@ -2994,12 +3047,14 @@ namespace GyanmitrasDAL.Common
                                 IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
                                 MyAdoption = dr.Field<bool>("MyAdoption"),
                                 IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                AreaOfInterestName = dr.Field<string>("AreaOfInterest"),
+                                LanguageKnownName = dr.Field<string>("LanguageKnown"),
                                 AdoptionWish = dr.Field<bool>("AdoptionWish"),
                                 HaveSmartPhone = dr.Field<bool>("HaveSmartPhone"),
                                 EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
                                 {
                                     ID = e_dr.Field<int>("ID"),
-                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    TypeOfEducation = e_dr.Field<string>("Education_Type"),
                                     Class = e_dr.Field<string>("Class"),
                                     FK_BoardID = e_dr.Field<int>("FK_BoardID"),
                                     FK_StreamID = e_dr.Field<int>("FK_BoardID"),
@@ -3015,12 +3070,17 @@ namespace GyanmitrasDAL.Common
                                     CourseName = e_dr.Field<string>("CourseName"),
                                     Specification = e_dr.Field<string>("Specification"),
                                     OtherWork = e_dr.Field<string>("OtherWork"),
+                                    BoardName = e_dr.Field<string>("BoardType"),
+                                    PreviousClassBoardName = e_dr.Field<string>("PreviousClassBoard"),
+                                    StreamName = e_dr.Field<string>("Stream"),
                                 }).ToList()
 
                             }).ToList();
+                            #endregion
                         }
                         else if (FK_CategoryId == 2)
                         {
+                            #region Counselor List ...
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new CounselorMDL()
                             {
                                 PK_CounselorID = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
@@ -3033,7 +3093,7 @@ namespace GyanmitrasDAL.Common
                                 MobileNo = dr.Field<string>("Mobile_Number"),
                                 AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
                                 AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
-                                languages = Convert.ToString(dr.Field<int>("FK_LanguageKnown")),
+                                languages = Convert.ToString(dr.Field<string>("FK_LanguageKnown")),
                                 AreYou = dr.Field<string>("AreYou"),
                                 JoinUsDescription = dr.Field<string>("JoinUsDescription"),
                                 HavePC = dr.Field<bool>("HavePC"),
@@ -3042,6 +3102,7 @@ namespace GyanmitrasDAL.Common
                                 LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
                                 IsActive = dr.Field<bool>("IsActive"),
                                 IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_CategoryId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CategoryId")),
                                 FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
                                 FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
                                 FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
@@ -3060,10 +3121,12 @@ namespace GyanmitrasDAL.Common
                                 AdoptionWish = dr.Field<bool>("AdoptionWish"),
                                 HaveSmartPhone = dr.Field<bool>("HaveSmartPhone"),
                                 IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                AreaOfInterestName = dr.Field<string>("AreaOfInterest"),
+                                LanguageKnownName = dr.Field<string>("LanguageKnown"),
                                 EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
                                 {
                                     ID = e_dr.Field<int>("ID"),
-                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    TypeOfEducation = e_dr.Field<string>("Education_Type"),
                                     Class = e_dr.Field<string>("Class"),
                                     FK_BoardID = e_dr.Field<int>("FK_BoardID"),
                                     FK_StreamID = e_dr.Field<int>("FK_BoardID"),
@@ -3079,14 +3142,19 @@ namespace GyanmitrasDAL.Common
                                     CourseName = e_dr.Field<string>("CourseName"),
                                     Specification = e_dr.Field<string>("Specification"),
                                     OtherWork = e_dr.Field<string>("OtherWork"),
+                                    BoardName = e_dr.Field<string>("BoardType"),
+                                    PreviousClassBoardName = e_dr.Field<string>("PreviousClassBoard"),
+                                    StreamName = e_dr.Field<string>("Stream"),
                                 }).ToList()
 
 
                             }).ToList();
+                            #endregion
                         }
 
                         else if (FK_CategoryId == 3)
                         {
+                            #region Volunteer List ...
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new VolunteerMDL()
                             {
                                 PK_VolunteerId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
@@ -3107,15 +3175,19 @@ namespace GyanmitrasDAL.Common
                                 //LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
                                 IsActive = dr.Field<bool>("IsActive"),
                                 IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_CategoryId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CategoryId")),
                                 FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
                                 FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
                                 FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
+                                FK_State_AreaOfSearch = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_AreaOfInterestStateId")),
+                                FK_District_AreaOfSearch = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_AreaOfInterestDistrictId")),
                                 StateName = dr.Field<string>("StateName"),
                                 CityName = dr.Field<string>("CityName"),
                                 ImageName = dr.Field<string>("Image"),
                                 CreatedDateTime = dr.Field<string>("CreatedDateTime"),
                                 CategoryName = dr.Field<string>("CategoryName"),
                                 RoleName = dr.Field<string>("RoleName"),
+
                                 IsPendingReplyUsers = dr.Field<bool>("IsPendingReplyUsers"),
                                 IsManageCreiticalSupport = dr.Field<bool>("IsManageCreiticalSupport"),
                                 IsAdoptedStudent = dr.Field<bool>("IsAdoptedStudent"),
@@ -3124,10 +3196,12 @@ namespace GyanmitrasDAL.Common
                                 AdoptionWish = dr.Field<bool>("AdoptionWish"),
                                 HaveSmartPhone = dr.Field<bool>("HaveSmartPhone"),
                                 IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
+                                AreaOfInterestName = dr.Field<string>("AreaOfInterest"),
+                                LanguageKnownName = dr.Field<string>("LanguageKnown"),
                                 EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
                                 {
                                     ID = e_dr.Field<int>("ID"),
-                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    TypeOfEducation = e_dr.Field<string>("Education_Type"),
                                     Class = e_dr.Field<string>("Class"),
                                     FK_BoardID = e_dr.Field<int>("FK_BoardID"),
                                     FK_StreamID = e_dr.Field<int>("FK_BoardID"),
@@ -3143,12 +3217,17 @@ namespace GyanmitrasDAL.Common
                                     CourseName = e_dr.Field<string>("CourseName"),
                                     Specification = e_dr.Field<string>("Specification"),
                                     OtherWork = e_dr.Field<string>("OtherWork"),
+                                    BoardName = e_dr.Field<string>("BoardType"),
+                                    PreviousClassBoardName = e_dr.Field<string>("PreviousClassBoard"),
+                                    StreamName = e_dr.Field<string>("Stream"),
                                 }).ToList()
 
                             }).ToList();
+                            #endregion
                         }
                         else
                         {
+                            #region SiteUser List ...
                             _Datalist = objDataSet.Tables[1].AsEnumerable().Select(dr => new SiteUserMDL()
                             {
                                 Pk_UserId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("PK_ID")),
@@ -3161,7 +3240,7 @@ namespace GyanmitrasDAL.Common
                                 MobileNo = dr.Field<string>("Mobile_Number"),
                                 AlternateMobileNo = dr.Field<string>("Alternate_Mobile_Number"),
                                 AreaOfInterest = dr.Field<string>("FK_AreaOfInterest"),
-                                languages = Convert.ToString(dr.Field<int>("FK_LanguageKnown")),
+                                languages = dr.Field<string>("FK_LanguageKnown"),
                                 //AreYou = dr.Field<string>("AreYou"),
                                 //JoinUsDescription = dr.Field<string>("JoinUsDescription"),
                                 HavePC = dr.Field<bool>("HavePC"),
@@ -3170,9 +3249,12 @@ namespace GyanmitrasDAL.Common
                                 //LikeAdoptStudentLater = dr.Field<bool>("LikeAdoptStudentLater"),
                                 IsActive = dr.Field<bool>("IsActive"),
                                 IsDeleted = dr.Field<bool>("IsDeleted"),
+                                FK_CategoryId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CategoryId")),
                                 FK_RoleId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_RoleId")),
                                 FK_StateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_StateId")),
                                 FK_CityId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_CityId")),
+                                FK_AreaOfInterestStateId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_AreaOfInterestStateId")),
+                                FK_AreaOfInterestDistrictId = WrapDbNull.WrapDbNullValue<Int64>(dr.Field<Int64?>("FK_AreaOfInterestDistrictId")),
                                 StateName = dr.Field<string>("StateName"),
                                 CityName = dr.Field<string>("CityName"),
                                 ImageName = dr.Field<string>("Image"),
@@ -3187,14 +3269,12 @@ namespace GyanmitrasDAL.Common
                                 AdoptionWish = dr.Field<bool>("AdoptionWish") ? "True" : "False",
                                 HaveSmartPhone = dr.Field<bool>("HaveSmartPhone") ? "True" : "False",
                                 IsMachingStudentsForCounselor = dr.Field<bool>("IsMachingStudentsForCounselor"),
-
                                 AreaOfInterestName = dr.Field<string>("AreaOfInterest"),
-                              LanguageKnownName=  dr.Field<string>("LanguageKnown"),
-
+                                LanguageKnownName = dr.Field<string>("LanguageKnown"),
                                 EducationDetails = objDataSet.Tables[3].AsEnumerable().Select(e_dr => new SiteUserEducationDetailsMDL()
                                 {
                                     ID = e_dr.Field<int>("ID"),
-                                    Education_Type = e_dr.Field<string>("Education_Type"),
+                                    TypeOfEducation = e_dr.Field<string>("Education_Type"),
                                     Class = e_dr.Field<string>("Class"),
                                     FK_BoardID = e_dr.Field<int>("FK_BoardID"),
                                     FK_StreamID = e_dr.Field<int>("FK_BoardID"),
@@ -3210,14 +3290,14 @@ namespace GyanmitrasDAL.Common
                                     CourseName = e_dr.Field<string>("CourseName"),
                                     Specification = e_dr.Field<string>("Specification"),
                                     OtherWork = e_dr.Field<string>("OtherWork"),
-                                     BoardName = e_dr.Field<string>("BoardType"),
-                                     PreviousClassBoardName = e_dr.Field<string>("PreviousClassBoard"),
-                                     StreamName = e_dr.Field<string>("Stream"),
-                                          
+                                    BoardName = e_dr.Field<string>("BoardType"),
+                                    PreviousClassBoardName = e_dr.Field<string>("PreviousClassBoard"),
+                                    StreamName = e_dr.Field<string>("Stream"),
                                 }).ToList()
 
 
                             }).ToList();
+                            #endregion
                         }
 
 
@@ -3261,8 +3341,7 @@ namespace GyanmitrasDAL.Common
 
                 if (objDataSet.Tables[2].Rows.Count > 0)
                 {
-
-
+                    #region User Total...
                     objTotalCountPagingMDL = new TotalCountPagingMDL()
                     {
                         TotalItem = objDataSet.Tables[2].Rows[0].Field<int>("TotalItem"),
@@ -3278,7 +3357,7 @@ namespace GyanmitrasDAL.Common
                         AdoptedStudent = objDataSet.Tables[2].Rows[0].Field<int>("AdoptedStudent"),
                         PendingAdoptedStudent = objDataSet.Tables[2].Rows[0].Field<int>("PendingAdoptedStudent"),
                         TotalAdoptedStudentByCounselor = objDataSet.Tables[2].Rows[0].Field<int>("TotalAdoptedStudentByCounselor"),
-                        
+
 
                         //Display Cards
                         IsTotalItem = objDataSet.Tables[2].Rows[0].Field<bool>("IsTotalItem"),
@@ -3295,6 +3374,7 @@ namespace GyanmitrasDAL.Common
                         IsRemovedUsers = objDataSet.Tables[2].Rows[0].Field<bool>("IsRemovedUsers"),
 
                     };
+                    #endregion
                 }
 
             }
@@ -3363,7 +3443,7 @@ namespace GyanmitrasDAL.Common
         /// Created Date:06-01-2020
         /// purpose: Delete Customer Details
         /// </summary>
-        public MessageMDL SiteUserActionManagementByAdmin(Int64 PK_Id, Int64 UserId,string type)
+        public MessageMDL SiteUserActionManagementByAdmin(Int64 PK_Id, Int64 UserId, string type)
         {
 
             MessageMDL msg = new MessageMDL();
@@ -3403,6 +3483,260 @@ namespace GyanmitrasDAL.Common
 
             return msg;
         }
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Delete Customer Details
+        /// </summary>
+        /// 
+        public MessageMDL AddEditSiteUsers(StudentMDL objStudent = null, CounselorMDL objCounselor = null, VolunteerMDL objVolunteer = null)
+        {
+
+            MessageMDL msg = new MessageMDL();
+            #region Education Details...
+            DataTable dt = new DataTable();
+            dt.Columns.Add("FK_UserID");
+            dt.Columns.Add("Education_Type");
+            dt.Columns.Add("Class");
+            dt.Columns.Add("FK_BoardID");
+            dt.Columns.Add("FK_StreamID");
+            dt.Columns.Add("Currentsemester");
+            dt.Columns.Add("UniversityName");
+            dt.Columns.Add("NatureOFCompletion");
+            dt.Columns.Add("Percentage");
+            dt.Columns.Add("Previous_Class");
+            dt.Columns.Add("FK_Previous_Class_Board");
+            dt.Columns.Add("Previous_Class_Percentage");
+            dt.Columns.Add("Year_of_Passing");
+            dt.Columns.Add("OtherWork");
+            dt.Columns.Add("Specification");
+            dt.Columns.Add("CourseName");
+            if (objStudent != null || objCounselor != null)
+            {
+                List<SiteUserEducationDetailsMDL> objStudentEducationDetails = objStudent != null ? objStudent.EducationDetails :
+                                                                                (objCounselor != null ? objCounselor.EducationDetails : null);
+
+                if (objStudentEducationDetails == null)
+                {
+                    dt.Rows.Add(
+                   0,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value,
+                   DBNull.Value
+                   );
+                }
+                else
+                {
+                    for (int i = 0; i < objStudentEducationDetails.Count; i++)
+                    {
+                        dt.Rows.Add(
+                               objStudent == null ? objCounselor.PK_CounselorID : objStudent.PK_StudentID,
+                               objStudentEducationDetails[i].TypeOfEducation,
+                               objStudentEducationDetails[i].Class,
+                               objStudentEducationDetails[i].FK_BoardID,
+                               objStudentEducationDetails[i].FK_StreamID,
+                               objStudentEducationDetails[i].Currentsemester,
+                               objStudentEducationDetails[i].UniversityName,
+                               objStudentEducationDetails[i].UniversityName,
+                               objStudentEducationDetails[i].Percentage,
+                               objStudentEducationDetails[i].Previous_Class,
+                               objStudentEducationDetails[i].FK_Previous_Class_Board,
+                               objStudentEducationDetails[i].Previous_Class_Percentage,
+                               objStudentEducationDetails[i].Year_of_Passing,
+                               objStudentEducationDetails[i].OtherWork,
+                               objStudentEducationDetails[i].Specification,
+                               objStudentEducationDetails[i].CourseName
+                               );
+                    }
+                }
+            }
+            else if (objVolunteer != null)
+            {
+                dt.Rows.Add(
+                      objVolunteer.PK_VolunteerId,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value,
+                      DBNull.Value
+                      );
+            }
+            #endregion
+            try
+            {
+                List<SqlParameter> parms = null;
+                if (objStudent != null)
+                {
+                    #region objStudent Parameters...
+                    parms = new List<SqlParameter>(){
+                    new SqlParameter("@PK_UserId                         ", objStudent.PK_StudentID                         ),
+                    new SqlParameter("@UserName                          ", objStudent.UID                               ),
+                    new SqlParameter("@FK_CategoryId                     ", objStudent.FK_CategoryId                     ),
+                    new SqlParameter("@FK_RoleId                         ", objStudent.FK_RoleId                         ),
+                    new SqlParameter("@UserPassword                      ", ClsCrypto.Encrypt(objStudent.Password)       ),
+                    new SqlParameter("@IsActive                          ", objStudent.IsActive                          ),
+                    new SqlParameter("@IsDeleted                         ", objStudent.IsDeleted                         ),
+                    new SqlParameter("@CreatedBy                         ", objStudent.CreatedBy                         ),
+                    new SqlParameter("@UpdatedBy                         ", objStudent.UpdatedBy                         ),
+                    new SqlParameter("@Name                              ", objStudent.Name                              ),
+                    new SqlParameter("@Mobile_Number                     ", objStudent.MobileNo),
+                    new SqlParameter("@Alternate_Mobile_Number           ", objStudent.AlternateMobileNo          ),
+                    new SqlParameter("@Address                           ", objStudent.Address                           ),
+                    new SqlParameter("@Zipcode                           ", objStudent.ZipCode                           ),
+                    new SqlParameter("@FK_StateID                        ", objStudent.FK_StateId                        ),
+                    new SqlParameter("@FK_CityID                         ", objStudent.FK_CityId                         ),
+                    new SqlParameter("@FK_LanguageKnown                  ", objStudent.languages                  ),
+                    new SqlParameter("@FK_AreaOfInterest                 ", objStudent.AreaOfInterest                 ),
+                    new SqlParameter("@Image                             ", objStudent.ImageName                             ),
+                    new SqlParameter("@HaveSmartPhone                    ", objStudent.HaveSmartPhone                    ),
+                    new SqlParameter("@HavePC                            ", objStudent.HavePC                            ),
+                    new SqlParameter("@AdoptionWish                      ", objStudent.AdoptionWish                      ),
+                    new SqlParameter("@Email                             ", objStudent.EmailID                             ),
+                    new SqlParameter("@Fk_AreaOfInterest_State           ", objStudent.FK_AreaOfInterestStateId           ),
+                    new SqlParameter("@Fk_AreaOfInterest_District        ", objStudent.FK_AreaOfInterestDistrictId        ),
+                    //new SqlParameter("@AreYou                            ", objStudent.AreYou                            ),
+                    //new SqlParameter("@JoinUsDescription                 ", objStudent.JoinUsDescription                 ),
+                    new SqlParameter("@Declaration                       ", objStudent.Declaration                       ),
+                    //new SqlParameter("@LikeAdoptStudentLater             ", objStudent.LikeAdoptStudentLater             ),
+                    //new SqlParameter("@Retired_expertise                 ", objStudent.Retired_Expertise_Details                 ),
+                    //new SqlParameter("@Employed_expertise                ", objStudent.Secondry_Education_Board                ),
+
+                    new SqlParameter("@AcademicDetails",dt),
+                    };
+                    #endregion
+                }
+                else if (objVolunteer != null)
+                {
+                    #region objVolunteer Parameters...
+                    parms = new List<SqlParameter>(){
+                    new SqlParameter("@PK_UserId                         ", objVolunteer.PK_VolunteerId                         ),
+                    new SqlParameter("@UserName                          ", objVolunteer.UID                               ),
+                    new SqlParameter("@FK_CategoryId                     ", objVolunteer.FK_CategoryId                     ),
+                    new SqlParameter("@FK_RoleId                         ", objVolunteer.FK_RoleId                         ),
+                    new SqlParameter("@UserPassword                      ", ClsCrypto.Encrypt(objVolunteer.Password)       ),
+                    new SqlParameter("@IsActive                          ", objVolunteer.IsActive                          ),
+                    new SqlParameter("@IsDeleted                         ", objVolunteer.IsDeleted                         ),
+                    new SqlParameter("@CreatedBy                         ", objVolunteer.CreatedBy                         ),
+                    new SqlParameter("@UpdatedBy                         ", objVolunteer.UpdatedBy                         ),
+                    new SqlParameter("@Name                              ", objVolunteer.Name                              ),
+                    new SqlParameter("@Mobile_Number                     ", objVolunteer.MobileNo),
+                    new SqlParameter("@Alternate_Mobile_Number           ", objVolunteer.AlternateMobileNo          ),
+                    new SqlParameter("@Address                           ", objVolunteer.Address                           ),
+                    new SqlParameter("@Zipcode                           ", objVolunteer.ZipCode                           ),
+                    new SqlParameter("@FK_StateID                        ", objVolunteer.FK_StateId                        ),
+                    new SqlParameter("@FK_CityID                         ", objVolunteer.FK_CityId                         ),
+                    //new SqlParameter("@FK_LanguageKnown                  ", objVolunteer.languages                  ),
+                    //new SqlParameter("@FK_AreaOfInterest                 ", objVolunteer.AreaOfInterest                 ),
+                    new SqlParameter("@Image                             ", objVolunteer.ImageName                             ),
+                    new SqlParameter("@HaveSmartPhone                    ", objVolunteer.HaveSmartPhone                    ),
+                    //new SqlParameter("@HavePC                            ", objVolunteer.HavePC                            ),
+                    new SqlParameter("@AdoptionWish                      ", objVolunteer.AdoptionWish                      ),
+                    new SqlParameter("@Email                             ", objVolunteer.EmailID                             ),
+                    new SqlParameter("@Fk_AreaOfInterest_State           ", objVolunteer.FK_State_AreaOfSearch           ),
+                    new SqlParameter("@Fk_AreaOfInterest_District        ", objVolunteer.FK_District_AreaOfSearch        ),
+                    //new SqlParameter("@AreYou                            ", objVolunteer.AreYou                            ),
+                    //new SqlParameter("@JoinUsDescription                 ", objVolunteer.JoinUsDescription                 ),
+                    new SqlParameter("@Declaration                       ", objVolunteer.Declaration                       ),
+                    //new SqlParameter("@LikeAdoptStudentLater             ", objVolunteer.LikeAdoptStudentLater             ),
+                    //new SqlParameter("@Retired_expertise                 ", objVolunteer.Retired_Expertise_Details                 ),
+                    //new SqlParameter("@Employed_expertise                ", objVolunteer.Secondry_Education_Board                ),
+
+                    new SqlParameter("@AcademicDetails",dt),
+                    };
+                    #endregion
+                }
+                else if (objCounselor != null)
+                {
+                    #region objCounselor Parameters...
+                    parms = new List<SqlParameter>(){
+                    new SqlParameter("@PK_UserId                         ", objCounselor.PK_CounselorID                         ),
+                    new SqlParameter("@UserName                          ", objCounselor.UID                               ),
+                    new SqlParameter("@FK_CategoryId                     ", objCounselor.FK_CategoryId                     ),
+                    new SqlParameter("@FK_RoleId                         ", objCounselor.FK_RoleId                         ),
+                    new SqlParameter("@UserPassword                      ", ClsCrypto.Encrypt(objCounselor.Password)       ),
+                    new SqlParameter("@IsActive                          ", objCounselor.IsActive                          ),
+                    new SqlParameter("@IsDeleted                         ", objCounselor.IsDeleted                         ),
+                    new SqlParameter("@CreatedBy                         ", objCounselor.CreatedBy                         ),
+                    new SqlParameter("@Name                              ", objCounselor.Name                              ),
+                    new SqlParameter("@Mobile_Number                     ", objCounselor.MobileNo),
+                    new SqlParameter("@Alternate_Mobile_Number           ", objCounselor.AlternateMobileNo          ),
+                    new SqlParameter("@Address                           ", objCounselor.Address                           ),
+                    new SqlParameter("@Zipcode                           ", objCounselor.ZipCode                           ),
+                    new SqlParameter("@FK_StateID                        ", objCounselor.FK_StateId                        ),
+                    new SqlParameter("@FK_CityID                         ", objCounselor.FK_CityId                         ),
+                    new SqlParameter("@FK_LanguageKnown                  ", objCounselor.languages                  ),
+                    new SqlParameter("@FK_AreaOfInterest                 ", objCounselor.AreaOfInterest                 ),
+                    new SqlParameter("@Image                             ", objCounselor.ImageName                             ),
+                    new SqlParameter("@HaveSmartPhone                    ", objCounselor.HaveSmartPhone                    ),
+                    new SqlParameter("@HavePC                            ", objCounselor.HavePC                            ),
+                    new SqlParameter("@AdoptionWish                      ", objCounselor.AdoptionWish                      ),
+                    new SqlParameter("@Email                             ", objCounselor.EmailID                             ),
+                    new SqlParameter("@Fk_AreaOfInterest_State           ", objCounselor.FK_AreaOfInterestStateId           ),
+                    new SqlParameter("@Fk_AreaOfInterest_District        ", objCounselor.FK_AreaOfInterestDistrictId        ),
+                    new SqlParameter("@AreYou                            ", objCounselor.AreYou                            ),
+                    new SqlParameter("@JoinUsDescription                 ", objCounselor.JoinUsDescription                 ),
+                    new SqlParameter("@Declaration                       ", objCounselor.Declaration                       ),
+                    new SqlParameter("@LikeAdoptStudentLater             ", objCounselor.LikeAdoptStudentLater             ),
+                    new SqlParameter("@Retired_expertise                 ", objCounselor.Retired_Expertise_Details                 ),
+                    new SqlParameter("@Employed_expertise                ", objCounselor.Secondry_Education_Board                ),
+
+                    new SqlParameter("@AcademicDetails",dt),
+                    };
+                    #endregion
+                }
+                _commandText = "[SiteUsers].[USP_AddEditSiteUser]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    if (objDataSet.Tables.Count > 1)
+                    {
+                        msg.ReturnInfo = objDataSet.Tables[1].Rows[0].Field<Int64>("NewlyAddedUserId");
+                    }
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
+
+
+
         #endregion
     }
 

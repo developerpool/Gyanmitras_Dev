@@ -14,6 +14,8 @@ using GyanmitrasBAL.User;
 using System.Text;
 using System.IO;
 using Gyanmitras.Common;
+using System.Configuration;
+
 namespace Gyanmitras.Controllers
 {
     //[Authorize]
@@ -40,9 +42,9 @@ namespace Gyanmitras.Controllers
         [HttpGet]
         [AllowAnonymous]
         [SkipUserCustomAuthenticationAttribute]
-        public JsonResult GetStudents(int RowPerpage = 100, int CurrentPage = 1, string SearchBy = "", string SearchValue = "",int PK_ID = 0)
+        public JsonResult GetStudents(int RowPerpage = 100, int CurrentPage = 1, string SearchBy = "", string SearchValue = "", int PK_ID = 0)
         {
-        
+
             ViewBag.CanAdd = true;
             ViewBag.CanEdit = true;
             ViewBag.CanView = true;
@@ -52,7 +54,7 @@ namespace Gyanmitras.Controllers
             _StudentDatalist = new List<StudentMDL>();
             objBasicPagingMDL = new BasicPagingMDL();
             objTotalCountPagingMDL = new TotalCountPagingMDL();
-            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, "volunteer", 0,0);
+            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, "volunteer", 0, 0);
 
             ViewBag.paging = objBasicPagingMDL;
             ViewBag.TotalCountPaging = objTotalCountPagingMDL;
@@ -108,7 +110,7 @@ namespace Gyanmitras.Controllers
         public ActionResult Registration()
         {
             ViewBag.Title = "Volunteer Registration";
-            ViewBag.FormType= "Volunteer Registration";
+            ViewBag.FormType = "Volunteer Registration";
             ViewBag.VolunteerRegistration = obj;
 
             return View(obj);
@@ -117,16 +119,13 @@ namespace Gyanmitras.Controllers
 
         [HttpPost]
         [UserCustomAuthenticationAttribute]
-        public ActionResult Registration(VolunteerMDL Voluntee)
+        public ActionResult Registration(VolunteerMDL objVolunteer)
         {
-            Voluntee.Password = ClsCrypto.Encrypt(Voluntee.Password);
-
-
-
-
             if (ModelState.IsValid)
             {
-                HttpPostedFileBase Imgfile = Voluntee.Image;
+                objVolunteer.Password = string.IsNullOrEmpty(objVolunteer.Password) ? "" : ClsCrypto.Encrypt(objVolunteer.Password);
+
+                HttpPostedFileBase Imgfile = objVolunteer.Image;
                 if (Imgfile != null)
                 {
                     var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
@@ -134,52 +133,44 @@ namespace Gyanmitras.Controllers
                                             Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
 
 
-                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/")))
-                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/"));
+                    if (!Directory.Exists(Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString())))
+                        Directory.CreateDirectory(Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString()));
 
-                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/VolunteerImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+                    CommonHelper.Upload(Imgfile, ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString(), Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
 
-                    if (!string.IsNullOrEmpty(Voluntee.ImageName))
+                    if (!string.IsNullOrEmpty(objVolunteer.ImageName))
                     {
-                        var filePath = Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/" + Voluntee.ImageName);
+                        var filePath = Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString() + objVolunteer.ImageName);
                         if (System.IO.File.Exists(filePath))
                         {
                             System.IO.File.Delete(filePath);
                         }
                     }
 
-                    Voluntee.ImageName = filenamemodefied;
+                    objVolunteer.ImageName = filenamemodefied;
                 }
-                VolunteerBAL objVolunteerBAL = new VolunteerBAL();
+
+                CommonBAL objCommonBAL = new CommonBAL();
+
                 string Msg = "";
-                StringBuilder objMsg = objVolunteerBAL.RegisterVolunteer(Voluntee);
+                MessageMDL objMsg = objCommonBAL.AddEditSiteUsers(null, null, objVolunteer);
                 Msg = objMsg.ToString();
 
-                if (Msg.Equals("Success"))
+                if (objMsg.MessageId == 1)
                 {
-
-                    //string controllerName = "";
-                    //string area = "";
-                    //string actionName = "";
-                    //area = "";
-                    //actionName = "Index";
-                    //controllerName = "Home";
-                    // return RedirectToAction(actionName, controllerName, area);
-                    ViewBag.Message = "Registration Sucessfull.Please Login to Contineu.";
-                    return View(Voluntee);
+                    ViewBag.Message = objMsg.Message;
+                    return View(objVolunteer);
                 }
                 else
                 {
-                    ViewBag.Message = "Submitting Form Went Wrong";
-                    return View(Voluntee);
+                    ViewBag.Message = "Somthing went wrong!";
+                    return View(objVolunteer);
                 }
 
             }
             else
             {
-
-                ////ViewBag.Message = objMsg.Message;
-                return View(Voluntee);
+                return View(objVolunteer);
             }
         }
 
@@ -207,78 +198,131 @@ namespace Gyanmitras.Controllers
             VolunteerMDL obj = new VolunteerMDL();
             ViewBag.Title = "User Profile";
             ViewBag.FormTypeFormType = "User Profile";
-            ViewBag.VolunteerRegistration = obj;
-            VolunteerBAL objVolunteerBAL = new VolunteerBAL();
-            var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
+            
+            var user = SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
             ViewBag.type = "Edit";
-            obj = objVolunteerBAL.GetVolunteerProfile(user.UserName);
+            SiteUserSessionInfo.User.IsProfilePage = true;
+            CommonBAL objCommonBAL = new CommonBAL();
+            dynamic _UserDatalist = new List<VolunteerMDL>();
+            int RowPerpage = 10;
+            int CurrentPage = 1;
+            string SearchBy = "";
+            string SearchValue = "";
+            objCommonBAL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, Convert.ToInt32(SiteUserSessionInfo.User.UserId), RowPerpage, CurrentPage, SearchBy, SearchValue, 0, "volunteer", Convert.ToInt32(SiteUserCategory.Volunteer), 0);
+            ViewBag.VolunteerRegistration = obj;
+
+            obj = _UserDatalist[0];
             return View(obj);
         }
 
-        #region post of userprofile
+
         [HttpPost]
         [UserCustomAuthenticationAttribute]
         public ActionResult UserProfile(VolunteerMDL volunteer)
         {
-             
-            ModelState.Remove("ZipCode");
-            ModelState.Remove("Password");
-            ModelState.Remove("FK_StateId");
-            ModelState.Remove("FK_CityId");
-            ModelState.Remove("FK_State_AreaOfSearch");
-            ModelState.Remove("FK_District_AreaOfSearch");
-            ModelState.Remove("UID");
-            ModelState.Remove("ConfirmPassword");
-            ModelState.Remove("Name");
-            ModelState.Remove("languages");
 
+            if (!SiteUserSessionInfo.User.IsUpdatedProfileAlert)
+            {
+                ModelState.Remove("ZipCode");
+                ModelState.Remove("EmailId");
+                ModelState.Remove("Password");
+                ModelState.Remove("FK_StateId");
+                ModelState.Remove("FK_CityId");
+                ModelState.Remove("FK_State_AreaOfSearch");
+                ModelState.Remove("FK_District_AreaOfSearch");
+                ModelState.Remove("UID");
+                ModelState.Remove("ConfirmPassword");
+                //ModelState.Remove("Name");
+                ModelState.Remove("languages");
+            }
 
             if (ModelState.IsValid)
             {
                 HttpPostedFileBase Imgfile = volunteer.Image;
+
+                volunteer.FK_CategoryId = volunteer.FK_CategoryId == 0 ? Convert.ToInt32(SiteUserCategory.Volunteer) : volunteer.FK_CategoryId;
+                volunteer.FK_RoleId = volunteer.FK_RoleId == 0 ? Convert.ToInt32(SiteUserRole.Volunteer) : volunteer.FK_RoleId;
+                volunteer.IsActive = true;
+                volunteer.IsDeleted = false;
+                volunteer.UpdatedBy = SiteUserSessionInfo.User.UserId;
+
+
                 if (Imgfile != null)
                 {
 
 
-                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/")))
-                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/"));
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                                "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                                Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
+                    if (!Directory.Exists(Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString())))
+                        Directory.CreateDirectory(Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString()));
 
-                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/VolunteerImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+                    CommonHelper.Upload(Imgfile, ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString(), filenamemodefied);
 
                     if (!string.IsNullOrEmpty(volunteer.ImageName))
                     {
-                        var filePath = Server.MapPath("~/SiteUserContents/Registration/VolunteerImages/" + volunteer.ImageName);
+                        var filePath = Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString() + volunteer.ImageName);
                         if (System.IO.File.Exists(filePath))
                         {
                             System.IO.File.Delete(filePath);
                         }
                     }
 
-                    volunteer.ImageName = Imgfile.FileName;
+                    volunteer.ImageName = filenamemodefied;
                 }
-                VolunteerBAL objStudentBAL = new  VolunteerBAL();
-                string Msg = "";
-                StringBuilder objMsg = objStudentBAL.UpdateVolunteerProfile(volunteer);
-                Msg = objMsg.ToString();
-
-                if (Msg.Equals("Success"))
+                CommonBAL objCommonBAL = new CommonBAL();
+                MessageMDL objMsg = new MessageMDL();
+                if (!SiteUserSessionInfo.User.IsUpdatedProfileAlert)
                 {
+                    //Get Profile
+                    dynamic _UserDatalist = new List<VolunteerMDL>();
+                    int RowPerpage = 10;
+                    int CurrentPage = 1;
+                    string SearchBy = "";
+                    string SearchValue = "";
+                    objCommonBAL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, Convert.ToInt32(SiteUserSessionInfo.User.UserId), RowPerpage, CurrentPage, SearchBy, SearchValue, 0, "volunteer", Convert.ToInt32(SiteUserCategory.Volunteer), 0);
+                    obj = _UserDatalist[0];
+                    //End
 
-                    //string controllerName = "";
-                    //string area = "";
-                    //string actionName = "";
+                    obj.Name = volunteer.Name;
+                    obj.MobileNo = volunteer.MobileNo;
+                    obj.AlternateMobileNo = volunteer.AlternateMobileNo;
+                    obj.Address = volunteer.Address;
+                    obj.ImageName = volunteer.ImageName;
+                    obj.Declaration = volunteer.Declaration;
 
-                    //area = "";
-                    //actionName = "Index";
-                    //controllerName = "Home";
-                    ViewBag.Message = "Profile Updated Sucessfully.";
-                    ViewBag.Redirect = "Yes";
+                    objMsg = objCommonBAL.AddEditSiteUsers(null, null, obj);
+                }
+                else {
+                    objMsg = objCommonBAL.AddEditSiteUsers(null, null, volunteer);
+                }
+
+                if (objMsg.MessageId == 1)
+                {
+                    ViewBag.Message = objMsg.Message;
+                    if (SiteUserSessionInfo.User.IsUpdatedProfileAlert)
+                    {
+                        ViewBag.IsProfileFirstTime = "Yes";
+                    }
+                    else {
+                        ViewBag.Redirect = "Yes";
+
+                    }
+
                     return View(volunteer);
-                    //  return RedirectToAction(actionName, controllerName, area);
+
                 }
                 else
                 {
-                    ViewBag.Message = "Submitting Form Went Wrong";
+                    if (!string.IsNullOrEmpty(volunteer.ImageName))
+                    {
+                        var filePath = Server.MapPath(ConfigurationManager.AppSettings["VolunteerProfilePath"].ToString() + volunteer.ImageName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+                    ViewBag.Message = objMsg.Message;
                     return View(volunteer);
                 }
 
@@ -288,20 +332,13 @@ namespace Gyanmitras.Controllers
                 string Message = string.Join("\n", ModelState.Values
                                        .SelectMany(x => x.Errors)
                                        .Select(x => x.ErrorMessage));
-                VolunteerMDL volunteer1 = new  VolunteerMDL();
-                // student1.UID = SessionInfo.User.UserName;
-                //  student1.IsActive = true;
+                VolunteerMDL volunteer1 = new VolunteerMDL();
+
                 return View("UserProfile", volunteer1);
-                // return View(student);
+
             }
         }
-        #endregion
 
-
-
-        //public JsonResult BindAreaOfInterestList(string type = "")
-        //{
-        //    return Json(CommonBAL.BindAreaOfInterestList(type), JsonRequestBehavior.AllowGet);
-        //}
+        
     }
 }

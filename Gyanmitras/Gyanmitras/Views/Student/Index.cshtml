@@ -6,11 +6,11 @@
 <h2>@ViewBag.Title</h2>
 <hr />
 <style>
-    .card:hover {
+    .my-card:hover {
         box-sizing: border-box;
         margin-bottom: 1.875rem;
         border: none;
-        -webkit-box-shadow: 0 1px 15px 1px rgba(62, 57, 107, .07);
+        -webkit-box-shadow: 0 1px 15px 16px rgba(62, 57, 107, .07);
         box-shadow: 0 1px 1px 4px rgba(62, 57, 107, .07);
     }
 
@@ -36,7 +36,7 @@
                                                 @if (ViewBag.RoleId == 1)
                                                 {
                                                     <div class="col-xl-3 col-md-3" id="SuggestionDev" onclick="$('#FeedbackSection').slideUp(500); $('#SuggestionSection').slideDown(500); $('#AdminFeedSection').slideUp(500); $('#PlannedCommunicationSection').slideUp(500);">
-                                                        <div class="card overflow-hidden" style="background:#c5d6c5">
+                                                        <div class="card overflow-hidden my-card" style="background:#c5d6c5">
                                                             <div class="card-content" id="total">
                                                                 <div class="media align-items-stretch">
                                                                     <div class="media-body p-2">
@@ -65,7 +65,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3 col-md-3" id="FeedbackSectionDiv" onclick="$('#FeedbackSection').slideDown(500); $('#PlannedCommunicationSection').slideUp(500); $('#AdminFeedSection').slideUp(500); $('#SuggestionSection').slideUp(500);">
-                                                        <div class="card overflow-hidden">
+                                                        <div class="card overflow-hidden my-card">
                                                             <div class="card-content" id="inactive">
                                                                 <div class="media align-items-stretch">
                                                                     <div class="media-body p-2">
@@ -80,7 +80,7 @@
                                                     </div>
                                                 }
                                                 <div class="col-xl-3 col-md-3" onclick="location.href ='/Home/CommonChat?StudentId=12##$ASD'">
-                                                    <div class="card overflow-hidden">
+                                                    <div class="card overflow-hidden my-card">
                                                         <div class="card-content" id="inactive">
                                                             <div class="media align-items-stretch">
                                                                 <div class="media-body p-2">
@@ -95,7 +95,7 @@
                                                 </div>
 
                                                 <div class="col-xl-3 col-md-3" id="AdminFeedSectionDiv" onclick="$('#FeedbackSection').slideUp(500);$('#PlannedCommunicationSection').slideUp(500); $('#AdminFeedSection').slideDown(500); $('#SuggestionSection').slideUp(500);">
-                                                    <div class="card overflow-hidden">
+                                                    <div class="card overflow-hidden my-card">
                                                         <div class="card-content" id="inactive">
                                                             <div class="media align-items-stretch">
                                                                 <div class="media-body p-2">

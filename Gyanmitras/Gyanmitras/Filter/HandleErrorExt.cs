@@ -9,7 +9,7 @@ using System.Web.Routing;
 namespace Gyanmitras.Filter
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Constructor, AllowMultiple = false, Inherited = true)]
-    public class HandleErrorExt: HandleErrorAttribute
+    public class HandleErrorExt : HandleErrorAttribute
     {
         private bool IsAjax(ExceptionContext filterContext)
         {
@@ -22,13 +22,12 @@ namespace Gyanmitras.Filter
             {
                 filterContext.Result = new RedirectToRouteResult(new
                                RouteValueDictionary(new { controller = "Account", action = "Login", area = "Admin" }));
-                //new RedirectToRouteResult(
-                //new RouteValueDictionary
-                // {
-                //           { "controller", "Account" },
-                //           { "action", "Login" }
-
-                // });
+                new RedirectToRouteResult(
+                new RouteValueDictionary
+                 {
+                           { "controller", "Home" },
+                           { "action", "Index" },
+                 });
 
                 return;
             }
@@ -68,8 +67,8 @@ namespace Gyanmitras.Filter
             filterContext.Result = new RedirectToRouteResult(
            new RouteValueDictionary
             {
-                    { "controller", "Account" },
-                    { "action", "Login" }
+                    { "controller", "Home" },
+                    { "action", "Index" }
             });
 
             //Write code to log in data base

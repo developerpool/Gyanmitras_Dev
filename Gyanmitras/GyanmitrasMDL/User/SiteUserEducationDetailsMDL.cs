@@ -10,7 +10,7 @@ namespace GyanmitrasMDL.User
     {
         public int ID { get; set; }
         public Int64 FK_UserID { get; set; }
-        public string Education_Type { get; set; }
+        public string TypeOfEducation { get; set; }
         public string Class { get; set; }
         public int FK_BoardID { get; set; }
         public int FK_StreamID { get; set; }
@@ -28,7 +28,7 @@ namespace GyanmitrasMDL.User
         public string OtherWork { get; set; }
         public string StreamName { get; set; }
         public string PreviousClassBoardName { get; set; }
-        public string BoardName{ get; set; }
-        
+        public string BoardName { get; set; }
+
     }
 }

@@ -727,6 +727,20 @@ namespace GyanmitrasBAL.Common
         {
             return CommonDAL.GetBenifitTypeList();
         }
+
+
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Sign Up
+        /// </summary>
+        public MessageMDL SiteUserSignUp(SiteUserMDL obj)
+        {
+            CommonDAL objDAL = new CommonDAL();
+            return objDAL.SiteUserSignUp(obj);
+        }
+
         #endregion
 
         #region Admin Panel Common Function
@@ -735,7 +749,7 @@ namespace GyanmitrasBAL.Common
         /// Created Date:06-01-2020
         /// purpose: Delete
         /// </summary>
-        public MessageMDL DeleteSiteUser(Int64 id, Int64 UserId,bool recover = false)
+        public MessageMDL DeleteSiteUser(Int64 id, Int64 UserId, bool recover = false)
         {
             CommonDAL objDAL = new CommonDAL();
             return objDAL.DeleteSiteUser(id, UserId, recover);
@@ -746,12 +760,12 @@ namespace GyanmitrasBAL.Common
         /// Created Date:06-01-2020
         /// purpose: Get Details
         /// </summary>
-        public bool GetSiteUserDetails(out dynamic _DataList, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId,string type="")
+        public bool GetSiteUserDetails(out dynamic _DataList, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 UserId, string LoginType, int FK_CategoryId, int FK_RoleId, string type = "")
         {
             CommonDAL objDAL = new CommonDAL();
             _DataList = new List<CounselorMDL>();
             objBasicPagingMDL = new BasicPagingMDL();
-            return objDAL.GetSiteUserDetails(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, id, RowPerpage, CurrentPage, SearchBy, SearchValue, UserId, LoginType, FK_CategoryId, FK_RoleId,type);
+            return objDAL.GetSiteUserDetails(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, id, RowPerpage, CurrentPage, SearchBy, SearchValue, UserId, LoginType, FK_CategoryId, FK_RoleId, type);
 
         }
 
@@ -768,7 +782,20 @@ namespace GyanmitrasBAL.Common
 
 
 
-            #endregion
 
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Delete Customer Details
+        /// </summary>
+        /// 
+        public MessageMDL AddEditSiteUsers(StudentMDL objStudent = null, CounselorMDL objCounselor = null, VolunteerMDL objVolunteer = null)
+        {
+            CommonDAL objDAL = new CommonDAL();
+            return objDAL.AddEditSiteUsers(objStudent ,objCounselor , objVolunteer );
         }
+
+        #endregion
+
+    }
 }

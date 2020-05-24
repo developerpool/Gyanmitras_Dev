@@ -1,7 +1,6 @@
 ﻿@{
     var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
-
-
+    var IsUpdatedProfileAlert = (user == null ? true : (user.IsProfilePage ? false : user.IsUpdatedProfileAlert));
 }
 <!DOCTYPE html>
 <html>
@@ -13,6 +12,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
+        .mylogo {
+            height: 58px;
+            margin-top: -17px;
+            margin-bottom: -14px;
+        }
+
         footer {
             bottom: 0;
             width: 100%;
@@ -101,7 +106,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background: #494b5a;border-color: #080808;">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);background: white;transition: all 0.5s;z-index: 997;padding: 0px 0;background: #ffffff;border-color: #e2e2e2;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -111,33 +116,47 @@
                 </button>
                 @if (user != null)
                 {
-                    @user.CategoryName
+
                     if (user.CategoryId == 3)
                     {
-                        @Html.ActionLink("GYANMITRAS", "Index", "Volunteer", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                        <a href='@Url.Action("Index", "Volunteer")' class="navbar-brand" style="color:black !important;">
+                            <img class="mylogo" src='@Url.Content("~/app-assets/images/logo/LOGOR.png")' />
+                        </a>
+
                     }
                     else if (user.CategoryId == 2)
                     {
-                        @Html.ActionLink("GYANMITRAS", "Index", "Counselor", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                        <a href='@Url.Action("Index", "Counselor")' class="navbar-brand" style="color:black !important;">
+                            <img class="mylogo" src='@Url.Content("~/app-assets/images/logo/LOGOR.png")' />
+                        </a>
+
                     }
                     else if (user.CategoryId == 1)
                     {
-                        @Html.ActionLink("GYANMITRAS", "Index", "Student", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                        <a href='@Url.Action("Index", "Student")' class="navbar-brand" style="color:black !important;">
+                            <img class="mylogo" src='@Url.Content("~/app-assets/images/logo/LOGOR.png")' />
+                        </a>
+
                     }
                     else
                     {
-                        @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                        <a href='@Url.Action("Index", "Home")' class="navbar-brand" style="color:black !important;">
+                            <img class="mylogo" src='@Url.Content("~/app-assets/images/logo/LOGOR.png")' />
+                        </a>
                     }
 
                 }
                 else
                 {
-                    @Html.ActionLink("GYANMITRAS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white !important;" })
+                    <a href='@Url.Action("Index", "Home")' class="navbar-brand" style="color:black !important;">
+                        <img class="mylogo" src='@Url.Content("~/app-assets/images/logo/LOGOR.png")' />
+                    </a>
                 }
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Resource", "#", new { }, new { @onclick = "$('#myModal').modal({show: 'true'});", @style = "color:white !important;", @href = "javascript:void(0);" })</li>
+                    <li>@Html.ActionLink("Resource", "#", new { }, new { @onclick = "$('#myModal').modal({show: 'true'});", @style = "color:black !important;", @href = "javascript:void(0);" })</li>
 
 
                     @if (user != null)
@@ -146,17 +165,17 @@
                         if (user.CategoryId == 1)
                         {
                             <li>
-                            <a href="https://gyanmitras.blogspot.com/" style = "color:white !important;">Latest News</a>
-                            @*@Html.ActionLink("Latest News", "LatestNews", "Student", new { @style = "color:white !important;" })*@
-                            
+                                <a href="https://gyanmitras.blogspot.com/" style="color:black !important;">Latest News</a>
+                                @*@Html.ActionLink("Latest News", "LatestNews", "Student", new { @style = "color:black !important;" })*@
+
                             </li>
                             if (user.RoleId == 1)
                             {
-                                <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @style = "color:white !important;" })</li>
+                                <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @style = "color:black !important;" })</li>
                             }
                             else if (user.RoleId == 2)
                             {
-                                <li>@Html.ActionLink("Adoption Request", "AdoptionRequest", "Student", new { @style = "color:white !important;" })</li>
+                                <li>@Html.ActionLink("Adoption Request", "AdoptionRequest", "Student", new { @style = "color:black !important;" })</li>
                             }
                         }
                         if (user.CategoryId == 2)
@@ -164,32 +183,32 @@
                             ///
                             if (user.IsAdoptedStudentCounselor)
                             {
-                                <li> <a href="Home/CommonChat?CounselorId=12##$ASD" style = "color:white !important;">Call & Mail</a></li>
+                                <li> <a href="Home/CommonChat?CounselorId=12##$ASD" style="color:black !important;">Call & Mail</a></li>
                             }
                             else
                             {
-                                <li> <a href="Home/CommonChat?CounselorId=12##$ASD" style="color:white !important;">Open Query</a></li>
+                                <li> <a href="Home/CommonChat?CounselorId=12##$ASD" style="color:black !important;">Open Query</a></li>
                             }
-                            @*<li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:white !important;" })</li>*@
-                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:white !important;" })</li>*@
-                            <li> <a href="https://gyanmitras.blogspot.com/" style = "color:white !important;">Latest News</a></li>
-                            @*<li>@Html.ActionLink("Non-Adopted Student", "Index", "Counselor", new { @style = "color:white !important;" })</li>*@
-                            }
-                            if (user.CategoryId == 3)
-                            {
-                            <li>@Html.ActionLink("How To Work", "HowToWork", "Volunteer", new { @style = "color:white !important;" })</li>
-                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Volunteer", new { @style = "color:white !important;" })</li>*@
-                            <li> <a href="https://gyanmitras.blogspot.com/" style = "color:white !important;">Latest News</a></li>
+                            @*<li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:black !important;" })</li>*@
+                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:black !important;" })</li>*@
+                            <li> <a href="https://gyanmitras.blogspot.com/" style="color:black !important;">Latest News</a></li>
+                            @*<li>@Html.ActionLink("Non-Adopted Student", "Index", "Counselor", new { @style = "color:black !important;" })</li>*@
+                        }
+                        if (user.CategoryId == 3)
+                        {
+                            <li>@Html.ActionLink("How To Work", "HowToWork", "Volunteer", new { @style = "color:black !important;" })</li>
+                            @*<li>@Html.ActionLink("Latest News", "LatestNews", "Volunteer", new { @style = "color:black !important;" })</li>*@
+                            <li> <a href="https://gyanmitras.blogspot.com/" style="color:black !important;">Latest News</a></li>
                         }
                     }
                     else
                     {
                         <li>
-                            <a href="https://www.blogger.com/about/?r=2" style="color:white !important;">Latest News</a>
+                            <a href="https://www.blogger.com/about/?r=2" style="color:black !important;">Latest News</a>
                         </li>
-                        @*<li>@Html.ActionLink("Latest News", "LatestNews", "Home", new { @style = "color:white !important;" })</li>*@
+                        @*<li>@Html.ActionLink("Latest News", "LatestNews", "Home", new { @style = "color:black !important;" })</li>*@
                     }
-                    <li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:white !important;" })</li>
+                    <li>@Html.ActionLink("About Us", "About", "Home", new { @style = "color:black !important;" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -202,7 +221,7 @@
 
         <div class="modalLoaderCenter" style="display: none">
             <img src="~/app-assets/images/loader.gif" />
-            <span>Loading...</span>
+            <span>Please Wait...</span>
         </div>
 
         @*******End Loader******@
@@ -275,6 +294,59 @@
             </div>
         </div>
     </div>
+    @if (user != null)
+    {
+        if (user.IsUpdatedProfileAlert)
+        {
+         <!-- Modal -->
+            <div id="ProfileWarning" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><i class="la la-warning"></i>Profile Completion Alert</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 offset-lg-1">
+                                    <div class="form-group row">
+                                        <label class="col-md-12 control-label text-left" for="eventRegInput1">
+                                            Dear User<br />
+                                            Kindly complete your profile before proceed.<br />
+                                            @if (user.CategoryId == 1)
+                                            {
+                                                <a href="/Student/UserProfile">Click Here to proceed</a>
+                                            }
+                                            else if (user.CategoryId == 2)
+                                            {
+                                                <a href="/Counselor/UserProfile">Click Here to proceed</a>
+                                            }
+                                            else if (user.CategoryId == 3)
+                                            {
+                                                <a href="/Volunteer/UserProfile">Click Here to proceed</a>
+                                            }
+                                            <br />
+                                            <br />
+                                            <a href="/Home/LogOff">Logout</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-actions center">
+
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="modal-footer">
+                                    <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="btnsubmit">Submit</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
@@ -308,6 +380,13 @@
             });*@
 
         $(function () {
+            if ('@IsUpdatedProfileAlert' == 'True') {
+                $("#ProfileWarning").modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+            }
 
             // setTimeout() function will be fired after page is loaded
             // it will wait for 5 sec. and then will fire
@@ -338,7 +417,7 @@
                     e.preventDefault();
                 }
 
-                location.href = "/Home/Resource?State=" + $.trim($("#State").val()) + ",Academic_Group=" + $.trim($("#Academic_Group").val()) + ",Benifit_Type=" + $.trim($("#Benifit_Type").val()) + "";
+                location.href = window.location.protocol + "//" + window.location.host + "/Home/Resource?State=" + $.trim($("#State").val()) + ",Academic_Group=" + $.trim($("#Academic_Group").val()) + ",Benifit_Type=" + $.trim($("#Benifit_Type").val()) + "";
 
             });
 

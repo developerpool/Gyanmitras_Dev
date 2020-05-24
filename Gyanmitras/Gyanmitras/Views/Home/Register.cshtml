@@ -1,0 +1,379 @@
+﻿@model GyanmitrasMDL.SiteUserMDL
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="row">
+    <div class="col-md-8">
+
+
+
+        <section id="loginForm">
+            @using (Html.BeginForm("Register", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "myform" }))
+            {
+                <div id="msgDiv">
+                    @if (ViewBag.msg != null && (ViewBag.msg).MessageId == 1)
+                    {
+
+                        <div id="myAlert" class="alert alert-success">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>@ViewBag.msg.Message</strong>
+                        </div>
+                    }
+                   
+                    else
+                    {
+                        if (ViewBag.msg != null)
+                        {
+                            <div id="myAlert" class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong> @ViewBag.msg.Message</strong>
+                            </div>
+                        }
+                    }
+                </div>
+
+
+
+
+
+                @Html.AntiForgeryToken()
+                <hr />
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Name</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email ID</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.EmailID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Create UserName</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.UID, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.UID, "", new { @class = "text-danger" })
+                        <p style="display:none;color:red">
+                            The syntax of the username is:<br />
+                            First character = letter<br />
+                            Following chars = letter OR number OR _ (underscore) . (point) - (dash)<br />
+                            Minimum length 5 chars<br />
+                            Maximum length 20 chars<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Create Password</label>
+                    <div class="col-md-8">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <p style="display:none;color:red">Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Re-Enter Password</label>
+                    <div class="col-md-8">
+                        @Html.Password("Re_Password", "", new { @class = "form-control", @autocomplete = "off" })
+                    </div>
+                </div>
+                if (!ViewBag.IsVolunteer)
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+
+                                @if (ViewBag.IsCounselor)
+                                {
+                                    <span>Do you want to adopt students in future.</span>
+                                }
+                                else
+                                {
+                                    <span>Do you want to be adopt.</span>
+                                }
+
+                                Yes: @Html.RadioButtonFor(E => E.AdoptionWish, true)
+                                No: @Html.RadioButtonFor(E => E.AdoptionWish, false)
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="Register" id="register" class="btn btn-success" />
+                        <input type="button" value="Clear" id="clear" class="btn btn-default" />
+                    </div>
+                </div>
+
+
+                @Html.HiddenFor(e => e.OTP)
+                @Html.HiddenFor(e => e.Pk_UserId)
+                @Html.HiddenFor(m => m.IsOTPVerified)
+
+                <input type="hidden" id="hd_Password" value="@Model.Password" />
+                <input type="hidden" id="hd_Pk_UserId" value="@Model.Pk_UserId" />
+                <input type="hidden" id="hd_Name" value="@Model.Name" />
+                <input type="hidden" id="hd_EmailID" value="@Model.EmailID" />
+                <input type="hidden" id="hd_UID" value="@Model.UID" />
+
+
+                <!-- Modal -->
+                <div id="otpModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Email Varification</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Please check your mail for OTP.</p>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 offset-lg-1">
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label text-center" for="eventRegInput1">Enter OTP</label>
+                                            <div class="col-md-8">
+                                                @Html.TextBoxFor(m => m.OTPUserInput, "", new { @class = "form-control", @placeholder = "Enter OTP Here..." })
+                                                <br />
+                                                <a href="javascript:void(0)" id="otpresend">Resend OTP</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/CustomFunctions.js"></script>
+    <script>
+        $(function () {
+            if ('@ViewBag.IsOTPVerifiedAlert') {
+                if ('@ViewBag.IsOTPVerifiedAlert' == "False") {
+                    $("#OTPUserInput").val('');
+                    $("#otpModal").modal('show');
+                    alert('@ViewBag.OTPAlertMessage');
+                    $("#Password").val($("#hd_Password").val());
+                    $("#Re_Password").val($("#hd_Password").val());
+                }
+            }
+            else {
+                if ('@ViewBag.IsEmailVerifiedAlert' == 'True') {
+                    $("#Password").val($("#hd_Password").val());
+                    $("#Re_Password").val($("#hd_Password").val());
+                    $("#register").text('Verifiy Now');
+                    if (IsValidBeforeSubmit()) {
+                        $('#myform').trigger('submit');
+                    }
+                }
+                else {
+                    var intervalId = setInterval(function () {
+                        $("#Name").val('');
+                        $("#EmailID").val('');
+                        $("#UID").val('');
+                        $("#Password").val('');
+                        $("#Re_Password").val('');
+                        if (intervalId) {
+                            clearInterval(intervalId);
+                        }
+                    }, 500);
+                }
+            }
+            $("#msgDiv").mouseover(function () {
+                $(".alert").fadeTo(5000, 50000).slideUp(500, function () {
+                    $(".alert").slideUp(500);
+                });
+            });
+
+            $("#otpresend").click(function (e) {
+                if (!IsValidBeforeSubmit()) {
+                    return false;
+                    e.preventDefault();
+                }
+                else {
+                    $('#myform').trigger('submit');
+                }
+            });
+            $('#myform').submit(function (e) {
+
+                if (IsValidBeforeSubmit()) {
+                    if ($("#OTP").val() && $("#UserInputOTP").val()) {
+                        $("#IsOTPVerified").val('true');
+                    }
+                    //if ($("#OTP").val() && $("#UserInputOTP").val()) {
+                    //    if (findOTP == $("#UserInputOTP").val()) {
+                    //        $("#IsOTPVerified").val('true');
+                    //    }
+                    //    else {
+                    //        alert('Invalid OTP, please enter currect OTP on your mail.');
+                    //        return false;
+                    //        e.preventDefault();
+                    //    }
+                    //}
+                    //else {
+                    //    alert('Invalid OTP, please enter currect OTP on your mail.');
+                    //    return false;
+                    //    e.preventDefault();
+                    //}
+
+                }
+                else {
+                    return false;
+                    e.preventDefault();
+                }
+            });
+            $("#register").click(function (e) {
+
+                if (!IsValidBeforeSubmit(e)) {
+                    return false;
+                    e.preventDefault();
+                }
+                else {
+                    //form submission true
+
+                    $('#myform').trigger('submit');
+                }
+            });
+
+
+        })
+
+        var findOTP = "";
+
+        function myOTPSend(email) {
+            debugger
+            $.ajax({
+                url: "@Url.Action("SendOTP", "Home")",
+                data: { "myemailid": $.trim(email) },
+                datatype: "json",
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    findOTP = data;
+                    $("#IsOTPVerified").val('false');
+                },
+                error: function () {
+
+                }
+            });
+        }
+        function IsValidBeforeSubmit() {
+
+            if (!$("#Name").val()) {
+                $("#Name").focus();
+                alert('Name field is required!');
+                return false;
+               
+            }
+            else {
+                if (!($("#Name").val()).match(name_regex)) {
+                    $("#Name").focus();
+                    alert('A valid Name field is required!');
+                    return false;
+                   
+                }
+            }
+            if (!$("#EmailID").val()) {
+                $("#EmailID").focus();
+                alert('Email ID field is required!');
+                return false;
+               
+            }
+            else {
+                if (!($("#EmailID").val()).match(email_regex)) {
+                    $("#EmailID").focus();
+                    alert('A valid Email ID field is required!');
+                    return false;
+                   
+                }
+            }
+
+            if (!$("#UID").val()) {
+                $("#UID").focus();
+                alert('UserName field is required!');
+                return false;
+               
+            }
+            else {
+                if (!($("#UID").val()).match(username_regex)) {
+                    $("#UID").focus();
+                    $("#UID").parent().find('p').slideDown(500);
+                    alert('A valid UserName field is required!');
+                    return false;
+                   
+                }
+                else {
+                    $("#UID").parent().find('p').slideUp(500);
+                }
+            }
+
+            if (!$("#Password").val()) {
+                $("#Password").focus();
+                alert('Password field is required!');
+                return false;
+               
+            }
+            else {
+                if (!($("#Password").val()).match(password_regex)) {
+                    $("#Password").focus();
+                    $("#Password").parent().find('p').slideDown(500);
+                    alert('A valid Password field is required!');
+                    return false;
+                   
+                }
+                else {
+                    $("#Password").parent().find('p').slideUp(500);
+                }
+            }
+
+            if (!$("#Re_Password").val()) {
+                $("#Re_Password").focus();
+                alert('Password field is required!');
+                return false;
+               
+            }
+            else {
+                if ($("#Re_Password").val() != $("#Password").val()) {
+                    $("#Re_Password").focus();
+                    alert('Re-Password will be the same as Password field!');
+                    return false;
+                   
+                }
+
+            }
+            return true;
+
+        }
+    </script>
+}
+
+
+
+

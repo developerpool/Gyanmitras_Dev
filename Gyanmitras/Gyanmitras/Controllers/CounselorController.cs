@@ -14,6 +14,7 @@ using System.IO;
 using Gyanmitras.Common;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace Gyanmitras.Controllers
 {
@@ -25,6 +26,8 @@ namespace Gyanmitras.Controllers
     public class CounselorController : BaseController
     {
         CounselorMDL obj = new CounselorMDL();
+        BasicPagingMDL objBasicPagingMDL = null;
+        static TotalCountPagingMDL objTotalCountPagingMDL = null;
 
         [HttpGet]
         [AllowAnonymous]
@@ -235,23 +238,8 @@ namespace Gyanmitras.Controllers
 
             return Json(myobj, JsonRequestBehavior.AllowGet);
         }
-        //[HttpGet]
-        //[SkipUserCustomAuthenticationAttribute]
-        //public ActionResult UserProfile()
-        //{
-        //    ViewBag.Title = "User Prifile";
-        //    ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
-        //    ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
-
-        //    ViewData["StreamList"] = CommonBAL.BindStreamDetailsList();
-        //    ViewData["BoardList"] = CommonBAL.BindBoardDetailsList();
-        //    ViewData["UniversityList"] = CommonBAL.BindBoardDetailsList();
-        //    ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
-
-
-        //    return View(obj);
-        //}
-        #region registration post
+       
+       
         [HttpPost]
         [UserCustomAuthenticationAttribute]
         public ActionResult Registration(CounselorMDL counselor)
@@ -340,8 +328,8 @@ namespace Gyanmitras.Controllers
                 return View(counselor);
             }
         }
-        #endregion
-        #region userprofile get
+        
+       
         [HttpGet]
         [UserCustomAuthenticationAttribute]
         public ActionResult UserProfile()
@@ -356,78 +344,120 @@ namespace Gyanmitras.Controllers
             CounselorMDL obj = new CounselorMDL();
             ViewBag.Title = "User Profile";
             obj.FormType = "User Profile";
-            ViewBag.VolunteerRegistration = obj;
-            CounselorBAL objCounselorBAL = new CounselorBAL();
-            var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
             ViewBag.type = "Edit";
-             obj = objCounselorBAL.GetCounselorProfile(user.UserName);
+            SiteUserSessionInfo.User.IsUpdatedProfileAlert = false;
+            CommonBAL objCommonBAL = new CommonBAL();
+            dynamic _UserDatalist = new List<CounselorMDL>();
+            int RowPerpage = 10;
+            int CurrentPage = 1;
+            string SearchBy = "";
+            string SearchValue = "";
+            objCommonBAL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, Convert.ToInt32(SiteUserSessionInfo.User.UserId), RowPerpage, CurrentPage, SearchBy, SearchValue, 0, "counselor", Convert.ToInt32(SiteUserCategory.Counselor), 0);
+            obj = _UserDatalist[0];
+            obj.ConfirmPassword = obj.Password;
+            ViewBag.UserProfile = obj;
             return View(obj);
         }
-        #endregion
-        #region post of userprofile
+       
+      
         [HttpPost]
         [UserCustomAuthenticationAttribute]
         public ActionResult UserProfile(CounselorMDL counselor)
         {
-         
-            ModelState.Remove("ZipCode");
-            ModelState.Remove("Password");
-            ModelState.Remove("FK_StateId");
-            ModelState.Remove("FK_CityId");
-            ModelState.Remove("AreaOfInterest");
-            ModelState.Remove("AdoptionWish");
-            ModelState.Remove("UID");
-            ModelState.Remove("ConfirmPassword");
-            ModelState.Remove("Name");
-            ModelState.Remove("languages");
-            ModelState.Remove("AreYou");
-            ModelState.Remove("LikeAdoptStudentLater");
-            ModelState.Remove("Declaration");
-            ModelState.Remove("JoinUsDescription");
-            ModelState.Remove("Retired_Expertise_Details");
-            ModelState.Remove("Expertise_Details");
-            ModelState.Remove("Graduation_CourseName");
-            ModelState.Remove("Graduation_UniversityName");
-            ModelState.Remove("Graduation_StreamType");
-            ModelState.Remove("HigherSecondry_StreamType");
-            ModelState.Remove("Graduation_Year_of_Passing");
-            ModelState.Remove("HigherSecondry_Year_of_Passing");
-            ModelState.Remove("Secondry_Year_of_Passing");
-            ModelState.Remove("Graduation_Percentage");
-            ModelState.Remove("HigherSecondry_Percentage");
-            ModelState.Remove("Secondry_Percentage");
-            ModelState.Remove("HigherSecondry_Education_Board");
-            ModelState.Remove("Secondry_Education_Board");
-          
+            if (!SiteUserSessionInfo.User.IsUpdatedProfileAlert)
+            {
+                ModelState.Remove("ZipCode");
+                ModelState.Remove("Password");
+                ModelState.Remove("FK_StateId");
+                ModelState.Remove("FK_CityId");
+                ModelState.Remove("AreaOfInterest");
+                ModelState.Remove("AdoptionWish");
+                ModelState.Remove("UID");
+                ModelState.Remove("ConfirmPassword");
+                ModelState.Remove("Name");
+                ModelState.Remove("languages");
+                ModelState.Remove("AreaOfInterestIds");
+                ModelState.Remove("AreYou");
+                ModelState.Remove("LikeAdoptStudentLater");
+                ModelState.Remove("Declaration");
+                ModelState.Remove("JoinUsDescription");
+                ModelState.Remove("Retired_Expertise_Details");
+                ModelState.Remove("Expertise_Details");
+                ModelState.Remove("Graduation_CourseName");
+                ModelState.Remove("Graduation_UniversityName");
+                ModelState.Remove("Graduation_StreamType");
+                ModelState.Remove("HigherSecondry_StreamType");
+                ModelState.Remove("Graduation_Year_of_Passing");
+                ModelState.Remove("HigherSecondry_Year_of_Passing");
+                ModelState.Remove("Secondry_Year_of_Passing");
+                ModelState.Remove("Graduation_Percentage");
+                ModelState.Remove("HigherSecondry_Percentage");
+                ModelState.Remove("Secondry_Percentage");
+                ModelState.Remove("HigherSecondry_Education_Board");
+                ModelState.Remove("Secondry_Education_Board");
+            }
             if (ModelState.IsValid)
             {
+                counselor.FK_CategoryId = counselor.FK_CategoryId == 0 ? Convert.ToInt32(SiteUserCategory.Counselor) : counselor.FK_CategoryId;
+                counselor.FK_RoleId = counselor.FK_RoleId == 0 ? Convert.ToInt32(SiteUserRole.Counselor) : counselor.FK_RoleId;
+                counselor.IsActive = true;
+                counselor.IsDeleted = false;
+                counselor.UpdatedBy = SiteUserSessionInfo.User.UserId;
+
                 HttpPostedFileBase Imgfile = counselor.Image;
                 if (Imgfile != null)
                 {
 
 
-                    if (!Directory.Exists(Server.MapPath("~/SiteUserContents/Registration/StudentImages/")))
-                        Directory.CreateDirectory(Server.MapPath("~/SiteUserContents/Registration/StudentImages/"));
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                                "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                                Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
+                    if (!Directory.Exists(Server.MapPath(ConfigurationManager.AppSettings["CounselorProfilePath"].ToString())))
+                        Directory.CreateDirectory(Server.MapPath(ConfigurationManager.AppSettings["CounselorProfilePath"].ToString()));
 
-                    CommonHelper.Upload(Imgfile, "~/SiteUserContents/Registration/StudentImages/", Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')));
+                    CommonHelper.Upload(Imgfile, ConfigurationManager.AppSettings["CounselorProfilePath"].ToString(), filenamemodefied);
 
                     if (!string.IsNullOrEmpty(counselor.ImageName))
                     {
-                        var filePath = Server.MapPath("~/SiteUserContents/Registration/StudentImages/" + counselor.ImageName);
+                        var filePath = Server.MapPath(ConfigurationManager.AppSettings["CounselorProfilePath"].ToString() + counselor.ImageName);
                         if (System.IO.File.Exists(filePath))
                         {
                             System.IO.File.Delete(filePath);
                         }
                     }
 
-                    counselor.ImageName = Imgfile.FileName;
+                    counselor.ImageName = filenamemodefied;
                 }
-                CounselorBAL objCounselorBAL = new CounselorBAL();
-                string Msg = "";
-                StringBuilder objMsg = objCounselorBAL.UpdateCounselorProfile(counselor);
-                Msg = objMsg.ToString();
 
-                if (Msg.Equals("Success"))
+                MessageMDL objMsg = new MessageMDL();
+                CommonBAL objCommonBAL = new CommonBAL();
+                if (!SiteUserSessionInfo.User.IsUpdatedProfileAlert)
+                {
+                    //Get Profile
+                    dynamic _UserDatalist = new List<VolunteerMDL>();
+                    int RowPerpage = 10;
+                    int CurrentPage = 1;
+                    string SearchBy = "";
+                    string SearchValue = "";
+                    objCommonBAL.GetSiteUserDetails(out _UserDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, Convert.ToInt32(SiteUserSessionInfo.User.UserId), RowPerpage, CurrentPage, SearchBy, SearchValue, 0, "counselor", Convert.ToInt32(SiteUserCategory.Counselor), 0);
+                    obj = _UserDatalist[0];
+                    //End
+
+                    obj.Name = counselor.Name;
+                    obj.MobileNo = counselor.MobileNo;
+                    obj.AlternateMobileNo = counselor.AlternateMobileNo;
+                    obj.Address = counselor.Address;
+                    obj.ImageName = counselor.ImageName;
+                    obj.Declaration = counselor.Declaration;
+                    obj.HavePC = counselor.HavePC;
+                    objMsg = objCommonBAL.AddEditSiteUsers(null,obj, null);
+                }
+                else
+                {
+                    objMsg = objCommonBAL.AddEditSiteUsers(null, counselor, null);
+                }
+
+                if (objMsg.MessageId == 1)
                 {
                     ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
                     ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
@@ -435,14 +465,31 @@ namespace Gyanmitras.Controllers
                     ViewData["StreamListpostgraduation"] = CommonBAL.GetStream("PostGraduation");
                     ViewData["BoardList"] = CommonBAL.GetBoardType();
                     ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
-                    ViewBag.Message = "Profile Updated Sucessfully.";
-                    ViewBag.Redirect = "Yes";
+                    ViewBag.Message = objMsg.Message;
+
+                    if (SiteUserSessionInfo.User.IsUpdatedProfileAlert)
+                    {
+                        ViewBag.IsProfileFirstTime = true;
+                    }
+                    else
+                    {
+                        ViewBag.Redirect = "Yes";
+
+                    }
+
                     return View(counselor);
-                    //  return RedirectToAction(actionName, controllerName, area);
                 }
                 else
                 {
-                    ViewBag.Message = "Submitting Form Went Wrong";
+                    if (!string.IsNullOrEmpty(counselor.ImageName))
+                    {
+                        var filePath = Server.MapPath(ConfigurationManager.AppSettings["CounselorProfilePath"].ToString() + counselor.ImageName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+                    ViewBag.Message = objMsg.Message;
                     return View(counselor);
                 }
 
@@ -453,13 +500,12 @@ namespace Gyanmitras.Controllers
                                        .SelectMany(x => x.Errors)
                                        .Select(x => x.ErrorMessage));
                 CounselorMDL counselor1 = new  CounselorMDL();
-                // student1.UID = SessionInfo.User.UserName;
-                //  student1.IsActive = true;
+               
                 return View("UserProfile", counselor1);
                
             }
         }
-        #endregion
+        
 
 
     }

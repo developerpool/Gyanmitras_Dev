@@ -21,7 +21,7 @@ namespace GyanmitrasDAL.User
         #region register Volunteer
         public StringBuilder RegisterVolunteer(VolunteerMDL objVolunteerMDL)
         {
-           
+
             var jsonResult = new StringBuilder();
             try
             {
@@ -43,8 +43,8 @@ namespace GyanmitrasDAL.User
                 dt.Columns.Add("Specification");
                 dt.Columns.Add("CourseName");
                 dt.Rows.Add(
-                  objVolunteerMDL.UID,DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
-              
+                  objVolunteerMDL.UID, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
+
                 List<SqlParameter> parms = new List<SqlParameter>()
                 {
                      new SqlParameter("@DistrictAreaOfSearch",objVolunteerMDL.FK_District_AreaOfSearch),
@@ -122,10 +122,10 @@ namespace GyanmitrasDAL.User
             if (ds != null)
             {
                 //Fk_AreaOfInterest_State Fk_AreaOfInterest_District
-               if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     objvolunteermdl.Address = ds.Tables[0].Rows[0]["Address"].ToString();
-                   objvolunteermdl.AlternateMobileNo = ds.Tables[0].Rows[0]["Alternate_Mobile_Number"].ToString(); ;
+                    objvolunteermdl.AlternateMobileNo = ds.Tables[0].Rows[0]["Alternate_Mobile_Number"].ToString(); ;
                     objvolunteermdl.EmailID = ds.Tables[0].Rows[0]["Email"].ToString();
                     objvolunteermdl.ImageName = ds.Tables[0].Rows[0]["Image"].ToString();
                     objvolunteermdl.MobileNo = ds.Tables[0].Rows[0]["Mobile_Number"].ToString();
@@ -133,7 +133,7 @@ namespace GyanmitrasDAL.User
                     objvolunteermdl.UID = ds.Tables[0].Rows[0]["UserName"].ToString();
 
                 }
-        
+
                 else
                 {
                     objvolunteermdl = null;
@@ -159,17 +159,17 @@ namespace GyanmitrasDAL.User
             {
                 List<SqlParameter> parms = new List<SqlParameter>()
                 {
-                      new SqlParameter("@PK_userID",objvolunteerMDL.PK_VolunteerId),
-                       new SqlParameter("@CategoryID",3),
-                     new SqlParameter("@RoleID",3),
-                     new SqlParameter("@Image",objvolunteerMDL.ImageName),
-                     new SqlParameter("@HaveSmartPhone",DBNull.Value),
-                     new SqlParameter("@HavePC",DBNull.Value),
-                      new SqlParameter("@Email",objvolunteerMDL.EmailID),
-                       new SqlParameter("@Mobile_Number",objvolunteerMDL.MobileNo),
-                     new SqlParameter("@Alternate_Mobile_Number",objvolunteerMDL.AlternateMobileNo),
-                       new SqlParameter("@Address",objvolunteerMDL.Address),
-                        new SqlParameter("@Updateddatetime",DateTime.Now),
+                    new SqlParameter("@PK_userID",objvolunteerMDL.PK_VolunteerId),
+                    new SqlParameter("@CategoryID",3),
+                    new SqlParameter("@RoleID",3),
+                    new SqlParameter("@Image",objvolunteerMDL.ImageName),
+                    new SqlParameter("@HaveSmartPhone",DBNull.Value),
+                    new SqlParameter("@HavePC",DBNull.Value),
+                    new SqlParameter("@Email",objvolunteerMDL.EmailID),
+                    new SqlParameter("@Mobile_Number",objvolunteerMDL.MobileNo),
+                    new SqlParameter("@Alternate_Mobile_Number",objvolunteerMDL.AlternateMobileNo),
+                    new SqlParameter("@Address",objvolunteerMDL.Address),
+                    new SqlParameter("@Updateddatetime",DateTime.Now),
                 };
                 CheckParameters.ConvertNullToDBNull(parms);
                 CommandText = "[siteusers].[sp_UpdateRegistration]";
