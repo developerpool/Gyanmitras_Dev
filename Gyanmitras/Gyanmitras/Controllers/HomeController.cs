@@ -167,9 +167,8 @@ namespace Gyanmitras.Controllers
                         "Regards,<br/>" +
                         "Web Master www.gyanmitras.com <br/>";
 
-                    email_dic = new Dictionary<int, string>();
-                    email_dic.Add(1, obj.EmailID);
-                    send = Mail.SendEmail("Gyanmitras "+ typereg + " Registration", mailbody, email_dic,null,"","","",true);
+                    
+                    send = Mail.SendEmail("Gyanmitras "+ typereg + " Registration", mailbody, null, null,"","","",true);
                     #endregion
                     otp = "";
                     obj.OTPUserInput = "";
