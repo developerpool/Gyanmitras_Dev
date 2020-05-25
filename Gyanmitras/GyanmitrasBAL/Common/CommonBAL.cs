@@ -647,6 +647,11 @@ namespace GyanmitrasBAL.Common
             return CommonDAL.FillSiteUserRoles();
         }
 
+        public static List<DropDownMDL> FillSiteUserCategory()
+        {
+            return CommonDAL.FillSiteUserCategory();
+        }
+
         public static List<DropDownMDL> BindAreaOfInterestList(string type = "")
         {
             return CommonDAL.BindAreaOfInterestList(type);

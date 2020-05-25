@@ -25,7 +25,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
         //}
         //#endregion
 
-        #region Methods
+       
         // GET: UserMaster
         public ActionResult Index()
         {
@@ -294,6 +294,6 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ExcelExportHelper objExcelExportHelper = new ExcelExportHelper();
             return objExcelExportHelper.ExportExcel(_listForExcel, "User Account", FileType, MDLAttr, columns);
         }
-        #endregion Methods
+        
     }
 }

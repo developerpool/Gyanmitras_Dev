@@ -285,33 +285,34 @@
             });
         }
         function IsValidBeforeSubmit() {
+           
 
             if (!$("#Name").val()) {
                 $("#Name").focus();
                 alert('Name field is required!');
                 return false;
-               
+
             }
             else {
                 if (!($("#Name").val()).match(name_regex)) {
                     $("#Name").focus();
                     alert('A valid Name field is required!');
                     return false;
-                   
+
                 }
             }
             if (!$("#EmailID").val()) {
                 $("#EmailID").focus();
                 alert('Email ID field is required!');
                 return false;
-               
+
             }
             else {
                 if (!($("#EmailID").val()).match(email_regex)) {
                     $("#EmailID").focus();
                     alert('A valid Email ID field is required!');
                     return false;
-                   
+
                 }
             }
 
@@ -319,7 +320,7 @@
                 $("#UID").focus();
                 alert('UserName field is required!');
                 return false;
-               
+
             }
             else {
                 if (!($("#UID").val()).match(username_regex)) {
@@ -327,7 +328,7 @@
                     $("#UID").parent().find('p').slideDown(500);
                     alert('A valid UserName field is required!');
                     return false;
-                   
+
                 }
                 else {
                     $("#UID").parent().find('p').slideUp(500);
@@ -338,7 +339,7 @@
                 $("#Password").focus();
                 alert('Password field is required!');
                 return false;
-               
+
             }
             else {
                 if (!($("#Password").val()).match(password_regex)) {
@@ -346,7 +347,7 @@
                     $("#Password").parent().find('p').slideDown(500);
                     alert('A valid Password field is required!');
                     return false;
-                   
+
                 }
                 else {
                     $("#Password").parent().find('p').slideUp(500);
@@ -357,17 +358,25 @@
                 $("#Re_Password").focus();
                 alert('Password field is required!');
                 return false;
-               
+
             }
             else {
                 if ($("#Re_Password").val() != $("#Password").val()) {
                     $("#Re_Password").focus();
                     alert('Re-Password will be the same as Password field!');
                     return false;
-                   
+
                 }
 
             }
+            if ('@ViewBag.IsVolunteer' == 'False') {
+                if (!$("input[name='AdoptionWish']:checked").val()) {
+                    $("#AdoptionWish").focus();
+                    alert('Adoption wish selection required!');
+                    return false;
+                }
+            }
+
             return true;
 
         }

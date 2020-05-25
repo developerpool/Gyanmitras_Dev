@@ -2442,6 +2442,40 @@ namespace GyanmitrasDAL.Common
             return List;
         }
 
+        public static List<DropDownMDL> FillSiteUserCategory()
+        {
+            List<DropDownMDL> List = new List<DropDownMDL>();
+            try
+            {
+                DataSet objDataSet = new DataSet();
+
+                //List<SqlParameter> parms = new List<SqlParameter>()
+                //{
+                //     new SqlParameter("@type",type)
+
+                //};
+                //CheckParameters.ConvertNullToDBNull(parms);
+                _commandText = "[SiteUsers].[USP_GetSiteUserCategory]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet);
+
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    List = objDataSet.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+                    {
+                        ID = dr.Field<Int64>("PK_CategoryId"),
+                        Value = dr.Field<string>("CategoryName")
+                    }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "");
+            }
+            return List;
+        }
+
 
         public static List<DropDownMDL> GetAcademicGroupList()
         {

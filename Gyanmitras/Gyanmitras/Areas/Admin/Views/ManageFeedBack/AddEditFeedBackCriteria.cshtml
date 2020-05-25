@@ -1,0 +1,162 @@
+﻿@model GyanmitrasMDL.MstFeedBackCriteriaMDL
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("AddEditFeedBackCriteria", "ManageFeedBack"))
+{
+    @Html.HiddenFor(E => E.PK_FeedBackCriteriaID)
+
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew FeedBack Criteria</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","ModulesHelpDesk")">Modules Help Desk</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","ManageFeedBack")">FeedBack Management</a> </li>
+                            <li class="breadcrumb-item active">@GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">FeedBack Management</a> </li>
+
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group row">
+
+                                            <label class="col-md-3 control-label" for="eventRegInput1">FeedBack For<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.FK_SiteUserCategoryID, new SelectList((System.Collections.IEnumerable)ViewData["SiteUserCategory"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myselect2" })
+                                                @Html.ValidationMessageFor(E => E.FK_SiteUserCategoryID)
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput3">FeedBack Criteria<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.FeedbackCriteria, new { @class = "form-control", @placeholder = "Write Here New Feedback Criteria", @maxlength = 50 })
+                                                @Html.ValidationMessageFor(E => E.FeedbackCriteria)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput3">Mark Criteria If Yes<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.MarkCriteria_Yes, new { @class = "form-control", @type = "number", @maxlength = 2 })
+                                                @Html.ValidationMessageFor(E => E.MarkCriteria_Yes)
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="eventRegInput3">Mark Criteria If No<span class="red">*</span></label>
+                                            <div class="col-md-7">
+                                                @Html.TextBoxFor(E => E.MarkCriteria_No, new { @class = "form-control", @type = "number", @maxlength = 2 })
+                                                @Html.ValidationMessageFor(E => E.MarkCriteria_No)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>
+                                                () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Active,Value = "true"
+                                                },
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Inactive,Value = "false"
+                                                }
+                                                }, new { @class = "form-control myselect2" })
+                                                @Html.ValidationMessageFor(E => E.IsActive)
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="submit" id="btnsubmit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                                        <a href="@Url.Action("Index")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnStatus" value="@Model.Status" />
+
+                </div>
+            </section>
+        </div>
+    </div>
+}
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+    <style>
+        .field-validation-error, .red {
+            color: red;
+        }
+    </style>
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            if ($("#PK_FeedBackCriteriaID").val() == "0") {
+                $("#MarkCriteria_Yes").val('');
+                $("#MarkCriteria_No").val('');
+            }
+            $(".myselect2").select2();
+            $('#btnsubmit').click(function (e) {
+                validate(e);
+
+            })
+
+        });
+
+
+
+        function validate(e) {
+
+        }
+
+
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

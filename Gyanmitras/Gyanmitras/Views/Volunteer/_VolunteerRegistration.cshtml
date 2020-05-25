@@ -217,7 +217,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 control-label" for="eventRegInput1">Your User ID<span class="red">*</span></label>
                                         <div class="col-md-7">
-                                            @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your User ID",@readonly= "readonly" })
+                                            @Html.TextBoxFor(E => E.UID, new { @class = "form-control ", @maxlength = "30", @placeholder = "Please enter your User ID" })
                                             @Html.ValidationMessageFor(E => E.UID)
                                         </div>
                                     </div>

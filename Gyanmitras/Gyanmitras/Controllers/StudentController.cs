@@ -68,7 +68,7 @@ namespace Gyanmitras.Controllers
             if (student.FormType == "volunteer")
             {
                 var uid = Gyanmitras.Common.CommonHelper.RandomString();
-                student.UID = "Gyanmitras_"+uid.ToLower();
+                student.UID = "Temp_"+ DateTime.Now.ToString("ddMMyyyhhmmss");
                 var pass = Gyanmitras.Common.CommonHelper.RandomString();
                 student.Password = pass.ToCharArray()[0].ToString().ToUpper()+ pass+ "@123";
                 controllerName = "Volunteer";

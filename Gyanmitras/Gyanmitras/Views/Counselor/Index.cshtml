@@ -424,7 +424,7 @@
 
                                             <div class="row">
                                                 <div class="text-right col-md-12 col-12">
-                                                    <a href="/Counselor/NewStudentFeedback" class="btn btn-primary btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i>New Feedback</a>
+                                                    <a href="javascript:void(0)" id="btnNewFeedBack" class="btn btn-primary btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i>New Feedback</a>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -819,6 +819,44 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div id="NewFeedBack" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="border-radius: 0px !important; ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">FeedBack</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        Did you like this class?
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-2">
+                        
+                        Yes
+                    </div>
+                    <div class="col-md-2">
+                        No
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="submitPlanCommunication">Submit</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section scripts {
@@ -933,8 +971,7 @@
                     }
                 });
 
-                if (bool)
-                {
+                if (bool) {
                     alert("A Time Slot already have, please select different Time Slot between 24Hours!");
                     return false;
                     e.preventDefault();
@@ -981,13 +1018,17 @@
                     complete: function () {
                         $(".modalBgLoader, .modalLoaderCenter").hide();
                     },
-                    data: { 'json_PlanCommunication': JSON.stringify(PlanCommunication) ,"IsAdopt" : "false"},
+                    data: { 'json_PlanCommunication': JSON.stringify(PlanCommunication), "IsAdopt": ($("#submitPlanCommunication").attr('IsAdopt') ? "true" : "false") },
                     success: function (data) {
                         if (String(data.MessageId) == "1") {
                             alert(data.Message);
                             $('#myModal').modal('hide');
                             $('#studentsmodel').modal('hide');
-                            StudentActionPanelFun(this,PK_ID);
+                            //StudentActionPanelFun(this, PK_ID);
+                            location.reload();
+                        }
+                        else if (Number(data.MessageId) <= 0) {
+                            alert(data.Message);
                         }
                         else {
                             alert('Somthing Went Wrong!');
@@ -997,10 +1038,13 @@
             });
 
             $('#btnAdopt').click(function () {
+                $("#submitPlanCommunication").attr('IsAdopt', 'true');
                 $('#myModal').modal('show');
             });
-
-        });
+            $('#btnNewFeedBack').click(function () {
+                $("#NewFeedBack").modal('show');
+            });
+        });//Load Completed
 
 
         function remove(a) {
@@ -1093,10 +1137,10 @@
                 },
                 data: { 'CurrentPage': parseInt(currentpage), 'RowPerpage': $('#Select_NoRecord').val(), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue, 'PK_ID': PK_ID },
                 success: function (data) {
-                    var mytotal  = 0 ;
+                    var mytotal = 0;
                     //var obj = JSON.stringify(data);
-                     MyAdoptHtml = '';
-                     html = "";
+                    MyAdoptHtml = '';
+                    html = "";
                     //var objBasicPagingMDL = data.objBasicPagingMDL;
                     var objTotalCountPagingMDL = data.objTotalCountPagingMDL;
                     var _Datalist = data._Datalist;
@@ -1114,9 +1158,9 @@
                             }
                             else {
                                 if (String(_Datalist[i].IsMachingStudentsForCounselor) == 'true' && String(_Datalist[i].IsAdoptedStudent) == "false") {
-                                    mytotal++ ;
+                                    mytotal++;
                                     //html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (String(_Datalist[i].HavePC) == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (String(_Datalist[i].IsAdoptedStudent) == "true" ? "Adopted" : "Non-Adopted") + '</div></td>  <td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="/Counselor/StudentAdoption/' + _Datalist[i].Pk_UserId + '"><i class="la la-pencil"></i>View Details</a>';
-                                    html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (String(_Datalist[i].HavePC) == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (String(_Datalist[i].IsAdoptedStudent) == "true" ? "Adopted" : "Non-Adopted") + '</div></td>  <td align="center" class="text-nowrap text-center"> <a href="javascript:viewdettails(' + _Datalist[i].Pk_UserId+');" class="btn btn-icon btn-dark btn-sm" ><i class="la la-pencil"></i>View Details</a>';
+                                    html += '<tr><td class="text-center">' + (i + 1) + '</td> <td class="text-center"> ' + _Datalist[i].Name + ' </td> <td class="text-center"> ' + _Datalist[i].MobileNo + ' </td>  <td class="text-center"> ' + _Datalist[i].EmailID + ' </td> <td class="text-center"> ' + (String(_Datalist[i].HavePC) == "false" ? "No" : "Yes") + ' </td> <td align="center"><div class="success text-bold-600">' + (String(_Datalist[i].IsAdoptedStudent) == "true" ? "Adopted" : "Non-Adopted") + '</div></td>  <td align="center" class="text-nowrap text-center"> <a href="javascript:viewdettails(' + _Datalist[i].Pk_UserId + ');" class="btn btn-icon btn-dark btn-sm" ><i class="la la-pencil"></i>View Details</a>';
                                 }
                                 //<a class="btn btn-icon btn-dark btn-sm" href="#" PK_ID="' + _Datalist[i].Pk_UserId + '" onclick="StudentActionPanelFun(this)"><i class="la la-pencil"></i>Counsel</a>
                             }
@@ -1141,133 +1185,133 @@
         }
 
         function viewdettails(id) {
-                 var PK_ID = id;
-               $('#studentsmodel').modal('show');
+            PK_ID = id;
+            $('#studentsmodel').modal('show');
 
-           $.ajax({
+            $.ajax({
                 url: "@Url.Action("GetStudents", "Counselor")",
                 type: 'GET',
-               cache: false,
-               data: { 'CurrentPage': 1, 'RowPerpage': 10, 'SearchBy': "", 'SearchValue': "",'PK_ID': parseInt(PK_ID) },
-               success: function (data) {
-                   var mytotal = 0;
-                   MyAdoptHtml = '';
-                   html = "";
-                   var objTotalCountPagingMDL = data.objTotalCountPagingMDL;
-                   var _Datalist = data._Datalist;
+                cache: false,
+                data: { 'CurrentPage': 1, 'RowPerpage': 10, 'SearchBy': "", 'SearchValue': "", 'PK_ID': parseInt(PK_ID) },
+                success: function (data) {
+                    var mytotal = 0;
+                    MyAdoptHtml = '';
+                    html = "";
+                    var objTotalCountPagingMDL = data.objTotalCountPagingMDL;
+                    var _Datalist = data._Datalist;
 
-                       for (var i = 0; i < _Datalist.length; i++) {
+                    for (var i = 0; i < _Datalist.length; i++) {
 
-                               $('#spnname').text(_Datalist[i].Name);
-                               $('#spnMobileNo').text(_Datalist[i].MobileNo);
-                               $('#spnEmailID').text(_Datalist[i].EmailID);
-                               if (String(_Datalist[i].HavePC) == "false") {
-                                   $('#spnHavePC').text("No");
-                               }
-                               else {
-                                   $('#spnHavePC').text("Yes");
-                               }
-                               if (String(_Datalist[i].HaveSmartPhone) == "false") {
-                                   $('#spnHaveSmartPhone').text("No");
-                               }
-                               else {
-                                   $('#spnHaveSmartPhone').text("Yes");
-                               }
-                               $('#spnAddress').text(_Datalist[i].Address);
-                               $('#spnCity').text(_Datalist[i].CityName);
-                           $('#spnState').text(_Datalist[i].StateName);
+                        $('#spnname').text(_Datalist[i].Name);
+                        $('#spnMobileNo').text(_Datalist[i].MobileNo);
+                        $('#spnEmailID').text(_Datalist[i].EmailID);
+                        if (String(_Datalist[i].HavePC) == "false") {
+                            $('#spnHavePC').text("No");
+                        }
+                        else {
+                            $('#spnHavePC').text("Yes");
+                        }
+                        if (String(_Datalist[i].HaveSmartPhone) == "false") {
+                            $('#spnHaveSmartPhone').text("No");
+                        }
+                        else {
+                            $('#spnHaveSmartPhone').text("Yes");
+                        }
+                        $('#spnAddress').text(_Datalist[i].Address);
+                        $('#spnCity').text(_Datalist[i].CityName);
+                        $('#spnState').text(_Datalist[i].StateName);
 
-                           var lang = _Datalist[i].LanguageKnownName;
-                           var langindex = lang.lastIndexOf(",");
-                           var Language = lang.substring(0, langindex) 
-
-
-                           $('#spnlanguages').text(Language); //////languages
-                           var AreaOfInterest = _Datalist[i].AreaOfInterestName;
-                           var AreaOfInterestIndex = AreaOfInterest.lastIndexOf(",");
-                           var AreaOfInterestName = AreaOfInterest.substring(0, AreaOfInterestIndex) 
-                           $('#spnAreaOfInterest').text(AreaOfInterestName);//////AreaOfInterest
-
-                           if (_Datalist[i].AlternateMobileNo != "") {
-                               $('#spnAlternateMobileNo').text(_Datalist[i].AlternateMobileNo);
-                               $('#divalternatemob').show();
-                           }
-                           else {
-                               $('#spnAlternateMobileNo').text('');
-                               $('#divalternatemob').hide();
-                           }
-                           
-                              $('#spnZipCode').text(_Datalist[i].ZipCode);
-                           $('#Img').attr("src", "'@System.Configuration.ConfigurationManager.AppSettings["StudentProfilePath"].ToString().Replace("~","..")'" + _Datalist[i].ImageName);
-
-                           $('#spnTypeOfEducation').text(_Datalist[i].EducationDetails[0].Education_Type);
-
-                           if (_Datalist[i].EducationDetails[0].Education_Type != "Graduation") {
-                               $('#divclass').show();
-                               $('#spnCurrent_Education_subcategory').text(_Datalist[i].EducationDetails[0].Class);
-                               $('#spnCompletionNature').text(_Datalist[i].EducationDetails[0].NatureOFCompletion);
-                                  
-
-                               if (_Datalist[i].EducationDetails[0].Education_Type == "Higher Secondry") {
-                                   $('#spnStreamType').text(_Datalist[i].EducationDetails[0].StreamName);////// StreamType
-                                   $('#divstream').show();
-                               }
-                               else {
-                                   $('#spnStreamType').text('');
-                                   $('#divstream').hide();
-                               }
-                               $('#spnBoardType').text(_Datalist[i].EducationDetails[0].BoardName);////// BoardType
-                               $('#divboardtype').show();
-                               $('#divclass').show();
-                               $('#divUniversityName').hide();
-                               $('#divspnCurrent_semester').hide();
-                               $('#divTotalAggregatetillnow').hide();
-                               if (_Datalist[i].EducationDetails[0].NatureOFCompletion == "Completed") {
-                                   $('#divPercentage').show();
-                                   $('#spnPercentage').text(_Datalist[i].EducationDetails[0].Percentage);
-                                   $('#divpreviousclass').hide();
-                               }
-                               else {
-                                   $('#divPercentage').hide();
-                                   $('#spnPercentage').text('');
-                                   $('#divpreviousclass').show();
-                                   $('#spnPreviousClass').text(_Datalist[i].EducationDetails[0].Previous_Class);
-                                   $('#spnPreviousBoardType').text(_Datalist[i].EducationDetails[0].PreviousClassBoardName);///////////PreviousBoardType
-                                   $('#spnPreviousclassPercentage').text(_Datalist[i].EducationDetails[0].Previous_Class_Percentage);
-                                 }
-
-                           }
-                           else if (_Datalist[i].EducationDetails[0].Education_Type == "Graduation"){
-                               $('#spnCurrent_Education_subcategory').text('');
-                               $('#spnCompletionNature').text(_Datalist[i].EducationDetails[0].NatureOFCompletion);
-                               $('#spnUniversityName').text(_Datalist[i].EducationDetails[0].UniversityName);
-                               $('#spnStreamType').text(_Datalist[i].EducationDetails[0].StreamName);////////// StreamType
-                               if (_Datalist[i].EducationDetails[0].NatureOFCompletion == "Completed") {
-                                   $('#spnPercentage').text(_Datalist[i].EducationDetails[0].Percentage);
-                                   $('#divPercentage').show();
-                                   $('#divspnCurrent_semester').hide();
-                                   $('#divTotalAggregatetillnow').hide();
-                                   $('#spnTotalAggregatetillnow').text('');
-                                   $('#spnCurrent_semester').text('');
-                               }
-                               else {
-                                   $('#spnPercentage').text('');
-                                   $('#divPercentage').hide();
-                                   $('#divspnCurrent_semester').show();
-                                   $('#divTotalAggregatetillnow').show();
-                                   $('#spnTotalAggregatetillnow').text(_Datalist[i].EducationDetails[0].TotalAggregatetillnow);
-                                   $('#spnCurrent_semester').text(_Datalist[i].EducationDetails[0].Currentsemester);
-                               }
-                               $('#divboardtype').hide();
-                               $('#divstream').show();
-                               $('#divclass').hide();
-                               $('#divUniversityName').show();
-                               $('#divpreviousclass').hide();
-                             }
-                         }
+                        var lang = _Datalist[i].LanguageKnownName;
+                        var langindex = lang.lastIndexOf(",");
+                        var Language = lang.substring(0, langindex)
 
 
-               }
+                        $('#spnlanguages').text(Language); //////languages
+                        var AreaOfInterest = _Datalist[i].AreaOfInterestName;
+                        var AreaOfInterestIndex = AreaOfInterest.lastIndexOf(",");
+                        var AreaOfInterestName = AreaOfInterest.substring(0, AreaOfInterestIndex)
+                        $('#spnAreaOfInterest').text(AreaOfInterestName);//////AreaOfInterest
+
+                        if (_Datalist[i].AlternateMobileNo != "") {
+                            $('#spnAlternateMobileNo').text(_Datalist[i].AlternateMobileNo);
+                            $('#divalternatemob').show();
+                        }
+                        else {
+                            $('#spnAlternateMobileNo').text('');
+                            $('#divalternatemob').hide();
+                        }
+
+                        $('#spnZipCode').text(_Datalist[i].ZipCode);
+                        $('#Img').attr("src", "'@System.Configuration.ConfigurationManager.AppSettings["StudentProfilePath"].ToString().Replace("~","..")'" + _Datalist[i].ImageName);
+
+                        $('#spnTypeOfEducation').text(_Datalist[i].EducationDetails[0].Education_Type);
+
+                        if (_Datalist[i].EducationDetails[0].Education_Type != "Graduation") {
+                            $('#divclass').show();
+                            $('#spnCurrent_Education_subcategory').text(_Datalist[i].EducationDetails[0].Class);
+                            $('#spnCompletionNature').text(_Datalist[i].EducationDetails[0].NatureOFCompletion);
+
+
+                            if (_Datalist[i].EducationDetails[0].Education_Type == "Higher Secondry") {
+                                $('#spnStreamType').text(_Datalist[i].EducationDetails[0].StreamName);////// StreamType
+                                $('#divstream').show();
+                            }
+                            else {
+                                $('#spnStreamType').text('');
+                                $('#divstream').hide();
+                            }
+                            $('#spnBoardType').text(_Datalist[i].EducationDetails[0].BoardName);////// BoardType
+                            $('#divboardtype').show();
+                            $('#divclass').show();
+                            $('#divUniversityName').hide();
+                            $('#divspnCurrent_semester').hide();
+                            $('#divTotalAggregatetillnow').hide();
+                            if (_Datalist[i].EducationDetails[0].NatureOFCompletion == "Completed") {
+                                $('#divPercentage').show();
+                                $('#spnPercentage').text(_Datalist[i].EducationDetails[0].Percentage);
+                                $('#divpreviousclass').hide();
+                            }
+                            else {
+                                $('#divPercentage').hide();
+                                $('#spnPercentage').text('');
+                                $('#divpreviousclass').show();
+                                $('#spnPreviousClass').text(_Datalist[i].EducationDetails[0].Previous_Class);
+                                $('#spnPreviousBoardType').text(_Datalist[i].EducationDetails[0].PreviousClassBoardName);///////////PreviousBoardType
+                                $('#spnPreviousclassPercentage').text(_Datalist[i].EducationDetails[0].Previous_Class_Percentage);
+                            }
+
+                        }
+                        else if (_Datalist[i].EducationDetails[0].Education_Type == "Graduation") {
+                            $('#spnCurrent_Education_subcategory').text('');
+                            $('#spnCompletionNature').text(_Datalist[i].EducationDetails[0].NatureOFCompletion);
+                            $('#spnUniversityName').text(_Datalist[i].EducationDetails[0].UniversityName);
+                            $('#spnStreamType').text(_Datalist[i].EducationDetails[0].StreamName);////////// StreamType
+                            if (_Datalist[i].EducationDetails[0].NatureOFCompletion == "Completed") {
+                                $('#spnPercentage').text(_Datalist[i].EducationDetails[0].Percentage);
+                                $('#divPercentage').show();
+                                $('#divspnCurrent_semester').hide();
+                                $('#divTotalAggregatetillnow').hide();
+                                $('#spnTotalAggregatetillnow').text('');
+                                $('#spnCurrent_semester').text('');
+                            }
+                            else {
+                                $('#spnPercentage').text('');
+                                $('#divPercentage').hide();
+                                $('#divspnCurrent_semester').show();
+                                $('#divTotalAggregatetillnow').show();
+                                $('#spnTotalAggregatetillnow').text(_Datalist[i].EducationDetails[0].TotalAggregatetillnow);
+                                $('#spnCurrent_semester').text(_Datalist[i].EducationDetails[0].Currentsemester);
+                            }
+                            $('#divboardtype').hide();
+                            $('#divstream').show();
+                            $('#divclass').hide();
+                            $('#divUniversityName').show();
+                            $('#divpreviousclass').hide();
+                        }
+                    }
+
+
+                }
             });
         }
     </script>
