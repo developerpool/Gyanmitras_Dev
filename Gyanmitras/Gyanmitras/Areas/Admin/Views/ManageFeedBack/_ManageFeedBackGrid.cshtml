@@ -1,0 +1,118 @@
+﻿<!--#region model  -->
+@model IEnumerable<GyanmitrasMDL.FeedBackMDL>
+@{
+    var objPagingmdl = (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging;
+    int SerialNo = (objPagingmdl.CurrentPage - 1) * objPagingmdl.RowParPage + 1;
+
+}
+<!--#endregion model  -->
+<!--#region GridShow  -->
+<div class="table-responsive" style="max-height: 465px;">
+    <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" width="100%" style="cursor:auto">
+        <thead>
+            <tr>
+                <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Status</th>
+                <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.Action</th>
+                <th class="text-center">FeedBack By</th>
+                <th class="text-center">FeedBack By User Category</th>
+                <th class="text-center">Counselor Name</th>
+                <th class="text-center">Student Name</th>
+                <th class="text-center">Did you like this class?</th>
+                <th class="text-center">Auto Rate</th>
+                <th class="text-center">Admin Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="14">
+                        <div class="text-danger">@GyanmitrasLanguages.LocalResources.Resource.DataNotFound</div>
+                    </td>
+                </tr>
+
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center" style="display:none;">
+                            @Html.DisplayFor(modelItem => item.PK_FeedBackID)
+                        </td>
+                        <td class="text-center"><input type="checkbox" value="" id="@item.PK_FeedBackID"></td>
+                        <td align="center">@SerialNo</td>
+                        @if (item.IsActive)
+                        {
+                            <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Active</td>
+                        }
+                        else
+                        {
+                            <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
+                        }
+                        <td class="text-center text-nowrap">
+                            @if (ViewBag.CanEdit)
+                            {
+                                <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditFeedBack", new { id = item.PK_FeedBackID })"><i class="la la-pencil"></i>Rate FeedBack</a>
+                            }
+                            
+                        </td>
+                        <td class="text-center">@item.FeedBackBy</td>
+                        <td class="text-center">@item.FeedBackByCategory</td>
+                        <td class="text-center">@item.CounselorName</td>
+                        <td class="text-center">@item.StudentName</td>
+                        @if (item.IsLikeThisClass)
+                        {
+                            <td align="center" class="success text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Yes</td>
+                        }
+                        else
+                        {
+                            <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.No</td>
+                        }
+                        @if (item.AutoRateFeedBack >= 0)
+                        {
+                            <td align="center" class="success text-bold-600">@item.AutoRateFeedBack</td>
+                        }
+                        else if (item.AutoRateFeedBack < 0)
+                        {
+                            <td align="center" class="danger text-bold-600">@item.AutoRateFeedBack</td>
+                        }
+
+                        @if (item.RateFeedBack >= 0)
+                        {
+                            <td align="center" class="success text-bold-600">@item.RateFeedBack</td>
+                        }
+                        else if (item.RateFeedBack < 0)
+                        {
+                            <td align="center" class="danger text-bold-600">@item.RateFeedBack</td>
+                        }
+
+                        
+                    </tr> SerialNo++;
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+@Html.Partial("_Paging", (GyanmitrasMDL.BasicPagingMDL)ViewBag.paging)
+<script src="~/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        if ($('tbody > tr').length <= 1) {
+            if ($('tbody > tr').find("td").length <= 1) {
+                $("#exportdiv").attr('style', 'display: none !important');
+            }
+            else {
+                $("#exportdiv").removeAttr('style');
+            }
+        }
+        else {
+            $("#exportdiv").removeAttr('style');
+        }
+    });
+</script>
+<!--#endregion GridShow  -->

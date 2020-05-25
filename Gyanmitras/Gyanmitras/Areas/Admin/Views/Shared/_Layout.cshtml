@@ -49,11 +49,44 @@
         @RenderSection("scripts", required: false)*@
     <!-- END Custom CSS-->
     <style>
-         .mylogo {
+        .mylogo {
             height: 58px !important;
             margin-top: -17px;
             margin-bottom: -14px;
         }
+
+        /*Loader Start*/
+
+        .modalBgLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 9998;
+            overflow: hidden;
+        }
+
+        .modalLoaderCenter {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            text-align: center;
+            margin-top: -114px;
+        }
+
+            .modalLoaderCenter span {
+                display: block;
+                text-align: center;
+                font-size: 21px;
+                padding-top: 15px;
+                color: #000;
+            }
+        /*Loader End*/
     </style>
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
@@ -185,12 +218,15 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 @foreach (var item in headerMenu)
-            {
-                if (!enumerable.Any(x => x.FK_ParentId == item.PK_FormId))
                 {
-                        <li class="parent parentNone">
-                            <a href="@Url.Action(@item.ActionName, @item.ControllerName, new { area = @item.Area })"><i class="@item.ClassName"></i><span class="menu-title"> @item.FormName </span></a>
-                        </li>
+                    if (!enumerable.Any(x => x.FK_ParentId == item.PK_FormId))
+                    {
+                        if (item.ControllerName != "ManageFeedback" && item.ControllerName != "ManageFeed")
+                        {
+                            <li class="parent parentNone">
+                                <a href="@Url.Action(@item.ActionName, @item.ControllerName, new { area = @item.Area })"><i class="@item.ClassName"></i><span class="menu-title"> @item.FormName </span></a>
+                            </li>
+                        }
                     }
                     else
                     {
@@ -214,6 +250,15 @@
         </div>
     </div>
     <div class="app-content content">
+        @*******Start Loader******@
+        <div class="modalBgLoader" style="display: none"></div>
+
+        <div class="modalLoaderCenter" style="display: none">
+            <img src="~/app-assets/images/loader.gif" />
+            <span>Please Wait...</span>
+        </div>
+
+        @*******End Loader******@
         @RenderBody()
     </div>
     <!-- ////////////////////////////////////////////////////////////////////////////-->

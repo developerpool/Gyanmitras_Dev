@@ -15,6 +15,7 @@ using Gyanmitras.Common;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.Configuration;
+using GyanmitrasBAL;
 
 namespace Gyanmitras.Controllers
 {
@@ -168,6 +169,65 @@ namespace Gyanmitras.Controllers
             var objPlannedCommunication = JsonConvert.DeserializeObject<List<SiteUserPlannedCommunication>>(json_PlanCommunication);
             
             return Json(obj.AddPlannedCommunication(objPlannedCommunication, IsAdopt), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose:
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult AddEditFeedBack(string json_FeedBackSuggesstion)
+        {
+            MstManageFeedBackBAL obj = new MstManageFeedBackBAL();
+            Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
+             
+            var objFeedBackMDL = JsonConvert.DeserializeObject<List<FeedBackMDL>>(json_FeedBackSuggesstion);
+            objFeedBackMDL.ForEach(e => e.CreatedBy = SiteUserSessionInfo.User.UserId);
+            objFeedBackMDL.ForEach(e => e.IsActive = true);
+
+            return Json(obj.AddEditFeedBack(objFeedBackMDL,0), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose:
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetManageFeedBackDetails(Int64 FK_StudentID)
+        {
+            MstManageFeedBackBAL objMstManageFeedBackBAL = new MstManageFeedBackBAL();
+            Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
+            List<FeedBackMDL> _DataList = new List<FeedBackMDL>();
+            BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+            TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMstManageFeedBackBAL.GetFeedBack(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, 0, 1000, 1, "", "");
+
+            return Json(_DataList, JsonRequestBehavior.AllowGet);
+        }
+
+
+        
+
+
+
+
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetManageFeedBackCriteriaDetails()
+        {
+            MstManageFeedBackBAL objMstManageFeedBackBAL = new MstManageFeedBackBAL();
+            List<MstFeedBackCriteriaMDL> _DataList = new List<MstFeedBackCriteriaMDL>();
+            BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+            TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMstManageFeedBackBAL.GetFeedBackCriteria(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, 0, 1000, 1, "SiteUserCategory", "Counselor");
+
+            return Json(_DataList, JsonRequestBehavior.AllowGet);
         }
 
 

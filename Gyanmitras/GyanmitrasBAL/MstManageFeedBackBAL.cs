@@ -26,6 +26,22 @@ namespace GyanmitrasBAL
         {
             return objManageFeedBackMasterDAL.GetFeedBackCriteria(out _ManageFeedBacklist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, userid, RowPerpage, CurrentPage, SearchBy, SearchValue);
         }
+
+
+
+
+        /// <summary>
+        /// Created By-Vinish
+        /// Date-20/12/2019
+        /// Purpose-Get details of ManageFeedBack
+        /// </summary>
+        /// <returns></returns>
+        public bool GetFeedBack(out List<FeedBackMDL> _ManageFeedBacklist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, Int64 userid, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue,string type = "")
+
+        {
+            return objManageFeedBackMasterDAL.GetFeedBack(out _ManageFeedBacklist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, userid, RowPerpage, CurrentPage, SearchBy, SearchValue,type);
+        }
+
         /// <summary>
         /// Created By-Vinish
         /// Date-20/12/2019
@@ -37,6 +53,20 @@ namespace GyanmitrasBAL
         {
             return objManageFeedBackMasterDAL.AddEditFeedBackCriteria(objManageFeedBackMasterMDL);
         }
+
+        /// <summary>
+        /// Created By-Vinish
+        /// Date-20/12/2019
+        /// Purpose-Insert  details of ManageFeedBack
+        /// </summary>
+        /// <param name="objManageFeedBackMasterMDL"></param>
+        /// <returns></returns>
+        public MessageMDL AddEditFeedBack(List<FeedBackMDL> objFeedBackMDL,Int64 PK_FeedBackId = 0)
+        {
+            return objManageFeedBackMasterDAL.AddEditFeedBack(objFeedBackMDL, PK_FeedBackId);
+        }
+
+
         /// <summary>
         /// Created By-Vinish
         /// Date-20/12/2019

@@ -1,0 +1,304 @@
+﻿@model GyanmitrasMDL.FeedBackMDL
+@{
+    var user = Gyanmitras.Common.SessionInfo.User as GyanmitrasMDL.UserInfoMDL;
+    Int64 LoginUserId = user.UserId;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+@using (Html.BeginForm("AddEditFeedBack", "ManageFeedBack"))
+{
+    @Html.HiddenFor(E => E.PK_FeedBackID)
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">FeedBack Rating</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","ModulesHelpDesk")">Modules Help Desk</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","ManageFeedBack")">FeedBack Management</a> </li>
+                            <li class="breadcrumb-item active">FeedBack Rating</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">FeedBack Rating</a> </li>
+
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        Did you like this class?
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                    </div>
+                                                    <div class="col-md-2" id="yesLikeClass">
+                                                        <span class="dot"><i class="my-icon la la-thumbs-o-up" style="color:green"></i></span>
+                                                        <br />
+                                                        <span style="color:green">Yes</span>
+                                                    </div>
+                                                    <div class="col-md-2" id="noLikeClass">
+                                                        <span class="dot">
+                                                            <i class="my-icon la la-thumbs-o-down" style="color:#e26666"></i>
+                                                        </span>
+                                                        <br />
+                                                        <span style="color:#e26666">No</span>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <hr />
+                                                        <i class="my-icon la la-smile-o"></i> &nbsp; What did you like best?
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row" id="feedBackCriteria">
+
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">FeedBack Suggesstion</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.FeedBackSuggesstion, new { @maxlength = "100", @readonly = "readonly", @class = "form-control", @placeholder = "Your Suggesstion Here..." })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">FeedBack By Category</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.FeedBackByCategory, new { @readonly = "readonly", @class = "form-control", @placeholder = "FeedBack By Category" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Student Name</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.StudentName, new { @readonly = "readonly", @class = "form-control", @placeholder = "Student Name" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Counselor Name</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.CounselorName, new {  @readonly = "readonly", @class = "form-control", @placeholder = "Counselor Name" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Auto Rated FeedBack</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.AutoRateFeedBack, new { @type="number", @readonly = "readonly", @maxlength = "2", @class = "form-control", @placeholder = "Rate Here withing 1 to 10" })
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Rate FeedBack (1 - 10)</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.RateFeedBack, new { @type = "number", @maxlength = "2", @class = "form-control", @placeholder = "Rate Here withing 1 to 10" })
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="button" id="submitFeedBack" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit FeedBack</button>
+                                        <a href="@Url.Action("IndexRating")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <input type="hidden" id="hd_IsLikeThisClass" value="@Model.IsLikeThisClass" />
+    <input type="hidden" id="hd_FeedbackCriteria" value="@Model.FeedbackCriteria" />
+
+}
+
+<style>
+    .card {
+        cursor: pointer;
+    }
+
+    .dot {
+        height: 25px;
+        width: 25px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0px 10px 3px rgba(0, 0, 0, 0.07);
+    }
+
+    .my-icon {
+        font-size: 2.4rem !important;
+    }
+
+    .dot:hover {
+        cursor: pointer;
+        background-color: #28d094;
+    }
+
+    .dot-active {
+        background-color: #28d094;
+    }
+</style>
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+    <style>
+        .field-validation-error, .red {
+            color: red;
+        }
+    </style>
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+           
+            $(".myselect2").select2();
+            $("#submitFeedBack").click(function (e) {
+                if ($("#RateFeedBack").val() != "0"  && $("#PK_FeedBackID").val()) {
+                    $.ajax({
+                        url: "@Url.Action("AddEditFeedBackPost", "ManageFeedBack")",
+                        type: 'GET',
+                        cache: false,
+                        beforeSend: function () {
+                            $(".modalBgLoader, .modalLoaderCenter").show();
+                        },
+                        complete: function () {
+                            $(".modalBgLoader, .modalLoaderCenter").hide();
+                        },
+                        data: { 'myRateFeedBack': Number($.trim($("#RateFeedBack").val())), "PK_FeedBackID": Number($.trim($("#PK_FeedBackID").val())) },
+                        success: function (data) {
+                            if (data) {
+                                if (Number(data.MessageId) == 1) {
+                                    alert(data.Message);
+                                    location.href = window.location.protocol + "//" + window.location.host + '/Admin/ManageFeedBack/IndexRating';
+                                }
+                                else {
+                                    alert('Somthing Went Wrong!');
+                                }
+                            }
+                            else {
+                                alert('Somthing Went Wrong!');
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#RateFeedBack").focus();
+                    alert('FeedBack Rate field is required!');
+                }
+
+            });
+
+            loadFeedBackCriteria();
+
+            if ($("#PK_FeedBackID").val() != "0") {
+                debugger;
+                var hd_IsLikeThisClass = $("#hd_IsLikeThisClass").val();
+                var hd_FeedbackCriteria = $("#hd_FeedbackCriteria").val();
+                hd_FeedbackCriteria = hd_FeedbackCriteria.split('-||-');
+                if (hd_IsLikeThisClass == "value") {
+                    $("#yesLikeClass").find('.dot').addClass('dot-active');
+                }
+                else {
+                    $("#noLikeClass").find('.dot').addClass('dot-active');
+                }
+                for (var i = 0; i < hd_FeedbackCriteria.length; i++) {
+                    $("div[pk_feedbackcriteriaid='" + hd_FeedbackCriteria[i] + "']").attr('style', 'background:#c5d6c5');
+                }
+
+            }
+
+        });
+
+
+        function loadFeedBackCriteria(a) {
+
+            var SearchBy = "SiteUserCategory";
+            var SearchValue = "@ViewBag.SearchValue";
+
+            $.ajax({
+                url: "@Url.Action("GetManageFeedBackCriteriaDetails", "ManageFeedBack")",
+                type: 'GET',
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                async:false,
+                data: { 'SearchBy': SearchBy, "SearchValue": SearchValue },
+                success: function (data) {
+                    if (data) {
+                        var bool = false;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].Status == "Active") {
+                                bool = true;
+                                $("#yesLikeClass").removeClass('dot-active');
+                                $("#noLikeClass").removeClass('dot-active');
+                                $("#txtFeedBackSuggesstion").val('');
+                                $("#feedBackCriteria").append('<div class="col-md-12"> <div class="card" PK_FeedBackCriteriaID = "' + data[i].PK_FeedBackCriteriaID + '"> <span style="margin-top: 10px;margin-bottom: 10px;">&nbsp; <i class="la la-check"></i> ' + data[i].FeedbackCriteria + '</span> </div> </div>');
+                            }
+                        }
+                        //if (a) {
+                        //    var result = feedbackdatadescription.filter(function (v) {
+                        //        return v.CreatedDateTime === $.trim($(a).attr('createddatetime'));
+                        //    });
+                        //    if (String(result[0].IsLikeThisClass) == "true") {
+                        //        $("#yesLikeClass").trigger('click');
+                        //    }
+                        //    else {
+                        //        $("#noLikeClass").trigger('click');
+                        //    }
+                        //    $("#txtFeedBackSuggesstion").val($.trim(result[0].FeedBackSuggesstion));
+                        //    for (var i = 0; i < result.length; i++) {
+                        //        $("div[pk_feedbackcriteriaid='" + result[i].FK_FeedBackCriteriaID + "']").trigger('click');
+                        //    }
+
+                        //}
+                        if (!bool) {
+                            alert('Somthing Went Wrong!');
+                        }
+                    }
+                    else {
+                        alert('Somthing Went Wrong!');
+                    }
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+}

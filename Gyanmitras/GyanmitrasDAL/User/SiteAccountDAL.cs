@@ -62,6 +62,7 @@ namespace GyanmitrasDAL.User
                         CategoryId = WrapDbNull.WrapDbNullValue<Int64>(_dr.Field<Int64?>("FK_CategoryId")),
                         LoginType = _dr.Field<string>("CategoryName"),
                         IsAdoptedStudentCounselor = _dr.Field<bool>("IsAdoptedStudentCounselor"),
+                        AdoptedCounselor = _dr.Field<Int64>("AdoptedCounselor"),
                         IsUpdatedProfileAlert = _dr.Field<bool>("IsUpdatedProfileAlert"),
                         ProfileImage = _dr.Field<string>("ProfileImage"),
                         IsEmailVerified = _dr.Field<bool>("IsEmailVerified"),

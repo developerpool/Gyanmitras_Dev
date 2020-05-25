@@ -16,6 +16,8 @@ namespace GyanmitrasMDL.User
         public string LoginType { get; set; }
         public string LandingPageURL { get; set; }
         public bool IsAdoptedStudentCounselor { get; set; }
+
+        public Int64 AdoptedCounselor { get; set; }
         public bool IsUpdatedProfileAlert { get; set; }
 
         public bool IsProfilePage { get; set; }

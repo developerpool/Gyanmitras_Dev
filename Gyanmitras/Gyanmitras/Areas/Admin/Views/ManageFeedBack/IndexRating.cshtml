@@ -20,15 +20,12 @@
                         <li class="breadcrumb-item"><a href="@Url.Action("Index","ManageFeedBack")">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
                         <li class="breadcrumb-item"><a href="@Url.Action("Index","ModulesHelpDesk")">Modules Help Desk</a> </li>
                         <li class="breadcrumb-item"><a href="@Url.Action("Index","ManageFeedBack")">FeedBack Management</a> </li>
-                        <li class="breadcrumb-item active">Feedback Criteria Index</li>
+                        <li class="breadcrumb-item active">Index Of FeedBack Rating</li>
                     </ol>
                 </div>
             </div>
         </div>
-        @if (ViewBag.CanAdd)
-        {
-            <div class="content-header-right col-md-6 col-12"> <a href="@Url.Action("AddEditFeedBackCriteria")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> @GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</a> </div>
-        }
+       
     </div>
     <div class="content-body">
 
@@ -78,6 +75,7 @@
         </section>
 
 
+   
         @Html.Partial("_TotalCountPaging", (GyanmitrasMDL.TotalCountPagingMDL)ViewBag.totalcount)
         <section id="">
             <div class="row">
@@ -107,6 +105,8 @@
                                                             <button id="SearchCreteria" type="button" val="" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                             <div class="dropdown-menu" id="tableMenu">
                                                                 <a class="dropdown-item" href="javascript:void(0)" val="SiteUserCategory" onclick="paging(1,this)">FeedBack For</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="CounselorName" onclick="paging(1,this)">Counselor Name</a>
+                                                                <a class="dropdown-item" href="javascript:void(0)" val="StudentName" onclick="paging(1,this)">Student Name</a>
                                                             </div>
                                                         </div>
                                                         <input type="text" class="form-control" id="SearchValue" placeholder="@GyanmitrasLanguages.LocalResources.Resource.Search" aria-label="Amount (to the nearest dollar)">
@@ -304,7 +304,7 @@
             SearchCreteria = $("#SearchCreteria").attr('val');
         }
         $.ajax({
-            url: "@Url.Action("GetFeedBackCriteria", "ManageFeedBack")",
+            url: "@Url.Action("GetFeedBack", "ManageFeedBack")",
             type: 'GET',
             cache: false,
             data: { 'CurrentPage': parseInt(currentpage), 'RowPerpage': $('#Select_NoRecord').val(), 'SearchBy': SearchCreteria, 'SearchValue': SearchValue },

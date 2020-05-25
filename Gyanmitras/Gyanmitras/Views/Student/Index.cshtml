@@ -2,6 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Int64 FK_StudentID = Gyanmitras.Common.SiteUserSessionInfo.User.UserId;
+    Int64 FK_CounselorID = Gyanmitras.Common.SiteUserSessionInfo.User.AdoptedCounselor;
+     
 }
 <h2>@ViewBag.Title</h2>
 <hr />
@@ -72,7 +74,7 @@
                                                                         <h4>Feedback</h4>
                                                                     </div>
                                                                     <div class="media-right p-2 media-middle">
-                                                                        <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                        <h1 class="success font-weight-bold" id="totalFeedback">0</h1>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -87,7 +89,7 @@
                                                                     <h4>Chat, Call & Mail</h4>
                                                                 </div>
                                                                 <div class="media-right p-2 media-middle">
-                                                                    <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                    <h1 class="success font-weight-bold" id="totalTotalInactiveValue">0</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -102,7 +104,7 @@
                                                                     <h4>Admin Feeds</h4>
                                                                 </div>
                                                                 <div class="media-right p-2 media-middle">
-                                                                    <h1 class="danger font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                    <h1 class="success font-weight-bold" id="totalTotalInactiveValue">0</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -193,8 +195,15 @@
 
                                 <section id="FeedbackSection" style="display:none">
                                     <div class="row">
+                                        <div class="text-right col-md-12 col-12">
+                                            <a href="javascript:void(0)" id="btnNewFeedBack" onclick="popNewFeedback()" class="btn btn-primary btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i>New Feedback</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-12">
-                                            <h4>Feedback</h4>
+                                            <h4>
+                                                Feedback
+                                            </h4>
                                             <div class="card">
                                                 <div class="card-header">
 
@@ -203,48 +212,18 @@
                                                     <div class="card-body card-dashboard  pt-0">
                                                         <div class="dataTables_wrapper">
                                                             <div id="GridDiv">
-                                                                <div class="table-responsive" style="max-height: 465px;">
+                                                                <div class="table-responsive">
                                                                     <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="" width="100%" style="cursor:auto">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th><input type="checkbox" id="checkAll" value="" onclick="checkAll(this)"></th>
                                                                                 <th class="text-center">No.</th>
                                                                                 <th class="text-center">Date & Time</th>
-                                                                                <th class="text-center">Description</th>
-                                                                                <th class="text-center">Status</th>
+                                                                                <th class="text-center">Did you like this class?</th>
                                                                                 <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody>
-                                                                            @*<tr>
-                                                                                <td colspan="14">
-                                                                                <div class="text-danger">
-                                                                                Data Not Found.
-                                                                                </div>
-                                                                                </td>
-                                                                                </tr>*@
-                                                                            <tr>
-                                                                                <td><input type="checkbox" value=""></td>
-                                                                                <td class="text-center">1</td>
-
-
-                                                                                <td class="text-center">
-                                                                                    05/01/2020 11:00 PM
-                                                                                </td>
-                                                                                <td class="text-center">
-                                                                                    TEST19
-                                                                                </td>
-
-                                                                                <td align="center"><div class="success text-bold-600">Active</div></td>
-
-                                                                                <td align="center" class="text-nowrap text-center">
-                                                                                    <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
-                                                                                    <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;delete?')" href="/MstCustomer/DeleteCustomer/1562 "><i class="la la-trash-o"></i>Not Interested</a>
-
-
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
+                                                                        <tbody id="tbodyFeedback"></tbody>
                                                                     </table>
                                                                 </div>
 
@@ -360,26 +339,26 @@
                                                                                     </td>
                                                                                 </tr>*@
                                                                             @*<tr>
-                                                                                <td><input type="checkbox" value=""></td>
-                                                                                <td class="text-center">1</td>
+                                                                                    <td><input type="checkbox" value=""></td>
+                                                                                    <td class="text-center">1</td>
 
 
-                                                                                <td class="text-center">
-                                                                                    05/01/2020 11:00 PM
-                                                                                </td>
-                                                                                <td class="text-center">
-                                                                                    TEST19
-                                                                                </td>
+                                                                                    <td class="text-center">
+                                                                                        05/01/2020 11:00 PM
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        TEST19
+                                                                                    </td>
 
-                                                                                <td align="center"><div class="success text-bold-600">Active</div></td>
+                                                                                    <td align="center"><div class="success text-bold-600">Active</div></td>
 
-                                                                                <td align="center" class="text-nowrap text-center">
-                                                                                    <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
-                                                                                    <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;delete?')" href="/MstCustomer/DeleteCustomer/1562 "><i class="la la-trash-o"></i>Not Interested</a>
+                                                                                    <td align="center" class="text-nowrap text-center">
+                                                                                        <a class="btn btn-icon btn-dark btn-sm" href="/MstCustomer/AddEditCustomer/1562"><i class="la la-pencil"></i>View Details</a>
+                                                                                        <a class="btn btn-icon btn-danger btn-sm delete" onclick="return confirm('Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;delete?')" href="/MstCustomer/DeleteCustomer/1562 "><i class="la la-trash-o"></i>Not Interested</a>
 
 
-                                                                                </td>
-                                                                            </tr>*@
+                                                                                    </td>
+                                                                                </tr>*@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -478,7 +457,93 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div id="NewFeedBack" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="border-radius: 0px !important; ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="my-icon la la-comment-o"></i>FeedBack</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        Did you like this class?
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-2" id="yesLikeClass" onclick="$('#noLikeClass').find('.dot').removeClass('dot-active'); $(this).find('.dot').addClass('dot-active');">
+                        <span class="dot"><i class="my-icon la la-thumbs-o-up" style="color:green"></i></span>
+                        <br />
+                        <span style="color:green">Yes</span>
+                    </div>
+                    <div class="col-md-2" id="noLikeClass" onclick="$('#yesLikeClass').find('.dot').removeClass('dot-active'); $(this).find('.dot').addClass('dot-active'); ">
+                        <span class="dot">
+                            <i class="my-icon la la-thumbs-o-down" style="color:#e26666"></i>
+                        </span>
+                        <br />
+                        <span style="color:#e26666">No</span>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr />
+                        <i class="my-icon la la-smile-o"></i> &nbsp; What did you like best?
+                    </div>
+                </div>
+                <br />
+                <div class="row" id="feedBackCriteria">
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="txtFeedBackSuggesstion" placeholder="Your Suggesstion Here..." />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="submitFeedBack">Submit FeedBack</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        cursor: pointer;
+    }
+
+    .dot {
+        height: 25px;
+        width: 25px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0px 10px 3px rgba(0, 0, 0, 0.07);
+    }
+
+    .my-icon {
+        font-size: 2.4rem !important;
+    }
+
+    .dot:hover {
+        cursor: pointer;
+        background-color: #28d094;
+    }
+
+    .dot-active {
+        background-color: #28d094;
+    }
+</style>
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
@@ -489,7 +554,7 @@
                     $(this).attr('style', 'background:#c5d6c5');
                 }
             });
-            
+
             $("#PlanCommunicatioCard").click(function () {
                 StudentActionPanelFun();
             });
@@ -500,17 +565,88 @@
             else {
                 $("#AdminFeedSectionDiv").trigger('click');
             }
+            loadFeedBack();
 
-        })
+
+            $("#submitFeedBack").click(function (e) {
+                var IsLike = null;
+                if (($("#yesLikeClass").find('.dot').attr('class')).indexOf('dot-active') >= 0) {
+                    IsLike = 'true';
+                }
+                else if (($("#noLikeClass").find('.dot').attr('class')).indexOf('dot-active') >= 0) {
+                    IsLike = 'false';
+                }
+                if (IsLike == null) {
+                    alert('Choose The Option "Did you like this class?"');
+                    return false;
+                    e.preventDefault();
+                }
+
+                if (pk_feedbackcriteriaids.length <= 0) {
+                    alert('Choose The Option "What did you like best?"');
+                    return false;
+                    e.preventDefault();
+                }
+
+                var FeedBackSuggesstionText = !($("#txtFeedBackSuggesstion").val()) ? "" : $("#txtFeedBackSuggesstion").val();
+
+                var FeedBackSuggesstion = new Array();
+
+                for (var i = 0; i < pk_feedbackcriteriaids.length; i++) {
+                    FeedBackSuggesstion.push({
+                        "FK_CounselorID": '@FK_CounselorID',
+                        "FK_StudentID": $.trim("@FK_StudentID"),
+                        'IsLikeThisClass': $.trim(IsLike),
+                        'FeedBackBy': $.trim('Student'),
+                        'FK_FeedBackCriteriaID': $.trim(pk_feedbackcriteriaids[i]),
+                        "FeedBackSuggesstion": $.trim(FeedBackSuggesstionText),
+
+                    });
+                }
+
+                if (FeedBackSuggesstion.length > 0) {
+                    $.ajax({
+                        url: "@Url.Action("AddEditFeedBack", "Counselor")",
+                        type: 'GET',
+                        cache: false,
+                        beforeSend: function () {
+                            $(".modalBgLoader, .modalLoaderCenter").show();
+                        },
+                        complete: function () {
+                            $(".modalBgLoader, .modalLoaderCenter").hide();
+                        },
+                        data: { 'json_FeedBackSuggesstion': JSON.stringify(FeedBackSuggesstion) },
+                        success: function (data) {
+                            if (data) {
+                                if (Number(data.MessageId) == 1) {
+                                    alert(data.Message);
+                                    loadFeedBack();
+                                }
+                                else {
+                                    alert('Somthing Went Wrong!');
+                                }
+                            }
+                            else {
+                                alert('Somthing Went Wrong!');
+                            }
+                            $("#NewFeedBack").modal('hide');
+                        }
+                    });
+                }
+                else {
+                    alert('Somthing went wrong!');
+                }
+
+            });
+        })//Load Compeleted
 
 
 
         function StudentActionPanelFun() {
-            debugger;
-            PK_ID = '@FK_StudentID';
+           
             $("#tbodyPlanned").empty();
             $("#tbodyPlanned").append('<tr> <td colspan="5"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
-            
+
             $.ajax({
                 url: "@Url.Action("GetPlannedCommunication", "Student")",
                 type: 'GET',
@@ -521,9 +657,10 @@
                 complete: function () {
                     $(".modalBgLoader, .modalLoaderCenter").hide();
                 },
-                data: { 'FK_StudentID': parseInt(PK_ID) },
+                data: { 'FK_StudentID': parseInt("@FK_StudentID") },
                 success: function (data) {
                     debugger;
+                    console.log(data);
                     if (data.length > 0) {
                         $("#totalPlannedCommunication").text(data.length);
                         $("#tbodyPlanned").empty();
@@ -540,6 +677,115 @@
             $("#tbodyPlanned").focus();
 
         }
+
+        function popNewFeedback(a) {
+
+            $("#feedBackCriteria").empty();
+            $.ajax({
+                url: "@Url.Action("GetManageFeedBackCriteriaDetails", "Counselor")",
+                type: 'GET',
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                //data: { 'json_PlanCommunication': JSON.stringify(PlanCommunication)},
+                success: function (data) {
+                    if (data) {
+                        $("#NewFeedBack").modal('show');
+                        var bool = false;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].Status == "Active") {
+                                bool = true;
+                                $("#yesLikeClass").removeClass('dot-active');
+                                $("#noLikeClass").removeClass('dot-active');
+                                $("#txtFeedBackSuggesstion").val('');
+                                $("#feedBackCriteria").append('<div class="col-md-12"> <div class="card" onclick="feedBackCriteriaCard(this)" PK_FeedBackCriteriaID = "' + data[i].PK_FeedBackCriteriaID + '"> <span style="margin-top: 10px;margin-bottom: 10px;">&nbsp; <i class="la la-check"></i> ' + data[i].FeedbackCriteria + '</span> </div> </div>');
+                            }
+                        }
+                        if (a) {
+                            var result = feedbackdatadescription.filter(function (v) {
+                                return v.CreatedDateTime === $.trim($(a).attr('createddatetime'));
+                            });
+                            if (String(result[0].IsLikeThisClass) == "true") {
+                                $("#yesLikeClass").trigger('click');
+                            }
+                            else {
+                                $("#noLikeClass").trigger('click');
+                            }
+                            $("#txtFeedBackSuggesstion").val($.trim(result[0].FeedBackSuggesstion));
+                            for (var i = 0; i < result.length; i++) {
+                                $("div[pk_feedbackcriteriaid='" + result[i].FK_FeedBackCriteriaID + "']").trigger('click');
+                            }
+                            $("#NewFeedBack").find('modal-footer').empty();
+
+                        }
+                        if (!bool) {
+                            $("#NewFeedBack").modal('hide');
+                            alert('Somthing Went Wrong!');
+                        }
+                    }
+                    else {
+                        alert('Somthing Went Wrong!');
+                    }
+                }
+            });
+
+
+
+        }
+
+        function loadFeedBack() {
+            $("#tbodyFeedback").empty();
+            $("#tbodyFeedback").append('<tr> <td colspan="5"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
+            $.ajax({
+                url: "@Url.Action("GetManageFeedBackDetails", "Counselor")",
+                type: 'GET',
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                data: { 'FK_StudentID': Number($.trim("@FK_StudentID")) },
+                success: function (data) {
+                    if (data) {
+                        var vari = 0;
+                        $("#tbodyFeedback").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            if (String(data[i].IsActive) == "true" && Number(data[i].FeedOneTimeNumber) == 1) {
+                                feedbackdatadescription = data;
+                                vari++;
+                                $("#tbodyFeedback").append('<tr> <td><input type="checkbox" value="" ' + data[i].PK_FeedBackID + '></td> <td class="text-center">' + vari + '</td> <td class="text-center"> ' + data[i].CreatedDateTime + ' </td> <td class="text-center"> ' + (String(data[i].IsLikeThisClass) == "true" ? "Yes" : "No") + ' </td><td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="javascript:void(0)" createddatetime="' + data[i].CreatedDateTime + '" onclick="popNewFeedback(this)" ><i class="la la-pencil"></i>View Details</a> </td> </tr>');
+                            }
+                        }
+                        $("#totalFeedback").text(vari);
+                    }
+                    else {
+                        alert('Somthing Went Wrong!');
+                    }
+                }
+            });
+        }
+        var feedbackdatadescription;
+        var pk_feedbackcriteriaids = new Array();
+        function feedBackCriteriaCard(a) {
+            if ($(a).attr('isChecked')) {
+                $(a).removeAttr('isChecked');
+                $(a).removeAttr('style');
+                var itemtoRemove = Number($(a).attr('pk_feedbackcriteriaid'));
+                pk_feedbackcriteriaids.splice($.inArray(itemtoRemove, pk_feedbackcriteriaids), 1);
+            }
+            else {
+                $(a).attr('style', 'background:#c5d6c5');
+                $(a).attr('isChecked', 'true')
+                pk_feedbackcriteriaids.push(Number($(a).attr('pk_feedbackcriteriaid')));
+            }
+        }
+
 
     </script>
 }
