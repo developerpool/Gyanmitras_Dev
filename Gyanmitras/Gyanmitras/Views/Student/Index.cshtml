@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Int64 FK_StudentID = Gyanmitras.Common.SiteUserSessionInfo.User.UserId;
     Int64 FK_CounselorID = Gyanmitras.Common.SiteUserSessionInfo.User.AdoptedCounselor;
-     
+
 }
 <h2>@ViewBag.Title</h2>
 <hr />
@@ -80,21 +80,22 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                }
-                                                <div class="col-xl-3 col-md-3" onclick="location.href ='/Home/CommonChat?StudentId=12##$ASD'">
-                                                    <div class="card overflow-hidden my-card">
-                                                        <div class="card-content" id="inactive">
-                                                            <div class="media align-items-stretch">
-                                                                <div class="media-body p-2">
-                                                                    <h4>Chat, Call & Mail</h4>
-                                                                </div>
-                                                                <div class="media-right p-2 media-middle">
-                                                                    <h1 class="success font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                    <div class="col-xl-3 col-md-3" onclick="location.href ='/Home/CommonChat'">
+                                                        <div class="card overflow-hidden my-card">
+                                                            <div class="card-content" id="inactive">
+                                                                <div class="media align-items-stretch">
+                                                                    <div class="media-body p-2">
+                                                                        <h4>Chat, Call & Mail</h4>
+                                                                    </div>
+                                                                    <div class="media-right p-2 media-middle">
+                                                                        <h1 class="success font-weight-bold" id="totalTotalInactiveValue">0</h1>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                }
+                                                
 
                                                 <div class="col-xl-3 col-md-3" id="AdminFeedSectionDiv" onclick="$('#FeedbackSection').slideUp(500);$('#PlannedCommunicationSection').slideUp(500); $('#AdminFeedSection').slideDown(500); $('#SuggestionSection').slideUp(500);">
                                                     <div class="card overflow-hidden my-card">

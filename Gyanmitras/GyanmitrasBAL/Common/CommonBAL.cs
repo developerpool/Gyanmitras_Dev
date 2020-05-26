@@ -693,6 +693,20 @@ namespace GyanmitrasBAL.Common
         {
             return CommonDAL.BindYearOfPassingList();
         }
+
+        public MessageMDL GetSiteUserChatDetails(SiteUserChat obj)
+        {
+            CommonDAL objCommonDAL = new CommonDAL();
+            return objCommonDAL.GetSiteUserChatDetails(obj);
+        }
+        public MessageMDL AddEditSiteUserChat(SiteUserChat obj)
+        {
+            CommonDAL objCommonDAL = new CommonDAL();
+            return objCommonDAL.AddEditSiteUserChat(obj);
+        }
+
+        
+
         #region GetLanguage dropdown
         public static List<DropDownMDL> GetLanguage()
         {

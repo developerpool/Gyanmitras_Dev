@@ -66,6 +66,7 @@ namespace GyanmitrasDAL.User
                         IsUpdatedProfileAlert = _dr.Field<bool>("IsUpdatedProfileAlert"),
                         ProfileImage = _dr.Field<string>("ProfileImage"),
                         IsEmailVerified = _dr.Field<bool>("IsEmailVerified"),
+                        PartnerProfileDetails = _dr.Field<string>("PartnerProfileDetails"),
                     };
 
                 }

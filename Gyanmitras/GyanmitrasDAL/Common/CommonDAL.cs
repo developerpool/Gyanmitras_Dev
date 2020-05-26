@@ -2996,6 +2996,99 @@ namespace GyanmitrasDAL.Common
         }
 
 
+        public MessageMDL GetSiteUserChatDetails(SiteUserChat obj)
+        {
+
+            MessageMDL msg = new MessageMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                    new SqlParameter("@PK_ChatID", obj.PK_ChatID),
+                    new SqlParameter("@Chat_From", obj.Chat_From),
+                    new SqlParameter("@Chat_To", obj.Chat_To),
+                };
+                _commandText = "[SiteUsers].[USP_GetSiteUserChatDetails]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //msg.Message = (msg.MessageId == 1)
+                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
+                    //                   : (msg.MessageId == -1)
+                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
+                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
+
+
+        public MessageMDL AddEditSiteUserChat(SiteUserChat obj)
+        {
+
+            MessageMDL msg = new MessageMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                    new SqlParameter("@PK_ChatID", obj.PK_ChatID),
+                    new SqlParameter("@Chat_From", obj.Chat_From),
+                    new SqlParameter("@Chat_To", obj.Chat_To),
+                    new SqlParameter("@Query_From", obj.Query_From),
+                    new SqlParameter("@Query_To", obj.Query_To),
+                    new SqlParameter("@IsDeleted", obj.IsDeleted),
+                    new SqlParameter("@DeletedBy", obj.DeletedBy),
+                    new SqlParameter("@IsSeen_From", obj.IsSeen_From),
+                    new SqlParameter("@IsSeen_To", obj.IsSeen_From),
+                    new SqlParameter("@IsReplay", obj.IsReplay),
+
+                };
+                _commandText = "[SiteUsers].[USP_AddEditSiteUserChat]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //msg.Message = (msg.MessageId == 1)
+                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
+                    //                   : (msg.MessageId == -1)
+                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
+                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
+
+
+
 
 
         #endregion

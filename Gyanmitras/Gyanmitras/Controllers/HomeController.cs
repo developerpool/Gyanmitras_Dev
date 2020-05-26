@@ -10,6 +10,7 @@ using Utility;
 using Gyanmitras.Common;
 using GyanmitrasBAL.User;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace Gyanmitras.Controllers
 {
@@ -18,6 +19,13 @@ namespace Gyanmitras.Controllers
 
     public class HomeController : BaseController
     {
+        //Chat Variables
+        private dynamic _PatnersDatalist;
+        StudentMDL objUserBal = null;
+        BasicPagingMDL objBasicPagingMDL = null;
+        static TotalCountPagingMDL objTotalCountPagingMDL = null;
+        //End Chat
+
         public static string ViewBagTitle = "";
         public static bool IsVolunteer = false;
         public static bool IsCounselor = false;
@@ -200,8 +208,65 @@ namespace Gyanmitras.Controllers
         public ActionResult CommonChat()
         {
             ViewBag.Title = "Gyanmitras Chat.";
+            string PartnerProfileDetails_JSON = SiteUserSessionInfo.User.PartnerProfileDetails;
+            List<SiteUserMDL> PartnerProfileDetails_List = new List<SiteUserMDL>();
+            // JsonConvert.DeserializeObject<List<SiteUserMDL>>(PartnerProfileDetails_JSON);
 
+            var PartnerProfileImagePath = "";
+            if (SiteUserSessionInfo.User.CategoryId == (Int64)GyanmitrasMDL.User.SiteUserCategory.Student)
+            {
+                SiteUserMDL obj = JsonConvert.DeserializeObject<SiteUserMDL>(PartnerProfileDetails_JSON);
+                PartnerProfileDetails_List.Add(obj);
+                PartnerProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["CounselorProfilePath"].ToString();
+            }
+            else if (SiteUserSessionInfo.User.CategoryId == (Int64)GyanmitrasMDL.User.SiteUserCategory.Counselor)
+            {
+                PartnerProfileDetails_List = JsonConvert.DeserializeObject<List<SiteUserMDL>>(PartnerProfileDetails_JSON);
+                PartnerProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["StudentProfilePath"].ToString();
+            }
+            PartnerProfileDetails_List[0].IsActive = true;
+            PartnerProfileImagePath = PartnerProfileImagePath.Replace("~/", "../");
+            PartnerProfileDetails_List.ForEach(e => e.ImageName = PartnerProfileImagePath + e.ImageName);
+
+
+
+            ViewBag.ChatPartners = PartnerProfileDetails_List;
             return View();
+        }
+
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetSiteUserChatDetails( Int64 Chat_From , Int64 Chat_To ,Int64 PK_ChatID = 0)
+        {
+            CommonBAL obj = new CommonBAL();
+            SiteUserChat objChat = new SiteUserChat();
+            objChat.PK_ChatID = PK_ChatID;
+            objChat.Chat_From = Chat_From;
+            objChat.Chat_To = Chat_To;
+
+
+            return Json(obj.GetSiteUserChatDetails(objChat), JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult AddEditSiteUserChat( Int64 Chat_From, Int64 Chat_To,string Query = "", Int64 PK_ChatID = 0)
+        {
+            CommonBAL obj = new CommonBAL();
+            SiteUserChat objChat = new SiteUserChat();
+            objChat.PK_ChatID = 0;
+            objChat.Chat_From = Chat_From;
+            objChat.Chat_To = Chat_To;
+            if (PK_ChatID != 0)
+            {
+                objChat.Query_From = Query;
+                objChat.Query_To = Query;
+            }
+            
+            return Json(obj.GetSiteUserChatDetails(objChat), JsonRequestBehavior.AllowGet);
         }
 
         [SkipUserCustomAuthenticationAttribute]
