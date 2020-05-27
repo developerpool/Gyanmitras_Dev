@@ -26,7 +26,7 @@ namespace GyanmitrasMDL.User
         public bool IsEmailVerified { get; set; }
         public string PartnerProfileDetails { get; set; }
         
-
+        public bool AdoptionWish { get; set; }
         public static SiteUserRoleAndRightsMDL GetUserRoleAndRights
         {
             get

@@ -223,10 +223,15 @@ namespace Gyanmitras.Controllers
             {
                 PartnerProfileDetails_List = JsonConvert.DeserializeObject<List<SiteUserMDL>>(PartnerProfileDetails_JSON);
                 PartnerProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["StudentProfilePath"].ToString();
+              
             }
-            PartnerProfileDetails_List[0].IsActive = true;
-            PartnerProfileImagePath = PartnerProfileImagePath.Replace("~/", "../");
-            PartnerProfileDetails_List.ForEach(e => e.ImageName = PartnerProfileImagePath + e.ImageName);
+            if (PartnerProfileDetails_List != null)
+            {
+                PartnerProfileDetails_List[0].IsActive = true;
+                PartnerProfileImagePath = PartnerProfileImagePath.Replace("~/", "../");
+                PartnerProfileDetails_List.ForEach(e => e.ImageName = PartnerProfileImagePath + e.ImageName);
+            }
+           
 
 
 
@@ -245,8 +250,9 @@ namespace Gyanmitras.Controllers
             objChat.Chat_From = Chat_From;
             objChat.Chat_To = Chat_To;
 
-
-            return Json(obj.GetSiteUserChatDetails(objChat), JsonRequestBehavior.AllowGet);
+            List<SiteUserChat> _dataList = new List<SiteUserChat>();
+            MessageMDL message =  obj.GetSiteUserChatDetails(out _dataList, objChat);
+            return Json(_dataList, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -257,16 +263,18 @@ namespace Gyanmitras.Controllers
         {
             CommonBAL obj = new CommonBAL();
             SiteUserChat objChat = new SiteUserChat();
-            objChat.PK_ChatID = 0;
+            objChat.PK_ChatID = PK_ChatID;
             objChat.Chat_From = Chat_From;
             objChat.Chat_To = Chat_To;
             if (PK_ChatID != 0)
             {
-                objChat.Query_From = Query;
+                objChat.IsReplay = true;
                 objChat.Query_To = Query;
             }
-            
-            return Json(obj.GetSiteUserChatDetails(objChat), JsonRequestBehavior.AllowGet);
+            else {
+                objChat.Query_From = Query;
+            }
+            return Json(obj.AddEditSiteUserChat(objChat), JsonRequestBehavior.AllowGet);
         }
 
         [SkipUserCustomAuthenticationAttribute]

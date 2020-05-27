@@ -15,6 +15,7 @@ using System.Text;
 using System.IO;
 using Gyanmitras.Common;
 using System.Configuration;
+using GyanmitrasBAL;
 
 namespace Gyanmitras.Controllers
 {
@@ -339,6 +340,28 @@ namespace Gyanmitras.Controllers
             }
         }
 
-        
+
+
+
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose:
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetManageFeedDetails()
+        {
+            MstManageFeedBAL objMstManageFeedBAL = new MstManageFeedBAL();
+            Int64 FK_VolunteerID = SiteUserSessionInfo.User.UserId;
+            List<MstManageFeedMDL> _DataList = new List<MstManageFeedMDL>();
+            BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+            TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMstManageFeedBAL.GetManageFeed(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, 0, 1000, 1, "SiteUserData", FK_VolunteerID.ToString());
+
+            return Json(_DataList, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

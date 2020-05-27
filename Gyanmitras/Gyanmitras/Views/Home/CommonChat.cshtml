@@ -228,8 +228,8 @@
                 <div class="wrap">
                     <input type="text" placeholder="Write your message..." />
                     <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                    
-                    <a id="sub" style="float: right;border: none;width: 50px;padding: 12px 0;cursor: pointer;background: #32465a;color: #f5f5f5;" ><i class="fa fa-paper-plane" style="margin-left: 15px;" aria-hidden="true"></i></a>
+
+                    <a id="sub" style="float: right;border: none;width: 50px;padding: 12px 0;cursor: pointer;background: #32465a;color: #f5f5f5;"><i class="fa fa-paper-plane" style="margin-left: 15px;" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -279,17 +279,13 @@
                 return false;
             }
 
-            SaveChat();
+            SaveChat($('.message-input input').val());
 
-            $('<li class="sent"><img src="' + activeImage + '" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
-            $('.message-input input').val(null);
-            $('.contact.active .preview').html('<span>You: </span>' + message);
-            $(".messages").animate({ scrollTop: $(document).height() }, "fast");
         };
 
         //$('#sub').click(function (e) {
         //    newMessage();
-            
+
         //    return false;
         //});
 
@@ -313,39 +309,79 @@
             $("ul#PartnerProfileDetails_UL > li").click(function () {
                 $("ul#PartnerProfileDetails_UL").find('li').removeClass('active');
                 $(this).addClass('active');
-                //LoadThisPartnerData(this);
+                if (($(this).attr('class')).indexOf('active') >= 0) {
+                    LoadThisPartnerData(this);
+                    //return false;
+                }
+
             });
         })
 
         var activeImage = "";
         var activeName = "";
+        var activeId = 0;
         function LoadThisPartnerData(a) {
-            debugger;
-           
+
             if (a) {
 
                 activeImage = $(a).find('img').attr('src');
                 activeName = $(a).find('p[class="name"]').text();
-
+                activeId = $(a).attr('Pk_UserId');
                 $("#ActivePartnerMessages_UL").empty();
                 $("#ActivePartnerMessages_Image").removeAttr('src');
                 $("#ActivePartnerMessages_Image").attr('src', '' + activeImage + '');
                 $("#ActivePartnerMessages_Name").text(activeName);
 
 
+
                 var ChatData = new Array();
-                ChatData[0] = "";
-                for (var i = 0; i < ChatData.length; i++) {
-                    $("#ActivePartnerMessages_UL").append(
-                            '<li class="sent">'
-                                + '<img src="@user.ProfileImage" alt="" />'
-                                + '<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>'
-                            + '</li>'
-                            + '<li class="replies">'
-                                + '<img src="' + activeImage + '" alt="" />'
-                                + '<p>When you are backed against the wall, break the god damn thing down.</p>'
-                            + '</li>');
-                }
+                debugger;
+
+                $.ajax({
+                    url: "@Url.Action("GetSiteUserChatDetails", "Home")",
+                    type: 'GET',
+                    cache: false,
+                    beforeSend: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").show();
+                    },
+                    complete: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").hide();
+                    },
+                    async: false,
+                    data: { 'Chat_From': '@user.UserId', 'Chat_To': activeId, "PK_ChatID": "0" },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            ChatData = data;
+                            for (var i = 0; i < ChatData.length; i++) {
+                                var myhtml = "";
+                                var queryfrom = "";
+                                var queryto = "";
+
+                                queryfrom = (String(ChatData[i].Query_From) ? String(ChatData[i].Query_From) : "");
+                                queryto = (String(ChatData[i].Query_To) ? String(ChatData[i].Query_To) : "");
+
+                                if ('@user.UserId' == String(ChatData[i].Chat_From)) {
+                                    myhtml += '<li class="sent" PK_ChatID="' + ChatData[i].PK_ChatID + '" Chat_From="' + ChatData[i].Chat_From + '"><img src="@user.ProfileImage" alt="" /><p>' + queryfrom + '</p></li>';
+                                    if (queryto) {
+                                        myhtml += '<li class="replies" PK_ChatID="' + ChatData[i].PK_ChatID + '" Chat_From="' + ChatData[i].Chat_From + '"><img src="' + activeImage + '" alt="" /><p>' + queryto + '</p></li>';
+                                    }
+                                }
+                                else
+                                {
+                                    myhtml += '<li class="replies" PK_ChatID="' + ChatData[i].PK_ChatID + '" Chat_From="' + ChatData[i].Chat_From + '"><img src="' + activeImage + '" alt="" /><p>' + queryfrom + '</p></li>';
+                                    if (queryto) {
+                                        myhtml += '<li class="sent" PK_ChatID="' + ChatData[i].PK_ChatID + '" Chat_From="' + ChatData[i].Chat_From + '"><img src="@user.ProfileImage" alt="" /><p>' + queryto + '</p></li>';
+                                    }
+                                }
+                               
+
+                                $("#ActivePartnerMessages_UL").append(myhtml);
+                            }
+                        }
+                    }
+                });
+
             }
             else {
                 alert('Faild To Load Chat!');
@@ -353,6 +389,45 @@
 
         }
         //# sourceURL=pen.js
+
+
+        function SaveChat(Query) {
+            debugger;
+            var PK_ChatID = 0;
+            if ($("#ActivePartnerMessages_UL").find('li').length > 0) {
+                if (($("#ActivePartnerMessages_UL li:last").attr('class')).indexOf('replies') >= 0) {
+                    var char_from = $("#ActivePartnerMessages_UL li:last").attr('Chat_From');
+                    if (char_from) {
+                        if (char_from != '@user.UserId') {
+                            PK_ChatID = $("#ActivePartnerMessages_UL li:last").attr('PK_ChatID');
+                        }
+                    }
+                }
+            }
+            $.ajax({
+                url: "@Url.Action("AddEditSiteUserChat", "Home")",
+                type: 'GET',
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                data: { 'Chat_From': '@user.UserId', 'Chat_To': activeId, "Query": $.trim(Query), "PK_ChatID": PK_ChatID },
+                success: function (data) {
+                    if (data) {
+                        debugger;
+                        $('<li class="sent"><img src="@user.ProfileImage" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+
+                        $('.message-input input').val(null);
+                        $('.contact.active .preview').html('<span>You: </span>' + message);
+                        $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

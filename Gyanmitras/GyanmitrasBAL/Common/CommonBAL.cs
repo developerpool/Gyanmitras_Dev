@@ -652,6 +652,12 @@ namespace GyanmitrasBAL.Common
             return CommonDAL.FillSiteUserCategory();
         }
 
+        public static List<DropDownMDL> FillSiteUser()
+        {
+            return CommonDAL.FillSiteUser();
+        }
+
+
         public static List<DropDownMDL> BindAreaOfInterestList(string type = "")
         {
             return CommonDAL.BindAreaOfInterestList(type);
@@ -694,10 +700,10 @@ namespace GyanmitrasBAL.Common
             return CommonDAL.BindYearOfPassingList();
         }
 
-        public MessageMDL GetSiteUserChatDetails(SiteUserChat obj)
+        public MessageMDL GetSiteUserChatDetails(out List<SiteUserChat> _dataList,SiteUserChat obj)
         {
             CommonDAL objCommonDAL = new CommonDAL();
-            return objCommonDAL.GetSiteUserChatDetails(obj);
+            return objCommonDAL.GetSiteUserChatDetails(out _dataList,obj);
         }
         public MessageMDL AddEditSiteUserChat(SiteUserChat obj)
         {

@@ -2476,6 +2476,40 @@ namespace GyanmitrasDAL.Common
             return List;
         }
 
+        public static List<DropDownMDL> FillSiteUser()
+        {
+            List<DropDownMDL> List = new List<DropDownMDL>();
+            try
+            {
+                DataSet objDataSet = new DataSet();
+
+                //List<SqlParameter> parms = new List<SqlParameter>()
+                //{
+                //     new SqlParameter("@type",type)
+
+                //};
+                //CheckParameters.ConvertNullToDBNull(parms);
+                _commandText = "[SiteUsers].[USP_GetSiteUser]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet);
+
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    List = objDataSet.Tables[0].AsEnumerable().Select(dr => new DropDownMDL()
+                    {
+                        ID = dr.Field<Int64>("PK_UserId"),
+                        Value = dr.Field<string>("UserName")
+                    }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, ex.Message, "");
+            }
+            return List;
+        }
+
 
         public static List<DropDownMDL> GetAcademicGroupList()
         {
@@ -2996,9 +3030,9 @@ namespace GyanmitrasDAL.Common
         }
 
 
-        public MessageMDL GetSiteUserChatDetails(SiteUserChat obj)
+        public MessageMDL GetSiteUserChatDetails(out List<SiteUserChat> _dataList, SiteUserChat obj)
         {
-
+            _dataList = new List<SiteUserChat>();
             MessageMDL msg = new MessageMDL();
             try
             {
@@ -3014,11 +3048,22 @@ namespace GyanmitrasDAL.Common
                 {
                     msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
                     msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
-                    //msg.Message = (msg.MessageId == 1)
-                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
-                    //                   : (msg.MessageId == -1)
-                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
-                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                    _dataList = objDataSet.Tables[1].AsEnumerable().Select(dr => new SiteUserChat()
+                    {
+
+                        PK_ChatID = dr.Field<Int64>("PK_ChatID"),
+                        Chat_From = dr.Field<Int64>("Chat_From"),
+                        Chat_To = dr.Field<Int64>("Chat_To"),
+                        Query_From  = dr.Field<string>("Query_From"),
+                        Query_To  = dr.Field<string>("Query_To"),
+                        QueryDateTime_From = dr.Field<string>("QueryDateTime_From"),
+                        QueryDateTime_To = dr.Field<string>("QueryDateTime_To"),
+                        IsDeleted = dr.Field<bool>("IsDeleted"),
+                        DeletedBy = dr.Field<Int64>("DeletedBy"),
+                        IsSeen_From = dr.Field<bool>("IsSeen_From"),
+                        IsSeen_To = dr.Field<bool>("IsSeen_To"),
+
+                    }).ToList();
                 }
                 else
                 {

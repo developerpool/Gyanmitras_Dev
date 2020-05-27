@@ -6,7 +6,7 @@
 <h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm("UserProfile", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UserProfile", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data",id="myform" }))
 {
     @Html.Partial("_CounselorRegistration",(GyanmitrasMDL.User.CounselorMDL)ViewBag.UserProfile)
 }

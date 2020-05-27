@@ -39,42 +39,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
         }
 
 
-        public ActionResult ManagePlannedCommunication()
-        {
-            ViewBag.Title = "Manage Planned Communication";
-            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
-            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
-            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
-            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-
-            var a = SessionInfo.User;
-            if (TempData["Message"] != null)
-            {
-                ViewBag.Msg = (MessageMDL)TempData["Message"];
-                TempData["Message"] = null;
-            }
-
-            return View();
-        }
-
-        public ActionResult ManageFeed()
-        {
-            ViewBag.Title = "Manage Feed";
-            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
-            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
-            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
-            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
-
-            var a = SessionInfo.User;
-            if (TempData["Message"] != null)
-            {
-                ViewBag.Msg = (MessageMDL)TempData["Message"];
-                TempData["Message"] = null;
-            }
-
-            return View();
-        }
-
+        
 
     }
 }

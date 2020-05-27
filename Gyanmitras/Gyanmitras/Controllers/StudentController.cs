@@ -13,11 +13,13 @@ using System.Text;
 using System.IO;
 using Gyanmitras.Common;
 using System.Configuration;
+using GyanmitrasBAL;
 
 namespace Gyanmitras.Controllers
 {
     public class StudentController : Controller
     {
+        public static bool AutoSubmit = false;
         StudentMDL obj= new  StudentMDL();
         BasicPagingMDL objBasicPagingMDL = null;
         static TotalCountPagingMDL objTotalCountPagingMDL = null;
@@ -214,7 +216,7 @@ namespace Gyanmitras.Controllers
 
         [HttpGet]
         [UserCustomAuthenticationAttribute]
-        public ActionResult UserProfile()
+        public ActionResult UserProfile(bool AdoptionInterest = false)
         {
             StudentMDL obj = new StudentMDL();
             ViewBag.Title = "User Profile";
@@ -234,6 +236,10 @@ namespace Gyanmitras.Controllers
 
             obj = _UserDatalist[0];
             ViewBag.UserProfile = obj;
+
+            ViewBag.AutoSubmit = AdoptionInterest;
+            AutoSubmit = AdoptionInterest;
+
             return View(obj);
         }
       
@@ -263,8 +269,11 @@ namespace Gyanmitras.Controllers
             if (ModelState.IsValid)
             {
 
-                
 
+                if (AutoSubmit)
+                {
+                    student.AdoptionWish = true;
+                }
                 HttpPostedFileBase Imgfile = student.Image;
                 if (Imgfile != null)
                 {
@@ -440,6 +449,27 @@ namespace Gyanmitras.Controllers
             Int64 FK_CounselorID = 0;
             string LoginType = "student";
             return Json(obj.GetPlannedCommunication(FK_CounselorID, FK_StudentID, LoginType), JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose:
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetManageFeedDetails()
+        {
+            MstManageFeedBAL objMstManageFeedBAL = new MstManageFeedBAL();
+            Int64 FK_StudentID = SiteUserSessionInfo.User.UserId;
+            List<MstManageFeedMDL> _DataList = new List<MstManageFeedMDL>();
+            BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+            TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMstManageFeedBAL.GetManageFeed(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, 0, 1000, 1, "SiteUserData", FK_StudentID.ToString());
+
+            return Json(_DataList, JsonRequestBehavior.AllowGet);
         }
 
 

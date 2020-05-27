@@ -67,6 +67,8 @@ namespace GyanmitrasDAL.User
                         ProfileImage = _dr.Field<string>("ProfileImage"),
                         IsEmailVerified = _dr.Field<bool>("IsEmailVerified"),
                         PartnerProfileDetails = _dr.Field<string>("PartnerProfileDetails"),
+                        AdoptionWish = _dr.Field<bool>("AdoptionWish"),
+
                     };
 
                 }

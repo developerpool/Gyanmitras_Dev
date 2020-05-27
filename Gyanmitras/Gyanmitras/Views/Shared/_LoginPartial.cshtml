@@ -26,14 +26,26 @@ else
 
         @if (user != null)
         {
-            
+
             <li class="dropdown dropdown-user nav-item show dropdown">
                 <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown" aria-expanded="true">
                     <span class="mr-1" style="color:black">
                         Hello ,<span class="user-name text-bold-700">
                             @user.Name
                         </span>
-                    </span><span class="avatar avatar-online"><img src="@user.ProfileImage" alt="avatar"><i></i></span>
+                    </span>
+                    @if ((user.CategoryId == 1 || user.CategoryId == 2) && !user.AdoptionWish)
+                    {
+                        <span class="avatar avatar-online" id="prfileAlert" style="border:2px solid red; ">
+                            <img src="@user.ProfileImage" alt="avatar"><i></i>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="avatar avatar-online" id="prfileAlert">
+                            <img src="@user.ProfileImage" alt="avatar"><i></i>
+                        </span>
+                    }
                 </a>
 
                 <div class="dropdown-content" style="left:0;">
@@ -43,13 +55,22 @@ else
                     }
                     else if (user.CategoryId == 2)
                     {
+                        if (!user.AdoptionWish)
+                        {
+                            <a href="/Counselor/UserProfile?AdoptionInterest=true">Adoption Interest Required</a>
+                        }
                         @Html.ActionLink("Edit Profile", "UserProfile", "Counselor", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
                     }
                     else if (user.CategoryId == 1)
                     {
+                        if (!user.AdoptionWish)
+                        {
+                            <a href="/Counselor/UserProfile?AdoptionInterest=true">Adoption Interest Required</a>
+                        }
                         @Html.ActionLink("Edit Profile", "UserProfile", "Student", routeValues: null, htmlAttributes: new { id = "userprofileLink" })
                     }
                     <div class="dropdown-divider"></div>
+
                     @Html.ActionLink("Log out", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "logoffLink" })
 
                 </div>
@@ -62,16 +83,16 @@ else
         else
         {
             @*<li class="dropdown">
-                <a href="javascript:void(0)" id="registerLink" style="color:black !important;">Register</a>
-                <div class="dropdown-content" style="left:0;">
-                    <a style="display:inline-block; " href="/Student/Registration"><i class="fa fa-book"></i>Student Registration</a>
-                    <div class="dropdown-divider"></div>
-                    <a style="display:inline-block; " href="/Counselor/Registration">Counselor Registration</a>
-                    <div class="dropdown-divider"></div>
-                    <a style="display:inline-block; " href="/Volunteer/Registration">Volunteer Registration</a>
-                </div>
+                    <a href="javascript:void(0)" id="registerLink" style="color:black !important;">Register</a>
+                    <div class="dropdown-content" style="left:0;">
+                        <a style="display:inline-block; " href="/Student/Registration"><i class="fa fa-book"></i>Student Registration</a>
+                        <div class="dropdown-divider"></div>
+                        <a style="display:inline-block; " href="/Counselor/Registration">Counselor Registration</a>
+                        <div class="dropdown-divider"></div>
+                        <a style="display:inline-block; " href="/Volunteer/Registration">Volunteer Registration</a>
+                    </div>
 
-            </li>*@
+                </li>*@
 
             <li class="dropdown">
                 <a href="javascript:void(0)" id="registerLink" style="color:black !important;">Register</a>
@@ -126,4 +147,9 @@ else
         white-space: nowrap;
         border-radius: 1000px;
     }
+
+    navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    color: #ffffff;
+    background-color: #fff;
+}
 </style>

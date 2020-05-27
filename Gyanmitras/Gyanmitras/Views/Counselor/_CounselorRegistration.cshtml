@@ -925,19 +925,22 @@
 
 <script type="text/javascript">
     $(function () {
-        debugger;
-        
-        if ('@ViewBag.Message') {
-            alert('@ViewBag.Message');
-            if ('@ViewBag.IsProfileFirstTime' == "True") {
-                location.href = window.location.protocol + "//" + window.location.host + '/Home/LogOff';
+        if ('@ViewBag.AutoSubmit' != 'True') {
+            if ('@ViewBag.Message') {
+                alert('@ViewBag.Message');
+                if ('@ViewBag.IsProfileFirstTime' == "True") {
+                    location.href = window.location.protocol + "//" + window.location.host + '/Home/LogOff';
+                }
+                else if ('@ViewBag.Redirect' == "Yes") {
+                    location.href = window.location.protocol + "//" + window.location.host + '/Counselor/Index';
+                }
+                else {
+                    location.href = window.location.protocol + "//" + window.location.host + '/Home/Index';
+                }
             }
-            else if ('@ViewBag.Redirect' == "Yes") {
-                location.href = window.location.protocol + "//" + window.location.host + '/Counselor/Index';
-            }
-            else {
-                location.href = window.location.protocol + "//" + window.location.host + '/Home/Index';
-            }
+        }
+        else {
+            location.href = window.location.protocol + "//" + window.location.host + '/Home/LogOff';
         }
 
     });
@@ -947,7 +950,9 @@
 
 
         $("#PostGraduation_Year_of_Passing,#Docterate_Year_of_Passing").append("<option value='Pursuing'>Pursuing</option>");
-        BindAreaOfInterest("counselor");
+        if ($("#BindAreaOfInterest").length) {
+            BindAreaOfInterest("counselor");
+        }
         StateBind1();
         $(".select2").select2();
 
@@ -1115,7 +1120,11 @@
 
         });
 
-
+        if ('@ViewBag.AutoSubmit' == 'True')
+        {
+            $("#LikeAdoptStudentLater").val('true');
+            $('#btnSubmitCounselor').trigger('click');
+        }
 
     })//Page Load End
 

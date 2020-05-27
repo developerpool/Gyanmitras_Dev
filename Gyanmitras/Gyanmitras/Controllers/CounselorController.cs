@@ -26,6 +26,7 @@ namespace Gyanmitras.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class CounselorController : BaseController
     {
+        public static bool AutoSubmit = false;
         CounselorMDL obj = new CounselorMDL();
         BasicPagingMDL objBasicPagingMDL = null;
         static TotalCountPagingMDL objTotalCountPagingMDL = null;
@@ -60,7 +61,7 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "Produce Counseling Materials";
             return View();
         }
-        
+
 
 
         // GET: Counselor
@@ -76,7 +77,7 @@ namespace Gyanmitras.Controllers
             ViewData["StreamListpostgraduation"] = CommonBAL.GetStream("PostGraduation");
             ViewData["BoardList"] = CommonBAL.GetBoardType();
             ViewData["YearList"] = CommonBAL.BindYearOfPassingList();
-            
+
 
             return View(obj);
         }
@@ -161,13 +162,13 @@ namespace Gyanmitras.Controllers
         /// 
         [HttpGet]
         [SkipUserCustomAuthenticationAttribute]
-        public JsonResult AddPlannedCommunication(string json_PlanCommunication,string IsAdopt = "false")
+        public JsonResult AddPlannedCommunication(string json_PlanCommunication, string IsAdopt = "false")
         {
             StudentBAL obj = new StudentBAL();
             Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
 
             var objPlannedCommunication = JsonConvert.DeserializeObject<List<SiteUserPlannedCommunication>>(json_PlanCommunication);
-            
+
             return Json(obj.AddPlannedCommunication(objPlannedCommunication, IsAdopt), JsonRequestBehavior.AllowGet);
         }
 
@@ -183,12 +184,12 @@ namespace Gyanmitras.Controllers
         {
             MstManageFeedBackBAL obj = new MstManageFeedBackBAL();
             Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
-             
+
             var objFeedBackMDL = JsonConvert.DeserializeObject<List<FeedBackMDL>>(json_FeedBackSuggesstion);
             objFeedBackMDL.ForEach(e => e.CreatedBy = SiteUserSessionInfo.User.UserId);
             objFeedBackMDL.ForEach(e => e.IsActive = true);
 
-            return Json(obj.AddEditFeedBack(objFeedBackMDL,0), JsonRequestBehavior.AllowGet);
+            return Json(obj.AddEditFeedBack(objFeedBackMDL, 0), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -212,7 +213,27 @@ namespace Gyanmitras.Controllers
         }
 
 
-        
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose:
+        /// </summary>
+        /// 
+        [HttpGet]
+        [SkipUserCustomAuthenticationAttribute]
+        public JsonResult GetManageFeedDetails()
+        {
+            MstManageFeedBAL objMstManageFeedBAL = new MstManageFeedBAL();
+            Int64 FK_CounselorID = SiteUserSessionInfo.User.UserId;
+            List<MstManageFeedMDL> _DataList = new List<MstManageFeedMDL>();
+            BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
+            TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objMstManageFeedBAL.GetManageFeed(out _DataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, 0, 1000, 1, "SiteUserData", FK_CounselorID.ToString());
+
+            return Json(_DataList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
 
 
 
@@ -244,7 +265,7 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "Counselor Student Adoption";
             if (id != 0)
             {
-                
+
                 CommonBAL objMDL = new CommonBAL();
                 dynamic _StudentDatalist = new List<StudentMDL>();
                 BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
@@ -284,7 +305,7 @@ namespace Gyanmitras.Controllers
             dynamic _StudentDatalist = new List<StudentMDL>();
             BasicPagingMDL objBasicPagingMDL = new BasicPagingMDL();
             TotalCountPagingMDL objTotalCountPagingMDL = new TotalCountPagingMDL();
-            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, "counselor", 0, 0,"counselor");
+            objMDL.GetSiteUserDetails(out _StudentDatalist, out objBasicPagingMDL, out objTotalCountPagingMDL, PK_ID, RowPerpage, CurrentPage, SearchBy, SearchValue, SiteUserSessionInfo.User.UserId, "counselor", 0, 0, "counselor");
 
             ViewBag.paging = objBasicPagingMDL;
             ViewBag.TotalCountPaging = objTotalCountPagingMDL;
@@ -298,8 +319,8 @@ namespace Gyanmitras.Controllers
 
             return Json(myobj, JsonRequestBehavior.AllowGet);
         }
-       
-       
+
+
         [HttpPost]
         [UserCustomAuthenticationAttribute]
         public ActionResult Registration(CounselorMDL counselor)
@@ -388,11 +409,11 @@ namespace Gyanmitras.Controllers
                 return View(counselor);
             }
         }
-        
-       
+
+
         [HttpGet]
         [UserCustomAuthenticationAttribute]
-        public ActionResult UserProfile()
+        public ActionResult UserProfile(bool AdoptionInterest = false)
         {
             ViewData["RetiredExpertiseDetailsList"] = CommonBAL.BindRetiredExpertiseDetailsList();
             ViewData["EmployedExpertiseDetailsList"] = CommonBAL.BindEmployedExpertiseDetailsList();
@@ -404,8 +425,16 @@ namespace Gyanmitras.Controllers
             CounselorMDL obj = new CounselorMDL();
             ViewBag.Title = "User Profile";
             obj.FormType = "User Profile";
-            ViewBag.type = "Edit";
-            SiteUserSessionInfo.User.IsUpdatedProfileAlert = false;
+            if (!SiteUserSessionInfo.User.IsUpdatedProfileAlert)
+            {
+                ViewBag.type = "Edit";
+            }
+            else
+            {
+                SiteUserSessionInfo.User.IsProfilePage = true;
+            }
+            ViewBag.IsProfileFirstTime = SiteUserSessionInfo.User.IsUpdatedProfileAlert;
+            //SiteUserSessionInfo.User.IsUpdatedProfileAlert = false;
             CommonBAL objCommonBAL = new CommonBAL();
             dynamic _UserDatalist = new List<CounselorMDL>();
             int RowPerpage = 10;
@@ -416,10 +445,12 @@ namespace Gyanmitras.Controllers
             obj = _UserDatalist[0];
             obj.ConfirmPassword = obj.Password;
             ViewBag.UserProfile = obj;
+            ViewBag.AutoSubmit = AdoptionInterest;
+            AutoSubmit = AdoptionInterest;
             return View(obj);
         }
-       
-      
+
+
         [HttpPost]
         [UserCustomAuthenticationAttribute]
         public ActionResult UserProfile(CounselorMDL counselor)
@@ -463,7 +494,12 @@ namespace Gyanmitras.Controllers
                 counselor.IsActive = true;
                 counselor.IsDeleted = false;
                 counselor.UpdatedBy = SiteUserSessionInfo.User.UserId;
-
+                if (AutoSubmit)
+                {
+                    counselor.AdoptionWish = true;
+                }
+               
+                
                 HttpPostedFileBase Imgfile = counselor.Image;
                 if (Imgfile != null)
                 {
@@ -510,7 +546,8 @@ namespace Gyanmitras.Controllers
                     obj.ImageName = counselor.ImageName;
                     obj.Declaration = counselor.Declaration;
                     obj.HavePC = counselor.HavePC;
-                    objMsg = objCommonBAL.AddEditSiteUsers(null,obj, null);
+                    obj.AdoptionWish = counselor.AdoptionWish;
+                    objMsg = objCommonBAL.AddEditSiteUsers(null, obj, null);
                 }
                 else
                 {
@@ -559,13 +596,13 @@ namespace Gyanmitras.Controllers
                 string Message = string.Join("\n", ModelState.Values
                                        .SelectMany(x => x.Errors)
                                        .Select(x => x.ErrorMessage));
-                CounselorMDL counselor1 = new  CounselorMDL();
-               
+                CounselorMDL counselor1 = new CounselorMDL();
+
                 return View("UserProfile", counselor1);
-               
+
             }
         }
-        
+
 
 
     }

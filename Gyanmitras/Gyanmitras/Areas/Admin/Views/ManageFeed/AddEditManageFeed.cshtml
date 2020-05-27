@@ -1,0 +1,267 @@
+﻿@model GyanmitrasMDL.MstManageFeedMDL
+@{
+    var user = Gyanmitras.Common.SessionInfo.User as GyanmitrasMDL.UserInfoMDL;
+    Int64 LoginUserId = user.UserId;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+@using (Html.BeginForm("AddEditManageFeed", "ManageFeed"))
+{
+    @Html.HiddenFor(E => E.PK_FeedID)
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title">Feed Rating</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">@GyanmitrasLanguages.LocalResources.Resource.Home</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","ModulesHelpDesk")">Modules Help Desk</a> </li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","ManageFeed")">Feed Management</a> </li>
+                            <li class="breadcrumb-item active">Add Edit Feed</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="NewformTabs">
+                <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Feed Rating</a> </li>
+
+                </ul>
+                <div class="tab-content px-1 py-1">
+                    <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <form class="form form-horizontal">
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            <div class="modal-body">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Feed By Category</label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownListFor(E => E.FK_CategoryID, new SelectList((System.Collections.IEnumerable)ViewData["SiteUserCategory"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myselect2" })
+                                                        @Html.ValidationMessageFor(E => E.FK_CategoryID)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Feed By Area Of Interest</label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownListFor(E => E.AreaOfInterestIds, new SelectList(Enumerable.Empty<SelectListItem>
+                                             (), "ID", "Value"), new { @class = "form-control ddlMultiSlectBox", @multiple = "multiple", @placeholder = @GyanmitrasLanguages.LocalResources.Resource.select })
+
+
+                                                        @Html.ValidationMessageFor(E => E.AreaOfInterestIds)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Feed For User</label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownListFor(E => E.FK_UserID, new SelectList((System.Collections.IEnumerable)ViewData["SiteUser"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myselect2" })
+                                                        @Html.ValidationMessageFor(E => E.FK_UserID)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Feed Subject</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(m => m.FeedSubject, new { @class = "form-control", @maxlength = "100", @placeholder = "Feed Subject" })
+                                                        @Html.ValidationMessageFor(E => E.FeedSubject)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Feed Description</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextAreaFor(m => m.FeedDescription, new { @class = "form-control", @row = "2", @maxlength = "500", @placeholder = "Feed Subject" })
+                                                        @Html.ValidationMessageFor(E => E.FeedDescription)
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Media Type</label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownListFor(E => E.MediaType, new List<SelectListItem>()
+                                                                                         {
+                                               new SelectListItem() { Value = "", Text =  @GyanmitrasLanguages.LocalResources.Resource.select,Selected=true },
+                                                new SelectListItem() { Value = "Video Embed Url", Text = "Video Embed Url"},
+                                                                                           //new SelectListItem() { Value = "Image", Text = "Image"},
+                                                                                           new SelectListItem() { Value="Resource File", Text="Resource File"},
+                                                                                           //new SelectListItem() { Value="Word Document", Text="Word Document"},
+                                                                                           //new SelectListItem() { Value="Excel", Text="Excel"},
+                                                                                         }, new { @class = "form-control myselect2" })
+                                                        @Html.ValidationMessageFor(E => E.MediaType)
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row" id="ResourceFileNameDiv" style="display:none">
+                                                    <label class="col-md-3 label-control">Video Embed Url</label>
+                                                    <div class="col-md-9">
+                                                        @Html.TextBoxFor(E => E.VideoUrl, new { @class = "form-control", @maxlength = "200" })
+                                                        @Html.ValidationMessageFor(E => E.VideoUrl)
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row" id="ResourceFileDiv" style="display:none">
+                                                    <label class="col-md-3 label-control" for="eventRegInput3">Resource File</label>
+                                                    <div class="col-md-9">
+                                                        <div class="custom-file">
+                                                            @Html.TextBoxFor(E => E.ResourceFile, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" })
+                                                            @Html.ValidationMessageFor(E => E.ResourceFile)
+                                                            Resource File Should be in (jpg, jpeg, png, xls, xlsx, pdf, doc) format.
+
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="col-md-2">
+                                                            @if (string.IsNullOrEmpty(Model.ResourceFileName))
+                                                            {
+                                                                <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/@Model.ResourceFileName" />
+                                                            }
+
+                                                        </div>*@
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-3">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>
+                                                () {
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Active,Value = "true"
+                                                },
+                                                new SelectListItem() {
+                                                Text = @GyanmitrasLanguages.LocalResources.Resource.Inactive,Value = "false"
+                                                }
+                                                }, new { @class = "form-control myselect2" })
+                                                        @Html.ValidationMessageFor(E => E.IsActive)
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="submit" id="submitFeed" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit Feed</button>
+                                        <a href="@Url.Action("Index")" class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <input type="hidden" id="hd_AreaOfInterest" value="@Model.FK_AreaOfInterest" />
+    <input type="hidden" id="hd_FK_CategoryID" value="@Model.FK_CategoryID" />
+
+}
+
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+    <style>
+        .field-validation-error, .red {
+            color: red;
+        }
+    </style>
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/css/sumoselect.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script src="~/assets/js/jquery.sumoselect.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            $(".myselect2").select2();
+            $("#MediaType").change(function () {
+                if ($(this).val() == "Video Embed Url") {
+                    $("#ResourceFileNameDiv").slideDown(500);
+                    $("#ResourceFileDiv").slideUp(500);
+                }
+                else if ($(this).val() == 'Resource File') {
+                    $("#ResourceFileDiv").slideDown(500);
+                    $("#ResourceFileNameDiv").slideUp(500);
+                }
+                else {
+                    $("#ResourceFileDiv").slideUp(500);
+                    $("#ResourceFileNameDiv").slideUp(500);
+                }
+            });
+
+            if ($("#PK_FeedID").val() != "0") {
+                $("#FK_CategoryID").val($("#hd_FK_CategoryID").val());
+            }
+
+
+            $('#AreaOfInterestIds').html('');
+            $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+            $('#AreaOfInterestIds')[0].sumo.unload();
+            $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+
+            $("#FK_CategoryID").change(function () {
+                var str = $("#FK_CategoryID option:selected").text();
+                var res = str.toLowerCase();
+                BindAreaOfInterest(res);
+            });
+        });
+
+
+
+        function BindAreaOfInterest(type) {
+            //debugger
+            $('#AreaOfInterestIds').html('');
+            $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
+            $('#AreaOfInterestIds')[0].sumo.unload();
+            $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+
+            $.ajax({
+                url: "@Url.Action("BindAreaOfInterestList", "ManageFeed")",
+                type: "GET",
+                dataType: "JSON",
+                async: false,
+                data: { 'type': type },
+                success: function (Tags) {
+                    //debugger
+                    if (Tags.length > 0) {
+                        $.each(Tags, function (i, Tag) {
+                            //debugger
+                            $('#AreaOfInterestIds')[0].sumo.add(Tag.ID, Tag.Value);
+                            $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3, });
+                        });
+
+                    }
+
+
+                    if ($('#hd_AreaOfInterest').val() != '' && $('#hd_AreaOfInterest').val() != null) {
+
+                        var SelectedTagsArray = [];
+                        SelectedTagsArray = $('#hd_AreaOfInterest').val().split(',');
+                        for (var i = 0; i < SelectedTagsArray.length; i++) {
+                            $('#AreaOfInterestIds')[0].sumo.selectItem(SelectedTagsArray[i].trim());
+                            SelectedTagsArray[i].selected = true;
+                        }
+                    }
+                }
+
+            });
+        }
+
+    </script>
+
+}
