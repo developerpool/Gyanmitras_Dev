@@ -26,7 +26,7 @@ namespace GyanmitrasMDL
         public string FeedDescription {get;set;}
         public string MediaType       {get;set;}
         public string VideoUrl        {get;set;}
-        public HttpPostedFile ResourceFile { get;set;}
+        public HttpPostedFileBase ResourceFile { get;set;}
         public string ResourceFileName { get; set; }
         
         public Int64 CreatedBy       {get;set;}

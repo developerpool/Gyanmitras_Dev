@@ -4,10 +4,14 @@
     Int64 LoginUserId = user.UserId;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
+    var path = System.Configuration.ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString().Replace("~/","/");
+    path = path + ViewBag.ResourceFileName;
+
 }
-@using (Html.BeginForm("AddEditManageFeed", "ManageFeed"))
+@using (Html.BeginForm("AddEditManageFeed", "ManageFeed", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(E => E.PK_FeedID)
+    @Html.HiddenFor(E => E.ResourceFileName)
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-12 col-12 mb-2">
@@ -112,23 +116,26 @@
                                                     <label class="col-md-3 label-control" for="eventRegInput3">Resource File</label>
                                                     <div class="col-md-9">
                                                         <div class="custom-file">
-                                                            @Html.TextBoxFor(E => E.ResourceFile, new { @type = "file", @class = "form-control", @onchange = "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" })
+                                                            @Html.TextBoxFor(E => E.ResourceFile, new { @type = "file", @class = "form-control" })
                                                             @Html.ValidationMessageFor(E => E.ResourceFile)
                                                             Resource File Should be in (jpg, jpeg, png, xls, xlsx, pdf, doc) format.
 
                                                         </div>
                                                     </div>
-                                                    @*<div class="col-md-2">
-                                                            @if (string.IsNullOrEmpty(Model.ResourceFileName))
-                                                            {
-                                                                <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
-                                                            }
-                                                            else
-                                                            {
-                                                                <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/@Model.ResourceFileName" />
-                                                            }
+                                                    <div class="col-md-2">
+                                                        <a href="@path">
+                                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                                        </a>
+                                                        @*@if (string.IsNullOrEmpty(Model.ResourceFileName))
+                                                        {
+                                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/ManageFeed/ResourceFiles/@Model.ResourceFileName" />
+                                                        }*@
 
-                                                        </div>*@
+                                                    </div>
                                                 </div>
 
 
@@ -166,6 +173,7 @@
     </div>
     <input type="hidden" id="hd_AreaOfInterest" value="@Model.FK_AreaOfInterest" />
     <input type="hidden" id="hd_FK_CategoryID" value="@Model.FK_CategoryID" />
+    <input type="hidden" id="hd_MediaType" value="@Model.MediaType" />
 
 }
 
@@ -204,10 +212,6 @@
                 }
             });
 
-            if ($("#PK_FeedID").val() != "0") {
-                $("#FK_CategoryID").val($("#hd_FK_CategoryID").val());
-            }
-
 
             $('#AreaOfInterestIds').html('');
             $('#AreaOfInterestIds').SumoSelect({ okCancelInMulti: true, selectAll: true, csvDispCount: 3 });
@@ -219,6 +223,104 @@
                 var res = str.toLowerCase();
                 BindAreaOfInterest(res);
             });
+
+            $("#ResourceFile").change(function () {
+                
+                var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);
+                        break;
+                    case 'jpeg':
+                        document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);
+                        break;
+                    case 'png':
+                        document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);
+                        break;
+                    case 'xls':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                        break;
+                    case 'xlsx':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                        break;
+                    case 'pdf':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/pdf-icon.png');
+                        break;
+                    case 'doc':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                        break;
+                    default:
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                        alert('Invalid File Formate!');
+                        this.value = '';
+                }
+
+            });
+
+            if ($("#PK_FeedID").val() != "0") {
+                $("#FK_CategoryID").val($("#hd_FK_CategoryID").val());
+                $("#FK_CategoryID").trigger('change');
+                $("#MediaType").trigger('change');
+
+                var ext = ($("#ResourceFileName").val()).substr(($("#ResourceFileName").val()).lastIndexOf('.') + 1, ($("#ResourceFileName").val()).length);
+                
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'jpeg':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'png':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'xls':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                            break;
+                        }
+                    case 'xlsx':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                            break;
+                        }
+                    case 'pdf':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/pdf-icon.png');
+                            break;
+                        }
+                    case 'doc':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                            break;
+                        }
+                    default:
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            this.value = '';
+                        }
+                }
+            }
+
         });
 
 

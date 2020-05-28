@@ -95,7 +95,7 @@
                                                         </div>
                                                     </div>
                                                 }
-                                                
+
 
                                                 <div class="col-xl-3 col-md-3" id="AdminFeedSectionDiv" onclick="$('#FeedbackSection').slideUp(500); $('#PlannedCommunicationSection').slideUp(500); $('#AdminFeedSection').slideDown(500); $('#SuggestionSection').slideUp(500); loadFeed();">
                                                     <div class="card overflow-hidden my-card">
@@ -260,9 +260,7 @@
                                                                                 <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody id="tbodyFeed">
-                                                                           
-                                                                        </tbody>
+                                                                        <tbody id="tbodyFeed"></tbody>
                                                                     </table>
                                                                 </div>
 
@@ -490,6 +488,70 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal -->
+<div id="PopFeedModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="border-radius: 0px !important; ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="my-icon la la-comment-o"></i>Feed</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Created Date Time</label>
+                    <div class="col-md-9">
+                        @Html.TextBox("CreatedDateTime", "", new { @class = "form-control", @maxlength = "100", @placeholder = "Feed Subject" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Feed Subject</label>
+                    <div class="col-md-9">
+                        @Html.TextBox("FeedSubject", "", new { @class = "form-control", @maxlength = "100", @placeholder = "Feed Subject" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Feed Description</label>
+                    <div class="col-md-9">
+                        @Html.TextArea("FeedDescription", "", new { @class = "form-control", @row = "2", @maxlength = "500", @placeholder = "Feed Subject" })
+                    </div>
+                </div>
+
+                <div class="form-group row" id="ResourceUrlDiv" style="display:none">
+                    <label class="col-md-3 label-control">Video Embed Url</label>
+                    <div class="col-md-9">
+                        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" id="VideoUrl"></iframe>
+                    </div>
+                </div>
+
+                <div class="form-group row" id="ResourceFileDiv" style="display:none">
+                    <label class="col-md-3 label-control" for="eventRegInput3">Resource File</label>
+                    <div class="col-md-9">
+                        <div class="responsive">
+                            <div class="gallery">
+                                <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf" id="ResourceFile">
+                                    <img src="~/SiteUserContents/Resources/Images/img_5terre.jpg" alt="Cinque Terre" width="600" height="400">
+                                </a>
+                                <div class="desc">Add a description of the image here</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="submitFeedBack">Submit FeedBack</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .card {
         cursor: pointer;
@@ -517,6 +579,8 @@
         background-color: #28d094;
     }
 </style>
+
+
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
@@ -618,7 +682,7 @@
 
 
         function StudentActionPanelFun() {
-           
+
             $("#tbodyPlanned").empty();
             $("#tbodyPlanned").append('<tr> <td colspan="5"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
 
@@ -719,35 +783,62 @@
             $.ajax({
                 url: "@Url.Action("GetManageFeedDetails", "Student")",
                 type: 'GET',
-            cache: false,
-            beforeSend: function () {
-                $(".modalBgLoader, .modalLoaderCenter").show();
-            },
-            complete: function () {
-                $(".modalBgLoader, .modalLoaderCenter").hide();
-            },
-            //data: { 'FK_StudentID': Number($.trim()) },
-            success: function (data) {
-                debugger;
-                if (data) {
-                    var vari = 0;
-                    if (data.length > 0) {
-                        $("#tbodyFeed").empty();
-                    }
-                    for (var i = 0; i < data.length; i++) {
-                        if (String(data[i].IsActive) == "true") {
-                            vari++;
-                            $("#tbodyFeed").append('<tr> <td><input type="checkbox" value="" ' + data[i].PK_FeedID + '></td> <td class="text-center">' + vari + '</td> <td class="text-center"> ' + data[i].CreatedDateTime + ' </td> <td class="text-center"> ' + data[i].FeedSubject + ' </td><td class="text-center"> ' + data[i].FeedDescription + ' </td><td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="javascript:void(0)" PK_FeedID="' + data[i].PK_FeedID + '" onclick="popViewFeedDetails(this)" ><i class="la la-pencil"></i>View Details</a> </td> </tr>');
+                cache: false,
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                //data: { 'FK_StudentID': Number($.trim()) },
+                success: function (data) {
+                    debugger;
+                    if (data) {
+                        var vari = 0;
+                        if (data.length > 0) {
+                            $("#tbodyFeed").empty();
                         }
+                        for (var i = 0; i < data.length; i++) {
+                            if (String(data[i].IsActive) == "true") {
+                                vari++;
+                                $("#tbodyFeed").append('<tr> <td><input type="checkbox" value="" ' + data[i].PK_FeedID + '><input type="hidden" id="MediaType" value="' + data[i].MediaType + '" /><input type="hidden" id="VideoUrl" value="' + data[i].VideoUrl + '" /><input type="hidden" id="ResourceFile" value="' + data[i].ResourceFile + '" /></td> <td class="text-center">' + vari + '</td> <td class="text-center"> ' + data[i].CreatedDateTime + ' </td> <td class="text-center"> ' + data[i].FeedSubject + ' </td><td class="text-center"> ' + data[i].FeedDescription + ' </td><td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="javascript:void(0)" PK_FeedID="' + data[i].PK_FeedID + '" onclick="popViewFeedDetails(this)" ><i class="la la-pencil"></i>View Details</a> </td> </tr>');
+                            }
+                        }
+                        $("#totalFeed").text(vari);
                     }
-                    $("#totalFeed").text(vari);
+                    else {
+                        alert('Somthing Went Wrong!');
+                    }
                 }
-                else {
-                    alert('Somthing Went Wrong!');
-                }
-            }
-        });
+            });
         }
+
+        function popViewFeedDetails(a) {
+            var MediaType = $(a).closest('tr').find('td:eq(0)').find("#MediaType").val();
+            var VideoUrl = $(a).closest('tr').find('td:eq(0)').find("#VideoUrl").val();
+            var ResourceFile = $(a).closest('tr').find('td:eq(0)').find("#ResourceFile").val();
+            var CreatedDateTime = $(a).closest('tr').find('td:eq(2)').text();
+            var FeedSubject = $(a).closest('tr').find('td:eq(3)').text();
+            var FeedDescription = $(a).closest('tr').find('td:eq(4)').text();
+            if (VideoUrl) {
+                $("#VideoUrl").removeAttr('src');
+                $("#VideoUrl").attr('src', VideoUrl);
+                $("#ResourceUrlDiv").slideDown(500);
+                $("#ResourceFileDiv").slideUp(500);
+            }
+            else if (ResourceFile) {
+                $("#ResourceFile").removeAttr('href');
+                $("#ResourceFile").attr('href', ResourceFile);
+                $("#ResourceFileDiv").slideDown(500);
+                $("#ResourceUrlDiv").slideUp(500);
+            }
+            $("#CreatedDateTime").val(CreatedDateTime);
+            $("#FeedSubject").val(FeedSubject);
+            $("#FeedDescription").val(FeedDescription);
+
+            $("#PopFeedModal").modal('show');
+        }
+
         function loadFeedBack() {
             $("#tbodyFeedback").empty();
             $("#tbodyFeedback").append('<tr> <td colspan="5"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
@@ -768,7 +859,7 @@
                         if (data.length > 0) {
                             $("#tbodyFeedback").empty();
                         }
-                        
+
                         for (var i = 0; i < data.length; i++) {
                             if (String(data[i].IsActive) == "true" && Number(data[i].FeedOneTimeNumber) == 1) {
                                 feedbackdatadescription = data;

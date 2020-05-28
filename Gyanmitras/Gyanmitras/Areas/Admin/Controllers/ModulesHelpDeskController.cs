@@ -13,8 +13,8 @@ namespace Gyanmitras.Areas.Admin.Controllers
     public class ModulesHelpDeskController : Controller
     {
         //#region 
-        private List<SiteUserContantResourceMDL> _UserDatalist;
-        SiteUserContantResourceMDL objUserBal = null;
+        private List<SiteUserContentResourceMDL> _UserDatalist;
+        SiteUserContentResourceMDL objUserBal = null;
         BasicPagingMDL objBasicPagingMDL = null;
         static TotalCountPagingMDL objTotalCountPagingMDL = null;
         // GET: Admin/ModulesHelpDesk

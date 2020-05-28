@@ -27,7 +27,7 @@
         </div>
         @if (ViewBag.CanAdd)
         {
-            <div class="content-header-right col-md-6 col-12"> <a href="@Url.Action("AddEditManageResources")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> @GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</a> </div>
+            <div class="content-header-right col-md-6 col-12"> <a href="@Url.Action("AddEditSiteUserContentResourceDetails")" class="btn btn-dark btn-min-width round box-shadow-2 float-md-right mb-2"><i class="ft-plus-circle"></i> @GyanmitrasLanguages.LocalResources.Resource.ButtonAddNew</a> </div>
         }
     </div>
     <div class="content-body">
@@ -122,7 +122,7 @@
 
                                     </div>
                                     <div id="GridDiv">
-                                        @{Html.RenderAction("GetResources"); }
+                                        @{Html.RenderAction("GetSiteUserContentResourcesDetails"); }
                                     </div>
                                 </div>
                             </div>

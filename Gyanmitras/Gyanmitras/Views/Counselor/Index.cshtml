@@ -4,6 +4,7 @@
     bool IsAdoptedStudentCounselor = ViewBag.IsAdoptedStudentCounselor;
     IsAdoptedStudentCounselor = true;
     Int64 FK_CounselorID = Gyanmitras.Common.SiteUserSessionInfo.User.UserId;
+    var path = System.Configuration.ConfigurationManager.AppSettings["ManageFeedResourcesPath"].ToString().Replace("~/", "/");
 }
 <h2>@ViewBag.Title</h2>
 <hr />
@@ -820,6 +821,67 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="PopFeedModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="my-icon la la-comment-o"></i>Admin Feed</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Created Date Time</label>
+                    <div class="col-md-9">
+                        <span id="CreatedDateTime"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Feed Subject</label>
+                    <div class="col-md-9">
+                        <span id="FeedSubject"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Feed Description</label>
+                    <div class="col-md-9">
+                        <span id="FeedDescription"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row" id="ResourceUrlDiv" style="display:none">
+                    <label class="col-md-3 label-control">Video Embed Url</label>
+                    <div class="col-md-9">
+                        <iframe src="" id="VideoUrl"></iframe>
+                    </div>
+                </div>
+
+                <div class="form-group row" id="ResourceFileDiv" style="display:none">
+                    <label class="col-md-3 label-control" for="eventRegInput3">Resource File</label>
+                    <div class="col-md-9">
+                        <div class="responsive">
+                            <div class="gallery">
+                                <a target="_blank" href="" id="ResourceFile">
+                                    <img src="" alt="Cinque Terre" width="100" height="100">
+                                </a>
+                                <div class="desc">Click the icone image to download file.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .card {
         cursor: pointer;
@@ -1203,12 +1265,97 @@
                 }
             });
         }
+        function popViewFeedDetails(a) {
+            var Pk_id = $(a).closest('tr').find('td:eq(0)').find("#PK_FeedID").val();
+            var MediaType = $(a).closest('tr').find('td:eq(0)').find("#MediaType" + Pk_id).val();
+            var VideoUrl = $(a).closest('tr').find('td:eq(0)').find("#VideoUrl" + Pk_id).val();
+            var ResourceFileName = $(a).closest('tr').find('td:eq(0)').find("#ResourceFile" + Pk_id).val();
+            var CreatedDateTime = $(a).closest('tr').find('td:eq(2)').text();
+            var FeedSubject = $(a).closest('tr').find('td:eq(3)').text();
+            var FeedDescription = $(a).closest('tr').find('td:eq(4)').text();
+            
+            if (MediaType == "Video Embed Url") {
+                $("#VideoUrl").removeAttr('src');
+                $("#VideoUrl").attr('src', VideoUrl);
+                $("#ResourceUrlDiv").slideDown(500);
+                $("#ResourceFileDiv").slideUp(500);
+            }
+            else if (MediaType == 'Resource File') {
+                $("#ResourceFile").removeAttr('href');
+                $("#ResourceFile").attr('href', '@path' + ResourceFileName);
+                
+                var ext = (ResourceFileName).substr((ResourceFileName).lastIndexOf('.') + 1, (ResourceFileName).length);
+                
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'jpeg':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'png':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'xls':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/excel-icon.png');
+                            break;
+                        }
+                    case 'xlsx':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/excel-icon.png');
+                            break;
+                        }
+                    case 'pdf':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/pdf-icon.png');
+                            break;
+                        }
+                    case 'doc':
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/doc-icon.png');
+                            break;
+                        }
+                    default:
+                        {
+                            $("#ResourceFile").find('img').removeAttr('src');
+                            $("#ResourceFile").find('img').attr('src', '/SiteUserContents/default-image.png');
+                            this.value = '';
+                        }
+                }
 
+                $("#ResourceFileDiv").slideDown(500);
+                $("#ResourceUrlDiv").slideUp(500);
+            }
+            else {
+                
+                $("#ResourceFileDiv").slideUp(500);
+                $("#ResourceUrlDiv").slideUp(500);
+            }
+            $("#CreatedDateTime").text(CreatedDateTime);
+            $("#FeedSubject").text(FeedSubject);
+            $("#FeedDescription").text(FeedDescription);
+
+            $("#PopFeedModal").modal('show');
+        }
 
         function loadFeed() {
             debugger;
             $("#tbodyFeed").empty();
-            $("#tbodyFeed").append('<tr> <td colspan="5"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
+            $("#tbodyFeed").append('<tr> <td colspan="6"> <div class="text-danger"> Data Not Found. </div> </td> </tr>');
             $.ajax({
                 url: "@Url.Action("GetManageFeedDetails", "Counselor")",
                 type: 'GET',
@@ -1230,7 +1377,7 @@
                         for (var i = 0; i < data.length; i++) {
                             if (String(data[i].IsActive) == "true") {
                                 vari++;
-                                $("#tbodyFeed").append('<tr> <td><input type="checkbox" value="" ' + data[i].PK_FeedID + '></td> <td class="text-center">' + vari + '</td> <td class="text-center"> ' + data[i].CreatedDateTime + ' </td> <td class="text-center"> ' + data[i].FeedSubject + ' </td><td class="text-center"> ' + data[i].FeedDescription + ' </td><td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="javascript:void(0)" PK_FeedID="' + data[i].PK_FeedID + '" onclick="popViewFeedDetails(this)" ><i class="la la-pencil"></i>View Details</a> </td> </tr>');
+                                $("#tbodyFeed").append('<tr> <td><input type="checkbox" value="' + data[i].PK_FeedID + '"><input type="hidden" id="PK_FeedID" value="' + data[i].PK_FeedID + '" /><input type="hidden" id="MediaType' + data[i].PK_FeedID + '" value="' + data[i].MediaType + '" /><input type="hidden" id="VideoUrl' + data[i].PK_FeedID + '" value="' + data[i].VideoUrl + '" /><input type="hidden" id="ResourceFile' + data[i].PK_FeedID + '" value="' + data[i].ResourceFileName + '" /></td> <td class="text-center">' + vari + '</td> <td class="text-center"> ' + data[i].CreatedDateTime + ' </td> <td class="text-center"> ' + data[i].FeedSubject + ' </td><td class="text-center"> ' + data[i].FeedDescription + ' </td><td align="center" class="text-nowrap text-center"> <a class="btn btn-icon btn-dark btn-sm" href="javascript:void(0)" PK_FeedID="' + data[i].PK_FeedID + '" onclick="popViewFeedDetails(this)" ><i class="la la-pencil"></i>View Details</a> </td> </tr>');
                             }
                         }
                         $("#totalFeed").text(vari);

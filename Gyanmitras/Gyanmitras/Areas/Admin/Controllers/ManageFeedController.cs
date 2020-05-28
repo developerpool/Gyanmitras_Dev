@@ -112,7 +112,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
             {
                 _ManageFeedMDL = new List<MstManageFeedMDL>();
                 objMstManageFeedBAL.GetManageFeed(out _ManageFeedMDL, out objBasicPagingMDL, out objTotalCountPagingMDL, id, SessionInfo.User.UserId, 10, 1, "", "");
-
+                ViewBag.ResourceFileName =  _ManageFeedMDL[0].ResourceFileName;
                 return View("AddEditManageFeed", _ManageFeedMDL[0]);
             }
             else
@@ -141,6 +141,30 @@ namespace Gyanmitras.Areas.Admin.Controllers
             try
             {
                 userMstMDL.CreatedBy = SessionInfo.User.UserId;
+
+                HttpPostedFileBase Imgfile = userMstMDL.ResourceFile;
+                if (Imgfile != null)
+                {
+
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                                "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                                Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
+                    if (!Directory.Exists(Server.MapPath(ConfigurationManager.AppSettings["ManageFeedResourcesPath"].ToString())))
+                        Directory.CreateDirectory(Server.MapPath(ConfigurationManager.AppSettings["ManageFeedResourcesPath"].ToString()));
+
+                    CommonHelper.Upload(Imgfile, ConfigurationManager.AppSettings["ManageFeedResourcesPath"].ToString(), filenamemodefied);
+
+                    if (!string.IsNullOrEmpty(userMstMDL.ResourceFileName))
+                    {
+                        var filePath = Server.MapPath(ConfigurationManager.AppSettings["ManageFeedResourcesPath"].ToString() + userMstMDL.ResourceFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+
+                    userMstMDL.ResourceFileName = filenamemodefied;
+                }
 
                 MessageMDL msg = objMstManageFeedBAL.AddEditManageFeed(userMstMDL);
                 TempData["Message"] = msg;
