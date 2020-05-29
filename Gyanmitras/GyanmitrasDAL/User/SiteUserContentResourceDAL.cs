@@ -94,7 +94,7 @@ namespace GyanmitrasDAL.User
         /// <param name="SearchBy"></param>
         /// <param name="SearchValue"></param>
         /// <returns></returns>
-        public bool GetSiteUserContentResourcesDetails(out List<SiteUserContentResourceMDL> _SiteUserContentResourceMasterlist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue)
+        public bool GetSiteUserContentResourcesDetails(out List<SiteUserContentResourceMDL> _SiteUserContentResourceMasterlist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage, string SearchBy, string SearchValue, Int64 FK_StateId = 0, Int64 FK_AcademicGroupId = 0, Int64 FK_BenifitTypeId = 0)
         {
             bool result = false;
             objBasicPagingMDL = new BasicPagingMDL();
@@ -109,7 +109,10 @@ namespace GyanmitrasDAL.User
                     new SqlParameter("@iRowperPage",RowPerpage),
                     new SqlParameter("@iCurrentPage",CurrentPage),
                     new SqlParameter("@cSearchBy",SearchBy),
-                    new SqlParameter("@cSearchValue",SearchValue)
+                    new SqlParameter("@cSearchValue",SearchValue),
+                    new SqlParameter("@FK_StateId",FK_StateId),
+                    new SqlParameter("@FK_AcademicGroupId",FK_AcademicGroupId),
+                    new SqlParameter("@FK_BenifitTypeId",FK_BenifitTypeId),
                 };
                 objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
                 if (objDataSet.Tables[0].Rows.Count > 0)

@@ -346,23 +346,21 @@
                                 <div class="table-responsive">
                                     <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="EmployedDivTable" width="100%" style="cursor:auto">
                                         <tbody>
+                                           
                                             <tr>
                                                 <td colspan="5">
                                                     <div class="row">
-                                                        <div class="col-12 mt-1 ">
-                                                            <h4 style="margin-left: 15px;">Expertise Details<span class="red">*</span></h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <div class="row">
-                                                        <div class="col-12 mt-1 ">
 
-                                                            @Html.DropDownListFor(E => E.Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["EmployedExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
-                                                            @Html.ValidationMessageFor(E => E.Expertise_Details)
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-3">Employeed Expertise Details<span class="red">*</span></label>
+                                                            <div class="col-md-5">
+
+                                                                @Html.DropDownListFor(E => E.Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["EmployedExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput select2" })
+                                                                @Html.ValidationMessageFor(E => E.Expertise_Details)
+                                                            </div>
                                                         </div>
+
+                                                     
                                                     </div>
                                                 </td>
                                             </tr>
@@ -408,26 +406,19 @@
                                 <div class="table-responsive">
                                     <table cellspacing="0" cellpadding="0" border="0" class="table table-bordered table-hover" id="RetiredDivTable" width="100%" style="cursor:auto">
                                         <tbody>
+                                            
                                             <tr>
                                                 <td colspan="5">
-                                                    <div class="row">
-                                                        <div class="col-12 mt-1 ">
-                                                            <h4 style="margin-left: 15px;">Expertise Details<span class="red">*</span></h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <div class="row">
-                                                        <div class="col-12 mt-1 ">
 
-
-
-                                                            @Html.DropDownListFor(E => E.Retired_Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["RetiredExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput" })
+                                                    <div class="form-group row">
+                                                        <label class="control-label col-md-3"> Retired  Expertise Details<span class="red">*</span></label>
+                                                        <div class="col-md-5">
+                                                            @Html.DropDownListFor(E => E.Retired_Expertise_Details, new SelectList((System.Collections.IEnumerable)ViewData["RetiredExpertiseDetailsList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control myTableInput select2" })
                                                             @Html.ValidationMessageFor(E => E.Expertise_Details)
                                                         </div>
                                                     </div>
+
+
                                                 </td>
                                             </tr>
 
@@ -693,7 +684,7 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-2 mt-1 ">
-                                                            @Html.TextBoxFor(E => E.Graduation_CourseName, new { @class = "form-control myTableInput" })
+                                                            @Html.TextBoxFor(E => E.Graduation_CourseName, new { @class = "form-control myTableInput " })
                                                             @Html.ValidationMessageFor(E => E.Graduation_CourseName)
                                                         </div>
                                                     </div>
@@ -950,7 +941,7 @@
 
 
         $("#PostGraduation_Year_of_Passing,#Docterate_Year_of_Passing").append("<option value='Pursuing'>Pursuing</option>");
-        if ($("#BindAreaOfInterest").length) {
+        if ($("#AreaOfInterestIds").length) {
             BindAreaOfInterest("counselor");
         }
         StateBind1();
@@ -1042,9 +1033,9 @@
 
 
         $("#btnSubmitCounselor").click(function (e) {
-            if ($(this).valid()) {
+            if ($("#myform").valid()) {
                 if ($("#AreYou").val() == "StudentDiv") {
-                    if (validStudentAcadmicDetails()) {
+                    if (!validStudentAcadmicDetails()) {
                         $("#StudentDiv").modal('show');
                         return false;
                         e.preventDefault();
@@ -1083,7 +1074,9 @@
         });
 
         $("#btnSubmitStudentDiv").click(function (e) {
-            if (validStudentAcadmicDetails()) {
+
+            if (!validStudentAcadmicDetails()) {
+                
                 return false;
                 e.preventDefault();
             }
@@ -1175,129 +1168,130 @@
         $("#Retired_Expertise_Details").val('');
     }
     function validStudentAcadmicDetails() {
+        debugger;
         var bool = true;
-        $("#tbodyStudentForm > tr").each(function () {
-            if (!$(this).find('#Secondry_Education_Board').val()) {
-                $(this).find('#Secondry_Education_Board').focus();
-                $(this).find('#Secondry_Education_Board').css('border', '1px solid red');
-                $(this).find('#Secondry_Education_Board').attr('onfocus', '$(this).removeAttr("style")');
+        //$("#tbodyStudentForm > tr").each(function () {
+            if (!$('#Secondry_Education_Board').val()) {
+                $('#Secondry_Education_Board').focus();
+                $('#Secondry_Education_Board').css('border', '1px solid red');
+                $('#Secondry_Education_Board').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Secondry_Education_Board').removeAttr('style');
+                $('#Secondry_Education_Board').removeAttr('style');
             }
 
-            if (!$(this).find('#Secondry_Percentage').val()) {
-                $(this).find('#Secondry_Percentage').focus();
-                $(this).find('#Secondry_Percentage').css('border', '1px solid red');
-                $(this).find('#Secondry_Percentage').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Secondry_Percentage').val()) {
+                $('#Secondry_Percentage').focus();
+                $('#Secondry_Percentage').css('border', '1px solid red');
+                $('#Secondry_Percentage').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Secondry_Percentage').removeAttr('style');
+                $('#Secondry_Percentage').removeAttr('style');
             }
 
-            if (!$(this).find('#Secondry_Year_of_Passing').val()) {
-                $(this).find('#Secondry_Year_of_Passing').focus();
-                $(this).find('#Secondry_Year_of_Passing').css('border', '1px solid red');
-                $(this).find('#Secondry_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Secondry_Year_of_Passing').val()) {
+                $('#Secondry_Year_of_Passing').focus();
+                $('#Secondry_Year_of_Passing').css('border', '1px solid red');
+                $('#Secondry_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Secondry_Year_of_Passing').removeAttr('style');
+                $('#Secondry_Year_of_Passing').removeAttr('style');
             }
 
 
-            if (!$(this).find('#HigherSecondry_Education_Board').val()) {
-                $(this).find('#HigherSecondry_Education_Board').focus();
-                $(this).find('#HigherSecondry_Education_Board').css('border', '1px solid red');
-                $(this).find('#HigherSecondry_Education_Board').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#HigherSecondry_Education_Board').val()) {
+                $('#HigherSecondry_Education_Board').focus();
+                $('#HigherSecondry_Education_Board').css('border', '1px solid red');
+                $('#HigherSecondry_Education_Board').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#HigherSecondry_Education_Board').removeAttr('style');
+                $('#HigherSecondry_Education_Board').removeAttr('style');
             }
 
-            if (!$(this).find('#HigherSecondry_StreamType').val()) {
-                $(this).find('#HigherSecondry_StreamType').focus();
-                $(this).find('#HigherSecondry_StreamType').css('border', '1px solid red');
-                $(this).find('#HigherSecondry_StreamType').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#HigherSecondry_StreamType').val()) {
+                $('#HigherSecondry_StreamType').focus();
+                $('#HigherSecondry_StreamType').css('border', '1px solid red');
+                $('#HigherSecondry_StreamType').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#HigherSecondry_StreamType').removeAttr('style');
+                $('#HigherSecondry_StreamType').removeAttr('style');
             }
 
-            if (!$(this).find('#HigherSecondry_Percentage').val()) {
-                $(this).find('#HigherSecondry_Percentage').focus();
-                $(this).find('#HigherSecondry_Percentage').css('border', '1px solid red');
-                $(this).find('#HigherSecondry_Percentage').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#HigherSecondry_Percentage').val()) {
+                $('#HigherSecondry_Percentage').focus();
+                $('#HigherSecondry_Percentage').css('border', '1px solid red');
+                $('#HigherSecondry_Percentage').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#HigherSecondry_Percentage').removeAttr('style');
+                $('#HigherSecondry_Percentage').removeAttr('style');
             }
 
-            if (!$(this).find('#HigherSecondry_Year_of_Passing').val()) {
-                $(this).find('#HigherSecondry_Year_of_Passing').focus();
-                $(this).find('#HigherSecondry_Year_of_Passing').css('border', '1px solid red');
-                $(this).find('#HigherSecondry_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#HigherSecondry_Year_of_Passing').val()) {
+                $('#HigherSecondry_Year_of_Passing').focus();
+                $('#HigherSecondry_Year_of_Passing').css('border', '1px solid red');
+                $('#HigherSecondry_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#HigherSecondry_Year_of_Passing').removeAttr('style');
+                $('#HigherSecondry_Year_of_Passing').removeAttr('style');
             }
 
-            if (!$(this).find('#Graduation_UniversityName').val()) {
-                $(this).find('#Graduation_UniversityName').focus();
-                $(this).find('#Graduation_UniversityName').css('border', '1px solid red');
-                $(this).find('#Graduation_UniversityName').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Graduation_UniversityName').val()) {
+                $('#Graduation_UniversityName').focus();
+                $('#Graduation_UniversityName').css('border', '1px solid red');
+                $('#Graduation_UniversityName').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Graduation_UniversityName').removeAttr('style');
+                $('#Graduation_UniversityName').removeAttr('style');
             }
 
-            if (!$(this).find('#Graduation_StreamType').val()) {
-                $(this).find('#Graduation_StreamType').focus();
-                $(this).find('#Graduation_StreamType').css('border', '1px solid red');
-                $(this).find('#Graduation_StreamType').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Graduation_StreamType').val()) {
+                $('#Graduation_StreamType').focus();
+                $('#Graduation_StreamType').css('border', '1px solid red');
+                $('#Graduation_StreamType').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Graduation_StreamType').removeAttr('style');
+                $('#Graduation_StreamType').removeAttr('style');
             }
 
-            if (!$(this).find('#Graduation_CourseName').val()) {
-                $(this).find('#Graduation_CourseName').focus();
-                $(this).find('#Graduation_CourseName').css('border', '1px solid red');
-                $(this).find('#Graduation_CourseName').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Graduation_CourseName').val()) {
+                $('#Graduation_CourseName').focus();
+                $('#Graduation_CourseName').css('border', '1px solid red');
+                $('#Graduation_CourseName').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Graduation_CourseName').removeAttr('style');
+                $('#Graduation_CourseName').removeAttr('style');
             }
 
-            if (!$(this).find('#Graduation_Percentage').val()) {
-                $(this).find('#Graduation_Percentage').focus();
-                $(this).find('#Graduation_Percentage').css('border', '1px solid red');
-                $(this).find('#Graduation_Percentage').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Graduation_Percentage').val()) {
+                $('#Graduation_Percentage').focus();
+                $('#Graduation_Percentage').css('border', '1px solid red');
+                $('#Graduation_Percentage').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Graduation_Percentage').removeAttr('style');
+                $('#Graduation_Percentage').removeAttr('style');
             }
 
-            if (!$(this).find('#Graduation_Year_of_Passing').val()) {
-                $(this).find('#Graduation_Year_of_Passing').focus();
-                $(this).find('#Graduation_Year_of_Passing').css('border', '1px solid red');
-                $(this).find('#Graduation_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
+            if (!$('#Graduation_Year_of_Passing').val()) {
+                $('#Graduation_Year_of_Passing').focus();
+                $('#Graduation_Year_of_Passing').css('border', '1px solid red');
+                $('#Graduation_Year_of_Passing').attr('onfocus', '$(this).removeAttr("style")');
                 bool = false;
             }
             else {
-                $(this).find('#Graduation_Year_of_Passing').removeAttr('style');
+                $('#Graduation_Year_of_Passing').removeAttr('style');
             }
-        });
+        //});
         return bool;
     }
     function LanguageBind() {
@@ -1339,6 +1333,7 @@
             async: false,
             data: { 'type': type },
             success: function (Tags) {
+
                 //debugger
                 if (Tags.length > 0) {
                     $.each(Tags, function (i, Tag) {

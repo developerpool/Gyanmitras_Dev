@@ -151,9 +151,7 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
                 IsNotSuperAdmin = true,
             };
-            objBasicPagingMDL = new BasicPagingMDL() { CurrentPage = 1, RowParPage = 10, TotalItem = 0, TotalPage = 0 };
-
-
+           
 
             ViewBag.userCheck = SessionInfo.User.UserName;
             ViewBag.paging = objBasicPagingMDL;
@@ -181,10 +179,17 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
             ViewBag.cate = SessionInfo.User.CategoryId;
             ViewBag.logintype = SessionInfo.User.LoginType;
-            ViewData["SiteUserRoleList"] = CommonBAL.FillSiteUserRoles();
+            DropDownMDL allroles = new DropDownMDL()
+            {
+                ID = 0,
+                Value = "For All Roles(Also Anonymous User)"
+            };
+            var SiteUserRoleList = CommonBAL.FillSiteUserRoles();
+            SiteUserRoleList.Add(allroles);
+            ViewData["SiteUserRoleList"] = SiteUserRoleList;
             ViewData["StateList"] = CommonBAL.GetStateDetailsByCountryId(1);
-            ViewData["SearchCategoryList"] = new List<DropDownMDL>() { new DropDownMDL() { ID = 1, Value = "Test Category" } };
-            ViewData["SubSearchCategoryList"] = new List<DropDownMDL>() { new DropDownMDL() { ID = 1, Value = "Test Sub Category" } };
+            ViewData["SearchCategoryList"] = CommonBAL.GetAcademicGroupList();
+            ViewData["SubSearchCategoryList"] = CommonBAL.GetBenifitTypeList();
 
             if (id != 0)
             {

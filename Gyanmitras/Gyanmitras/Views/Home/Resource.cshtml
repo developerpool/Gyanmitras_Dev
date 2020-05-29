@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Resource";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var path = System.Configuration.ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString().Replace("~/", "/");
 }
 <h2>Resource</h2>
 
@@ -16,31 +17,31 @@
 
 <style>
     div.gallery {
-      border: 1px solid #ccc;
+        border: 1px solid #ccc;
     }
 
-    div.gallery:hover {
-      border: 1px solid #777;
-    }
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
 
-    div.gallery img {
-      width: 100%;
-      height: auto;
-    }
+        div.gallery img {
+            width: 100%;
+            height: auto;
+        }
 
     div.desc {
-      padding: 15px;
-      text-align: center;
+        padding: 15px;
+        text-align: center;
     }
 
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
 
     .responsive {
-      padding: 0 6px;
-      float: left;
-      width: 24.99999%;
+        padding: 0 6px;
+        float: left;
+        width: 24.99999%;
     }
 
     /*@@media only screen and (max-width: 700px) {
@@ -57,51 +58,55 @@
     }*/
 
     .clearfix:after {
-      content: "";
-      display: table;
-      clear: both;
+        content: "";
+        display: table;
+        clear: both;
     }
 </style>
-<div class="content">
-    <h3>Heading</h1>
-    <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique delicatissimi pro.</p>
 
-</div>
+<div id="ResourceFileParentDiv" style="display:none">
+    <div class="content">
+        <h3>Documents</h3>
+        <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique delicatissimi pro.</p>
 
-<div class="responsive">
-    <div class="gallery">
-        <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
-            <img src="~/SiteUserContents/Resources/Images/img_5terre.jpg" alt="Cinque Terre" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
     </div>
-</div>
+    <div id="ResourceFile">
+        @*<div class="responsive">
+                <div class="gallery">
+                    <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
+                        <img src="~/SiteUserContents/Resources/Images/img_5terre.jpg" alt="Cinque Terre" width="600" height="400">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+            </div>
 
 
-<div class="responsive">
-    <div class="gallery">
-        <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
-            <img src="~/SiteUserContents/Resources/Images/img_forest.jpg" alt="Forest" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-    </div>
-</div>
+            <div class="responsive">
+                <div class="gallery">
+                    <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
+                        <img src="~/SiteUserContents/Resources/Images/img_forest.jpg" alt="Forest" width="600" height="400">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+            </div>
 
-<div class="responsive">
-    <div class="gallery">
-        <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
-            <img src="~/SiteUserContents/Resources/Images/img_lights.jpg" alt="Northern Lights" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-    </div>
-</div>
+            <div class="responsive">
+                <div class="gallery">
+                    <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
+                        <img src="~/SiteUserContents/Resources/Images/img_lights.jpg" alt="Northern Lights" width="600" height="400">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+            </div>
 
-<div class="responsive">
-    <div class="gallery">
-        <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
-            <img src="~/SiteUserContents/Resources/Images/img_mountains.jpg" alt="Mountains" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
+            <div class="responsive">
+                <div class="gallery">
+                    <a target="_blank" href="http://www.pdf995.com/samples/pdf.pdf">
+                        <img src="~/SiteUserContents/Resources/Images/img_mountains.jpg" alt="Mountains" width="600" height="400">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+            </div>*@
     </div>
 </div>
 
@@ -120,12 +125,11 @@
 
 
 
-
-<div class="container">
+<br />
+<div class="container" id="ResourceFilesImagesParentDev" style="display:none">
     <div class="content">
-        <h3>Heading</h1>
+        <h3>Images</h3>
         <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique delicatissimi pro.</p>
-
     </div>
     <div id="myCarousel" class="carousel slide" data-ride="carousel" style="max-height:400px">
         <!-- Indicators -->
@@ -136,19 +140,19 @@
         </ol>
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner" style="max-height:400px">
-            <div class="item active">
-                <img src="~/SiteUserContents/VounteerHowToWork/SliderImages/la.jpg" alt="Los Angeles" style="width:100%;">
-            </div>
+        <div class="carousel-inner" id="ResourceFilesImages" style="max-height:400px">
+            @*<div class="item active">
+                    <img src="~/SiteUserContents/VounteerHowToWork/SliderImages/la.jpg" alt="Los Angeles" style="width:100%;">
+                </div>
 
-            <div class="item">
-                <img src="~/SiteUserContents/VounteerHowToWork/SliderImages/chicago.jpg" alt="Chicago" style="width:100%;">
-            </div>
+                <div class="item">
+                    <img src="~/SiteUserContents/VounteerHowToWork/SliderImages/chicago.jpg" alt="Chicago" style="width:100%;">
+                </div>
 
-            <div class="item">
-                <img src="~/SiteUserContents/VounteerHowToWork/SliderImages/ny.jpg" alt="New york" style="width:100%;">
+                <div class="item">
+                    <img src="~/SiteUserContents/VounteerHowToWork/SliderImages/ny.jpg" alt="New york" style="width:100%;">
 
-            </div>
+                </div>*@
         </div>
 
         <!-- Left and right controls -->
@@ -163,32 +167,147 @@
     </div>
 
 
-    <div class="content">
-        <h3>Heading</h1>
-        <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique delicatissimi pro.</p>
-
-    </div>
     <style>
         video {
             width: 100%;
             height: auto;
         }
     </style>
-    <div class="row">
-        <div class="col-md-4">
-            <iframe  src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-            <p>Resize the browser window to see how the size of the video player will scale.</p>
-        </div>
-        <div class="col-md-4">
-            <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-            <p>Resize the browser window to see how the size of the video player will scale.</p>
-        </div>
-        <div class="col-md-4">
-            <iframe  src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-            <p>Resize the browser window to see how the size of the video player will scale.</p>
-        </div>
-        <div class="clearfix">
-        </div>
+
+    <div class="content" id="ResourceFilesVideosParentDiv" style="display:none">
+        <h3>
+            Videos
+        </h3>
+        <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique delicatissimi pro.</p>
+    </div>
+    <div class="row" id="ResourceFilesVideos">
+
+        @*<div class="col-md-4">
+                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                <p>Resize the browser window to see how the size of the video player will scale.</p>
+            </div>
+            <div class="col-md-4">
+                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                <p>Resize the browser window to see how the size of the video player will scale.</p>
+            </div>
+            <div class="col-md-4">
+                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                <p>Resize the browser window to see how the size of the video player will scale.</p>
+            </div>*@
     </div>
 
+    <div class="clearfix">
+    </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            loadResources();
+        });
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        function loadResources() {
+            $("#ResourceFile,#ResourceFilesImages,#ResourceFilesVideos").empty();
+            var State = getUrlParameter('State');// $.url.attr('State');
+            var Academic_Group = getUrlParameter('Academic_Group'); //$.url.attr('Academic_Group');
+            var Benifit_Type = getUrlParameter('Benifit_Type'); //$.url.attr('Benifit_Type');
+            if (!State || !Academic_Group || !Benifit_Type) {
+                location.href = window.location.protocol + "//" + window.location.host + "/Home/Index";
+            }
+
+            $.ajax({
+                url: "@Url.Action("GetSiteUserContentResourcesDetails", "Home")",
+                data: { 'FK_StateId': parseInt(State), "FK_AcademicGroupId": $.trim(Academic_Group), "FK_BenifitTypeId": $.trim(Benifit_Type) },
+                datatype: "json",
+                beforeSend: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").show();
+                },
+                complete: function () {
+                    $(".modalBgLoader, .modalLoaderCenter").hide();
+                },
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    
+                    var a_bool = false;
+                    var b_bool = false;
+                    var c_bool = false;
+                    if (data.length > 0) {
+                        for (var i = 0 ; i < data.length ; i++) {
+                            if (data[i].ResourceType == "Video Embed Url") {
+
+                                $("#ResourceFilesVideos").append('<div class="col-md-4"><iframe src="' + data[i].ResourceFileName + '"></iframe><p>' + data[i].Description + '</p></div>');
+                                a_bool = true;
+                            }
+                            else if (data[i].ResourceType == "Resource File") {
+                                var ext = (data[i].ResourceFileName).substr((data[i].ResourceFileName).lastIndexOf('.') + 1, (data[i].ResourceFileName).length);
+                                ext = ext.toLowerCase();
+
+                                if (ext == 'jpg' || ext == 'jpeg' || ext == 'png') {
+                                    var active = "";
+                                    if (!b_bool) {
+                                        active = "active";
+                                    }
+                                    else {
+                                        active = "";
+                                    }
+                                    $("#ResourceFilesImages").append('<div class="item ' + active + '"><img src="@path' + data[i].ResourceFileName + '" alt="Los Angeles" style="width:100%;"></div>');
+                                    b_bool = true;
+                                }
+                                else {
+                                    var icon = "";
+                                    if (ext == 'xls' || ext == 'xlsx')
+                                    {
+                                        icon = '/SiteUserContents/excel-icon.png';
+                                    }
+                                    else if (ext == 'pdf') {
+                                        icon = '/SiteUserContents/pdf-icon.png';
+                                    }
+                                    else if (ext == 'doc' || ext == 'docx') {
+                                        icon = '/SiteUserContents/doc-icon.png';
+                                    }
+                                    if (icon)
+                                    {
+                                        $("#ResourceFile").append('<div class="responsive"><div class="gallery" style="height:200px;width:200px"><a target="_blank" href="@path' + data[i].ResourceFileName + '"><img src="' + icon + '" alt="Cinque Terre"  style="height:200px;width:200px"></a><div class="desc">' + data[i].Description + '</div></div></div>');
+                                        c_bool = true;
+                                    }
+                                }
+                            }
+                            
+                        }
+
+                        if (a_bool)
+                        {
+                            $("#ResourceFilesVideosParentDiv").slideDown(500);
+                        }
+                        if (b_bool) {
+                            $("#ResourceFilesImagesParentDev").slideDown(500);
+                        }
+                        if (c_bool) {
+                            $("#ResourceFileParentDiv").slideDown(500);
+                        }
+                        
+                    }
+                    else {
+                        alert('Data Not Found!');
+                        location.href = window.location.protocol + "//" + window.location.host + "/Home/Index";
+                    }
+                }
+            });
+        }
+    </script>
+}

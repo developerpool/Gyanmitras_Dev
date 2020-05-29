@@ -66,9 +66,9 @@ namespace GyanmitrasBAL.User
         /// <param name="SearchBy"></param>
         /// <param name="SearchValue"></param>
         /// <returns></returns>
-        public bool GetSiteUserContentResourcesDetails(out List<SiteUserContentResourceMDL> _SiteUserContentResourceMasterlist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage = 1, string SearchBy = "", string SearchValue = "")
+        public bool GetSiteUserContentResourcesDetails(out List<SiteUserContentResourceMDL> _SiteUserContentResourceMasterlist, out BasicPagingMDL objBasicPagingMDL, out TotalCountPagingMDL objTotalCountPagingMDL, int id, int RowPerpage, int CurrentPage = 1, string SearchBy = "", string SearchValue = "", Int64 FK_StateId = 0, Int64 FK_AcademicGroupId = 0, Int64 FK_BenifitTypeId = 0)
         {
-            return objSiteUserContentResourceDAL.GetSiteUserContentResourcesDetails(out _SiteUserContentResourceMasterlist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, RowPerpage, CurrentPage, SearchBy, SearchValue);
+            return objSiteUserContentResourceDAL.GetSiteUserContentResourcesDetails(out _SiteUserContentResourceMasterlist, out objBasicPagingMDL, out objTotalCountPagingMDL, id, RowPerpage, CurrentPage, SearchBy, SearchValue, FK_StateId, FK_AcademicGroupId, FK_BenifitTypeId);
         }
 
         /// <summary>

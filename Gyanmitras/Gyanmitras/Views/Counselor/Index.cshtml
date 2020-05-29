@@ -1329,6 +1329,10 @@
                             $("#ResourceFile").find('img').attr('src', '/SiteUserContents/doc-icon.png');
                             break;
                         }
+                    case 'docx':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                        break;
                     default:
                         {
                             $("#ResourceFile").find('img').removeAttr('src');

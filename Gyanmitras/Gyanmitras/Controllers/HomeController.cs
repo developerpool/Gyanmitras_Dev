@@ -51,7 +51,7 @@ namespace Gyanmitras.Controllers
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Register(string registerfor,Int64 Pk_UserId = 0,Int64 Pk_CreatedId = 0)
+        public ActionResult Register(string registerfor, Int64 Pk_UserId = 0, Int64 Pk_CreatedId = 0)
         {
             SiteUserMDL obj = new SiteUserMDL();
             registerfor = string.IsNullOrEmpty(registerfor) ? "Student" : registerfor.TrimStart().TrimEnd();
@@ -62,11 +62,12 @@ namespace Gyanmitras.Controllers
                 ViewBag.Title = "Your registration for " + registerfor + ".";
                 ViewBagTitle = "Your registration for " + registerfor + ".";
             }
-            else {
+            else
+            {
                 ViewBag.Title = "Your registration for Verification.";
                 ViewBagTitle = "Your registration for Verification.";
             }
-            
+
             IsVolunteer = ViewBag.IsVolunteer;
             IsCounselor = ViewBag.IsCounselor;
 
@@ -146,7 +147,7 @@ namespace Gyanmitras.Controllers
                     #region User mail after registration
                     string mailbody =
                         "Dear <b>" + obj.Name + "</b>,<br/>" +
-                        "Your request for "+ typereg + " registration has been received by management." +
+                        "Your request for " + typereg + " registration has been received by management." +
                         "<br/><br/>" +
                         "User ID : <b>" + obj.UID + "</b><br/>" +
                         "Password : <b>" + obj.Password + "</b><br/><br/>" +
@@ -157,14 +158,14 @@ namespace Gyanmitras.Controllers
                         "Web Master www.gyanmitras.com <br/>";
                     Dictionary<int, string> email_dic = new Dictionary<int, string>();
                     email_dic.Add(1, obj.EmailID);
-                    bool send = Mail.SendEmail("Gyanmitras "+ typereg + " Registration", mailbody, email_dic);
+                    bool send = Mail.SendEmail("Gyanmitras " + typereg + " Registration", mailbody, email_dic);
                     #endregion
 
                     #region Admin mail after registration
 
                     mailbody =
                         "Dear Sir/Madam<br/>" +
-                        "New request for "+ typereg + " registration from www.Gyanmitras.com. <br/>" +
+                        "New request for " + typereg + " registration from www.Gyanmitras.com. <br/>" +
                         "Kindly check admin panel.<br/><br/>" +
 
                         "Name : <b>" + obj.Name + "</b><br/>" +
@@ -172,18 +173,18 @@ namespace Gyanmitras.Controllers
                         "User ID : <b>" + obj.UID + "</b><br/>" +
                         "Password : <b>" + obj.Password + "</b><br/>" +
                         "" + (!IsVolunteer && !IsCounselor ? "Do you want to be adopt." + " : <b>" + obj.AdoptionWish + "</b><br/><br/>" : (IsCounselor ? "Do you want to adopt students in future." + " : <b>" + (obj.AdoptionWish.ToLower() == "true" ? "Yes" : "No") + "</b><br/><br/>" : "")) +
-                        
+
 
                         "Regards,<br/>" +
                         "Web Master www.gyanmitras.com <br/>";
 
-                    
-                    send = Mail.SendEmail("Gyanmitras "+ typereg + " Registration", mailbody, null, null,"","","",true);
+
+                    send = Mail.SendEmail("Gyanmitras " + typereg + " Registration", mailbody, null, null, "", "", "", true);
                     #endregion
                     otp = "";
                     obj.OTPUserInput = "";
                     ViewBag.msg = message;
-                    
+
                 }
                 else
                 {
@@ -223,7 +224,7 @@ namespace Gyanmitras.Controllers
             {
                 PartnerProfileDetails_List = JsonConvert.DeserializeObject<List<SiteUserMDL>>(PartnerProfileDetails_JSON);
                 PartnerProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["StudentProfilePath"].ToString();
-              
+
             }
             if (PartnerProfileDetails_List != null)
             {
@@ -231,7 +232,7 @@ namespace Gyanmitras.Controllers
                 PartnerProfileImagePath = PartnerProfileImagePath.Replace("~/", "../");
                 PartnerProfileDetails_List.ForEach(e => e.ImageName = PartnerProfileImagePath + e.ImageName);
             }
-           
+
 
 
 
@@ -242,7 +243,7 @@ namespace Gyanmitras.Controllers
         [HttpGet]
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
-        public JsonResult GetSiteUserChatDetails( Int64 Chat_From , Int64 Chat_To ,Int64 PK_ChatID = 0)
+        public JsonResult GetSiteUserChatDetails(Int64 Chat_From, Int64 Chat_To, Int64 PK_ChatID = 0)
         {
             CommonBAL obj = new CommonBAL();
             SiteUserChat objChat = new SiteUserChat();
@@ -251,7 +252,7 @@ namespace Gyanmitras.Controllers
             objChat.Chat_To = Chat_To;
 
             List<SiteUserChat> _dataList = new List<SiteUserChat>();
-            MessageMDL message =  obj.GetSiteUserChatDetails(out _dataList, objChat);
+            MessageMDL message = obj.GetSiteUserChatDetails(out _dataList, objChat);
             return Json(_dataList, JsonRequestBehavior.AllowGet);
         }
 
@@ -259,7 +260,7 @@ namespace Gyanmitras.Controllers
         [HttpGet]
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
-        public JsonResult AddEditSiteUserChat( Int64 Chat_From, Int64 Chat_To,string Query = "", Int64 PK_ChatID = 0)
+        public JsonResult AddEditSiteUserChat(Int64 Chat_From, Int64 Chat_To, string Query = "", Int64 PK_ChatID = 0)
         {
             CommonBAL obj = new CommonBAL();
             SiteUserChat objChat = new SiteUserChat();
@@ -271,7 +272,8 @@ namespace Gyanmitras.Controllers
                 objChat.IsReplay = true;
                 objChat.Query_To = Query;
             }
-            else {
+            else
+            {
                 objChat.Query_From = Query;
             }
             return Json(obj.AddEditSiteUserChat(objChat), JsonRequestBehavior.AllowGet);
@@ -423,7 +425,8 @@ namespace Gyanmitras.Controllers
             }
             else
             {
-                ViewBag.msg = new MessageMDL() {
+                ViewBag.msg = new MessageMDL()
+                {
                     Message = "UserId & Password Did Not Match!",
                     MessageId = 0
                 };
@@ -525,6 +528,38 @@ namespace Gyanmitras.Controllers
 
         }
         #endregion
+
+
+
+
+
+
+        /// <summary>
+        /// Get Details Of User Master in List
+        /// </summary>
+        /// <createdBy>Vinish</createdBy>
+        /// <param name="RowPerpage"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="SearchBy"></param>
+        /// <param name="SearchValue"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [SkipCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GetSiteUserContentResourcesDetails(Int64 FK_StateId, Int64 FK_AcademicGroupId, Int64 FK_BenifitTypeId)
+        {
+            
+            List<SiteUserContentResourceMDL> _SiteUserContentResourceDataList = new List<SiteUserContentResourceMDL>();
+            SiteUserContentResourceBAL objSiteUserContentResourceBAL = new SiteUserContentResourceBAL();
+            objBasicPagingMDL = new BasicPagingMDL();
+            objTotalCountPagingMDL = new TotalCountPagingMDL();
+            objSiteUserContentResourceBAL.GetSiteUserContentResourcesDetails(out _SiteUserContentResourceDataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, 1000, 1, (SiteUserSessionInfo.User == null ? "AnonymousUser" : "SiteUserResource"), (SiteUserSessionInfo.User == null ? "" : SiteUserSessionInfo.User.RoleId.ToString()), FK_StateId, FK_AcademicGroupId, FK_BenifitTypeId);
+            return Json(_SiteUserContentResourceDataList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
 
     }
 }
