@@ -38,6 +38,14 @@ namespace Gyanmitras.Controllers
         public ActionResult Index()
         {
             ViewBag.IsAdoptedStudentCounselor = SiteUserSessionInfo.User.IsAdoptedStudentCounselor;
+            if (!SiteUserSessionInfo.User.IsAdoptedStudentCounselor)
+            {
+                ViewBag.msg = new MessageMDL()
+                {
+                    MessageId = 0,
+                    Message = "Dear Counselor, you are not approved by management please wait, we will inform you shortly!"
+                };
+            }
             ViewBag.Title = SiteUserSessionInfo.User.IsAdoptedStudentCounselor ? "Counselor : Adopted Student" : "Counselor : Non-Adopted Student";
             return View();
         }
@@ -51,15 +59,110 @@ namespace Gyanmitras.Controllers
             ViewBag.Title = "Counselor : Non-Adopted Student";
             return View();
         }
+        
 
+        /// <summary>
+        /// Update method Of user master 
+        /// </summary>
+        /// <createdBy>Vinish</createdBy>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         [SkipUserCustomAuthenticationAttribute]
-        // GET: Counselor
-        public ActionResult ProduceCounselingMaterials()
+        public ActionResult ProduceCounselingMaterials(int id = 0)
+        {
+            ViewBag.msg = (MessageMDL)TempData["Message"];
+            ViewBag.cate = SiteUserSessionInfo.User.CategoryId;
+            ViewBag.Title = "Produce Counseling Materials";
+            ViewBag.logintype = SiteUserSessionInfo.User.LoginType;
+            //DropDownMDL allroles = new DropDownMDL()
+            //{
+            //    ID = 0,
+            //    Value = "For All Roles(Also Anonymous User)"
+            //};
+            //var SiteUserRoleList = CommonBAL.FillSiteUserRoles();
+            //SiteUserRoleList.Add(allroles);
+            //ViewData["SiteUserRoleList"] = SiteUserRoleList;
+            ViewData["StateList"] = CommonBAL.GetStateDetailsByCountryId(1);
+            ViewData["SearchCategoryList"] = CommonBAL.GetAcademicGroupList();
+            ViewData["SubSearchCategoryList"] = CommonBAL.GetBenifitTypeList();
+
+            if (id != 0)
+            {
+                SiteUserContentResourceMDL obj = new SiteUserContentResourceMDL();
+                obj.IsActive = false;
+                //objSiteUserContentResourceBAL.GetSiteUserContentResourcesDetails(out _SiteUserContentResourceDataList, out objBasicPagingMDL, out objTotalCountPagingMDL, id, 10, 1, "", "");
+                //ViewBag.ResourceFileName = _SiteUserContentResourceDataList[0].ResourceFileName;
+                return View("ProduceCounselingMaterials", obj);
+            }
+            else
+            {
+                SiteUserContentResourceMDL obj = new SiteUserContentResourceMDL();
+                obj.IsActive = true;
+                return View("ProduceCounselingMaterials", obj);
+            }
+        }
+        /// <summary>
+        /// Post Method of User master(Insert Data of user master)
+        /// </summary>
+        /// <createdBy>Vinish</createdBy>
+        /// <param name="userMstMDL"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [SkipUserCustomAuthenticationAttribute]
+        public ActionResult ProduceCounselingMaterials(SiteUserContentResourceMDL userMstMDL)
         {
             ViewBag.Title = "Produce Counseling Materials";
-            return View();
+           
+            try
+            {
+
+                userMstMDL.CreatedBy = SiteUserSessionInfo.User.UserId;
+
+                HttpPostedFileBase Imgfile = userMstMDL.ResourceFile;
+                if (Imgfile != null)
+                {
+
+                    var filenamemodefied = Imgfile.FileName.Substring(0, Imgfile.FileName.LastIndexOf('.')) +
+                                                "__" + DateTime.Now.ToString("ddMMyyyhhmmss") +
+                                                Imgfile.FileName.Substring(Imgfile.FileName.LastIndexOf('.'));
+                    if (!Directory.Exists(Server.MapPath(ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString())))
+                        Directory.CreateDirectory(Server.MapPath(ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString()));
+
+                    CommonHelper.Upload(Imgfile, ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString(), filenamemodefied);
+
+                    if (!string.IsNullOrEmpty(userMstMDL.ResourceFileName))
+                    {
+                        if (userMstMDL.ResourceType != "Video Embed Url")
+                        {
+                            var filePath = Server.MapPath(ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString() + userMstMDL.ResourceFileName);
+                            if (System.IO.File.Exists(filePath))
+                            {
+                                System.IO.File.Delete(filePath);
+                            }
+                        }
+                    }
+
+                    userMstMDL.ResourceFileName = filenamemodefied;
+                }
+
+                SiteUserContentResourceBAL objSiteUserContentResourceBAL  = new SiteUserContentResourceBAL();
+                userMstMDL.IsActive = false;
+                userMstMDL.IsDeleted = false;
+                userMstMDL.FK_RoleId = 0;
+                userMstMDL.ResourceAddedBy = "user";
+                MessageMDL msg = objSiteUserContentResourceBAL.AddEditSiteUserContentResourceDetails(userMstMDL);
+                ViewBag.msg = msg;
+                TempData["Message"] = msg;
+                return RedirectToAction("ProduceCounselingMaterials");
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("ProduceCounselingMaterials");
         }
 
 

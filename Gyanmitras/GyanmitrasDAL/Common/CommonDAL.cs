@@ -3134,6 +3134,50 @@ namespace GyanmitrasDAL.Common
 
 
 
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Delete Customer Details
+        /// </summary>
+        public MessageMDL SiteUserActionManagementByUser(Int64 PK_UserId, string type)
+        {
+
+            MessageMDL msg = new MessageMDL();
+            try
+            {
+                List<SqlParameter> parms = new List<SqlParameter>()
+                {
+                    new SqlParameter("@PK_UserId", PK_UserId),
+                    new SqlParameter("@type", type)
+                };
+                _commandText = "[SiteUsers].[SiteUserActionManagementByUser]";
+                objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);
+                if (objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    msg.MessageId = objDataSet.Tables[0].Rows[0].Field<int>("Message_Id");
+                    msg.Message = objDataSet.Tables[0].Rows[0].Field<string>("Message");
+                    //msg.Message = (msg.MessageId == 1)
+                    //                   ? @GyanmitrasLanguages.LocalResources.Resource.Deleted
+                    //                   : (msg.MessageId == -1)
+                    //                     ? @GyanmitrasLanguages.LocalResources.Resource.CustomerData + " " + @GyanmitrasLanguages.LocalResources.Resource.CanNotDelete
+                    //                   : @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+                else
+                {
+                    msg.MessageId = 0;
+                    msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                }
+            }
+            catch (Exception e)
+            {
+                msg.MessageId = 0;
+                msg.Message = @GyanmitrasLanguages.LocalResources.Resource.ProcessFailed;
+                var objBase = System.Reflection.MethodBase.GetCurrentMethod();
+                ErrorLogDAL.SetError("Gyanmitras", objBase.DeclaringType.Assembly.GetName().Name, objBase.DeclaringType.FullName, "", objBase.Name, e.Message, "");
+            }
+
+            return msg;
+        }
 
 
         #endregion

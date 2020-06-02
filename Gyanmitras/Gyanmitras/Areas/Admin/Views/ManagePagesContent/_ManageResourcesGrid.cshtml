@@ -16,6 +16,7 @@
                 @*<th><input type="checkbox" value="" id="checkAll" onclick="checkAll(this)"></th>*@
                 <th class="text-center">@Html.CheckBox("checkAll_Id", new { @onclick = "CheckAllValue(this.checked)" })</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.No.</th>
+                <th class="text-center">Resource Added By</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.RoleName</th>
                 <th class="text-center">@GyanmitrasLanguages.LocalResources.Resource.StateName</th>
                 <th class="text-center">Search Category</th>
@@ -47,6 +48,7 @@
                         </td>
                         <td class="text-center"><input type="checkbox" value="" id="@item.PK_ContantResourceId"></td>
                         <td align="center">@SerialNo</td>
+                        <td class="text-center">@item.ResourceAddedBy</td>
                         <td class="text-center">@item.RoleName</td>
                         <td class="text-center">@item.StateName</td>
                         

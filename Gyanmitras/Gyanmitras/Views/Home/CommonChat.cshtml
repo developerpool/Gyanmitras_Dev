@@ -3,7 +3,13 @@
     Layout = null;
     var user = Gyanmitras.Common.SiteUserSessionInfo.User as GyanmitrasMDL.User.SiteUserInfoMDL;
     var PartnerProfileDetails_List = (List<GyanmitrasMDL.SiteUserMDL>)ViewBag.ChatPartners;
-    Int64 Active_PK_UserId = PartnerProfileDetails_List[0].Pk_UserId;
+    Int64 Active_PK_UserId = 0;
+    if (PartnerProfileDetails_List != null)
+    {
+        Active_PK_UserId = PartnerProfileDetails_List[0].Pk_UserId;
+
+    }
+
 }
 
 <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

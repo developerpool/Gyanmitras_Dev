@@ -56,7 +56,9 @@ namespace GyanmitrasDAL.User
                     new SqlParameter("@ResourceFileName",SiteUserContentResourceDetails.ResourceFileName),
                     new SqlParameter("@IsActive",SiteUserContentResourceDetails.IsActive),
                     new SqlParameter("@IsDeleted",SiteUserContentResourceDetails.IsDeleted),
-                    new SqlParameter("@CreatedBy",SiteUserContentResourceDetails.CreatedBy)
+                    new SqlParameter("@CreatedBy",SiteUserContentResourceDetails.CreatedBy),
+                    new SqlParameter("@ResourceBy",SiteUserContentResourceDetails.ResourceAddedBy)
+                    
                 };
                 CheckParameters.ConvertNullToDBNull(parms);
                 objDataSet = (DataSet)objDataFunctions.getQueryResult(_commandText, DataReturnType.DataSet, parms);

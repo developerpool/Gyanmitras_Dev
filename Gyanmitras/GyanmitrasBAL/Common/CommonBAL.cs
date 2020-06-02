@@ -766,6 +766,18 @@ namespace GyanmitrasBAL.Common
             return objDAL.SiteUserSignUp(obj);
         }
 
+
+        /// <summary>
+        /// Created By: Vinish
+        /// Created Date:06-01-2020
+        /// purpose: Delete Customer Details
+        /// </summary>
+        public MessageMDL SiteUserActionManagementByUser(Int64 PK_UserId, string type)
+        {
+            CommonDAL objDAL = new CommonDAL();
+            return objDAL.SiteUserActionManagementByUser(PK_UserId, type);
+        }
+
         #endregion
 
         #region Admin Panel Common Function

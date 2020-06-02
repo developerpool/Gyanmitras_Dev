@@ -128,29 +128,29 @@ namespace Gyanmitras.Areas.Admin.Controllers
 
             objSiteUserContentResourceBAL.GetSiteUserContentResourcesDetails(out _SiteUserContentResourceDataList, out objBasicPagingMDL, out objTotalCountPagingMDL, 0, RowPerpage, CurrentPage, SearchBy, SearchValue);
 
-            objTotalCountPagingMDL = new TotalCountPagingMDL()
-            {
-                TotalItem = 0,
-                ThisMonth = 0,
-                LastMonth = 0,
-                TotalActive = 0,
-                TotalExpiredMonth = 0,
-                TotalExpiredSoonMonth = 0,
-                TotalInactive = 0,
-                RemovedUsers = 0,
-                IsTotalItem = true,
-                IsTotalActive = true,
-                IsTotalInactive = true,
-                IsThisMonth = true,
-                //IsApprovedCounselor = true,
-                //IsLastMonth = true,
-                //IsTotalExpiredMonth = true,
-                //IsTotalExpiredSoonMonth = true,
-                //IsPendingReplyUsers = true,
-                //IsRemovedUsers = true,
+            //objTotalCountPagingMDL = new TotalCountPagingMDL()
+            //{
+            //    TotalItem = 0,
+            //    ThisMonth = 0,
+            //    LastMonth = 0,
+            //    TotalActive = 0,
+            //    TotalExpiredMonth = 0,
+            //    TotalExpiredSoonMonth = 0,
+            //    TotalInactive = 0,
+            //    RemovedUsers = 0,
+            //    IsTotalItem = true,
+            //    IsTotalActive = true,
+            //    IsTotalInactive = true,
+            //    IsThisMonth = true,
+            //    //IsApprovedCounselor = true,
+            //    //IsLastMonth = true,
+            //    //IsTotalExpiredMonth = true,
+            //    //IsTotalExpiredSoonMonth = true,
+            //    //IsPendingReplyUsers = true,
+            //    //IsRemovedUsers = true,
 
-                IsNotSuperAdmin = true,
-            };
+            //    IsNotSuperAdmin = true,
+            //};
            
 
             ViewBag.userCheck = SessionInfo.User.UserName;

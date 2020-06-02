@@ -1,7 +1,408 @@
-﻿
+﻿@model GyanmitrasMDL.User.SiteUserContentResourceMDL
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var path = System.Configuration.ConfigurationManager.AppSettings["ManageResourcePagePath"].ToString().Replace("~/", "/");
+    path = path + ViewBag.ResourceFileName;
 }
-
 <h2>@ViewBag.Title</h2>
+<!--#endregion model  -->
+<!--#region Html  -->
+<style>
+    .field-validation-error {
+        color: red;
+    }
 
+    .field-icon {
+        float: right;
+        margin-left: -25px;
+        margin-top: -25px;
+        position: relative;
+        z-index: 2;
+    }
+</style>
+@using (Html.BeginForm("ProduceCounselingMaterials", "Counselor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "myform" }))
+{
+    @Html.HiddenFor(E => E.PK_ContantResourceId)
+    @Html.HiddenFor(E => E.IsActive)
+
+    <div id="msgDiv">
+        @if (ViewBag.msg != null && (ViewBag.msg).MessageId == 1)
+        {
+
+            <div id="myAlert" class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>@ViewBag.msg.Message</strong>
+            </div>
+        }
+        else if (ViewBag.msg != null && (ViewBag.msg).MessageId == 2)
+        {
+            <div id="myAlert" class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>@ViewBag.msg.Message</strong>
+            </div>
+        }
+
+        else
+        {
+            if (ViewBag.msg != null)
+            {
+                <div id="myAlert" class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong> @ViewBag.msg.Message</strong>
+                </div>
+            }
+        }
+
+    </div>
+
+    <div class="content-body">
+        <section class="NewformTabs">
+
+            <div class="tab-content px-1 py-1">
+                <div role="tabpanel" class="tab-pane active" id="tab11" aria-expanded="true" aria-labelledby="base-tab11">
+                    <div class="row">
+
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="form form-horizontal">
+                                <div class="form-body">
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="eventRegInput1">State<span class="red">*</span></label>
+                                        <div class="col-md-7">
+
+
+                                            @Html.DropDownListFor(E => E.FK_StateId, new SelectList((System.Collections.IEnumerable)ViewData["StateList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2", })
+                                                        @Html.ValidationMessageFor(E => E.FK_StateId)
+
+                                                    </div>
+                                                </div>
+                                                @*<div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="eventRegInput1">User Role<span class="red">*</span></label>
+                                                    <div class="col-md-7">
+
+
+                                                        @Html.DropDownListFor(E => E.FK_RoleId, new SelectList((System.Collections.IEnumerable)ViewData["SiteUserRoleList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2", })
+                                                        @Html.ValidationMessageFor(E => E.FK_RoleId)
+
+
+                                                    </div>
+                                                </div>*@
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="eventRegInput1">Academic Group<span class="red">*</span></label>
+                                                    <div class="col-md-7">
+
+
+                                                        @Html.DropDownListFor(E => E.FK_SearchCategoryId, new SelectList((System.Collections.IEnumerable)ViewData["SearchCategoryList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2", })
+                                                        @Html.ValidationMessageFor(E => E.FK_SearchCategoryId)
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="eventRegInput1">Benifit Type<span class="red">*</span></label>
+                                                    <div class="col-md-7">
+
+
+                                                        @Html.DropDownListFor(E => E.FK_SubSearchCategoryId, new SelectList((System.Collections.IEnumerable)ViewData["SubSearchCategoryList"], "ID", "Value"), @GyanmitrasLanguages.LocalResources.Resource.select, new { @class = "form-control select2", })
+                                                        @Html.ValidationMessageFor(E => E.FK_SubSearchCategoryId)
+
+
+                                                    </div>
+                                                </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="eventRegInput1">Heading<span class="red">*</span></label>
+                                                <div class="col-md-7">
+
+                                                    @Html.TextBoxFor(E => E.Heading, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(E => E.Heading)
+
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="eventRegInput1">Description<span class="red">*</span></label>
+                                                <div class="col-md-7">
+
+                                                    @Html.TextAreaFor(E => E.Description, new { @class = "form-control", @row = "5" })
+                                                    @Html.ValidationMessageFor(E => E.Description)
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control">Resource Type<span class="red">*</span></label>
+                                                <div class="col-md-7">
+                                                    @Html.DropDownListFor(E => E.ResourceType, new List<SelectListItem>()
+                                                                                         {
+                                               new SelectListItem() { Value = "", Text =  @GyanmitrasLanguages.LocalResources.Resource.select,Selected=true },
+                                                new SelectListItem() { Value = "Video Embed Url", Text = "Video Embed Url"},
+                                                                                           new SelectListItem() { Value = "Resource File", Text = "Resource File"}
+                                                                                         }, new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(E => E.ResourceType)
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group row" id="ResourceFileNameDiv" style="display:none">
+                                                <label class="col-md-3 label-control">Resource Type</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(E => E.ResourceFileName, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(E => E.ResourceFileName)
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row" id="ResourceFileDiv" style="display:none">
+                                                <label class="col-md-3 label-control" for="eventRegInput3">Resource File</label>
+                                                <div class="col-md-7">
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(E => E.ResourceFile, new { @type = "file", @class = "form-control" })
+                                                        @Html.ValidationMessageFor(E => E.ResourceFile)
+                                                        Resource File Should be in (jpg, jpeg, png, xls, xlsx, pdf, doc) format.
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="@path">
+                                                        <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                                    </a>
+                                                    @*@if (string.IsNullOrEmpty(Model.ResourceFileName))
+                                                        {
+                                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/default-image.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="height:40px;width:40px;" id="blah" src="~/SiteUserContents/@Model.ResourceFileName" />
+                                                        }*@
+
+                                                </div>
+                                            </div>
+
+                                            @*<div class="form-group row">
+                                                    <label class="col-md-3 label-control">@GyanmitrasLanguages.LocalResources.Resource.Status</label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownListFor(E => E.IsActive, new List<SelectListItem>()
+                                                                                                 {
+                                                                                                   new SelectListItem() { Value = "true", Text = @GyanmitrasLanguages.LocalResources.Resource.Active,Selected=true },
+                                                                                                   new SelectListItem() { Value="false", Text=@GyanmitrasLanguages.LocalResources.Resource.Inactive},
+                                                                                                 }, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(E => E.IsActive)
+                                                    </div>
+                                                </div>*@
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="tab-pane" id="tab12" aria-labelledby="base-tab12">
+                                <div class="row">
+                                    <div class="col-lg-10 offset-lg-1">
+                                        <div class="form form-horizontal">
+                                            <div class="form-body">
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control">Upload File</label>
+                                                    <div class="col-md-7">
+
+                                                        @Html.TextBoxFor(E => E.BulkUpload, new { @type = "file", @class = "form-control" })
+                                                        @Html.ValidationMessageFor(E => E.BulkUpload)
+                                                        Resource File Should be in (xls, xlsx) format.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                    </div>
+                
+            <div class="form-actions center">
+                <button type="submit" class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" id="btnSubmit"> @GyanmitrasLanguages.LocalResources.Resource.ButtonSubmit</button>
+                <a href='@Url.Action("Index")' class="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1 bulkOutHide">@GyanmitrasLanguages.LocalResources.Resource.ButtonCancel</a>
+            </div>
+
+        </section>
+    </div>
+}
+<!--#endregion html  -->
+<!--#region script  -->
+
+@section scripts {
+    @Scripts.Render("~/Admin/bundles/jqueryval")
+
+
+    <link href="~/app-assets/vendors/css/forms/selects/select2.min.css" rel="stylesheet" />
+    <script src="~/app-assets/vendors/js/forms/select/select2.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/daterangepicker.css" />
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#msgDiv").mouseover(function () {
+                $(".alert").fadeTo(5000, 50000).slideUp(500, function () {
+                    $(".alert").slideUp(500);
+                });
+            });
+            //$(".select2").select2();
+
+            $("#btnSubmit").click(function (e) {
+                if ($("#myform").valid()) {
+                    if ($(this).val() == "Video Embed Url") {
+                        alert($("#ResourceFileName").val());
+                        if (!$("#ResourceFileName").val()) {
+                            $("#ResourceFileName").focus();
+                            alert('Resource Type Field Is Required!');
+                            return false;
+                            e.preventDefault();
+                        }
+                    }
+                    else if ($(this).val() == "Resource File") {
+                        if (!$("#ResourceFile").val()) {
+                            $("#ResourceFile").focus();
+                            alert('Resource File Field Is Required!');
+                            return false;
+                            e.preventDefault();
+                        }
+                    }
+                }
+            });
+            $('#ResourceFile').change(function () {
+
+                var ext = this.value.substr(this.value.lastIndexOf('.') + 1, this.value.length);
+
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);
+                        break;
+                    case 'jpeg':
+                        document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);
+                        break;
+                    case 'png':
+                        document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);
+                        break;
+                    case 'xls':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                        break;
+                    case 'xlsx':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                        break;
+                    case 'pdf':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/pdf-icon.png');
+                        break;
+                    case 'doc':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                        break;
+                    case 'docx':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                        break;
+                    default:
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                        alert('Invalid File Formate!');
+                        this.value = '';
+                }
+            });
+
+            $("#ResourceType").change(function () {
+
+                if ($(this).val() == "Video Embed Url") {
+                    //$("#ResourceFileName").val('');
+                    $("#ResourceFileNameDiv").slideDown(500);
+                    $("#ResourceFileDiv").slideUp(500);
+                }
+                else {
+                    $("#ResourceFileDiv").slideDown(500);
+                    $("#ResourceFileNameDiv").slideUp(500);
+                }
+            });
+
+
+            if ($("#PK_ContantResourceId").val() != 0) {
+                $("#ResourceType").trigger('change');
+
+                var ext = ($("#ResourceFileName").val()).substr(($("#ResourceFileName").val()).lastIndexOf('.') + 1, ($("#ResourceFileName").val()).length);
+
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'jpeg':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'png':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            break;
+                        }
+                    case 'xls':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                            break;
+                        }
+                    case 'xlsx':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/excel-icon.png');
+                            break;
+                        }
+                    case 'pdf':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/pdf-icon.png');
+                            break;
+                        }
+                    case 'doc':
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                            break;
+                        }
+                    case 'docx':
+                        $('#blah').removeAttr('src');
+                        $('#blah').attr('src', '/SiteUserContents/doc-icon.png');
+                        break;
+                    default:
+                        {
+                            $('#blah').removeAttr('src');
+                            $('#blah').attr('src', '/SiteUserContents/default-image.png');
+                            this.value = '';
+                        }
+                }
+            }
+
+
+        });//Load Complete
+
+
+    </script>
+}
+<!--#endregion script  -->

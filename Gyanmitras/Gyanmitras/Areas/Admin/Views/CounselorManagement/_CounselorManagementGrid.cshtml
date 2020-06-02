@@ -70,13 +70,13 @@
                             {
                                 <a class="btn btn-icon btn-success btn-sm" onclick="return confirm('Are you sure to approve this counselor');" title="Click Here, Approve This Counselor." href="@Url.Action("ApproveCounselor", new { id = item.PK_CounselorID })"><i class="la la-user-plus"></i></a>
                             }
-                            <a class="btn btn-icon btn-warning btn-sm" onclick="return confirm('Are you sure to give feedback to this counselor');" title="Click Here, Give Feedback This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-warning"></i></a>
-                            <a class="btn btn-icon btn-info btn-sm" onclick="return confirm('Are you sure to give feed to this counselor');" title="Click Here,Give Feed This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-feed"></i></a>
+                            @*<a class="btn btn-icon btn-warning btn-sm" onclick="return confirm('Are you sure to give feedback to this counselor');" title="Click Here, Give Feedback This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-warning"></i></a>
+                            <a class="btn btn-icon btn-info btn-sm" onclick="return confirm('Are you sure to give feed to this counselor');" title="Click Here,Give Feed This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-feed"></i></a>*@
 
-                            @if (ViewBag.CanEdit)
+                            @*@if (ViewBag.CanEdit)
                             {
                                 <a class="btn btn-icon btn-dark btn-sm" title="Click Here, Edit This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_CounselorID })"><i class="la la-pencil"></i></a>
-                            }
+                            }*@
                             @if (ViewBag.CanDelete)
                             {
                                 <a class="btn btn-icon btn-danger btn-sm" title="Click Here, Delete This Counselor." href="@Url.Action("DeleteCounselorManagement", new { id = item.PK_CounselorID })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a><br />

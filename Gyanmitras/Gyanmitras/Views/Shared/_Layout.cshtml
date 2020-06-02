@@ -36,11 +36,13 @@
         .modal-content {
             border-radius: 0px !important;
         }
+
         .btn-dark {
             /*color: #fff;*/
             border-color: #464855;
             background-color: #464855;
         }
+
         .btn:hover {
             color: #fff !important;
         }
@@ -217,7 +219,7 @@
                             </li>
                             if (user.RoleId == 1)
                             {
-                                <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @style = "color:black !important;" })</li>
+                                <li>@Html.ActionLink("Crticial Help", "CrticialHelp", "Student", new { @href = "javascript:void(0)",@style = "color:black !important;", onclick = "$('#CriticalHelp').modal('show');" })</li>
                             }
                             else if (user.RoleId == 2)
                             {
@@ -233,7 +235,10 @@
                             }
                             else
                             {
-                                <li> <a href="Home/CommonChat" style="color:black !important;">Open Query</a></li>
+                                if (user.IsAdoptedStudentCounselor)
+                                {
+                                    <li> <a href="Home/CommonChat" style="color:black !important;">Open Query</a></li>
+                                }
                             }
                             @*<li>@Html.ActionLink("Adopt A New Student", "AdoptAStudent", "Counselor", new { @style = "color:black !important;" })</li>*@
                             @*<li>@Html.ActionLink("Latest News", "LatestNews", "Counselor", new { @style = "color:black !important;" })</li>*@
@@ -292,6 +297,33 @@
 
 
 
+
+
+    <div id="CriticalHelp" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Critical Help Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 offset-lg-1">
+                            <div class="form-actions center">
+                                Are you sure to generate a request for Critical Support.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1" href="javascript:void(0)" id="btnCriticalHelp">Submit</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal -->
     <div id="myResourceStartUpModal" class="modal fade" role="dialog">
@@ -466,8 +498,36 @@
                 location.href = window.location.protocol + "//" + window.location.host + "/Home/Resource?State=" + $.trim($("#State").val()) + "&Academic_Group=" + $.trim($("#Academic_Group").val()) + "&Benifit_Type=" + $.trim($("#Benifit_Type").val()) + "";
 
             });
+            $("#btnCriticalHelp").click(function (e) {
+                $.ajax({
+                    url: "@Url.Action("GenerateCriticalSupport", "Home")",
+                    datatype: "json",
+                    async: false,
+                    cache: false,
+                    beforeSend: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").show();
+                    },
+                    complete: function () {
+                        $(".modalBgLoader, .modalLoaderCenter").hide();
+                    },
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data) {
+                            alert(data.Message);
+                            $("#CriticalHelp").modal('hide');
+                        }
+                        else {
+                            alert('Somthing Went Wrong!');
+                        }
+                    }
+                });
+                return false;
+                e.preventDefault();
+            });
 
-        });
+
+        });//Load Completed
 
 
         /*End  Bind Vehicles By Customer Using Sumo Select  */

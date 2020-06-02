@@ -64,11 +64,11 @@
                             <td align="center" class="danger text-bold-600">@GyanmitrasLanguages.LocalResources.Resource.Inactive</td>
                         }
                         <td class="text-center text-nowrap">
-                            <a class="btn btn-icon btn-info btn-sm" onclick="return confirm('Are you sure to give feed to this volunteer');" title="Click Here,Give Feed This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_VolunteerId })"><i class="la la-feed"></i></a>
-                            @if (ViewBag.CanEdit)
+                            @*<a class="btn btn-icon btn-info btn-sm" onclick="return confirm('Are you sure to give feed to this volunteer');" title="Click Here,Give Feed This Counselor." href="@Url.Action("AddEditManageResource", new { id = item.PK_VolunteerId })"><i class="la la-feed"></i></a>*@
+                            @*@if (ViewBag.CanEdit)
                             {
                                 <a class="btn btn-icon btn-dark btn-sm" href="@Url.Action("AddEditVolunteerManagement", new { id = item.PK_VolunteerId })"><i class="la la-pencil"></i></a>
-                            }
+                            }*@
                             @if (ViewBag.CanDelete)
                             {
                                 <a class="btn btn-icon btn-danger btn-sm" title="Click Here, Delete This Volunteer." href="@Url.Action("DeleteVolunteerManagement", new { id = item.PK_VolunteerId })" onclick="return confirm('@GyanmitrasLanguages.LocalResources.Resource.DeleteMsg');"><i class="la la-trash-o"></i></a><br />

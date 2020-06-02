@@ -33,6 +33,8 @@ namespace GyanmitrasMDL.User
         public HttpPostedFileBase BulkUpload { get; set; }
         public string ResourceFileName { get; set; }
 
+        public string ResourceAddedBy { get; set; }
+
 
 
         public string Status { get; set; }

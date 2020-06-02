@@ -697,14 +697,13 @@
                     $(".modalBgLoader, .modalLoaderCenter").hide();
                 },
                 data: { 'FK_StudentID': parseInt("@FK_StudentID") },
-                success: function (data) {
-                    ;
-                    console.log(data);
-                    if (data.length > 0) {
-                        $("#totalPlannedCommunication").text(data.length);
+                success: function (mydata) {
+
+                    if (mydata.length > 0 && mydata[0].PK_PlannedCommunicationID > 0) {
+                        $("#totalPlannedCommunication").text(mydata.length);
                         $("#tbodyPlanned").empty();
-                        for (var i = 0; i < data.length; i++) {
-                            $("#tbodyPlanned").append('<tr> <td><input id="' + i + '" type="checkbox" value=""></td> <td class="text-center">' + Number(i + 1) + '</td> <td class="text-center"> ' + data[0].DateTimeFrom + ' - ' + data[0].DateTimeTo + ' </td> <td class="text-center">  ' + data[0].CommunicationPlan + ' </td> <td align="center"><div class="success text-bold-600">' + (String(data[0].IsActive) == "true" ? "Active" : "Closed") + '</div></td> </tr>');
+                        for (var i = 0; i < mydata.length; i++) {
+                            $("#tbodyPlanned").append('<tr> <td><input id="' + i + '" type="checkbox" value=""></td> <td class="text-center">' + Number(i + 1) + '</td> <td class="text-center"> ' + mydata[0].DateTimeFrom + ' - ' + mydata[0].DateTimeTo + ' </td> <td class="text-center">  ' + mydata[0].CommunicationPlan + ' </td> <td align="center"><div class="success text-bold-600">' + (String(mydata[0].IsActive) == "true" ? "Active" : "Closed") + '</div></td> </tr>');
                         }
                     }
                     else {

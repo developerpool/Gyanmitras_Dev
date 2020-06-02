@@ -294,6 +294,35 @@ namespace Gyanmitras.Areas.Admin.Controllers
             ExcelExportHelper objExcelExportHelper = new ExcelExportHelper();
             return objExcelExportHelper.ExportExcel(_listForExcel, "User Account", FileType, MDLAttr, columns);
         }
-        
+
+        /// <summary>
+        /// Delete user by ID 
+        /// </summary>
+        /// <createdBy>Vinish</createdBy>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult GeneratedMarkeCriticalSupport(Int64 id)
+        {
+            string type = "critical_support";
+            ViewBag.CanAdd = UserInfoMDL.GetUserRoleAndRights.CanAdd;
+            ViewBag.CanEdit = UserInfoMDL.GetUserRoleAndRights.CanEdit;
+            ViewBag.CanView = UserInfoMDL.GetUserRoleAndRights.CanView;
+            ViewBag.CanDelete = UserInfoMDL.GetUserRoleAndRights.CanDelete;
+            CommonBAL objCommonBAL = new CommonBAL();
+            MessageMDL msg = objCommonBAL.SiteUserActionManagementByAdmin(id, SessionInfo.User.UserId, type);
+            if (msg.MessageId == 1)
+            {
+                msg.Message = msg.Message;
+                TempData["Message"] = msg;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                msg.Message = msg.Message;
+                TempData["Message"] = msg;
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }

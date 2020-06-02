@@ -47,6 +47,17 @@ namespace Gyanmitras.Controllers
 
             return View();
         }
+        [SkipUserCustomAuthenticationAttribute]
+        [AllowAnonymous]
+        public JsonResult GenerateCriticalSupport()
+        {
+            
+            CommonBAL objCommonBAL = new CommonBAL();
+            MessageMDL objMessageMDL = objCommonBAL.SiteUserActionManagementByUser(SiteUserSessionInfo.User.UserId, "critical_support");
+            return Json(objMessageMDL, JsonRequestBehavior.AllowGet);
+        }
+
+        
 
         [SkipUserCustomAuthenticationAttribute]
         [AllowAnonymous]
